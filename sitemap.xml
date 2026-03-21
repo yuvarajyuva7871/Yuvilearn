@@ -1,67 +1,14 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<urlset
-      xmlns="http://www.sitemaps.org/schemas/sitemap/0.9"
-      xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-      xsi:schemaLocation="http://www.sitemaps.org/schemas/sitemap/0.9
-            http://www.sitemaps.org/schemas/sitemap/0.9/sitemap.xsd">
-<!-- created with Free Online Sitemap Generator www.xml-sitemaps.com -->
+<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
 
+  <url>
+    <loc>https://yuvilearn.vercel.app/</loc>
+  </url>
 
-<url>
-  <loc>https://yuvilearn.vercel.app/index.html</loc>
-  <lastmod>2026-03-21T15:19:29+00:00</lastmod>
-  <priority>1.00</priority>
-</url>
-<url>
-  <loc>https://yuvilearn.vercel.app/neet-courses.html</loc>
-  <lastmod>2026-03-21T15:19:30+00:00</lastmod>
-  <priority>0.80</priority>
-</url>
-<url>
-  <loc>https://yuvilearn.vercel.app/mocktest.html</loc>
-  <lastmod>2026-03-21T15:19:30+00:00</lastmod>
-  <priority>0.80</priority>
-</url>
-<url>
-  <loc>https://yuvilearn.vercel.app/neet-dashboard.html</loc>
-  <lastmod>2026-03-21T15:19:30+00:00</lastmod>
-  <priority>0.80</priority>
-</url>
-<url>
-  <loc>https://yuvilearn.vercel.app/doubts.html</loc>
-  <lastmod>2026-03-21T15:19:31+00:00</lastmod>
-  <priority>0.80</priority>
-</url>
-<url>
-  <loc>https://yuvilearn.vercel.app/profile.html</loc>
-  <lastmod>2026-03-21T15:19:31+00:00</lastmod>
-  <priority>0.80</priority>
-</url>
-<url>
-  <loc>https://yuvilearn.vercel.app/neet-courses.html?subject=biology</loc>
-  <lastmod>2026-03-21T15:19:30+00:00</lastmod>
-  <priority>0.80</priority>
-</url>
-<url>
-  <loc>https://yuvilearn.vercel.app/neet-courses.html?subject=physics</loc>
-  <lastmod>2026-03-21T15:19:30+00:00</lastmod>
-  <priority>0.80</priority>
-</url>
-<url>
-  <loc>https://yuvilearn.vercel.app/neet-courses.html?subject=chemistry</loc>
-  <lastmod>2026-03-21T15:19:30+00:00</lastmod>
-  <priority>0.80</priority>
-</url>
-<url>
-  <loc>https://yuvilearn.vercel.app/notebook.html</loc>
-  <lastmod>2026-03-21T15:19:31+00:00</lastmod>
-  <priority>0.64</priority>
-</url>
-<url>
-  <loc>https://yuvilearn.vercel.app/contact.html</loc>
-  <lastmod>2026-03-21T15:19:31+00:00</lastmod>
-  <priority>0.64</priority>
-</url>
+  <url>
+    <loc>https://yuvilearn.vercel.app/mocktest.html</loc>
+  </url>
 
-
-</urlset>
+  <url>
+    <loc>https://yuvilearn.vercel.app/doubts.html</loc>
+  </url>
