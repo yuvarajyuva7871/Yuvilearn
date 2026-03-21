@@ -405,10 +405,388 @@
     };
 
     // Load correct class notes based on URL
+    // =============================================
+    // ALL MATH NOTES — CLASS 1, 2, 3
+    // =============================================
+    const mathNotes = {
+      "1": [
+        {
+          title: "Chapter 1: Numbers 1–100",
+          notes: `
+            <h4>🔢 Counting Numbers</h4>
+            <ul>
+              <li>Numbers help us count objects around us</li>
+              <li>We count: 1, 2, 3, 4, 5 ... up to 100</li>
+              <li>0 (Zero) means nothing or empty</li>
+            </ul>
+            <div class="note-box"><strong>💡 Number Names:</strong><br/>
+              1=One, 2=Two, 3=Three, 4=Four, 5=Five<br/>
+              6=Six, 7=Seven, 8=Eight, 9=Nine, 10=Ten<br/>
+              11=Eleven, 12=Twelve, 13=Thirteen, 20=Twenty, 100=Hundred
+            </div>
+            <h4>📌 Before, After & Between</h4>
+            <ul>
+              <li>Number before 5 is 4</li>
+              <li>Number after 5 is 6</li>
+              <li>Number between 4 and 6 is 5</li>
+            </ul>
+            <h4>⬆️ Comparing Numbers</h4>
+            <ul>
+              <li>Greater than → 8 > 5 (8 is greater than 5)</li>
+              <li>Less than → 3 < 7 (3 is less than 7)</li>
+              <li>Equal to → 4 = 4</li>
+            </ul>
+          `
+        },
+        {
+          title: "Chapter 2: Addition",
+          notes: `
+            <h4>➕ What is Addition?</h4>
+            <p>Adding means putting two or more numbers together to get a bigger number.</p>
+            <div class="note-box"><strong>Symbol:</strong> + (Plus sign)<br/>
+              Example: 3 + 4 = 7<br/>
+              (3 apples and 4 apples together = 7 apples)
+            </div>
+            <h4>📌 Important Rules</h4>
+            <ul>
+              <li>Adding 0 to any number gives the same number: 5 + 0 = 5</li>
+              <li>Order doesn't matter: 2 + 3 = 3 + 2 = 5</li>
+            </ul>
+            <h4>🧮 Practice</h4>
+            <ul>
+              <li>1 + 1 = 2</li>
+              <li>5 + 3 = 8</li>
+              <li>7 + 2 = 9</li>
+              <li>6 + 4 = 10</li>
+              <li>10 + 5 = 15</li>
+            </ul>
+            <div class="note-box"><strong>💡 Tip:</strong> Start with the bigger number and count forward. Example: 7 + 3 → start at 7, count 3 more → 8, 9, 10 ✅</div>
+          `
+        },
+        {
+          title: "Chapter 3: Subtraction",
+          notes: `
+            <h4>➖ What is Subtraction?</h4>
+            <p>Subtraction means taking away a number from another to get a smaller number.</p>
+            <div class="note-box"><strong>Symbol:</strong> − (Minus sign)<br/>
+              Example: 8 − 3 = 5<br/>
+              (8 mangoes, ate 3 = 5 left)
+            </div>
+            <h4>📌 Important Rules</h4>
+            <ul>
+              <li>Subtracting 0 gives the same number: 6 − 0 = 6</li>
+              <li>A number minus itself = 0: 5 − 5 = 0</li>
+              <li>We CANNOT subtract a bigger number from smaller number (at this level)</li>
+            </ul>
+            <h4>🧮 Practice</h4>
+            <ul>
+              <li>5 − 2 = 3</li>
+              <li>9 − 4 = 5</li>
+              <li>10 − 7 = 3</li>
+              <li>8 − 8 = 0</li>
+              <li>15 − 5 = 10</li>
+            </ul>
+            <div class="note-box"><strong>💡 Tip:</strong> Addition and subtraction are opposites. If 3 + 4 = 7, then 7 − 4 = 3 ✅</div>
+          `
+        },
+        {
+          title: "Chapter 4: Shapes & Patterns",
+          notes: `
+            <h4>🔷 Basic 2D Shapes</h4>
+            <ul>
+              <li><strong>Circle ⭕</strong> — Round, no corners, no sides. Example: Coin, Wheel</li>
+              <li><strong>Square 🟥</strong> — 4 equal sides, 4 corners. Example: Dice face</li>
+              <li><strong>Rectangle</strong> — 4 sides (2 long, 2 short), 4 corners. Example: Book, Door</li>
+              <li><strong>Triangle 🔺</strong> — 3 sides, 3 corners. Example: Pizza slice</li>
+            </ul>
+            <div class="note-box"><strong>💡 Remember:</strong> Count the sides to name the shape! 3 sides = Triangle, 4 equal sides = Square</div>
+            <h4>🔁 Patterns</h4>
+            <ul>
+              <li>A pattern is something that repeats itself</li>
+              <li>Example: 🔴🔵🔴🔵🔴 → next is 🔵</li>
+              <li>Example: 1, 2, 3, 1, 2, 3 → next is 1</li>
+            </ul>
+          `
+        },
+        {
+          title: "Chapter 5: Measurement & Time",
+          notes: `
+            <h4>📏 Measurement</h4>
+            <ul>
+              <li>We measure length to find how long or short something is</li>
+              <li>We use a ruler or scale to measure</li>
+              <li>Unit of length: Centimetre (cm) and Metre (m)</li>
+              <li>100 cm = 1 metre</li>
+            </ul>
+            <h4>⚖️ Weight</h4>
+            <ul>
+              <li>Weight tells us how heavy something is</li>
+              <li>Unit: Gram (g) and Kilogram (kg)</li>
+              <li>1000 g = 1 kg</li>
+            </ul>
+            <h4>🕐 Time</h4>
+            <ul>
+              <li>A clock has 2 hands — short (hour) and long (minute)</li>
+              <li>60 minutes = 1 hour</li>
+              <li>24 hours = 1 day</li>
+              <li>7 days = 1 week</li>
+              <li>12 months = 1 year</li>
+            </ul>
+            <div class="note-box"><strong>💡 Months in order:</strong> January, February, March, April, May, June, July, August, September, October, November, December</div>
+          `
+        }
+      ],
+      "2": [
+        {
+          title: "Chapter 1: Numbers up to 1000",
+          notes: `
+            <h4>🔢 Place Value</h4>
+            <p>Every digit in a number has a place value depending on its position.</p>
+            <div class="note-box">
+              In the number <strong>345</strong>:<br/>
+              3 is in Hundreds place → value = 300<br/>
+              4 is in Tens place → value = 40<br/>
+              5 is in Ones place → value = 5<br/>
+              So 345 = 300 + 40 + 5
+            </div>
+            <h4>📌 Expanded Form</h4>
+            <ul>
+              <li>256 = 200 + 50 + 6</li>
+              <li>709 = 700 + 0 + 9</li>
+            </ul>
+            <h4>⬆️ Comparing 3-digit Numbers</h4>
+            <ul>
+              <li>Compare Hundreds first — bigger hundreds = bigger number</li>
+              <li>If hundreds are equal, compare Tens</li>
+              <li>If tens are equal, compare Ones</li>
+            </ul>
+            <div class="note-box"><strong>Example:</strong> 456 vs 432 → both have 4 hundreds → compare tens: 5 > 3 → so 456 > 432 ✅</div>
+          `
+        },
+        {
+          title: "Chapter 2: Addition with Carrying",
+          notes: `
+            <h4>➕ Adding 2-digit Numbers</h4>
+            <p>When the sum of digits in a column is 10 or more, we carry over to the next column.</p>
+            <div class="note-box">
+              <strong>Example: 47 + 36</strong><br/>
+              Step 1: Add Ones → 7 + 6 = 13 → write 3, carry 1<br/>
+              Step 2: Add Tens → 4 + 3 + 1(carry) = 8<br/>
+              Answer: <strong>83</strong>
+            </div>
+            <h4>🧮 Practice</h4>
+            <ul>
+              <li>25 + 18 = 43</li>
+              <li>56 + 37 = 93</li>
+              <li>49 + 25 = 74</li>
+              <li>68 + 15 = 83</li>
+            </ul>
+            <div class="note-box"><strong>💡 Always</strong> start adding from the Ones column (right side), then move left!</div>
+          `
+        },
+        {
+          title: "Chapter 3: Multiplication",
+          notes: `
+            <h4>✖️ What is Multiplication?</h4>
+            <p>Multiplication is repeated addition of the same number.</p>
+            <div class="note-box">
+              3 × 4 = 4 + 4 + 4 = 12<br/>
+              (3 groups of 4 = 12)
+            </div>
+            <h4>📌 Multiplication Tables (Learn by Heart!)</h4>
+            <ul>
+              <li>2 × 1=2, 2×2=4, 2×3=6, 2×4=8, 2×5=10</li>
+              <li>3 × 1=3, 3×2=6, 3×3=9, 3×4=12, 3×5=15</li>
+              <li>4 × 1=4, 4×2=8, 4×3=12, 4×4=16, 4×5=20</li>
+              <li>5 × 1=5, 5×2=10, 5×3=15, 5×4=20, 5×5=25</li>
+            </ul>
+            <h4>📌 Important Rules</h4>
+            <ul>
+              <li>Any number × 0 = 0 (5 × 0 = 0)</li>
+              <li>Any number × 1 = same number (7 × 1 = 7)</li>
+              <li>Order doesn't matter: 3 × 4 = 4 × 3 = 12</li>
+            </ul>
+          `
+        },
+        {
+          title: "Chapter 4: Division",
+          notes: `
+            <h4>➗ What is Division?</h4>
+            <p>Division means sharing equally or grouping into equal parts.</p>
+            <div class="note-box">
+              <strong>Example:</strong> 12 ÷ 3 = 4<br/>
+              (12 chocolates shared among 3 friends = 4 each)
+            </div>
+            <h4>📌 Important Terms</h4>
+            <ul>
+              <li><strong>Dividend</strong> — The number being divided (12)</li>
+              <li><strong>Divisor</strong> — The number we divide by (3)</li>
+              <li><strong>Quotient</strong> — The answer (4)</li>
+              <li><strong>Remainder</strong> — What is left over after division</li>
+            </ul>
+            <h4>🧮 Practice</h4>
+            <ul>
+              <li>10 ÷ 2 = 5</li>
+              <li>15 ÷ 3 = 5</li>
+              <li>20 ÷ 4 = 5</li>
+              <li>18 ÷ 6 = 3</li>
+            </ul>
+            <div class="note-box"><strong>💡 Tip:</strong> Division is the opposite of multiplication! If 3 × 4 = 12, then 12 ÷ 3 = 4 ✅</div>
+          `
+        },
+        {
+          title: "Chapter 5: Fractions",
+          notes: `
+            <h4>🍕 What is a Fraction?</h4>
+            <p>A fraction represents a part of a whole.</p>
+            <div class="note-box">
+              If a pizza is cut into 4 equal parts and you eat 1 part:<br/>
+              You ate <strong>1/4</strong> (one-fourth) of the pizza<br/><br/>
+              <strong>Top number</strong> = Numerator (parts taken)<br/>
+              <strong>Bottom number</strong> = Denominator (total equal parts)
+            </div>
+            <h4>📌 Common Fractions</h4>
+            <ul>
+              <li>1/2 = One half (1 part out of 2 equal parts)</li>
+              <li>1/3 = One third (1 part out of 3 equal parts)</li>
+              <li>1/4 = One quarter (1 part out of 4 equal parts)</li>
+              <li>2/4 = Two quarters = 1/2 (same value!)</li>
+            </ul>
+            <div class="note-box"><strong>💡 Remember:</strong> When numerator = denominator, the fraction = 1 whole. Example: 4/4 = 1</div>
+          `
+        }
+      ],
+      "3": [
+        {
+          title: "Chapter 1: Numbers up to 10,000",
+          notes: `
+            <h4>🔢 4-Digit Numbers</h4>
+            <div class="note-box">
+              In the number <strong>4,567</strong>:<br/>
+              4 → Thousands place → 4000<br/>
+              5 → Hundreds place → 500<br/>
+              6 → Tens place → 60<br/>
+              7 → Ones place → 7<br/>
+              4567 = 4000 + 500 + 60 + 7
+            </div>
+            <h4>📌 Roman Numerals</h4>
+            <ul>
+              <li>I = 1, V = 5, X = 10, L = 50, C = 100</li>
+              <li>II = 2, III = 3, IV = 4, VI = 6, IX = 9</li>
+              <li>XI = 11, XX = 20, XL = 40, XC = 90</li>
+            </ul>
+            <div class="note-box"><strong>Rules:</strong> When smaller value is before larger → subtract (IV = 5−1 = 4). When smaller value is after larger → add (VI = 5+1 = 6)</div>
+          `
+        },
+        {
+          title: "Chapter 2: Large Number Operations",
+          notes: `
+            <h4>➕ Addition of Large Numbers</h4>
+            <div class="note-box">
+              <strong>Example: 3456 + 2378</strong><br/>
+              Ones: 6+8=14 → write 4, carry 1<br/>
+              Tens: 5+7+1=13 → write 3, carry 1<br/>
+              Hundreds: 4+3+1=8<br/>
+              Thousands: 3+2=5<br/>
+              <strong>Answer: 5834</strong>
+            </div>
+            <h4>➖ Subtraction with Borrowing</h4>
+            <div class="note-box">
+              <strong>Example: 5000 − 1234</strong><br/>
+              Borrow from the next column when top digit is smaller than bottom digit.<br/>
+              <strong>Answer: 3766</strong>
+            </div>
+            <h4>✖️ Multiplication by 2-digit numbers</h4>
+            <ul>
+              <li>56 × 12 = 56 × 10 + 56 × 2 = 560 + 112 = 672</li>
+            </ul>
+          `
+        },
+        {
+          title: "Chapter 3: Geometry",
+          notes: `
+            <h4>📐 Lines</h4>
+            <ul>
+              <li><strong>Straight line</strong> — Goes in one direction without bending</li>
+              <li><strong>Curved line</strong> — Bends or curves</li>
+              <li><strong>Parallel lines</strong> — Two lines that never meet (like railway tracks)</li>
+              <li><strong>Perpendicular lines</strong> — Two lines that meet at 90° (right angle)</li>
+            </ul>
+            <h4>🔺 Triangles</h4>
+            <ul>
+              <li><strong>Equilateral</strong> — All 3 sides equal</li>
+              <li><strong>Isosceles</strong> — 2 sides equal</li>
+              <li><strong>Scalene</strong> — No sides equal</li>
+              <li><strong>Right-angled</strong> — One angle is 90°</li>
+            </ul>
+            <div class="note-box"><strong>💡 Angles:</strong> Acute angle < 90° · Right angle = 90° · Obtuse angle > 90°</div>
+            <h4>3D Shapes</h4>
+            <ul>
+              <li>Cube — 6 faces, 12 edges, 8 corners (dice)</li>
+              <li>Cuboid — 6 rectangular faces (box)</li>
+              <li>Sphere — Perfectly round (ball)</li>
+              <li>Cylinder — 2 circular faces (tin can)</li>
+              <li>Cone — 1 circular base, pointed top (ice cream cone)</li>
+            </ul>
+          `
+        },
+        {
+          title: "Chapter 4: Decimals & Money",
+          notes: `
+            <h4>💰 Money (Indian Currency)</h4>
+            <ul>
+              <li>100 Paise = 1 Rupee (₹1)</li>
+              <li>Coins: 50p, ₹1, ₹2, ₹5, ₹10</li>
+              <li>Notes: ₹10, ₹20, ₹50, ₹100, ₹200, ₹500</li>
+            </ul>
+            <div class="note-box">
+              <strong>Example:</strong> ₹45.75 means 45 Rupees and 75 Paise<br/>
+              The dot (.) separates Rupees from Paise — this is a decimal point
+            </div>
+            <h4>🔢 Decimals</h4>
+            <ul>
+              <li>A decimal number has a whole part and a fraction part separated by a dot</li>
+              <li>3.5 = 3 whole and 5 tenths</li>
+              <li>0.1 = one tenth, 0.01 = one hundredth</li>
+            </ul>
+            <h4>🧮 Money Problems</h4>
+            <ul>
+              <li>Cost of pencil = ₹5, Cost of eraser = ₹3 → Total = ₹8</li>
+              <li>Paid ₹50, spent ₹32 → Change = ₹50 − ₹32 = ₹18</li>
+            </ul>
+          `
+        },
+        {
+          title: "Chapter 5: Data & Graphs",
+          notes: `
+            <h4>📊 Data</h4>
+            <p>Data means collection of facts and numbers that give us information.</p>
+            <div class="note-box">
+              <strong>Example:</strong> Favourite fruits of 10 students:<br/>
+              Mango: 4 students, Apple: 3 students, Banana: 3 students<br/>
+              This information is called data.
+            </div>
+            <h4>📈 Types of Graphs</h4>
+            <ul>
+              <li><strong>Tally Chart</strong> — Uses marks (||||) to count data quickly</li>
+              <li><strong>Pictograph</strong> — Uses pictures/symbols to show data</li>
+              <li><strong>Bar Graph</strong> — Uses bars of different heights to compare data</li>
+            </ul>
+            <h4>📌 Reading a Bar Graph</h4>
+            <ul>
+              <li>X-axis (horizontal) — shows categories</li>
+              <li>Y-axis (vertical) — shows numbers/values</li>
+              <li>Taller bar = bigger value</li>
+            </ul>
+            <div class="note-box"><strong>💡 Key Terms:</strong> The number that appears most in data is called Mode. The middle value when data is arranged in order is called Median.</div>
+          `
+        }
+      ]
+    };
     const params = new URLSearchParams(window.location.search);
     const cls = params.get('class') || '1';
     const subject = params.get('subject') || 'science';
-    const chapters = scienceNotes[cls] || scienceNotes['1'];
+    const allNotes = { science: scienceNotes, math: mathNotes }; const chapters = (allNotes[subject] && allNotes[subject][cls]) || scienceNotes['1'];
 
     document.getElementById('lessonMeta').textContent = `Class ${cls} · Science`;
 
