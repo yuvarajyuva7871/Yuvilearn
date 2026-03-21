@@ -183,11 +183,13 @@
       </select>
       <label>Subject:</label>
       <div class="subj-tabs">
-        <button class="subj-tab active"     onclick="setSubject('math',this)">🔢 Math</button>
-        <button class="subj-tab science"    onclick="setSubject('science',this)">🔬 Science</button>
-        <button class="subj-tab language"   onclick="setSubject('language',this)">🗣️ English</button>
-      </div>
-    </div>
+  <button class="subj-tab active" data-subj="math"
+    onclick="setSubject('math',this)">🔢 Math</button>
+  <button class="subj-tab science" data-subj="science"
+    onclick="setSubject('science',this)">🔬 Science</button>
+  <button class="subj-tab language" data-subj="language"
+    onclick="setSubject('language',this)">🗣️ English</button>
+</div>
 
     <!-- Search Results (shown when searching) -->
     <div id="searchResultsArea"></div>
