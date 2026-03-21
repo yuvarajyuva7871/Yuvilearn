@@ -786,7 +786,392 @@
     const params = new URLSearchParams(window.location.search);
     const cls = params.get('class') || '1';
     const subject = params.get('subject') || 'science';
-    const allNotes = { science: scienceNotes, math: mathNotes }; const chapters = (allNotes[subject] && allNotes[subject][cls]) || scienceNotes['1'];
+    // =============================================
+    // ALL LANGUAGE/ENGLISH NOTES — CLASS 1, 2, 3
+    // =============================================
+    const languageNotes = {
+      "1": [
+        {
+          title: "Chapter 1: Alphabet & Phonics",
+          notes: `
+            <h4>🔤 The Alphabet</h4>
+            <ul>
+              <li>The English alphabet has <strong>26 letters</strong></li>
+              <li>Letters: A B C D E F G H I J K L M N O P Q R S T U V W X Y Z</li>
+              <li>Each letter has a Capital (uppercase) and a small (lowercase) form</li>
+            </ul>
+            <div class="note-box">
+              <strong>Vowels (5):</strong> A, E, I, O, U<br/>
+              <strong>Consonants (21):</strong> All other letters<br/>
+              💡 Every word must have at least one vowel!
+            </div>
+            <h4>🔊 Phonics — Letter Sounds</h4>
+            <ul>
+              <li>A — /a/ as in Apple</li>
+              <li>B — /b/ as in Ball</li>
+              <li>C — /k/ as in Cat</li>
+              <li>D — /d/ as in Dog</li>
+              <li>E — /e/ as in Egg</li>
+              <li>F — /f/ as in Fish</li>
+              <li>G — /g/ as in Girl</li>
+              <li>H — /h/ as in Hat</li>
+            </ul>
+            <div class="note-box"><strong>💡 Tip:</strong> Phonics helps us read and spell words by learning the sound each letter makes.</div>
+          `
+        },
+        {
+          title: "Chapter 2: Words & Vocabulary",
+          notes: `
+            <h4>📖 Building Words</h4>
+            <ul>
+              <li>Letters join together to make words</li>
+              <li>Short words (3 letters): Cat, Dog, Hat, Bat, Pen, Cup</li>
+              <li>Longer words: Apple, Mango, Table, Happy</li>
+            </ul>
+            <h4>🌈 Colours</h4>
+            <ul>
+              <li>Red, Blue, Yellow, Green, Orange, Purple, Pink, White, Black, Brown</li>
+            </ul>
+            <h4>🔢 Number Words</h4>
+            <ul>
+              <li>One, Two, Three, Four, Five, Six, Seven, Eight, Nine, Ten</li>
+            </ul>
+            <h4>📅 Days of the Week</h4>
+            <div class="note-box">
+              Monday, Tuesday, Wednesday, Thursday, Friday, Saturday, Sunday<br/>
+              💡 Week starts on Monday and ends on Sunday
+            </div>
+            <h4>🍎 Opposite Words</h4>
+            <ul>
+              <li>Big ↔ Small · Hot ↔ Cold · Day ↔ Night</li>
+              <li>Happy ↔ Sad · Fast ↔ Slow · Up ↔ Down</li>
+            </ul>
+          `
+        },
+        {
+          title: "Chapter 3: Nouns",
+          notes: `
+            <h4>📌 What is a Noun?</h4>
+            <p>A noun is a naming word. It is the name of a person, place, animal or thing.</p>
+            <div class="note-box">
+              <strong>Person:</strong> Girl, Boy, Teacher, Mother, Doctor<br/>
+              <strong>Place:</strong> School, Park, India, Market, Garden<br/>
+              <strong>Animal:</strong> Cat, Dog, Lion, Parrot, Elephant<br/>
+              <strong>Thing:</strong> Book, Pen, Chair, Table, Mango
+            </div>
+            <h4>📌 Singular & Plural</h4>
+            <ul>
+              <li>Singular = one (Cat, Book, Boy)</li>
+              <li>Plural = more than one (Cats, Books, Boys)</li>
+            </ul>
+            <div class="note-box">
+              <strong>Rules to make plural:</strong><br/>
+              Most words → add 's': Cat→Cats, Dog→Dogs<br/>
+              Words ending in s, sh, ch, x → add 'es': Bus→Buses, Box→Boxes<br/>
+              Words ending in y → change y to 'ies': Baby→Babies
+            </div>
+          `
+        },
+        {
+          title: "Chapter 4: Sentences",
+          notes: `
+            <h4>✏️ What is a Sentence?</h4>
+            <p>A sentence is a group of words that makes complete sense.</p>
+            <div class="note-box">
+              ✅ <strong>Sentence:</strong> The dog is running. (makes sense)<br/>
+              ❌ <strong>Not a sentence:</strong> Dog running the. (no sense)
+            </div>
+            <h4>📌 Parts of a Sentence</h4>
+            <ul>
+              <li><strong>Subject</strong> — Who or what the sentence is about: <em>The cat</em> sat on the mat.</li>
+              <li><strong>Predicate</strong> — What the subject does: The cat <em>sat on the mat.</em></li>
+            </ul>
+            <h4>📌 Types of Sentences</h4>
+            <ul>
+              <li><strong>Statement</strong> — Tells something. Ends with (.) → The sky is blue.</li>
+              <li><strong>Question</strong> — Asks something. Ends with (?) → What is your name?</li>
+              <li><strong>Exclamation</strong> — Shows strong feeling. Ends with (!) → What a beautiful flower!</li>
+              <li><strong>Command</strong> — Gives an order. → Close the door.</li>
+            </ul>
+            <div class="note-box"><strong>💡 Capital Letters:</strong> Always start a sentence with a capital letter and end with a full stop, question mark or exclamation mark.</div>
+          `
+        },
+        {
+          title: "Chapter 5: Reading & Comprehension",
+          notes: `
+            <h4>📖 How to Read a Passage</h4>
+            <ul>
+              <li>Read the passage carefully at least twice</li>
+              <li>Understand what it is about before answering questions</li>
+              <li>Look for keywords in the questions and find them in the passage</li>
+              <li>Answer in complete sentences</li>
+            </ul>
+            <div class="note-box">
+              <strong>Sample Passage:</strong><br/>
+              "Riya has a dog named Bruno. Bruno is brown and white. He loves to run and play in the garden. Riya feeds Bruno every morning."<br/><br/>
+              <strong>Q: What is the dog's name?</strong> → Bruno<br/>
+              <strong>Q: What colour is Bruno?</strong> → Brown and white
+            </div>
+            <h4>✍️ Writing Tips</h4>
+            <ul>
+              <li>Start with a capital letter</li>
+              <li>Leave spaces between words</li>
+              <li>End with a full stop</li>
+              <li>Use neat handwriting</li>
+            </ul>
+          `
+        }
+      ],
+      "2": [
+        {
+          title: "Chapter 1: Pronouns & Adjectives",
+          notes: `
+            <h4>👤 Pronouns</h4>
+            <p>A pronoun is a word used instead of a noun to avoid repetition.</p>
+            <div class="note-box">
+              Instead of: "Riya went to school. Riya carried Riya's bag."<br/>
+              We say: "Riya went to school. <strong>She</strong> carried <strong>her</strong> bag."
+            </div>
+            <h4>📌 Common Pronouns</h4>
+            <ul>
+              <li><strong>I, Me, My, Mine</strong> — for yourself</li>
+              <li><strong>You, Your, Yours</strong> — for the person you talk to</li>
+              <li><strong>He, Him, His</strong> — for a boy/man</li>
+              <li><strong>She, Her, Hers</strong> — for a girl/woman</li>
+              <li><strong>It, Its</strong> — for a thing or animal</li>
+              <li><strong>We, Us, Our</strong> — for a group including yourself</li>
+              <li><strong>They, Them, Their</strong> — for other people or things</li>
+            </ul>
+            <h4>🌟 Adjectives</h4>
+            <p>An adjective is a describing word. It tells us more about a noun.</p>
+            <div class="note-box">
+              The <strong>tall</strong> tree. (tall describes the tree)<br/>
+              A <strong>sweet</strong> mango. (sweet describes the mango)<br/>
+              <strong>Types:</strong> Size (big, small), Colour (red, blue), Shape (round, square), Quality (soft, hard), Number (three, many)
+            </div>
+          `
+        },
+        {
+          title: "Chapter 2: Verbs & Tenses",
+          notes: `
+            <h4>⚡ Verbs — Action Words</h4>
+            <p>A verb is a doing word. It tells us what someone or something does.</p>
+            <div class="note-box">
+              The boy <strong>runs</strong> fast.<br/>
+              She <strong>eats</strong> an apple.<br/>
+              The bird <strong>flies</strong> high.
+            </div>
+            <h4>🕐 Tenses — When the action happens</h4>
+            <ul>
+              <li><strong>Present Tense</strong> — Action happening now → I <em>eat</em> rice.</li>
+              <li><strong>Past Tense</strong> — Action already done → I <em>ate</em> rice.</li>
+              <li><strong>Future Tense</strong> — Action will happen → I <em>will eat</em> rice.</li>
+            </ul>
+            <div class="note-box">
+              <strong>Common Past Tense forms:</strong><br/>
+              Go → Went · Come → Came · Eat → Ate<br/>
+              Run → Ran · See → Saw · Write → Wrote<br/>
+              Play → Played · Jump → Jumped · Talk → Talked
+            </div>
+          `
+        },
+        {
+          title: "Chapter 3: Punctuation",
+          notes: `
+            <h4>✏️ Why is Punctuation Important?</h4>
+            <p>Punctuation marks help us read and understand sentences correctly. Without them, sentences are confusing!</p>
+            <h4>📌 Punctuation Marks</h4>
+            <ul>
+              <li><strong>Full Stop (.)</strong> — Ends a statement: I love reading.</li>
+              <li><strong>Question Mark (?)</strong> — Ends a question: Where are you going?</li>
+              <li><strong>Exclamation Mark (!)</strong> — Shows excitement or surprise: Wow, that is amazing!</li>
+              <li><strong>Comma (,)</strong> — Short pause, separates items in a list: I have a pen, pencil, eraser and ruler.</li>
+              <li><strong>Apostrophe (')</strong> — Shows ownership or shortens words: Riya's bag. Don't = Do not.</li>
+              <li><strong>Inverted Commas (" ")</strong> — Shows someone's exact words: She said, "I am happy."</li>
+            </ul>
+            <div class="note-box"><strong>💡 Tip:</strong> Always read your writing again and check if you have used correct punctuation marks!</div>
+          `
+        },
+        {
+          title: "Chapter 4: Story Writing",
+          notes: `
+            <h4>📖 Parts of a Good Story</h4>
+            <ul>
+              <li><strong>Beginning</strong> — Introduce characters and setting. Where? Who?</li>
+              <li><strong>Middle</strong> — The main event or problem. What happened?</li>
+              <li><strong>End</strong> — How the problem was solved. How did it end?</li>
+            </ul>
+            <div class="note-box">
+              <strong>Sample Story:</strong><br/>
+              <em>One day, Raju found a lost puppy in the park. The puppy was hungry and scared. Raju gave it some food and water. He took it home and looked after it. The puppy became his best friend.</em><br/><br/>
+              Beginning: Raju found a puppy<br/>
+              Middle: Puppy was hungry and scared<br/>
+              End: Puppy became his best friend ✅
+            </div>
+            <h4>✍️ Useful Story Words</h4>
+            <ul>
+              <li><strong>To start:</strong> One day, Once upon a time, Long ago</li>
+              <li><strong>In the middle:</strong> Suddenly, After that, Meanwhile, Then</li>
+              <li><strong>To end:</strong> Finally, At last, In the end, And so</li>
+            </ul>
+          `
+        },
+        {
+          title: "Chapter 5: Letter Writing",
+          notes: `
+            <h4>✉️ Types of Letters</h4>
+            <ul>
+              <li><strong>Informal Letter</strong> — Written to friends and family (friendly, casual tone)</li>
+              <li><strong>Formal Letter</strong> — Written to teachers, principals, offices (polite, professional tone)</li>
+            </ul>
+            <h4>📌 Format of an Informal Letter</h4>
+            <div class="note-box">
+              <strong>Your Address</strong><br/>
+              <strong>Date</strong><br/><br/>
+              Dear [Name],<br/><br/>
+              [Opening — How are you? I hope you are well.]<br/>
+              [Main Content — Reason for writing]<br/>
+              [Closing — Looking forward to hearing from you.]<br/><br/>
+              Your loving friend,<br/>
+              [Your Name]
+            </div>
+            <h4>📌 Format of a Formal Letter</h4>
+            <div class="note-box">
+              <strong>Your Address</strong><br/>
+              <strong>Date</strong><br/>
+              <strong>To,</strong><br/>
+              The Principal,<br/>
+              [School Name]<br/><br/>
+              Subject: [Topic in one line]<br/><br/>
+              Respected Sir/Madam,<br/>
+              [Body of letter]<br/><br/>
+              Yours obediently,<br/>
+              [Your Name]
+            </div>
+          `
+        }
+      ],
+      "3": [
+        {
+          title: "Chapter 1: Parts of Speech",
+          notes: `
+            <h4>📚 The 8 Parts of Speech</h4>
+            <ul>
+              <li><strong>Noun</strong> — Naming word: Dog, India, Happiness</li>
+              <li><strong>Pronoun</strong> — Replaces noun: He, She, They, It</li>
+              <li><strong>Verb</strong> — Action/doing word: Run, Eat, Sleep, Think</li>
+              <li><strong>Adjective</strong> — Describes noun: Beautiful, Tall, Sweet</li>
+              <li><strong>Adverb</strong> — Describes verb: Quickly, Softly, Very, Always</li>
+              <li><strong>Preposition</strong> — Shows relation: In, On, Under, Between, Behind</li>
+              <li><strong>Conjunction</strong> — Joins words/sentences: And, But, Or, Because, So</li>
+              <li><strong>Interjection</strong> — Expresses emotion: Wow! Ouch! Hurray! Oh!</li>
+            </ul>
+            <div class="note-box"><strong>💡 Trick to Remember:</strong> "Never Prefer Very Active People Before Considering Interest" — first letters spell out the 8 parts!</div>
+          `
+        },
+        {
+          title: "Chapter 2: Degrees of Comparison",
+          notes: `
+            <h4>📊 Comparing with Adjectives</h4>
+            <p>We use 3 forms of adjectives to compare people or things.</p>
+            <div class="note-box">
+              <strong>Positive</strong> — Describes one thing: Ram is <em>tall</em>.<br/>
+              <strong>Comparative</strong> — Compares two: Ram is <em>taller</em> than Shyam.<br/>
+              <strong>Superlative</strong> — Compares more than two: Ram is the <em>tallest</em> in the class.
+            </div>
+            <h4>📌 Common Examples</h4>
+            <ul>
+              <li>Big → Bigger → Biggest</li>
+              <li>Small → Smaller → Smallest</li>
+              <li>Fast → Faster → Fastest</li>
+              <li>Happy → Happier → Happiest</li>
+              <li>Good → Better → Best</li>
+              <li>Bad → Worse → Worst</li>
+              <li>Far → Farther → Farthest</li>
+            </ul>
+            <div class="note-box"><strong>💡 Rule:</strong> Short adjectives add -er/-est. Long adjectives use more/most. Example: more beautiful, most beautiful</div>
+          `
+        },
+        {
+          title: "Chapter 3: Active & Passive Voice",
+          notes: `
+            <h4>🎯 Active Voice</h4>
+            <p>In active voice, the subject does the action.</p>
+            <div class="note-box">
+              <strong>Structure:</strong> Subject + Verb + Object<br/>
+              Example: <em>The cat</em> (subject) <em>chased</em> (verb) <em>the mouse</em> (object).
+            </div>
+            <h4>🔄 Passive Voice</h4>
+            <p>In passive voice, the subject receives the action.</p>
+            <div class="note-box">
+              <strong>Structure:</strong> Object + was/were + past participle + by + subject<br/>
+              Example: <em>The mouse was chased by the cat.</em>
+            </div>
+            <h4>📌 More Examples</h4>
+            <ul>
+              <li>Active: <em>She wrote a letter.</em></li>
+              <li>Passive: <em>A letter was written by her.</em></li>
+              <li>Active: <em>The teacher teaches the students.</em></li>
+              <li>Passive: <em>The students are taught by the teacher.</em></li>
+            </ul>
+            <div class="note-box"><strong>💡 When to use:</strong> Active voice is direct and strong. Passive voice is used when the doer is unknown or unimportant.</div>
+          `
+        },
+        {
+          title: "Chapter 4: Essay Writing",
+          notes: `
+            <h4>📝 Structure of a Good Essay</h4>
+            <ul>
+              <li><strong>Introduction</strong> — First paragraph. Introduce the topic.</li>
+              <li><strong>Body</strong> — 2 or 3 paragraphs. Main ideas and details.</li>
+              <li><strong>Conclusion</strong> — Last paragraph. Summarise and give your opinion.</li>
+            </ul>
+            <div class="note-box">
+              <strong>Essay on My Best Friend:</strong><br/>
+              <em>Introduction:</em> My best friend's name is Arjun. We have been friends since Class 1.<br/>
+              <em>Body:</em> Arjun is kind, helpful and very funny. He helps me with Maths and I help him with English. We play cricket together every evening.<br/>
+              <em>Conclusion:</em> A good friend like Arjun makes life happy and fun. I am lucky to have him as my friend.
+            </div>
+            <h4>✍️ Tips for Good Essay Writing</h4>
+            <ul>
+              <li>Write in paragraphs — don't write everything in one block</li>
+              <li>Use describing words (adjectives) to make it interesting</li>
+              <li>Avoid repeating the same word — use synonyms</li>
+              <li>Check spelling and punctuation before submitting</li>
+            </ul>
+          `
+        },
+        {
+          title: "Chapter 5: Synonyms, Antonyms & Homophones",
+          notes: `
+            <h4>🔁 Synonyms — Same Meaning</h4>
+            <ul>
+              <li>Happy → Joyful, Glad, Pleased, Cheerful</li>
+              <li>Big → Large, Huge, Enormous, Gigantic</li>
+              <li>Fast → Quick, Swift, Rapid, Speedy</li>
+              <li>Smart → Clever, Intelligent, Bright, Wise</li>
+              <li>Angry → Furious, Upset, Irritated, Mad</li>
+            </ul>
+            <h4>↔️ Antonyms — Opposite Meaning</h4>
+            <ul>
+              <li>Happy ↔ Sad · Strong ↔ Weak · Ancient ↔ Modern</li>
+              <li>Victory ↔ Defeat · Courage ↔ Cowardice · Expand ↔ Contract</li>
+              <li>Accept ↔ Reject · Include ↔ Exclude · Success ↔ Failure</li>
+            </ul>
+            <h4>🔊 Homophones — Same Sound, Different Meaning</h4>
+            <div class="note-box">
+              <strong>Homophones</strong> sound the same but are spelled differently and have different meanings.<br/><br/>
+              Here / Hear · There / Their / They're<br/>
+              Write / Right · See / Sea · Sun / Son<br/>
+              Meet / Meat · Week / Weak · Flour / Flower<br/>
+              <br/>
+              <strong>Example:</strong> I can <em>hear</em> music. Come <em>here</em> please.
+            </div>
+          `
+        }
+      ]
+    };
+    const allNotes = { science: scienceNotes, math: mathNotes, language: languageNotes }; const chapters = (allNotes[subject] && allNotes[subject][cls]) || scienceNotes['1'];
 
     document.getElementById('lessonMeta').textContent = `Class ${cls} · Science`;
 
