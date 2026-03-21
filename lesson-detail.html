@@ -6,6 +6,41 @@
   <title>Lesson – Yuvilearn</title>
   <link rel="stylesheet" href="style.css"/>
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700;800&display=swap" rel="stylesheet"/>
+  <style>
+    /* === QUIZ STYLES === */
+    .quiz-section{margin-top:32px;background:#fff;border-radius:16px;padding:24px;border:2px solid #1e4db7}
+    .quiz-section h3{color:#0a1628;font-size:1.1rem;font-weight:800;margin-bottom:20px}
+    .quiz-question{margin-bottom:24px}
+    .quiz-question p{font-weight:600;color:#0a1628;margin-bottom:12px;font-size:0.95rem}
+    .quiz-options{display:flex;flex-direction:column;gap:8px}
+    .quiz-option{padding:10px 16px;border-radius:10px;border:2px solid #ddd;background:#f9faff;cursor:pointer;font-size:0.9rem;font-weight:500;transition:all 0.2s;text-align:left}
+    .quiz-option:hover{border-color:#1e4db7;background:#f0f4ff}
+    .quiz-option.correct{background:#dcfce7;border-color:#16a34a;color:#166534}
+    .quiz-option.wrong{background:#fee2e2;border-color:#dc2626;color:#991b1b}
+    .quiz-option.disabled{pointer-events:none}
+    .quiz-result{display:none;margin-top:20px;padding:16px;border-radius:12px;text-align:center;font-weight:700;font-size:1rem}
+    .quiz-result.pass{background:#dcfce7;color:#166534}
+    .quiz-result.fail{background:#fee2e2;color:#991b1b}
+    .quiz-score{font-size:1.5rem;font-weight:800;margin-bottom:6px}
+    .btn-retry{background:#1e4db7;color:#fff;border:none;padding:10px 24px;border-radius:50px;font-weight:700;cursor:pointer;margin-top:12px;font-size:0.9rem}
+    .btn-print{background:#0a1628;color:#fff;border:none;padding:12px 24px;border-radius:50px;font-weight:700;cursor:pointer;font-size:0.9rem;display:flex;align-items:center;gap:8px;transition:background 0.2s}
+    .btn-print:hover{background:#1e4db7}
+    .action-btns{display:flex;gap:12px;margin-top:20px;flex-wrap:wrap}
+    .explanation{display:none;margin-top:8px;padding:10px 14px;background:#f0f4ff;border-radius:8px;font-size:0.85rem;color:#1e4db7;font-weight:500}
+
+    /* === PRINT STYLES === */
+    @media print{
+      .navbar,.back-btn,.video-side,.action-btns,.quiz-section,.footer{display:none!important}
+      .lesson-layout{grid-template-columns:1fr!important}
+      .notes-side{border-radius:0!important;padding:0!important}
+      body{color:#000!important}
+      .note-box{border:1px solid #ccc!important;background:#f5f5f5!important}
+      .print-header{display:block!important}
+    }
+    .print-header{display:none;margin-bottom:20px;border-bottom:2px solid #0a1628;padding-bottom:12px}
+    .print-header h2{font-size:1.4rem;color:#0a1628}
+    .print-header p{color:#555;font-size:0.9rem}
+  </style>
 </head>
 <body>
   <nav class="navbar">
@@ -29,7 +64,7 @@
     </div>
 
     <div class="lesson-layout">
-      <!-- Left: Chapter list + Video -->
+      <!-- Left: Chapters + Video -->
       <div class="video-side">
         <div class="chapter-list">
           <h3>📋 Chapters</h3>
@@ -44,13 +79,35 @@
         </div>
       </div>
 
-      <!-- Right: Notes -->
+      <!-- Right: Notes + Quiz + Actions -->
       <div class="notes-side">
+        <!-- Print Header (only shows when printing) -->
+        <div class="print-header">
+          <h2 id="printTitle">Yuvilearn Notes</h2>
+          <p id="printMeta">yuvilearn.vercel.app</p>
+        </div>
+
         <h3>📝 Notes</h3>
         <div class="notes-content" id="notesContent">
           <p style="color:#888">Select a chapter from the left to see notes.</p>
         </div>
-        <button class="btn-primary" style="margin-top:20px;border:none;cursor:pointer;width:100%" onclick="markDone()">✅ Mark as Complete</button>
+
+        <!-- Action Buttons -->
+        <div class="action-btns">
+          <button class="btn-primary" style="border:none;cursor:pointer" onclick="markDone()">✅ Mark as Complete</button>
+          <button class="btn-print" onclick="printNotes()">🖨️ Print / Save PDF</button>
+        </div>
+
+        <!-- Quiz Section -->
+        <div class="quiz-section" id="quizSection" style="display:none">
+          <h3>🧠 Quick Quiz</h3>
+          <div id="quizQuestions"></div>
+          <div class="quiz-result" id="quizResult">
+            <div class="quiz-score" id="quizScore"></div>
+            <div id="quizMessage"></div>
+            <button class="btn-retry" onclick="retryQuiz()">🔄 Try Again</button>
+          </div>
+        </div>
       </div>
     </div>
   </div>
@@ -68,1131 +125,511 @@
 
   <script src="script.js"></script>
   <script>
-    // =============================================
-    // ALL SCIENCE NOTES — CLASS 1, 2, 3
-    // =============================================
-    const scienceNotes = {
-      "1": [
-        {
-          title: "Chapter 1: Living & Non-Living Things",
-          notes: `
-            <h4>🌱 What are Living Things?</h4>
-            <p>Living things are those that are alive. They can grow, breathe, eat, move and reproduce.</p>
-            <div class="note-box"><strong>Examples of Living Things:</strong> Plants, Animals, Birds, Fish, Humans, Insects</div>
-            <h4>🪨 What are Non-Living Things?</h4>
-            <p>Non-living things do not grow, breathe or reproduce. They are not alive.</p>
-            <div class="note-box"><strong>Examples of Non-Living Things:</strong> Rock, Chair, Table, Car, Water, Air</div>
-            <h4>📌 Key Differences</h4>
-            <ul>
-              <li>Living things need food and water — non-living things do not</li>
-              <li>Living things grow and change — non-living things stay the same</li>
-              <li>Living things can reproduce (make babies) — non-living things cannot</li>
-              <li>Living things breathe — non-living things do not</li>
-            </ul>
-            <div class="note-box"><strong>💡 Remember:</strong> All animals and plants are living things. Stones, toys and books are non-living things.</div>
-          `
-        },
-        {
-          title: "Chapter 2: Plants Around Us",
-          notes: `
-            <h4>🌿 Parts of a Plant</h4>
-            <ul>
-              <li><strong>Roots</strong> — Hold the plant in soil and absorb water</li>
-              <li><strong>Stem</strong> — Carries water and food to all parts</li>
-              <li><strong>Leaves</strong> — Make food for the plant using sunlight</li>
-              <li><strong>Flower</strong> — Helps the plant reproduce</li>
-              <li><strong>Fruit</strong> — Protects the seeds inside</li>
-            </ul>
-            <div class="note-box"><strong>💡 Fun Fact:</strong> Leaves are green because of a special substance called Chlorophyll. It helps leaves make food from sunlight.</div>
-            <h4>🌞 What do Plants Need to Grow?</h4>
-            <ul>
-              <li>Sunlight ☀️</li>
-              <li>Water 💧</li>
-              <li>Soil 🌍</li>
-              <li>Air 🌬️</li>
-            </ul>
-            <div class="note-box"><strong>📌 Key Point:</strong> Plants make their own food using sunlight, water and air. This process is called Photosynthesis.</div>
-          `
-        },
-        {
-          title: "Chapter 3: Animals Around Us",
-          notes: `
-            <h4>🐾 Types of Animals</h4>
-            <ul>
-              <li><strong>Pet Animals</strong> — Dog, Cat, Rabbit (kept at home)</li>
-              <li><strong>Wild Animals</strong> — Lion, Tiger, Elephant (live in forests)</li>
-              <li><strong>Farm Animals</strong> — Cow, Goat, Hen (kept on farms)</li>
-              <li><strong>Water Animals</strong> — Fish, Crocodile, Dolphin (live in water)</li>
-              <li><strong>Birds</strong> — Parrot, Sparrow, Eagle (can fly)</li>
-            </ul>
-            <div class="note-box"><strong>💡 Key Point:</strong> Animals that eat only plants are called Herbivores. Animals that eat only meat are called Carnivores. Animals that eat both are called Omnivores.</div>
-            <h4>🏠 Animal Homes</h4>
-            <ul>
-              <li>Dog — Kennel</li>
-              <li>Cow — Shed</li>
-              <li>Lion — Den</li>
-              <li>Bird — Nest</li>
-              <li>Rabbit — Burrow</li>
-            </ul>
-          `
-        },
-        {
-          title: "Chapter 4: Our Body",
-          notes: `
-            <h4>👁️ Sense Organs</h4>
-            <p>We have 5 sense organs that help us understand the world around us:</p>
-            <ul>
-              <li>👀 <strong>Eyes</strong> — for seeing</li>
-              <li>👂 <strong>Ears</strong> — for hearing</li>
-              <li>👃 <strong>Nose</strong> — for smelling</li>
-              <li>👅 <strong>Tongue</strong> — for tasting</li>
-              <li>✋ <strong>Skin</strong> — for touching and feeling</li>
-            </ul>
-            <div class="note-box"><strong>💡 Remember:</strong> We should take care of our body by eating healthy food, exercising daily, sleeping well and keeping ourselves clean.</div>
-            <h4>🦷 Keeping Healthy</h4>
-            <ul>
-              <li>Brush teeth twice a day</li>
-              <li>Wash hands before eating</li>
-              <li>Eat fruits and vegetables</li>
-              <li>Drink clean water</li>
-              <li>Exercise and play outdoors</li>
-            </ul>
-          `
-        },
-        {
-          title: "Chapter 5: Food We Eat",
-          notes: `
-            <h4>🍎 Types of Food</h4>
-            <ul>
-              <li><strong>Energy giving foods</strong> — Rice, Bread, Potato, Sugar (give us energy to work and play)</li>
-              <li><strong>Body building foods</strong> — Milk, Eggs, Meat, Dal (help us grow strong)</li>
-              <li><strong>Protective foods</strong> — Fruits, Vegetables (protect us from diseases)</li>
-            </ul>
-            <div class="note-box"><strong>💡 Key Point:</strong> Eating all types of food together is called a Balanced Diet. A balanced diet keeps us healthy and strong.</div>
-            <h4>🌾 Where Does Food Come From?</h4>
-            <ul>
-              <li>Plants give us — fruits, vegetables, grains, pulses</li>
-              <li>Animals give us — milk, eggs, meat, honey</li>
-            </ul>
-            <div class="note-box"><strong>📌 Remember:</strong> We should avoid eating too much junk food like chips and sweets as they are not good for our health.</div>
-          `
-        }
-      ],
-      "2": [
-        {
-          title: "Chapter 1: Plants — Types & Uses",
-          notes: `
-            <h4>🌳 Types of Plants</h4>
-            <ul>
-              <li><strong>Trees</strong> — Very tall, strong woody stem, live for many years. Example: Mango, Neem, Banyan</li>
-              <li><strong>Shrubs</strong> — Medium height, woody stem near base. Example: Rose, Hibiscus, Tulsi</li>
-              <li><strong>Herbs</strong> — Small, soft green stem. Example: Mint, Coriander, Grass</li>
-              <li><strong>Climbers</strong> — Weak stem, climb on walls or other plants. Example: Money plant, Pea</li>
-            </ul>
-            <div class="note-box"><strong>💡 Uses of Plants:</strong> Food, Medicine, Wood for furniture, Paper, Shade and Fresh air (Oxygen)</div>
-            <h4>🌱 How Plants Reproduce</h4>
-            <ul>
-              <li>From seeds — Most plants grow from seeds</li>
-              <li>From leaves — Example: Bryophyllum</li>
-              <li>From stem — Example: Sugarcane, Potato</li>
-            </ul>
-          `
-        },
-        {
-          title: "Chapter 2: Animals — Habitat & Food",
-          notes: `
-            <h4>🏡 Animal Habitats</h4>
-            <p>A habitat is the natural home of an animal where it finds food, water and shelter.</p>
-            <ul>
-              <li><strong>Land animals</strong> — live on land (Lion, Elephant, Dog)</li>
-              <li><strong>Water animals</strong> — live in water (Fish, Whale, Frog)</li>
-              <li><strong>Aerial animals</strong> — spend most time flying (Eagle, Bat, Butterfly)</li>
-              <li><strong>Amphibians</strong> — live on both land and water (Frog, Crocodile)</li>
-            </ul>
-            <h4>🍖 What Animals Eat</h4>
-            <div class="note-box">
-              <strong>Herbivores</strong> — Eat only plants (Cow, Rabbit, Deer)<br/>
-              <strong>Carnivores</strong> — Eat only animals (Lion, Snake, Eagle)<br/>
-              <strong>Omnivores</strong> — Eat both plants and animals (Human, Bear, Crow)
-            </div>
-          `
-        },
-        {
-          title: "Chapter 3: Air, Water & Weather",
-          notes: `
-            <h4>💨 Air</h4>
-            <ul>
-              <li>Air is all around us — we cannot see it but we can feel it</li>
-              <li>Air is needed for breathing by all living things</li>
-              <li>Moving air is called Wind</li>
-              <li>Air is made of many gases — the most important is Oxygen</li>
-            </ul>
-            <h4>💧 Water</h4>
-            <ul>
-              <li>Water is found in rivers, lakes, seas and underground</li>
-              <li>We use water for drinking, cooking, bathing and farming</li>
-              <li>Water has 3 forms — Solid (Ice), Liquid (Water), Gas (Steam/Vapour)</li>
-            </ul>
-            <div class="note-box"><strong>💡 Save Water:</strong> Always close taps, do not waste water. Water is precious!</div>
-            <h4>🌦️ Weather</h4>
-            <ul>
-              <li>Weather tells us how the sky and air feel each day</li>
-              <li>Types: Sunny, Rainy, Cloudy, Windy, Foggy, Stormy</li>
-              <li>Seasons in India: Summer, Monsoon (Rainy), Winter</li>
-            </ul>
-          `
-        },
-        {
-          title: "Chapter 4: Rocks & Soil",
-          notes: `
-            <h4>🪨 Rocks</h4>
-            <ul>
-              <li>Rocks are hard materials found on the Earth's surface</li>
-              <li>Rocks can be big like mountains or small like pebbles</li>
-              <li>Types of rocks: Hard rocks (granite), Soft rocks (limestone), Layered rocks (sandstone)</li>
-              <li>Rocks are used to build houses, roads and monuments</li>
-            </ul>
-            <h4>🌍 Soil</h4>
-            <ul>
-              <li>Soil is the top layer of the Earth's surface</li>
-              <li>Soil is made of tiny pieces of rock, dead plants and animals</li>
-              <li>Plants grow in soil — soil gives them nutrients and support</li>
-            </ul>
-            <div class="note-box">
-              <strong>Types of Soil:</strong><br/>
-              🟫 Sandy soil — dry, water drains fast, not good for crops<br/>
-              🟤 Clay soil — holds water well, sticky when wet<br/>
-              🌱 Loamy soil — best for growing plants, has nutrients
-            </div>
-          `
-        },
-        {
-          title: "Chapter 5: Our Solar System",
-          notes: `
-            <h4>🌞 The Sun</h4>
-            <ul>
-              <li>The Sun is a star — it is a huge ball of hot gases</li>
-              <li>The Sun gives us light and heat</li>
-              <li>The Sun is the centre of our Solar System</li>
-            </ul>
-            <h4>🪐 Planets</h4>
-            <p>There are 8 planets in our Solar System. In order from the Sun:</p>
-            <div class="note-box">
-              ☿ Mercury → ♀ Venus → 🌍 Earth → ♂ Mars → ♃ Jupiter → ♄ Saturn → ⛢ Uranus → ♆ Neptune
-            </div>
-            <ul>
-              <li>Earth is the only planet with life</li>
-              <li>Earth has one Moon</li>
-              <li>Jupiter is the biggest planet</li>
-              <li>Mercury is the smallest planet</li>
-            </ul>
-            <div class="note-box"><strong>💡 Remember:</strong> "My Very Educated Mother Just Served Us Noodles" — first letter of each word helps remember planet order!</div>
-          `
-        }
-      ],
-      "3": [
-        {
-          title: "Chapter 1: Living World — Cells",
-          notes: `
-            <h4>🔬 What is a Cell?</h4>
-            <ul>
-              <li>All living things are made of tiny units called Cells</li>
-              <li>Cells are so small we need a microscope to see them</li>
-              <li>The cell is called the basic unit of life</li>
-            </ul>
-            <h4>🧫 Parts of a Cell</h4>
-            <ul>
-              <li><strong>Cell Membrane</strong> — Outer covering that protects the cell</li>
-              <li><strong>Nucleus</strong> — Controls all activities of the cell (the "brain")</li>
-              <li><strong>Cytoplasm</strong> — Jelly-like fluid that fills the cell</li>
-            </ul>
-            <div class="note-box"><strong>Plant Cell vs Animal Cell:</strong> Plant cells have a cell wall and chloroplasts. Animal cells do not have these.</div>
-          `
-        },
-        {
-          title: "Chapter 2: Food & Nutrition",
-          notes: `
-            <h4>🍽️ Nutrients in Food</h4>
-            <ul>
-              <li><strong>Carbohydrates</strong> — Give energy. Found in rice, bread, potato, sugar</li>
-              <li><strong>Proteins</strong> — Help grow and repair body. Found in dal, eggs, milk, meat</li>
-              <li><strong>Fats</strong> — Give energy and keep us warm. Found in butter, oil, nuts</li>
-              <li><strong>Vitamins</strong> — Protect from diseases. Found in fruits and vegetables</li>
-              <li><strong>Minerals</strong> — Keep bones and teeth strong. Found in milk, green vegetables</li>
-              <li><strong>Water</strong> — Helps body functions. We need 6–8 glasses daily</li>
-            </ul>
-            <div class="note-box"><strong>💡 Balanced Diet:</strong> A meal that contains all 6 nutrients in the right amounts is called a balanced diet.</div>
-            <h4>⚠️ Deficiency Diseases</h4>
-            <ul>
-              <li>Lack of Vitamin C → Scurvy (bleeding gums)</li>
-              <li>Lack of Vitamin D → Rickets (weak bones)</li>
-              <li>Lack of Iron → Anaemia (weakness)</li>
-            </ul>
-          `
-        },
-        {
-          title: "Chapter 3: Matter & Materials",
-          notes: `
-            <h4>🧪 What is Matter?</h4>
-            <p>Everything around us that has mass and takes up space is called Matter.</p>
-            <h4>3 States of Matter</h4>
-            <ul>
-              <li><strong>Solid</strong> — Has fixed shape and size. Example: Ice, Stone, Wood</li>
-              <li><strong>Liquid</strong> — Has fixed volume but no fixed shape. Example: Water, Milk, Oil</li>
-              <li><strong>Gas</strong> — Has no fixed shape or volume. Example: Air, Steam, Smoke</li>
-            </ul>
-            <div class="note-box">
-              <strong>Changes of State:</strong><br/>
-              🧊 Ice (solid) → 💧 Water (liquid) → when heated → ♨️ Steam (gas)<br/>
-              This process can be reversed by cooling.
-            </div>
-            <h4>🔄 Physical vs Chemical Changes</h4>
-            <ul>
-              <li><strong>Physical Change</strong> — Shape or size changes but substance stays same (cutting paper, melting ice)</li>
-              <li><strong>Chemical Change</strong> — New substance is formed (burning wood, cooking food, rusting iron)</li>
-            </ul>
-          `
-        },
-        {
-          title: "Chapter 4: Force, Work & Energy",
-          notes: `
-            <h4>💪 What is Force?</h4>
-            <ul>
-              <li>A push or pull applied on an object is called Force</li>
-              <li>Force can make things move, stop, speed up or change direction</li>
-              <li>Types: Push, Pull, Gravitational force, Magnetic force, Friction</li>
-            </ul>
-            <div class="note-box"><strong>Gravity:</strong> The force that pulls everything towards the Earth. That's why things fall down when we drop them!</div>
-            <h4>⚡ What is Energy?</h4>
-            <ul>
-              <li>Energy is the ability to do work</li>
-              <li>Sources of energy: Sun (solar), Food, Wind, Water, Fuel</li>
-              <li>Forms of energy: Light, Heat, Sound, Electrical, Mechanical</li>
-            </ul>
-            <div class="note-box"><strong>💡 Key Point:</strong> Energy cannot be created or destroyed — it can only change from one form to another. This is the Law of Conservation of Energy.</div>
-          `
-        },
-        {
-          title: "Chapter 5: Earth & Environment",
-          notes: `
-            <h4>🌍 Layers of the Earth</h4>
-            <ul>
-              <li><strong>Crust</strong> — Outermost layer, where we live</li>
-              <li><strong>Mantle</strong> — Hot semi-solid rock layer below the crust</li>
-              <li><strong>Core</strong> — Innermost layer, made of very hot molten metal</li>
-            </ul>
-            <h4>🌊 Natural Resources</h4>
-            <ul>
-              <li><strong>Renewable</strong> — Can be used again and again (Sunlight, Wind, Water)</li>
-              <li><strong>Non-renewable</strong> — Will run out one day (Coal, Petroleum, Natural Gas)</li>
-            </ul>
-            <div class="note-box"><strong>🌱 Environmental Protection:</strong><br/>
-              ✅ Plant more trees<br/>
-              ✅ Save water and electricity<br/>
-              ✅ Reduce, Reuse, Recycle<br/>
-              ✅ Avoid plastic bags<br/>
-              ❌ Don't pollute rivers or cut trees
-            </div>
-            <h4>🌡️ Climate Change</h4>
-            <ul>
-              <li>Earth is getting warmer because of pollution — this is called Global Warming</li>
-              <li>It causes floods, droughts and melting of polar ice</li>
-              <li>We can help by using less fuel and planting more trees</li>
-            </ul>
-          `
-        }
-      ]
-    };
+  // =============================================
+  // SCIENCE NOTES — CLASS 1, 2, 3
+  // =============================================
+  const scienceNotes = {
+    "1": [
+      { title:"Chapter 1: Living & Non-Living Things", notes:`<h4>🌱 What are Living Things?</h4><p>Living things are those that are alive. They can grow, breathe, eat, move and reproduce.</p><div class="note-box"><strong>Examples of Living Things:</strong> Plants, Animals, Birds, Fish, Humans, Insects</div><h4>🪨 What are Non-Living Things?</h4><p>Non-living things do not grow, breathe or reproduce. They are not alive.</p><div class="note-box"><strong>Examples of Non-Living Things:</strong> Rock, Chair, Table, Car, Water, Air</div><h4>📌 Key Differences</h4><ul><li>Living things need food and water — non-living things do not</li><li>Living things grow and change — non-living things stay the same</li><li>Living things can reproduce — non-living things cannot</li><li>Living things breathe — non-living things do not</li></ul><div class="note-box"><strong>💡 Remember:</strong> All animals and plants are living things. Stones, toys and books are non-living things.</div>`,
+        quiz:[
+          {q:"Which of these is a living thing?",options:["Rock","Chair","Dog","Table"],answer:2,exp:"Dogs are living things — they breathe, grow and reproduce."},
+          {q:"Which of these is a non-living thing?",options:["Tree","Fish","Stone","Bird"],answer:2,exp:"A stone does not grow, breathe or reproduce — it is non-living."},
+          {q:"What do living things need to survive?",options:["Paint and colours","Food and water","Plastic and metal","Sand and stones"],answer:1,exp:"All living things need food and water to survive."},
+          {q:"Can non-living things reproduce?",options:["Yes, always","Sometimes","No, never","Only in summer"],answer:2,exp:"Non-living things cannot reproduce. Only living things can."}
+        ]
+      },
+      { title:"Chapter 2: Plants Around Us", notes:`<h4>🌿 Parts of a Plant</h4><ul><li><strong>Roots</strong> — Hold the plant in soil and absorb water</li><li><strong>Stem</strong> — Carries water and food to all parts</li><li><strong>Leaves</strong> — Make food for the plant using sunlight</li><li><strong>Flower</strong> — Helps the plant reproduce</li><li><strong>Fruit</strong> — Protects the seeds inside</li></ul><div class="note-box"><strong>💡 Fun Fact:</strong> Leaves are green because of Chlorophyll. It helps leaves make food from sunlight.</div><h4>🌞 What do Plants Need to Grow?</h4><ul><li>Sunlight ☀️</li><li>Water 💧</li><li>Soil 🌍</li><li>Air 🌬️</li></ul><div class="note-box"><strong>📌 Key Point:</strong> Plants make their own food using sunlight, water and air. This is called Photosynthesis.</div>`,
+        quiz:[
+          {q:"Which part of the plant absorbs water from the soil?",options:["Flower","Leaf","Root","Fruit"],answer:2,exp:"Roots absorb water and minerals from the soil."},
+          {q:"What makes leaves green?",options:["Sunlight","Water","Chlorophyll","Soil"],answer:2,exp:"Chlorophyll is the green substance in leaves that helps make food."},
+          {q:"What is the process by which plants make food called?",options:["Respiration","Photosynthesis","Digestion","Evaporation"],answer:1,exp:"Photosynthesis is how plants use sunlight, water and air to make food."},
+          {q:"Which part of the plant protects the seeds?",options:["Root","Stem","Leaf","Fruit"],answer:3,exp:"The fruit grows around the seed and protects it."}
+        ]
+      },
+      { title:"Chapter 3: Animals Around Us", notes:`<h4>🐾 Types of Animals</h4><ul><li><strong>Pet Animals</strong> — Dog, Cat, Rabbit</li><li><strong>Wild Animals</strong> — Lion, Tiger, Elephant</li><li><strong>Farm Animals</strong> — Cow, Goat, Hen</li><li><strong>Water Animals</strong> — Fish, Crocodile, Dolphin</li><li><strong>Birds</strong> — Parrot, Sparrow, Eagle</li></ul><div class="note-box"><strong>💡 Key Point:</strong> Herbivores eat only plants. Carnivores eat only meat. Omnivores eat both.</div><h4>🏠 Animal Homes</h4><ul><li>Dog — Kennel · Cow — Shed · Lion — Den · Bird — Nest · Rabbit — Burrow</li></ul>`,
+        quiz:[
+          {q:"What is an animal that eats only plants called?",options:["Carnivore","Omnivore","Herbivore","Predator"],answer:2,exp:"Herbivores eat only plants. Example: Cow, Rabbit, Deer."},
+          {q:"Where does a lion live?",options:["Kennel","Den","Nest","Burrow"],answer:1,exp:"A lion lives in a den."},
+          {q:"Which of these is a pet animal?",options:["Lion","Tiger","Dog","Elephant"],answer:2,exp:"Dogs are kept at home as pets."},
+          {q:"What do carnivores eat?",options:["Only plants","Only meat","Both plants and meat","Only fruits"],answer:1,exp:"Carnivores eat only meat. Example: Lion, Snake, Eagle."}
+        ]
+      },
+      { title:"Chapter 4: Our Body", notes:`<h4>👁️ Sense Organs</h4><ul><li>👀 Eyes — for seeing</li><li>👂 Ears — for hearing</li><li>👃 Nose — for smelling</li><li>👅 Tongue — for tasting</li><li>✋ Skin — for touching and feeling</li></ul><div class="note-box"><strong>💡 Remember:</strong> Take care of your body by eating healthy, exercising, sleeping well and staying clean.</div><h4>🦷 Keeping Healthy</h4><ul><li>Brush teeth twice a day</li><li>Wash hands before eating</li><li>Eat fruits and vegetables</li><li>Drink clean water</li><li>Exercise and play outdoors</li></ul>`,
+        quiz:[
+          {q:"Which sense organ is used for smelling?",options:["Eyes","Ears","Nose","Tongue"],answer:2,exp:"The nose is our sense organ for smelling."},
+          {q:"How many sense organs do we have?",options:["3","4","5","6"],answer:2,exp:"We have 5 sense organs: Eyes, Ears, Nose, Tongue and Skin."},
+          {q:"What should we do before eating food?",options:["Brush teeth","Wash hands","Comb hair","Wear shoes"],answer:1,exp:"We should always wash our hands before eating to stay healthy."},
+          {q:"Which organ helps us taste food?",options:["Eyes","Nose","Skin","Tongue"],answer:3,exp:"The tongue helps us taste food — sweet, sour, salty and bitter."}
+        ]
+      },
+      { title:"Chapter 5: Food We Eat", notes:`<h4>🍎 Types of Food</h4><ul><li><strong>Energy giving</strong> — Rice, Bread, Potato, Sugar</li><li><strong>Body building</strong> — Milk, Eggs, Meat, Dal</li><li><strong>Protective</strong> — Fruits, Vegetables</li></ul><div class="note-box"><strong>💡 Key Point:</strong> Eating all types of food together is called a Balanced Diet.</div><h4>🌾 Where Does Food Come From?</h4><ul><li>Plants — fruits, vegetables, grains, pulses</li><li>Animals — milk, eggs, meat, honey</li></ul><div class="note-box"><strong>📌 Remember:</strong> Avoid too much junk food — chips and sweets are not good for health.</div>`,
+        quiz:[
+          {q:"Which food gives us energy?",options:["Fruits","Rice and Bread","Milk","Vegetables"],answer:1,exp:"Rice, bread and potato are energy giving foods — they give us energy to work and play."},
+          {q:"What is a balanced diet?",options:["Eating only fruits","Eating only rice","Eating all types of food","Eating only meat"],answer:2,exp:"A balanced diet includes all types of food — energy giving, body building and protective foods."},
+          {q:"Which of these is a body building food?",options:["Sugar","Rice","Eggs","Mango"],answer:2,exp:"Eggs, milk and dal are body building foods that help us grow strong."},
+          {q:"Honey comes from which animal?",options:["Cow","Hen","Bee","Goat"],answer:2,exp:"Honey is made by bees in their hives."}
+        ]
+      }
+    ],
+    "2": [
+      { title:"Chapter 1: Plants — Types & Uses", notes:`<h4>🌳 Types of Plants</h4><ul><li><strong>Trees</strong> — Very tall, strong woody stem. Example: Mango, Neem, Banyan</li><li><strong>Shrubs</strong> — Medium height, woody stem near base. Example: Rose, Hibiscus</li><li><strong>Herbs</strong> — Small, soft green stem. Example: Mint, Coriander</li><li><strong>Climbers</strong> — Weak stem, climb on walls. Example: Money plant, Pea</li></ul><div class="note-box"><strong>💡 Uses of Plants:</strong> Food, Medicine, Wood, Paper, Shade and Oxygen</div>`,
+        quiz:[
+          {q:"Which type of plant has a very tall, strong woody stem?",options:["Herb","Shrub","Tree","Climber"],answer:2,exp:"Trees are very tall plants with strong woody stems. Example: Mango, Banyan."},
+          {q:"Which of these is a herb?",options:["Rose","Mango","Mint","Banyan"],answer:2,exp:"Mint is a herb — it has a small, soft green stem."},
+          {q:"What gas do plants give us?",options:["Carbon dioxide","Oxygen","Nitrogen","Hydrogen"],answer:1,exp:"Plants release oxygen during photosynthesis which we breathe to stay alive."},
+          {q:"Which plant is a climber?",options:["Neem","Money plant","Rose","Coriander"],answer:1,exp:"Money plant is a climber — it has a weak stem and climbs on walls or other plants."}
+        ]
+      },
+      { title:"Chapter 2: Animals — Habitat & Food", notes:`<h4>🏡 Animal Habitats</h4><ul><li><strong>Land animals</strong> — Lion, Elephant, Dog</li><li><strong>Water animals</strong> — Fish, Whale, Frog</li><li><strong>Aerial animals</strong> — Eagle, Bat, Butterfly</li><li><strong>Amphibians</strong> — live on both land and water (Frog, Crocodile)</li></ul><div class="note-box"><strong>Herbivores</strong> — Eat only plants (Cow, Rabbit)<br/><strong>Carnivores</strong> — Eat only animals (Lion, Snake)<br/><strong>Omnivores</strong> — Eat both (Human, Bear, Crow)</div>`,
+        quiz:[
+          {q:"What is the natural home of an animal called?",options:["Zoo","Habitat","Farm","Garden"],answer:1,exp:"A habitat is the natural home where an animal finds food, water and shelter."},
+          {q:"Which animal can live on both land and water?",options:["Eagle","Frog","Cow","Elephant"],answer:1,exp:"Frogs are amphibians — they can live on both land and in water."},
+          {q:"What does an omnivore eat?",options:["Only plants","Only meat","Both plants and meat","Only fruits"],answer:2,exp:"Omnivores eat both plants and animals. Humans, bears and crows are omnivores."},
+          {q:"Which of these is an aerial animal?",options:["Fish","Eagle","Cow","Frog"],answer:1,exp:"Eagles spend most of their time flying — they are aerial animals."}
+        ]
+      },
+      { title:"Chapter 3: Air, Water & Weather", notes:`<h4>💨 Air</h4><ul><li>Air is all around us — we cannot see it but can feel it</li><li>Moving air is called Wind</li><li>The most important gas in air is Oxygen</li></ul><h4>💧 Water</h4><ul><li>Water has 3 forms — Solid (Ice), Liquid (Water), Gas (Steam)</li></ul><div class="note-box"><strong>💡 Save Water:</strong> Always close taps. Water is precious!</div><h4>🌦️ Weather & Seasons</h4><ul><li>Types: Sunny, Rainy, Cloudy, Windy, Foggy</li><li>Seasons in India: Summer, Monsoon (Rainy), Winter</li></ul>`,
+        quiz:[
+          {q:"What is moving air called?",options:["Storm","Cloud","Wind","Fog"],answer:2,exp:"Moving air is called wind. Strong wind is called a storm."},
+          {q:"What is the solid form of water?",options:["Steam","Rain","Ice","Mist"],answer:2,exp:"Ice is the solid form of water. Water turns to ice when it freezes."},
+          {q:"Which gas in air is most important for breathing?",options:["Nitrogen","Oxygen","Carbon dioxide","Hydrogen"],answer:1,exp:"Oxygen is the most important gas for breathing. Plants produce oxygen."},
+          {q:"Which season brings heavy rainfall in India?",options:["Summer","Winter","Monsoon","Spring"],answer:2,exp:"The Monsoon season brings heavy rainfall to India, usually June to September."}
+        ]
+      },
+      { title:"Chapter 4: Rocks & Soil", notes:`<h4>🪨 Rocks</h4><ul><li>Rocks are hard materials found on Earth's surface</li><li>Used to build houses, roads and monuments</li></ul><h4>🌍 Types of Soil</h4><div class="note-box">🟫 Sandy soil — dry, water drains fast<br/>🟤 Clay soil — holds water well, sticky<br/>🌱 Loamy soil — best for growing plants</div>`,
+        quiz:[
+          {q:"Which type of soil is best for growing plants?",options:["Sandy","Clay","Loamy","Rocky"],answer:2,exp:"Loamy soil is the best for growing plants as it has the right nutrients and holds water well."},
+          {q:"What is soil made of?",options:["Only water","Only rocks","Tiny rock pieces, dead plants and animals","Only sand"],answer:2,exp:"Soil is made of tiny pieces of rock, dead plants and animals mixed together."},
+          {q:"Which soil holds water the best?",options:["Sandy","Loamy","Clay","Rocky"],answer:2,exp:"Clay soil holds water very well because it has very fine particles."},
+          {q:"What are rocks used for?",options:["Making clothes","Building houses and roads","Growing plants","Making food"],answer:1,exp:"Rocks are used to build houses, roads and monuments."}
+        ]
+      },
+      { title:"Chapter 5: Our Solar System", notes:`<h4>🌞 The Sun</h4><ul><li>The Sun is a star — a huge ball of hot gases</li><li>The Sun is the centre of our Solar System</li></ul><h4>🪐 8 Planets in order from the Sun</h4><div class="note-box">☿ Mercury → ♀ Venus → 🌍 Earth → ♂ Mars → ♃ Jupiter → ♄ Saturn → ⛢ Uranus → ♆ Neptune<br/><br/><strong>Trick:</strong> "My Very Educated Mother Just Served Us Noodles"</div><ul><li>Earth is the only planet with life</li><li>Jupiter is the biggest planet</li><li>Mercury is the smallest and closest to Sun</li></ul>`,
+        quiz:[
+          {q:"How many planets are in our Solar System?",options:["7","8","9","10"],answer:1,exp:"There are 8 planets in our Solar System."},
+          {q:"Which is the biggest planet?",options:["Earth","Saturn","Jupiter","Mars"],answer:2,exp:"Jupiter is the biggest planet in our Solar System."},
+          {q:"Which planet is closest to the Sun?",options:["Venus","Earth","Mars","Mercury"],answer:3,exp:"Mercury is the closest planet to the Sun."},
+          {q:"Which is the only planet with life?",options:["Mars","Venus","Earth","Jupiter"],answer:2,exp:"Earth is the only planet known to have life."}
+        ]
+      }
+    ],
+    "3": [
+      { title:"Chapter 1: Living World — Cells", notes:`<h4>🔬 What is a Cell?</h4><ul><li>All living things are made of tiny units called Cells</li><li>The cell is called the basic unit of life</li></ul><h4>🧫 Parts of a Cell</h4><ul><li><strong>Cell Membrane</strong> — Outer covering that protects the cell</li><li><strong>Nucleus</strong> — Controls all activities (the "brain" of the cell)</li><li><strong>Cytoplasm</strong> — Jelly-like fluid that fills the cell</li></ul><div class="note-box"><strong>Plant vs Animal Cell:</strong> Plant cells have a cell wall and chloroplasts. Animal cells do not.</div>`,
+        quiz:[
+          {q:"What is the basic unit of life?",options:["Tissue","Organ","Cell","Atom"],answer:2,exp:"The cell is called the basic unit of life. All living things are made of cells."},
+          {q:"Which part of the cell controls all its activities?",options:["Cell Membrane","Cytoplasm","Nucleus","Cell Wall"],answer:2,exp:"The nucleus controls all activities of the cell — it is like the brain of the cell."},
+          {q:"What does the cell membrane do?",options:["Makes food","Controls activities","Protects the cell","Stores water"],answer:2,exp:"The cell membrane is the outer covering that protects the cell."},
+          {q:"Which of these is found in plant cells but NOT animal cells?",options:["Nucleus","Cytoplasm","Cell Wall","Cell Membrane"],answer:2,exp:"Plant cells have a cell wall and chloroplasts which animal cells do not have."}
+        ]
+      },
+      { title:"Chapter 2: Food & Nutrition", notes:`<h4>🍽️ Nutrients in Food</h4><ul><li><strong>Carbohydrates</strong> — Give energy. Found in rice, bread, potato</li><li><strong>Proteins</strong> — Help grow and repair body. Found in dal, eggs, milk</li><li><strong>Fats</strong> — Give energy and warmth. Found in butter, oil, nuts</li><li><strong>Vitamins</strong> — Protect from diseases. Found in fruits and vegetables</li><li><strong>Minerals</strong> — Keep bones strong. Found in milk, green vegetables</li></ul><div class="note-box"><strong>💡 Balanced Diet:</strong> A meal containing all nutrients in right amounts.<br/><br/><strong>Deficiency Diseases:</strong><br/>Lack of Vitamin C → Scurvy · Lack of Vitamin D → Rickets · Lack of Iron → Anaemia</div>`,
+        quiz:[
+          {q:"Which nutrient gives us the most energy?",options:["Vitamins","Proteins","Carbohydrates","Minerals"],answer:2,exp:"Carbohydrates are the main energy giving nutrients. Found in rice, bread and potatoes."},
+          {q:"Which disease is caused by lack of Vitamin C?",options:["Rickets","Anaemia","Scurvy","Malaria"],answer:2,exp:"Lack of Vitamin C causes Scurvy — a disease that causes bleeding gums."},
+          {q:"Which food is rich in protein?",options:["Rice","Sugar","Eggs","Butter"],answer:2,exp:"Eggs are rich in protein which helps the body grow and repair itself."},
+          {q:"Which nutrient protects us from diseases?",options:["Carbohydrates","Fats","Vitamins","Water"],answer:2,exp:"Vitamins protect our body from diseases. Found mainly in fruits and vegetables."}
+        ]
+      },
+      { title:"Chapter 3: Matter & Materials", notes:`<h4>🧪 3 States of Matter</h4><ul><li><strong>Solid</strong> — Fixed shape and size. Example: Ice, Stone, Wood</li><li><strong>Liquid</strong> — Fixed volume, no fixed shape. Example: Water, Milk, Oil</li><li><strong>Gas</strong> — No fixed shape or volume. Example: Air, Steam, Smoke</li></ul><div class="note-box">🧊 Ice → 💧 Water → ♨️ Steam (by heating)<br/>♨️ Steam → 💧 Water → 🧊 Ice (by cooling)</div><h4>Changes</h4><ul><li><strong>Physical Change</strong> — No new substance formed (melting ice, cutting paper)</li><li><strong>Chemical Change</strong> — New substance formed (burning wood, cooking food, rusting iron)</li></ul>`,
+        quiz:[
+          {q:"Which state of matter has no fixed shape or volume?",options:["Solid","Liquid","Gas","All of these"],answer:2,exp:"Gas has no fixed shape or volume — it spreads to fill any container."},
+          {q:"What happens to ice when it is heated?",options:["It becomes gas","It becomes liquid water","It becomes bigger","Nothing happens"],answer:1,exp:"When ice is heated it melts and becomes liquid water."},
+          {q:"Which of these is a chemical change?",options:["Melting ice","Cutting paper","Burning wood","Folding cloth"],answer:2,exp:"Burning wood is a chemical change because a new substance (ash) is formed."},
+          {q:"What is the liquid form of water called?",options:["Ice","Steam","Water","Vapour"],answer:2,exp:"Water is the liquid form. Ice is solid and steam is the gas form of water."}
+        ]
+      },
+      { title:"Chapter 4: Force, Work & Energy", notes:`<h4>💪 Force</h4><ul><li>A push or pull applied on an object is called Force</li><li>Types: Push, Pull, Gravity, Magnetic force, Friction</li></ul><div class="note-box"><strong>Gravity:</strong> The force that pulls everything towards Earth. That's why things fall down!</div><h4>⚡ Energy</h4><ul><li>Energy is the ability to do work</li><li>Sources: Sun, Food, Wind, Water, Fuel</li><li>Forms: Light, Heat, Sound, Electrical, Mechanical</li></ul><div class="note-box"><strong>💡 Law of Conservation of Energy:</strong> Energy cannot be created or destroyed — only changed from one form to another.</div>`,
+        quiz:[
+          {q:"What is a push or pull on an object called?",options:["Energy","Work","Force","Power"],answer:2,exp:"A push or pull applied on an object is called Force."},
+          {q:"What force pulls everything towards the Earth?",options:["Magnetic force","Friction","Gravity","Electric force"],answer:2,exp:"Gravity is the force that pulls everything towards the Earth."},
+          {q:"Which is NOT a form of energy?",options:["Light","Heat","Force","Sound"],answer:2,exp:"Force is not a form of energy. Light, heat and sound are forms of energy."},
+          {q:"What is the main source of energy for Earth?",options:["Moon","Wind","Sun","Water"],answer:2,exp:"The Sun is the main source of energy for Earth — it gives us light and heat."}
+        ]
+      },
+      { title:"Chapter 5: Earth & Environment", notes:`<h4>🌍 Layers of the Earth</h4><ul><li><strong>Crust</strong> — Outermost layer, where we live</li><li><strong>Mantle</strong> — Hot semi-solid rock layer</li><li><strong>Core</strong> — Innermost layer, very hot molten metal</li></ul><h4>🌊 Natural Resources</h4><ul><li><strong>Renewable</strong> — Sunlight, Wind, Water (can be used again)</li><li><strong>Non-renewable</strong> — Coal, Petroleum (will run out)</li></ul><div class="note-box"><strong>🌱 Protect Environment:</strong> Plant trees · Save water · Reduce, Reuse, Recycle · Avoid plastic</div>`,
+        quiz:[
+          {q:"Which is the outermost layer of the Earth?",options:["Core","Mantle","Crust","Surface"],answer:2,exp:"The crust is the outermost layer of the Earth — it is where we live."},
+          {q:"Which of these is a renewable resource?",options:["Coal","Petroleum","Sunlight","Natural Gas"],answer:2,exp:"Sunlight is a renewable resource — it can be used again and again and will not run out."},
+          {q:"What does 'Reduce, Reuse, Recycle' help us do?",options:["Make more plastic","Protect the environment","Use more fuel","Cut more trees"],answer:1,exp:"Reduce, Reuse, Recycle helps us protect the environment by reducing waste."},
+          {q:"Which layer of Earth is the innermost?",options:["Crust","Mantle","Core","Soil"],answer:2,exp:"The core is the innermost layer of the Earth and is made of very hot molten metal."}
+        ]
+      }
+    ]
+  };
 
-    // Load correct class notes based on URL
-    // =============================================
-    // ALL MATH NOTES — CLASS 1, 2, 3
-    // =============================================
-    const mathNotes = {
-      "1": [
-        {
-          title: "Chapter 1: Numbers 1–100",
-          notes: `
-            <h4>🔢 Counting Numbers</h4>
-            <ul>
-              <li>Numbers help us count objects around us</li>
-              <li>We count: 1, 2, 3, 4, 5 ... up to 100</li>
-              <li>0 (Zero) means nothing or empty</li>
-            </ul>
-            <div class="note-box"><strong>💡 Number Names:</strong><br/>
-              1=One, 2=Two, 3=Three, 4=Four, 5=Five<br/>
-              6=Six, 7=Seven, 8=Eight, 9=Nine, 10=Ten<br/>
-              11=Eleven, 12=Twelve, 13=Thirteen, 20=Twenty, 100=Hundred
-            </div>
-            <h4>📌 Before, After & Between</h4>
-            <ul>
-              <li>Number before 5 is 4</li>
-              <li>Number after 5 is 6</li>
-              <li>Number between 4 and 6 is 5</li>
-            </ul>
-            <h4>⬆️ Comparing Numbers</h4>
-            <ul>
-              <li>Greater than → 8 > 5 (8 is greater than 5)</li>
-              <li>Less than → 3 < 7 (3 is less than 7)</li>
-              <li>Equal to → 4 = 4</li>
-            </ul>
-          `
-        },
-        {
-          title: "Chapter 2: Addition",
-          notes: `
-            <h4>➕ What is Addition?</h4>
-            <p>Adding means putting two or more numbers together to get a bigger number.</p>
-            <div class="note-box"><strong>Symbol:</strong> + (Plus sign)<br/>
-              Example: 3 + 4 = 7<br/>
-              (3 apples and 4 apples together = 7 apples)
-            </div>
-            <h4>📌 Important Rules</h4>
-            <ul>
-              <li>Adding 0 to any number gives the same number: 5 + 0 = 5</li>
-              <li>Order doesn't matter: 2 + 3 = 3 + 2 = 5</li>
-            </ul>
-            <h4>🧮 Practice</h4>
-            <ul>
-              <li>1 + 1 = 2</li>
-              <li>5 + 3 = 8</li>
-              <li>7 + 2 = 9</li>
-              <li>6 + 4 = 10</li>
-              <li>10 + 5 = 15</li>
-            </ul>
-            <div class="note-box"><strong>💡 Tip:</strong> Start with the bigger number and count forward. Example: 7 + 3 → start at 7, count 3 more → 8, 9, 10 ✅</div>
-          `
-        },
-        {
-          title: "Chapter 3: Subtraction",
-          notes: `
-            <h4>➖ What is Subtraction?</h4>
-            <p>Subtraction means taking away a number from another to get a smaller number.</p>
-            <div class="note-box"><strong>Symbol:</strong> − (Minus sign)<br/>
-              Example: 8 − 3 = 5<br/>
-              (8 mangoes, ate 3 = 5 left)
-            </div>
-            <h4>📌 Important Rules</h4>
-            <ul>
-              <li>Subtracting 0 gives the same number: 6 − 0 = 6</li>
-              <li>A number minus itself = 0: 5 − 5 = 0</li>
-              <li>We CANNOT subtract a bigger number from smaller number (at this level)</li>
-            </ul>
-            <h4>🧮 Practice</h4>
-            <ul>
-              <li>5 − 2 = 3</li>
-              <li>9 − 4 = 5</li>
-              <li>10 − 7 = 3</li>
-              <li>8 − 8 = 0</li>
-              <li>15 − 5 = 10</li>
-            </ul>
-            <div class="note-box"><strong>💡 Tip:</strong> Addition and subtraction are opposites. If 3 + 4 = 7, then 7 − 4 = 3 ✅</div>
-          `
-        },
-        {
-          title: "Chapter 4: Shapes & Patterns",
-          notes: `
-            <h4>🔷 Basic 2D Shapes</h4>
-            <ul>
-              <li><strong>Circle ⭕</strong> — Round, no corners, no sides. Example: Coin, Wheel</li>
-              <li><strong>Square 🟥</strong> — 4 equal sides, 4 corners. Example: Dice face</li>
-              <li><strong>Rectangle</strong> — 4 sides (2 long, 2 short), 4 corners. Example: Book, Door</li>
-              <li><strong>Triangle 🔺</strong> — 3 sides, 3 corners. Example: Pizza slice</li>
-            </ul>
-            <div class="note-box"><strong>💡 Remember:</strong> Count the sides to name the shape! 3 sides = Triangle, 4 equal sides = Square</div>
-            <h4>🔁 Patterns</h4>
-            <ul>
-              <li>A pattern is something that repeats itself</li>
-              <li>Example: 🔴🔵🔴🔵🔴 → next is 🔵</li>
-              <li>Example: 1, 2, 3, 1, 2, 3 → next is 1</li>
-            </ul>
-          `
-        },
-        {
-          title: "Chapter 5: Measurement & Time",
-          notes: `
-            <h4>📏 Measurement</h4>
-            <ul>
-              <li>We measure length to find how long or short something is</li>
-              <li>We use a ruler or scale to measure</li>
-              <li>Unit of length: Centimetre (cm) and Metre (m)</li>
-              <li>100 cm = 1 metre</li>
-            </ul>
-            <h4>⚖️ Weight</h4>
-            <ul>
-              <li>Weight tells us how heavy something is</li>
-              <li>Unit: Gram (g) and Kilogram (kg)</li>
-              <li>1000 g = 1 kg</li>
-            </ul>
-            <h4>🕐 Time</h4>
-            <ul>
-              <li>A clock has 2 hands — short (hour) and long (minute)</li>
-              <li>60 minutes = 1 hour</li>
-              <li>24 hours = 1 day</li>
-              <li>7 days = 1 week</li>
-              <li>12 months = 1 year</li>
-            </ul>
-            <div class="note-box"><strong>💡 Months in order:</strong> January, February, March, April, May, June, July, August, September, October, November, December</div>
-          `
-        }
-      ],
-      "2": [
-        {
-          title: "Chapter 1: Numbers up to 1000",
-          notes: `
-            <h4>🔢 Place Value</h4>
-            <p>Every digit in a number has a place value depending on its position.</p>
-            <div class="note-box">
-              In the number <strong>345</strong>:<br/>
-              3 is in Hundreds place → value = 300<br/>
-              4 is in Tens place → value = 40<br/>
-              5 is in Ones place → value = 5<br/>
-              So 345 = 300 + 40 + 5
-            </div>
-            <h4>📌 Expanded Form</h4>
-            <ul>
-              <li>256 = 200 + 50 + 6</li>
-              <li>709 = 700 + 0 + 9</li>
-            </ul>
-            <h4>⬆️ Comparing 3-digit Numbers</h4>
-            <ul>
-              <li>Compare Hundreds first — bigger hundreds = bigger number</li>
-              <li>If hundreds are equal, compare Tens</li>
-              <li>If tens are equal, compare Ones</li>
-            </ul>
-            <div class="note-box"><strong>Example:</strong> 456 vs 432 → both have 4 hundreds → compare tens: 5 > 3 → so 456 > 432 ✅</div>
-          `
-        },
-        {
-          title: "Chapter 2: Addition with Carrying",
-          notes: `
-            <h4>➕ Adding 2-digit Numbers</h4>
-            <p>When the sum of digits in a column is 10 or more, we carry over to the next column.</p>
-            <div class="note-box">
-              <strong>Example: 47 + 36</strong><br/>
-              Step 1: Add Ones → 7 + 6 = 13 → write 3, carry 1<br/>
-              Step 2: Add Tens → 4 + 3 + 1(carry) = 8<br/>
-              Answer: <strong>83</strong>
-            </div>
-            <h4>🧮 Practice</h4>
-            <ul>
-              <li>25 + 18 = 43</li>
-              <li>56 + 37 = 93</li>
-              <li>49 + 25 = 74</li>
-              <li>68 + 15 = 83</li>
-            </ul>
-            <div class="note-box"><strong>💡 Always</strong> start adding from the Ones column (right side), then move left!</div>
-          `
-        },
-        {
-          title: "Chapter 3: Multiplication",
-          notes: `
-            <h4>✖️ What is Multiplication?</h4>
-            <p>Multiplication is repeated addition of the same number.</p>
-            <div class="note-box">
-              3 × 4 = 4 + 4 + 4 = 12<br/>
-              (3 groups of 4 = 12)
-            </div>
-            <h4>📌 Multiplication Tables (Learn by Heart!)</h4>
-            <ul>
-              <li>2 × 1=2, 2×2=4, 2×3=6, 2×4=8, 2×5=10</li>
-              <li>3 × 1=3, 3×2=6, 3×3=9, 3×4=12, 3×5=15</li>
-              <li>4 × 1=4, 4×2=8, 4×3=12, 4×4=16, 4×5=20</li>
-              <li>5 × 1=5, 5×2=10, 5×3=15, 5×4=20, 5×5=25</li>
-            </ul>
-            <h4>📌 Important Rules</h4>
-            <ul>
-              <li>Any number × 0 = 0 (5 × 0 = 0)</li>
-              <li>Any number × 1 = same number (7 × 1 = 7)</li>
-              <li>Order doesn't matter: 3 × 4 = 4 × 3 = 12</li>
-            </ul>
-          `
-        },
-        {
-          title: "Chapter 4: Division",
-          notes: `
-            <h4>➗ What is Division?</h4>
-            <p>Division means sharing equally or grouping into equal parts.</p>
-            <div class="note-box">
-              <strong>Example:</strong> 12 ÷ 3 = 4<br/>
-              (12 chocolates shared among 3 friends = 4 each)
-            </div>
-            <h4>📌 Important Terms</h4>
-            <ul>
-              <li><strong>Dividend</strong> — The number being divided (12)</li>
-              <li><strong>Divisor</strong> — The number we divide by (3)</li>
-              <li><strong>Quotient</strong> — The answer (4)</li>
-              <li><strong>Remainder</strong> — What is left over after division</li>
-            </ul>
-            <h4>🧮 Practice</h4>
-            <ul>
-              <li>10 ÷ 2 = 5</li>
-              <li>15 ÷ 3 = 5</li>
-              <li>20 ÷ 4 = 5</li>
-              <li>18 ÷ 6 = 3</li>
-            </ul>
-            <div class="note-box"><strong>💡 Tip:</strong> Division is the opposite of multiplication! If 3 × 4 = 12, then 12 ÷ 3 = 4 ✅</div>
-          `
-        },
-        {
-          title: "Chapter 5: Fractions",
-          notes: `
-            <h4>🍕 What is a Fraction?</h4>
-            <p>A fraction represents a part of a whole.</p>
-            <div class="note-box">
-              If a pizza is cut into 4 equal parts and you eat 1 part:<br/>
-              You ate <strong>1/4</strong> (one-fourth) of the pizza<br/><br/>
-              <strong>Top number</strong> = Numerator (parts taken)<br/>
-              <strong>Bottom number</strong> = Denominator (total equal parts)
-            </div>
-            <h4>📌 Common Fractions</h4>
-            <ul>
-              <li>1/2 = One half (1 part out of 2 equal parts)</li>
-              <li>1/3 = One third (1 part out of 3 equal parts)</li>
-              <li>1/4 = One quarter (1 part out of 4 equal parts)</li>
-              <li>2/4 = Two quarters = 1/2 (same value!)</li>
-            </ul>
-            <div class="note-box"><strong>💡 Remember:</strong> When numerator = denominator, the fraction = 1 whole. Example: 4/4 = 1</div>
-          `
-        }
-      ],
-      "3": [
-        {
-          title: "Chapter 1: Numbers up to 10,000",
-          notes: `
-            <h4>🔢 4-Digit Numbers</h4>
-            <div class="note-box">
-              In the number <strong>4,567</strong>:<br/>
-              4 → Thousands place → 4000<br/>
-              5 → Hundreds place → 500<br/>
-              6 → Tens place → 60<br/>
-              7 → Ones place → 7<br/>
-              4567 = 4000 + 500 + 60 + 7
-            </div>
-            <h4>📌 Roman Numerals</h4>
-            <ul>
-              <li>I = 1, V = 5, X = 10, L = 50, C = 100</li>
-              <li>II = 2, III = 3, IV = 4, VI = 6, IX = 9</li>
-              <li>XI = 11, XX = 20, XL = 40, XC = 90</li>
-            </ul>
-            <div class="note-box"><strong>Rules:</strong> When smaller value is before larger → subtract (IV = 5−1 = 4). When smaller value is after larger → add (VI = 5+1 = 6)</div>
-          `
-        },
-        {
-          title: "Chapter 2: Large Number Operations",
-          notes: `
-            <h4>➕ Addition of Large Numbers</h4>
-            <div class="note-box">
-              <strong>Example: 3456 + 2378</strong><br/>
-              Ones: 6+8=14 → write 4, carry 1<br/>
-              Tens: 5+7+1=13 → write 3, carry 1<br/>
-              Hundreds: 4+3+1=8<br/>
-              Thousands: 3+2=5<br/>
-              <strong>Answer: 5834</strong>
-            </div>
-            <h4>➖ Subtraction with Borrowing</h4>
-            <div class="note-box">
-              <strong>Example: 5000 − 1234</strong><br/>
-              Borrow from the next column when top digit is smaller than bottom digit.<br/>
-              <strong>Answer: 3766</strong>
-            </div>
-            <h4>✖️ Multiplication by 2-digit numbers</h4>
-            <ul>
-              <li>56 × 12 = 56 × 10 + 56 × 2 = 560 + 112 = 672</li>
-            </ul>
-          `
-        },
-        {
-          title: "Chapter 3: Geometry",
-          notes: `
-            <h4>📐 Lines</h4>
-            <ul>
-              <li><strong>Straight line</strong> — Goes in one direction without bending</li>
-              <li><strong>Curved line</strong> — Bends or curves</li>
-              <li><strong>Parallel lines</strong> — Two lines that never meet (like railway tracks)</li>
-              <li><strong>Perpendicular lines</strong> — Two lines that meet at 90° (right angle)</li>
-            </ul>
-            <h4>🔺 Triangles</h4>
-            <ul>
-              <li><strong>Equilateral</strong> — All 3 sides equal</li>
-              <li><strong>Isosceles</strong> — 2 sides equal</li>
-              <li><strong>Scalene</strong> — No sides equal</li>
-              <li><strong>Right-angled</strong> — One angle is 90°</li>
-            </ul>
-            <div class="note-box"><strong>💡 Angles:</strong> Acute angle < 90° · Right angle = 90° · Obtuse angle > 90°</div>
-            <h4>3D Shapes</h4>
-            <ul>
-              <li>Cube — 6 faces, 12 edges, 8 corners (dice)</li>
-              <li>Cuboid — 6 rectangular faces (box)</li>
-              <li>Sphere — Perfectly round (ball)</li>
-              <li>Cylinder — 2 circular faces (tin can)</li>
-              <li>Cone — 1 circular base, pointed top (ice cream cone)</li>
-            </ul>
-          `
-        },
-        {
-          title: "Chapter 4: Decimals & Money",
-          notes: `
-            <h4>💰 Money (Indian Currency)</h4>
-            <ul>
-              <li>100 Paise = 1 Rupee (₹1)</li>
-              <li>Coins: 50p, ₹1, ₹2, ₹5, ₹10</li>
-              <li>Notes: ₹10, ₹20, ₹50, ₹100, ₹200, ₹500</li>
-            </ul>
-            <div class="note-box">
-              <strong>Example:</strong> ₹45.75 means 45 Rupees and 75 Paise<br/>
-              The dot (.) separates Rupees from Paise — this is a decimal point
-            </div>
-            <h4>🔢 Decimals</h4>
-            <ul>
-              <li>A decimal number has a whole part and a fraction part separated by a dot</li>
-              <li>3.5 = 3 whole and 5 tenths</li>
-              <li>0.1 = one tenth, 0.01 = one hundredth</li>
-            </ul>
-            <h4>🧮 Money Problems</h4>
-            <ul>
-              <li>Cost of pencil = ₹5, Cost of eraser = ₹3 → Total = ₹8</li>
-              <li>Paid ₹50, spent ₹32 → Change = ₹50 − ₹32 = ₹18</li>
-            </ul>
-          `
-        },
-        {
-          title: "Chapter 5: Data & Graphs",
-          notes: `
-            <h4>📊 Data</h4>
-            <p>Data means collection of facts and numbers that give us information.</p>
-            <div class="note-box">
-              <strong>Example:</strong> Favourite fruits of 10 students:<br/>
-              Mango: 4 students, Apple: 3 students, Banana: 3 students<br/>
-              This information is called data.
-            </div>
-            <h4>📈 Types of Graphs</h4>
-            <ul>
-              <li><strong>Tally Chart</strong> — Uses marks (||||) to count data quickly</li>
-              <li><strong>Pictograph</strong> — Uses pictures/symbols to show data</li>
-              <li><strong>Bar Graph</strong> — Uses bars of different heights to compare data</li>
-            </ul>
-            <h4>📌 Reading a Bar Graph</h4>
-            <ul>
-              <li>X-axis (horizontal) — shows categories</li>
-              <li>Y-axis (vertical) — shows numbers/values</li>
-              <li>Taller bar = bigger value</li>
-            </ul>
-            <div class="note-box"><strong>💡 Key Terms:</strong> The number that appears most in data is called Mode. The middle value when data is arranged in order is called Median.</div>
-          `
-        }
-      ]
-    };
-    const params = new URLSearchParams(window.location.search);
-    const cls = params.get('class') || '1';
-    const subject = params.get('subject') || 'science';
-    // =============================================
-    // ALL LANGUAGE/ENGLISH NOTES — CLASS 1, 2, 3
-    // =============================================
-    const languageNotes = {
-      "1": [
-        {
-          title: "Chapter 1: Alphabet & Phonics",
-          notes: `
-            <h4>🔤 The Alphabet</h4>
-            <ul>
-              <li>The English alphabet has <strong>26 letters</strong></li>
-              <li>Letters: A B C D E F G H I J K L M N O P Q R S T U V W X Y Z</li>
-              <li>Each letter has a Capital (uppercase) and a small (lowercase) form</li>
-            </ul>
-            <div class="note-box">
-              <strong>Vowels (5):</strong> A, E, I, O, U<br/>
-              <strong>Consonants (21):</strong> All other letters<br/>
-              💡 Every word must have at least one vowel!
-            </div>
-            <h4>🔊 Phonics — Letter Sounds</h4>
-            <ul>
-              <li>A — /a/ as in Apple</li>
-              <li>B — /b/ as in Ball</li>
-              <li>C — /k/ as in Cat</li>
-              <li>D — /d/ as in Dog</li>
-              <li>E — /e/ as in Egg</li>
-              <li>F — /f/ as in Fish</li>
-              <li>G — /g/ as in Girl</li>
-              <li>H — /h/ as in Hat</li>
-            </ul>
-            <div class="note-box"><strong>💡 Tip:</strong> Phonics helps us read and spell words by learning the sound each letter makes.</div>
-          `
-        },
-        {
-          title: "Chapter 2: Words & Vocabulary",
-          notes: `
-            <h4>📖 Building Words</h4>
-            <ul>
-              <li>Letters join together to make words</li>
-              <li>Short words (3 letters): Cat, Dog, Hat, Bat, Pen, Cup</li>
-              <li>Longer words: Apple, Mango, Table, Happy</li>
-            </ul>
-            <h4>🌈 Colours</h4>
-            <ul>
-              <li>Red, Blue, Yellow, Green, Orange, Purple, Pink, White, Black, Brown</li>
-            </ul>
-            <h4>🔢 Number Words</h4>
-            <ul>
-              <li>One, Two, Three, Four, Five, Six, Seven, Eight, Nine, Ten</li>
-            </ul>
-            <h4>📅 Days of the Week</h4>
-            <div class="note-box">
-              Monday, Tuesday, Wednesday, Thursday, Friday, Saturday, Sunday<br/>
-              💡 Week starts on Monday and ends on Sunday
-            </div>
-            <h4>🍎 Opposite Words</h4>
-            <ul>
-              <li>Big ↔ Small · Hot ↔ Cold · Day ↔ Night</li>
-              <li>Happy ↔ Sad · Fast ↔ Slow · Up ↔ Down</li>
-            </ul>
-          `
-        },
-        {
-          title: "Chapter 3: Nouns",
-          notes: `
-            <h4>📌 What is a Noun?</h4>
-            <p>A noun is a naming word. It is the name of a person, place, animal or thing.</p>
-            <div class="note-box">
-              <strong>Person:</strong> Girl, Boy, Teacher, Mother, Doctor<br/>
-              <strong>Place:</strong> School, Park, India, Market, Garden<br/>
-              <strong>Animal:</strong> Cat, Dog, Lion, Parrot, Elephant<br/>
-              <strong>Thing:</strong> Book, Pen, Chair, Table, Mango
-            </div>
-            <h4>📌 Singular & Plural</h4>
-            <ul>
-              <li>Singular = one (Cat, Book, Boy)</li>
-              <li>Plural = more than one (Cats, Books, Boys)</li>
-            </ul>
-            <div class="note-box">
-              <strong>Rules to make plural:</strong><br/>
-              Most words → add 's': Cat→Cats, Dog→Dogs<br/>
-              Words ending in s, sh, ch, x → add 'es': Bus→Buses, Box→Boxes<br/>
-              Words ending in y → change y to 'ies': Baby→Babies
-            </div>
-          `
-        },
-        {
-          title: "Chapter 4: Sentences",
-          notes: `
-            <h4>✏️ What is a Sentence?</h4>
-            <p>A sentence is a group of words that makes complete sense.</p>
-            <div class="note-box">
-              ✅ <strong>Sentence:</strong> The dog is running. (makes sense)<br/>
-              ❌ <strong>Not a sentence:</strong> Dog running the. (no sense)
-            </div>
-            <h4>📌 Parts of a Sentence</h4>
-            <ul>
-              <li><strong>Subject</strong> — Who or what the sentence is about: <em>The cat</em> sat on the mat.</li>
-              <li><strong>Predicate</strong> — What the subject does: The cat <em>sat on the mat.</em></li>
-            </ul>
-            <h4>📌 Types of Sentences</h4>
-            <ul>
-              <li><strong>Statement</strong> — Tells something. Ends with (.) → The sky is blue.</li>
-              <li><strong>Question</strong> — Asks something. Ends with (?) → What is your name?</li>
-              <li><strong>Exclamation</strong> — Shows strong feeling. Ends with (!) → What a beautiful flower!</li>
-              <li><strong>Command</strong> — Gives an order. → Close the door.</li>
-            </ul>
-            <div class="note-box"><strong>💡 Capital Letters:</strong> Always start a sentence with a capital letter and end with a full stop, question mark or exclamation mark.</div>
-          `
-        },
-        {
-          title: "Chapter 5: Reading & Comprehension",
-          notes: `
-            <h4>📖 How to Read a Passage</h4>
-            <ul>
-              <li>Read the passage carefully at least twice</li>
-              <li>Understand what it is about before answering questions</li>
-              <li>Look for keywords in the questions and find them in the passage</li>
-              <li>Answer in complete sentences</li>
-            </ul>
-            <div class="note-box">
-              <strong>Sample Passage:</strong><br/>
-              "Riya has a dog named Bruno. Bruno is brown and white. He loves to run and play in the garden. Riya feeds Bruno every morning."<br/><br/>
-              <strong>Q: What is the dog's name?</strong> → Bruno<br/>
-              <strong>Q: What colour is Bruno?</strong> → Brown and white
-            </div>
-            <h4>✍️ Writing Tips</h4>
-            <ul>
-              <li>Start with a capital letter</li>
-              <li>Leave spaces between words</li>
-              <li>End with a full stop</li>
-              <li>Use neat handwriting</li>
-            </ul>
-          `
-        }
-      ],
-      "2": [
-        {
-          title: "Chapter 1: Pronouns & Adjectives",
-          notes: `
-            <h4>👤 Pronouns</h4>
-            <p>A pronoun is a word used instead of a noun to avoid repetition.</p>
-            <div class="note-box">
-              Instead of: "Riya went to school. Riya carried Riya's bag."<br/>
-              We say: "Riya went to school. <strong>She</strong> carried <strong>her</strong> bag."
-            </div>
-            <h4>📌 Common Pronouns</h4>
-            <ul>
-              <li><strong>I, Me, My, Mine</strong> — for yourself</li>
-              <li><strong>You, Your, Yours</strong> — for the person you talk to</li>
-              <li><strong>He, Him, His</strong> — for a boy/man</li>
-              <li><strong>She, Her, Hers</strong> — for a girl/woman</li>
-              <li><strong>It, Its</strong> — for a thing or animal</li>
-              <li><strong>We, Us, Our</strong> — for a group including yourself</li>
-              <li><strong>They, Them, Their</strong> — for other people or things</li>
-            </ul>
-            <h4>🌟 Adjectives</h4>
-            <p>An adjective is a describing word. It tells us more about a noun.</p>
-            <div class="note-box">
-              The <strong>tall</strong> tree. (tall describes the tree)<br/>
-              A <strong>sweet</strong> mango. (sweet describes the mango)<br/>
-              <strong>Types:</strong> Size (big, small), Colour (red, blue), Shape (round, square), Quality (soft, hard), Number (three, many)
-            </div>
-          `
-        },
-        {
-          title: "Chapter 2: Verbs & Tenses",
-          notes: `
-            <h4>⚡ Verbs — Action Words</h4>
-            <p>A verb is a doing word. It tells us what someone or something does.</p>
-            <div class="note-box">
-              The boy <strong>runs</strong> fast.<br/>
-              She <strong>eats</strong> an apple.<br/>
-              The bird <strong>flies</strong> high.
-            </div>
-            <h4>🕐 Tenses — When the action happens</h4>
-            <ul>
-              <li><strong>Present Tense</strong> — Action happening now → I <em>eat</em> rice.</li>
-              <li><strong>Past Tense</strong> — Action already done → I <em>ate</em> rice.</li>
-              <li><strong>Future Tense</strong> — Action will happen → I <em>will eat</em> rice.</li>
-            </ul>
-            <div class="note-box">
-              <strong>Common Past Tense forms:</strong><br/>
-              Go → Went · Come → Came · Eat → Ate<br/>
-              Run → Ran · See → Saw · Write → Wrote<br/>
-              Play → Played · Jump → Jumped · Talk → Talked
-            </div>
-          `
-        },
-        {
-          title: "Chapter 3: Punctuation",
-          notes: `
-            <h4>✏️ Why is Punctuation Important?</h4>
-            <p>Punctuation marks help us read and understand sentences correctly. Without them, sentences are confusing!</p>
-            <h4>📌 Punctuation Marks</h4>
-            <ul>
-              <li><strong>Full Stop (.)</strong> — Ends a statement: I love reading.</li>
-              <li><strong>Question Mark (?)</strong> — Ends a question: Where are you going?</li>
-              <li><strong>Exclamation Mark (!)</strong> — Shows excitement or surprise: Wow, that is amazing!</li>
-              <li><strong>Comma (,)</strong> — Short pause, separates items in a list: I have a pen, pencil, eraser and ruler.</li>
-              <li><strong>Apostrophe (')</strong> — Shows ownership or shortens words: Riya's bag. Don't = Do not.</li>
-              <li><strong>Inverted Commas (" ")</strong> — Shows someone's exact words: She said, "I am happy."</li>
-            </ul>
-            <div class="note-box"><strong>💡 Tip:</strong> Always read your writing again and check if you have used correct punctuation marks!</div>
-          `
-        },
-        {
-          title: "Chapter 4: Story Writing",
-          notes: `
-            <h4>📖 Parts of a Good Story</h4>
-            <ul>
-              <li><strong>Beginning</strong> — Introduce characters and setting. Where? Who?</li>
-              <li><strong>Middle</strong> — The main event or problem. What happened?</li>
-              <li><strong>End</strong> — How the problem was solved. How did it end?</li>
-            </ul>
-            <div class="note-box">
-              <strong>Sample Story:</strong><br/>
-              <em>One day, Raju found a lost puppy in the park. The puppy was hungry and scared. Raju gave it some food and water. He took it home and looked after it. The puppy became his best friend.</em><br/><br/>
-              Beginning: Raju found a puppy<br/>
-              Middle: Puppy was hungry and scared<br/>
-              End: Puppy became his best friend ✅
-            </div>
-            <h4>✍️ Useful Story Words</h4>
-            <ul>
-              <li><strong>To start:</strong> One day, Once upon a time, Long ago</li>
-              <li><strong>In the middle:</strong> Suddenly, After that, Meanwhile, Then</li>
-              <li><strong>To end:</strong> Finally, At last, In the end, And so</li>
-            </ul>
-          `
-        },
-        {
-          title: "Chapter 5: Letter Writing",
-          notes: `
-            <h4>✉️ Types of Letters</h4>
-            <ul>
-              <li><strong>Informal Letter</strong> — Written to friends and family (friendly, casual tone)</li>
-              <li><strong>Formal Letter</strong> — Written to teachers, principals, offices (polite, professional tone)</li>
-            </ul>
-            <h4>📌 Format of an Informal Letter</h4>
-            <div class="note-box">
-              <strong>Your Address</strong><br/>
-              <strong>Date</strong><br/><br/>
-              Dear [Name],<br/><br/>
-              [Opening — How are you? I hope you are well.]<br/>
-              [Main Content — Reason for writing]<br/>
-              [Closing — Looking forward to hearing from you.]<br/><br/>
-              Your loving friend,<br/>
-              [Your Name]
-            </div>
-            <h4>📌 Format of a Formal Letter</h4>
-            <div class="note-box">
-              <strong>Your Address</strong><br/>
-              <strong>Date</strong><br/>
-              <strong>To,</strong><br/>
-              The Principal,<br/>
-              [School Name]<br/><br/>
-              Subject: [Topic in one line]<br/><br/>
-              Respected Sir/Madam,<br/>
-              [Body of letter]<br/><br/>
-              Yours obediently,<br/>
-              [Your Name]
-            </div>
-          `
-        }
-      ],
-      "3": [
-        {
-          title: "Chapter 1: Parts of Speech",
-          notes: `
-            <h4>📚 The 8 Parts of Speech</h4>
-            <ul>
-              <li><strong>Noun</strong> — Naming word: Dog, India, Happiness</li>
-              <li><strong>Pronoun</strong> — Replaces noun: He, She, They, It</li>
-              <li><strong>Verb</strong> — Action/doing word: Run, Eat, Sleep, Think</li>
-              <li><strong>Adjective</strong> — Describes noun: Beautiful, Tall, Sweet</li>
-              <li><strong>Adverb</strong> — Describes verb: Quickly, Softly, Very, Always</li>
-              <li><strong>Preposition</strong> — Shows relation: In, On, Under, Between, Behind</li>
-              <li><strong>Conjunction</strong> — Joins words/sentences: And, But, Or, Because, So</li>
-              <li><strong>Interjection</strong> — Expresses emotion: Wow! Ouch! Hurray! Oh!</li>
-            </ul>
-            <div class="note-box"><strong>💡 Trick to Remember:</strong> "Never Prefer Very Active People Before Considering Interest" — first letters spell out the 8 parts!</div>
-          `
-        },
-        {
-          title: "Chapter 2: Degrees of Comparison",
-          notes: `
-            <h4>📊 Comparing with Adjectives</h4>
-            <p>We use 3 forms of adjectives to compare people or things.</p>
-            <div class="note-box">
-              <strong>Positive</strong> — Describes one thing: Ram is <em>tall</em>.<br/>
-              <strong>Comparative</strong> — Compares two: Ram is <em>taller</em> than Shyam.<br/>
-              <strong>Superlative</strong> — Compares more than two: Ram is the <em>tallest</em> in the class.
-            </div>
-            <h4>📌 Common Examples</h4>
-            <ul>
-              <li>Big → Bigger → Biggest</li>
-              <li>Small → Smaller → Smallest</li>
-              <li>Fast → Faster → Fastest</li>
-              <li>Happy → Happier → Happiest</li>
-              <li>Good → Better → Best</li>
-              <li>Bad → Worse → Worst</li>
-              <li>Far → Farther → Farthest</li>
-            </ul>
-            <div class="note-box"><strong>💡 Rule:</strong> Short adjectives add -er/-est. Long adjectives use more/most. Example: more beautiful, most beautiful</div>
-          `
-        },
-        {
-          title: "Chapter 3: Active & Passive Voice",
-          notes: `
-            <h4>🎯 Active Voice</h4>
-            <p>In active voice, the subject does the action.</p>
-            <div class="note-box">
-              <strong>Structure:</strong> Subject + Verb + Object<br/>
-              Example: <em>The cat</em> (subject) <em>chased</em> (verb) <em>the mouse</em> (object).
-            </div>
-            <h4>🔄 Passive Voice</h4>
-            <p>In passive voice, the subject receives the action.</p>
-            <div class="note-box">
-              <strong>Structure:</strong> Object + was/were + past participle + by + subject<br/>
-              Example: <em>The mouse was chased by the cat.</em>
-            </div>
-            <h4>📌 More Examples</h4>
-            <ul>
-              <li>Active: <em>She wrote a letter.</em></li>
-              <li>Passive: <em>A letter was written by her.</em></li>
-              <li>Active: <em>The teacher teaches the students.</em></li>
-              <li>Passive: <em>The students are taught by the teacher.</em></li>
-            </ul>
-            <div class="note-box"><strong>💡 When to use:</strong> Active voice is direct and strong. Passive voice is used when the doer is unknown or unimportant.</div>
-          `
-        },
-        {
-          title: "Chapter 4: Essay Writing",
-          notes: `
-            <h4>📝 Structure of a Good Essay</h4>
-            <ul>
-              <li><strong>Introduction</strong> — First paragraph. Introduce the topic.</li>
-              <li><strong>Body</strong> — 2 or 3 paragraphs. Main ideas and details.</li>
-              <li><strong>Conclusion</strong> — Last paragraph. Summarise and give your opinion.</li>
-            </ul>
-            <div class="note-box">
-              <strong>Essay on My Best Friend:</strong><br/>
-              <em>Introduction:</em> My best friend's name is Arjun. We have been friends since Class 1.<br/>
-              <em>Body:</em> Arjun is kind, helpful and very funny. He helps me with Maths and I help him with English. We play cricket together every evening.<br/>
-              <em>Conclusion:</em> A good friend like Arjun makes life happy and fun. I am lucky to have him as my friend.
-            </div>
-            <h4>✍️ Tips for Good Essay Writing</h4>
-            <ul>
-              <li>Write in paragraphs — don't write everything in one block</li>
-              <li>Use describing words (adjectives) to make it interesting</li>
-              <li>Avoid repeating the same word — use synonyms</li>
-              <li>Check spelling and punctuation before submitting</li>
-            </ul>
-          `
-        },
-        {
-          title: "Chapter 5: Synonyms, Antonyms & Homophones",
-          notes: `
-            <h4>🔁 Synonyms — Same Meaning</h4>
-            <ul>
-              <li>Happy → Joyful, Glad, Pleased, Cheerful</li>
-              <li>Big → Large, Huge, Enormous, Gigantic</li>
-              <li>Fast → Quick, Swift, Rapid, Speedy</li>
-              <li>Smart → Clever, Intelligent, Bright, Wise</li>
-              <li>Angry → Furious, Upset, Irritated, Mad</li>
-            </ul>
-            <h4>↔️ Antonyms — Opposite Meaning</h4>
-            <ul>
-              <li>Happy ↔ Sad · Strong ↔ Weak · Ancient ↔ Modern</li>
-              <li>Victory ↔ Defeat · Courage ↔ Cowardice · Expand ↔ Contract</li>
-              <li>Accept ↔ Reject · Include ↔ Exclude · Success ↔ Failure</li>
-            </ul>
-            <h4>🔊 Homophones — Same Sound, Different Meaning</h4>
-            <div class="note-box">
-              <strong>Homophones</strong> sound the same but are spelled differently and have different meanings.<br/><br/>
-              Here / Hear · There / Their / They're<br/>
-              Write / Right · See / Sea · Sun / Son<br/>
-              Meet / Meat · Week / Weak · Flour / Flower<br/>
-              <br/>
-              <strong>Example:</strong> I can <em>hear</em> music. Come <em>here</em> please.
-            </div>
-          `
-        }
-      ]
-    };
-    const allNotes = { science: scienceNotes, math: mathNotes, language: languageNotes }; const chapters = (allNotes[subject] && allNotes[subject][cls]) || scienceNotes['1'];
+  // =============================================
+  // MATH NOTES — CLASS 1, 2, 3
+  // =============================================
+  const mathNotes = {
+    "1": [
+      { title:"Chapter 1: Numbers 1–100", notes:`<h4>🔢 Counting Numbers</h4><ul><li>Numbers help us count objects around us</li><li>0 (Zero) means nothing or empty</li></ul><div class="note-box"><strong>Number Names:</strong><br/>1=One, 2=Two, 3=Three, 4=Four, 5=Five<br/>6=Six, 7=Seven, 8=Eight, 9=Nine, 10=Ten<br/>11=Eleven, 12=Twelve, 20=Twenty, 100=Hundred</div><h4>Comparing Numbers</h4><ul><li>Greater than → 8 > 5</li><li>Less than → 3 < 7</li><li>Equal to → 4 = 4</li></ul>`,
+        quiz:[
+          {q:"What is the number name for 12?",options:["Twenty","Eleven","Twelve","Thirteen"],answer:2,exp:"12 is called Twelve."},
+          {q:"Which symbol means 'greater than'?",options:["<","=",">","≠"],answer:2,exp:"The symbol > means greater than. Example: 8 > 5 means 8 is greater than 5."},
+          {q:"What does 0 (zero) mean?",options:["One","Nothing or empty","Ten","Hundred"],answer:1,exp:"Zero means nothing or empty — no objects at all."},
+          {q:"How many tens are in 100?",options:["5","10","20","100"],answer:1,exp:"There are 10 tens in 100. 10 × 10 = 100."}
+        ]
+      },
+      { title:"Chapter 2: Addition", notes:`<h4>➕ What is Addition?</h4><p>Adding means putting two or more numbers together to get a bigger number.</p><div class="note-box"><strong>Symbol:</strong> + (Plus)<br/>Example: 3 + 4 = 7</div><h4>Rules</h4><ul><li>Adding 0 gives the same number: 5 + 0 = 5</li><li>Order doesn't matter: 2 + 3 = 3 + 2 = 5</li></ul><h4>Practice</h4><ul><li>5 + 3 = 8 · 7 + 2 = 9 · 6 + 4 = 10 · 10 + 5 = 15</li></ul><div class="note-box"><strong>💡 Tip:</strong> Start with the bigger number and count forward!</div>`,
+        quiz:[
+          {q:"What is 7 + 5?",options:["11","12","13","10"],answer:1,exp:"7 + 5 = 12. Start at 7 and count 5 more: 8, 9, 10, 11, 12."},
+          {q:"What is 9 + 0?",options:["0","1","9","10"],answer:2,exp:"Adding 0 to any number gives the same number. 9 + 0 = 9."},
+          {q:"What is 6 + 8?",options:["12","13","14","15"],answer:2,exp:"6 + 8 = 14."},
+          {q:"If 3 + 4 = 7, what is 4 + 3?",options:["6","7","8","9"],answer:1,exp:"Order doesn't matter in addition. 3 + 4 = 4 + 3 = 7."}
+        ]
+      },
+      { title:"Chapter 3: Subtraction", notes:`<h4>➖ What is Subtraction?</h4><p>Subtraction means taking away a number from another.</p><div class="note-box"><strong>Symbol:</strong> − (Minus)<br/>Example: 8 − 3 = 5</div><h4>Rules</h4><ul><li>Subtracting 0 gives same number: 6 − 0 = 6</li><li>A number minus itself = 0: 5 − 5 = 0</li></ul><h4>Practice</h4><ul><li>9 − 4 = 5 · 10 − 7 = 3 · 15 − 5 = 10</li></ul><div class="note-box"><strong>💡 Tip:</strong> If 3 + 4 = 7, then 7 − 4 = 3 ✅</div>`,
+        quiz:[
+          {q:"What is 10 − 4?",options:["5","6","7","8"],answer:1,exp:"10 − 4 = 6."},
+          {q:"What is 8 − 8?",options:["1","8","0","16"],answer:2,exp:"Any number minus itself equals 0. 8 − 8 = 0."},
+          {q:"What is 15 − 6?",options:["8","9","10","11"],answer:1,exp:"15 − 6 = 9."},
+          {q:"What is 7 − 0?",options:["0","1","6","7"],answer:3,exp:"Subtracting 0 from any number gives the same number. 7 − 0 = 7."}
+        ]
+      },
+      { title:"Chapter 4: Shapes & Patterns", notes:`<h4>🔷 Basic 2D Shapes</h4><ul><li><strong>Circle ⭕</strong> — Round, no corners. Example: Coin, Wheel</li><li><strong>Square</strong> — 4 equal sides, 4 corners. Example: Dice face</li><li><strong>Rectangle</strong> — 4 sides (2 long, 2 short). Example: Book, Door</li><li><strong>Triangle 🔺</strong> — 3 sides, 3 corners. Example: Pizza slice</li></ul><div class="note-box"><strong>💡 Remember:</strong> Count the sides to name the shape!</div><h4>Patterns</h4><ul><li>A pattern is something that repeats: 🔴🔵🔴🔵 → next is 🔴</li></ul>`,
+        quiz:[
+          {q:"How many sides does a triangle have?",options:["2","3","4","5"],answer:1,exp:"A triangle has 3 sides and 3 corners."},
+          {q:"Which shape has no corners?",options:["Square","Triangle","Rectangle","Circle"],answer:3,exp:"A circle has no corners or sides — it is perfectly round."},
+          {q:"How many equal sides does a square have?",options:["2","3","4","6"],answer:2,exp:"A square has 4 equal sides and 4 corners."},
+          {q:"What comes next: 🔴🔵🔴🔵🔴 ?",options:["🔴","🔵","🟡","🟢"],answer:1,exp:"The pattern is red-blue repeating. After red comes blue."}
+        ]
+      },
+      { title:"Chapter 5: Measurement & Time", notes:`<h4>📏 Measurement</h4><ul><li>Unit of length: Centimetre (cm) and Metre (m)</li><li>100 cm = 1 metre</li></ul><h4>⚖️ Weight</h4><ul><li>Unit: Gram (g) and Kilogram (kg)</li><li>1000 g = 1 kg</li></ul><h4>🕐 Time</h4><ul><li>60 minutes = 1 hour · 24 hours = 1 day · 7 days = 1 week · 12 months = 1 year</li></ul><div class="note-box"><strong>Months:</strong> January, February, March, April, May, June, July, August, September, October, November, December</div>`,
+        quiz:[
+          {q:"How many centimetres make 1 metre?",options:["10","50","100","1000"],answer:2,exp:"100 centimetres = 1 metre."},
+          {q:"How many minutes are in 1 hour?",options:["24","60","100","12"],answer:1,exp:"There are 60 minutes in 1 hour."},
+          {q:"How many grams make 1 kilogram?",options:["10","100","1000","500"],answer:2,exp:"1000 grams = 1 kilogram."},
+          {q:"How many days are in 1 week?",options:["5","6","7","8"],answer:2,exp:"There are 7 days in 1 week: Monday to Sunday."}
+        ]
+      }
+    ],
+    "2": [
+      { title:"Chapter 1: Numbers up to 1000", notes:`<h4>Place Value</h4><div class="note-box">In <strong>345</strong>: 3=Hundreds(300), 4=Tens(40), 5=Ones(5)<br/>345 = 300 + 40 + 5</div><h4>Expanded Form</h4><ul><li>256 = 200 + 50 + 6 · 709 = 700 + 0 + 9</li></ul><h4>Comparing</h4><ul><li>Compare Hundreds first, then Tens, then Ones</li></ul><div class="note-box"><strong>Example:</strong> 456 vs 432 → Hundreds equal → compare Tens: 5>3 → 456 > 432</div>`,
+        quiz:[
+          {q:"What is the place value of 4 in 472?",options:["4","40","400","4000"],answer:2,exp:"In 472, the digit 4 is in the hundreds place, so its value is 400."},
+          {q:"What is the expanded form of 308?",options:["300+8","300+0+8","30+8","3+0+8"],answer:1,exp:"308 = 300 + 0 + 8. The expanded form shows each digit's place value."},
+          {q:"Which number is greater: 567 or 576?",options:["567","576","Both equal","Cannot say"],answer:1,exp:"567 vs 576 — hundreds are equal (5=5), tens: 6<7, so 576 > 567."},
+          {q:"How many hundreds are in 700?",options:["7","70","700","7000"],answer:0,exp:"700 has 7 hundreds. 7 × 100 = 700."}
+        ]
+      },
+      { title:"Chapter 2: Addition with Carrying", notes:`<h4>Adding with Carrying</h4><div class="note-box"><strong>Example: 47 + 36</strong><br/>Ones: 7+6=13 → write 3, carry 1<br/>Tens: 4+3+1=8<br/>Answer: <strong>83</strong></div><h4>Practice</h4><ul><li>25+18=43 · 56+37=93 · 49+25=74</li></ul><div class="note-box"><strong>💡 Always</strong> start adding from the Ones column (right side)!</div>`,
+        quiz:[
+          {q:"What is 47 + 36?",options:["72","83","73","84"],answer:1,exp:"47 + 36: Ones: 7+6=13, write 3 carry 1. Tens: 4+3+1=8. Answer: 83."},
+          {q:"What is 58 + 25?",options:["73","83","84","73"],answer:1,exp:"58 + 25: Ones: 8+5=13, write 3 carry 1. Tens: 5+2+1=8. Answer: 83."},
+          {q:"When do we 'carry' in addition?",options:["When sum is less than 5","When sum is 10 or more","Always","Never"],answer:1,exp:"We carry when the sum of digits in a column is 10 or more."},
+          {q:"What is 69 + 13?",options:["72","82","81","72"],answer:1,exp:"69 + 13: Ones: 9+3=12, write 2 carry 1. Tens: 6+1+1=8. Answer: 82."}
+        ]
+      },
+      { title:"Chapter 3: Multiplication", notes:`<h4>✖️ Multiplication = Repeated Addition</h4><div class="note-box">3 × 4 = 4 + 4 + 4 = 12 (3 groups of 4)</div><h4>Tables</h4><ul><li>2×: 2,4,6,8,10,12,14,16,18,20</li><li>3×: 3,6,9,12,15,18,21,24,27,30</li><li>5×: 5,10,15,20,25,30,35,40,45,50</li></ul><h4>Rules</h4><ul><li>Any number × 0 = 0 · Any number × 1 = same number</li><li>Order doesn't matter: 3×4 = 4×3 = 12</li></ul>`,
+        quiz:[
+          {q:"What is 6 × 3?",options:["15","16","18","21"],answer:2,exp:"6 × 3 = 18. This is the same as 6+6+6 = 18."},
+          {q:"What is 7 × 0?",options:["7","0","1","70"],answer:1,exp:"Any number multiplied by 0 is always 0. 7 × 0 = 0."},
+          {q:"What is 5 × 4?",options:["9","15","20","25"],answer:2,exp:"5 × 4 = 20. Count by 5s four times: 5, 10, 15, 20."},
+          {q:"If 3 × 4 = 12, what is 4 × 3?",options:["9","10","11","12"],answer:3,exp:"Order doesn't matter in multiplication. 3 × 4 = 4 × 3 = 12."}
+        ]
+      },
+      { title:"Chapter 4: Division", notes:`<h4>➗ Division = Equal Sharing</h4><div class="note-box"><strong>Example:</strong> 12 ÷ 3 = 4<br/>(12 chocolates shared among 3 friends = 4 each)</div><h4>Terms</h4><ul><li><strong>Dividend</strong> — Number being divided (12)</li><li><strong>Divisor</strong> — Number we divide by (3)</li><li><strong>Quotient</strong> — Answer (4)</li><li><strong>Remainder</strong> — What is left over</li></ul><h4>Practice</h4><ul><li>10÷2=5 · 15÷3=5 · 20÷4=5 · 18÷6=3</li></ul><div class="note-box"><strong>💡 Tip:</strong> Division is opposite of multiplication! If 3×4=12, then 12÷3=4 ✅</div>`,
+        quiz:[
+          {q:"What is 20 ÷ 4?",options:["4","5","6","8"],answer:1,exp:"20 ÷ 4 = 5. Think: 4 × 5 = 20, so 20 ÷ 4 = 5."},
+          {q:"What is the answer in division called?",options:["Dividend","Divisor","Quotient","Remainder"],answer:2,exp:"The answer to a division problem is called the Quotient."},
+          {q:"What is 18 ÷ 3?",options:["4","5","6","7"],answer:2,exp:"18 ÷ 3 = 6. Think: 3 × 6 = 18."},
+          {q:"What is 0 ÷ 5?",options:["5","1","0","Cannot divide"],answer:2,exp:"0 divided by any number is always 0."}
+        ]
+      },
+      { title:"Chapter 5: Fractions", notes:`<h4>🍕 Fractions = Part of a Whole</h4><div class="note-box">If pizza cut into 4 parts, 1 part = <strong>1/4</strong><br/>Top = Numerator (parts taken)<br/>Bottom = Denominator (total equal parts)</div><h4>Common Fractions</h4><ul><li>1/2 = One half · 1/3 = One third · 1/4 = One quarter</li><li>2/4 = 1/2 (same value)</li></ul><div class="note-box"><strong>💡 Remember:</strong> When numerator = denominator = 1 whole. Example: 4/4 = 1</div>`,
+        quiz:[
+          {q:"In the fraction 3/5, what is the denominator?",options:["3","5","35","2"],answer:1,exp:"In 3/5, the bottom number 5 is the denominator — it shows total equal parts."},
+          {q:"What fraction represents one half?",options:["1/3","1/4","1/2","2/3"],answer:2,exp:"1/2 means one half — 1 part out of 2 equal parts."},
+          {q:"What is 4/4 equal to?",options:["0","1/2","1","4"],answer:2,exp:"When numerator equals denominator, the fraction equals 1 whole. 4/4 = 1."},
+          {q:"A cake is cut into 8 equal pieces. You eat 2. What fraction did you eat?",options:["2/6","2/8","8/2","1/2"],answer:1,exp:"You ate 2 pieces out of 8 total pieces = 2/8 (which also equals 1/4)."}
+        ]
+      }
+    ],
+    "3": [
+      { title:"Chapter 1: Numbers up to 10,000", notes:`<h4>4-Digit Numbers</h4><div class="note-box">In <strong>4,567</strong>:<br/>4=Thousands(4000), 5=Hundreds(500), 6=Tens(60), 7=Ones(7)</div><h4>Roman Numerals</h4><ul><li>I=1, V=5, X=10, L=50, C=100</li><li>IV=4, IX=9, XL=40, XC=90</li></ul><div class="note-box"><strong>Rule:</strong> Smaller before larger = subtract (IV=4). Smaller after larger = add (VI=6)</div>`,
+        quiz:[
+          {q:"What is the place value of 6 in 6,789?",options:["6","600","6000","60"],answer:2,exp:"In 6,789, the digit 6 is in the thousands place. Its value is 6,000."},
+          {q:"What is IX in Hindu-Arabic numbers?",options:["11","9","10","4"],answer:1,exp:"IX = 9. I(1) is before X(10), so we subtract: 10−1=9."},
+          {q:"What is 40 in Roman numerals?",options:["XXXX","VL","XL","LX"],answer:2,exp:"XL = 40. X(10) is before L(50), so we subtract: 50−10=40."},
+          {q:"What is the expanded form of 5,304?",options:["5000+300+4","5000+30+4","500+304","5+3+0+4"],answer:0,exp:"5,304 = 5000 + 300 + 0 + 4."}
+        ]
+      },
+      { title:"Chapter 2: Large Number Operations", notes:`<h4>Adding Large Numbers</h4><div class="note-box"><strong>3456 + 2378:</strong><br/>Ones:6+8=14→4 carry1 · Tens:5+7+1=13→3 carry1<br/>Hundreds:4+3+1=8 · Thousands:3+2=5<br/><strong>Answer: 5834</strong></div><h4>Subtracting with Borrowing</h4><div class="note-box"><strong>5000 − 1234:</strong> Borrow from next column when top < bottom<br/><strong>Answer: 3766</strong></div><h4>Multiplication by 2-digit</h4><ul><li>56 × 12 = 56×10 + 56×2 = 560+112 = 672</li></ul>`,
+        quiz:[
+          {q:"What is 3456 + 2378?",options:["5724","5834","5844","5734"],answer:1,exp:"3456 + 2378 = 5834. Add column by column from right, carrying when needed."},
+          {q:"What is 5000 − 1234?",options:["3766","3876","3666","4766"],answer:0,exp:"5000 − 1234 = 3766."},
+          {q:"What is 56 × 10?",options:["56","506","560","5600"],answer:2,exp:"Multiplying by 10 adds a zero to the end. 56 × 10 = 560."},
+          {q:"What is 25 × 4?",options:["80","90","100","110"],answer:2,exp:"25 × 4 = 100. Think: 25+25+25+25 = 100."}
+        ]
+      },
+      { title:"Chapter 3: Geometry", notes:`<h4>Lines</h4><ul><li>Parallel lines — never meet (railway tracks)</li><li>Perpendicular lines — meet at 90°</li></ul><h4>Triangles</h4><ul><li>Equilateral — all 3 sides equal</li><li>Isosceles — 2 sides equal</li><li>Scalene — no sides equal</li><li>Right-angled — one 90° angle</li></ul><div class="note-box"><strong>Angles:</strong> Acute < 90° · Right = 90° · Obtuse > 90°</div><h4>3D Shapes</h4><ul><li>Cube — 6 faces, 12 edges, 8 corners</li><li>Sphere — perfectly round · Cylinder — 2 circular faces · Cone — pointed top</li></ul>`,
+        quiz:[
+          {q:"How many faces does a cube have?",options:["4","6","8","12"],answer:1,exp:"A cube has 6 faces, 12 edges and 8 corners."},
+          {q:"What type of angle is exactly 90°?",options:["Acute","Obtuse","Right","Straight"],answer:2,exp:"A right angle is exactly 90°. We see it in corners of squares and rectangles."},
+          {q:"Which triangle has all 3 sides equal?",options:["Scalene","Isosceles","Right-angled","Equilateral"],answer:3,exp:"An equilateral triangle has all 3 sides equal and all 3 angles equal to 60°."},
+          {q:"Which 3D shape is perfectly round?",options:["Cube","Cone","Cylinder","Sphere"],answer:3,exp:"A sphere is perfectly round in all directions. Example: Ball, Globe."}
+        ]
+      },
+      { title:"Chapter 4: Decimals & Money", notes:`<h4>💰 Indian Currency</h4><ul><li>100 Paise = ₹1 · Coins: 50p, ₹1, ₹2, ₹5, ₹10</li><li>Notes: ₹10, ₹20, ₹50, ₹100, ₹200, ₹500</li></ul><div class="note-box">₹45.75 = 45 Rupees and 75 Paise<br/>The dot (.) is the decimal point</div><h4>Decimals</h4><ul><li>3.5 = 3 whole and 5 tenths</li><li>0.1 = one tenth · 0.01 = one hundredth</li></ul>`,
+        quiz:[
+          {q:"How many paise make 1 rupee?",options:["10","50","100","1000"],answer:2,exp:"100 paise = 1 Rupee (₹1)."},
+          {q:"What does the dot in ₹45.75 represent?",options:["Addition","Decimal point","Multiplication","Nothing"],answer:1,exp:"The dot is the decimal point separating Rupees from Paise."},
+          {q:"What is 0.1 equal to?",options:["One","One hundredth","One tenth","Ten"],answer:2,exp:"0.1 = one tenth. It means 1 out of 10 equal parts."},
+          {q:"You have ₹100 and spend ₹67. How much is left?",options:["₹23","₹33","₹43","₹167"],answer:1,exp:"₹100 − ₹67 = ₹33 remaining."}
+        ]
+      },
+      { title:"Chapter 5: Data & Graphs", notes:`<h4>📊 Data & Graphs</h4><p>Data means collection of facts and numbers that give us information.</p><h4>Types of Graphs</h4><ul><li><strong>Tally Chart</strong> — Uses marks (||||) to count</li><li><strong>Pictograph</strong> — Uses pictures to show data</li><li><strong>Bar Graph</strong> — Uses bars to compare data</li></ul><h4>Reading a Bar Graph</h4><ul><li>X-axis — categories · Y-axis — numbers</li><li>Taller bar = bigger value</li></ul><div class="note-box"><strong>Mode</strong> = most repeated value · <strong>Median</strong> = middle value</div>`,
+        quiz:[
+          {q:"What does a taller bar in a bar graph mean?",options:["Less value","More value","Same value","No value"],answer:1,exp:"In a bar graph, a taller bar represents a bigger or higher value."},
+          {q:"Which graph uses pictures to show data?",options:["Bar graph","Tally chart","Pictograph","Line graph"],answer:2,exp:"A pictograph uses pictures or symbols to represent data."},
+          {q:"What is the 'mode' in data?",options:["The largest value","The smallest value","The most repeated value","The middle value"],answer:2,exp:"The mode is the value that appears most often in a set of data."},
+          {q:"What does the Y-axis in a bar graph show?",options:["Categories","Numbers/values","Colours","Names"],answer:1,exp:"The Y-axis (vertical axis) shows the numbers or values in a bar graph."}
+        ]
+      }
+    ]
+  };
 
-    document.getElementById('lessonMeta').textContent = `Class ${cls} · Science`;
+  // =============================================
+  // LANGUAGE/ENGLISH NOTES — CLASS 1, 2, 3
+  // =============================================
+  const languageNotes = {
+    "1": [
+      { title:"Chapter 1: Alphabet & Phonics", notes:`<h4>🔤 The Alphabet</h4><ul><li>26 letters: A B C D E F G H I J K L M N O P Q R S T U V W X Y Z</li></ul><div class="note-box"><strong>Vowels (5):</strong> A, E, I, O, U<br/><strong>Consonants (21):</strong> All other letters<br/>💡 Every word must have at least one vowel!</div><h4>Phonics Sounds</h4><ul><li>A=/a/ Apple · B=/b/ Ball · C=/k/ Cat · D=/d/ Dog</li><li>E=/e/ Egg · F=/f/ Fish · G=/g/ Girl · H=/h/ Hat</li></ul>`,
+        quiz:[
+          {q:"How many letters are in the English alphabet?",options:["24","25","26","28"],answer:2,exp:"The English alphabet has 26 letters — from A to Z."},
+          {q:"Which of these is a vowel?",options:["B","C","E","G"],answer:2,exp:"The 5 vowels are A, E, I, O, U. All other letters are consonants."},
+          {q:"How many vowels are in the English alphabet?",options:["3","4","5","6"],answer:2,exp:"There are 5 vowels: A, E, I, O, U."},
+          {q:"Which letter makes the /k/ sound as in Cat?",options:["A","B","C","D"],answer:2,exp:"The letter C makes the /k/ sound as in Cat, Cup, Cow."}
+        ]
+      },
+      { title:"Chapter 2: Words & Vocabulary", notes:`<h4>Building Words & Vocabulary</h4><ul><li>Short words: Cat, Dog, Hat, Bat, Pen, Cup</li></ul><h4>Colours</h4><p>Red, Blue, Yellow, Green, Orange, Purple, Pink, White, Black, Brown</p><h4>Days of the Week</h4><div class="note-box">Monday, Tuesday, Wednesday, Thursday, Friday, Saturday, Sunday</div><h4>Opposites</h4><ul><li>Big↔Small · Hot↔Cold · Day↔Night · Happy↔Sad · Fast↔Slow · Up↔Down</li></ul>`,
+        quiz:[
+          {q:"What is the opposite of 'Hot'?",options:["Warm","Cool","Cold","Wet"],answer:2,exp:"The opposite (antonym) of Hot is Cold."},
+          {q:"Which day comes after Tuesday?",options:["Monday","Wednesday","Thursday","Friday"],answer:1,exp:"The days in order are: Monday, Tuesday, Wednesday, Thursday, Friday, Saturday, Sunday."},
+          {q:"How many days are in a week?",options:["5","6","7","8"],answer:2,exp:"There are 7 days in a week: Monday to Sunday."},
+          {q:"What is the opposite of 'Up'?",options:["High","Down","Left","Right"],answer:1,exp:"The opposite of Up is Down."}
+        ]
+      },
+      { title:"Chapter 3: Nouns", notes:`<h4>What is a Noun?</h4><p>A noun is a naming word — name of a person, place, animal or thing.</p><div class="note-box"><strong>Person:</strong> Girl, Teacher, Mother<br/><strong>Place:</strong> School, India, Park<br/><strong>Animal:</strong> Cat, Lion, Parrot<br/><strong>Thing:</strong> Book, Chair, Mango</div><h4>Singular & Plural</h4><div class="note-box">Most words → add 's': Cat→Cats<br/>Words ending s,sh,ch,x → add 'es': Bus→Buses<br/>Words ending y → change to 'ies': Baby→Babies</div>`,
+        quiz:[
+          {q:"Which of these is a noun?",options:["Run","Happy","School","Quickly"],answer:2,exp:"School is a noun — it is the name of a place."},
+          {q:"What is the plural of 'Cat'?",options:["Cates","Cats","Caties","Catss"],answer:1,exp:"Most nouns just add 's' to make plural. Cat → Cats."},
+          {q:"What is the plural of 'Bus'?",options:["Buss","Buses","Busis","Busies"],answer:1,exp:"Words ending in 's' add 'es'. Bus → Buses."},
+          {q:"What is the plural of 'Baby'?",options:["Babys","Babyes","Babies","Baby"],answer:2,exp:"Words ending in 'y' change 'y' to 'ies'. Baby → Babies."}
+        ]
+      },
+      { title:"Chapter 4: Sentences", notes:`<h4>What is a Sentence?</h4><p>A sentence is a group of words that makes complete sense.</p><div class="note-box">✅ Sentence: The dog is running.<br/>❌ Not a sentence: Dog running the.</div><h4>Types of Sentences</h4><ul><li><strong>Statement (.)</strong> → The sky is blue.</li><li><strong>Question (?)</strong> → What is your name?</li><li><strong>Exclamation (!)</strong> → What a beautiful flower!</li><li><strong>Command</strong> → Close the door.</li></ul><div class="note-box"><strong>💡 Always</strong> start with a capital letter and end with correct punctuation!</div>`,
+        quiz:[
+          {q:"Which punctuation ends a question?",options:[".","!","?",","],answer:2,exp:"A question mark (?) is used at the end of a question sentence."},
+          {q:"Which of these is a correct sentence?",options:["Running dog the","The dog is running","Dog the running","Is dog running the"],answer:1,exp:"'The dog is running.' is a correct sentence — it makes complete sense."},
+          {q:"What punctuation ends an exclamation?",options:[".","!","?",","],answer:1,exp:"An exclamation mark (!) is used to show strong feeling or excitement."},
+          {q:"A sentence should always start with a...",options:["Small letter","Number","Capital letter","Symbol"],answer:2,exp:"Every sentence must start with a capital letter."}
+        ]
+      },
+      { title:"Chapter 5: Reading & Comprehension", notes:`<h4>How to Read a Passage</h4><ul><li>Read the passage carefully at least twice</li><li>Understand what it is about before answering</li><li>Look for keywords from the question in the passage</li><li>Answer in complete sentences</li></ul><div class="note-box"><strong>Sample:</strong> "Riya has a dog named Bruno. Bruno is brown and white."<br/><strong>Q: What colour is Bruno?</strong> → Brown and white</div><h4>Writing Tips</h4><ul><li>Start with a capital letter · Leave spaces between words · End with a full stop</li></ul>`,
+        quiz:[
+          {q:"How many times should you read a passage before answering?",options:["Never","Once","At least twice","Ten times"],answer:2,exp:"You should read the passage at least twice to understand it well before answering."},
+          {q:"What should you look for in the passage to answer a question?",options:["Long words","Keywords","Numbers","Colours"],answer:1,exp:"Look for keywords from the question to find the answer in the passage."},
+          {q:"In what type of sentences should you write your answers?",options:["Incomplete sentences","Complete sentences","Single words","Numbers"],answer:1,exp:"Always write answers in complete sentences that make full sense."},
+          {q:"What should you leave between words when writing?",options:["A comma","A full stop","A space","Nothing"],answer:2,exp:"Always leave spaces between words to make your writing neat and readable."}
+        ]
+      }
+    ],
+    "2": [
+      { title:"Chapter 1: Pronouns & Adjectives", notes:`<h4>Pronouns</h4><p>A pronoun replaces a noun to avoid repetition.</p><div class="note-box">I/Me/My · You/Your · He/Him/His · She/Her · It/Its · We/Our · They/Their</div><h4>Adjectives — Describing Words</h4><p>An adjective tells us more about a noun.</p><div class="note-box">The <strong>tall</strong> tree · A <strong>sweet</strong> mango<br/><strong>Types:</strong> Size(big,small) · Colour(red,blue) · Quality(soft,hard) · Number(three,many)</div>`,
+        quiz:[
+          {q:"Which word is a pronoun?",options:["Run","She","Mango","Beautiful"],answer:1,exp:"'She' is a pronoun used instead of a girl's name to avoid repetition."},
+          {q:"Which word is an adjective in: 'The big elephant'?",options:["The","Big","Elephant","A"],answer:1,exp:"'Big' is the adjective — it describes the elephant."},
+          {q:"Which pronoun do we use for a group of people?",options:["He","She","It","They"],answer:3,exp:"'They' is used for a group of people or things."},
+          {q:"What type of word is 'beautiful'?",options:["Noun","Pronoun","Adjective","Verb"],answer:2,exp:"'Beautiful' is an adjective — it describes the quality of a noun."}
+        ]
+      },
+      { title:"Chapter 2: Verbs & Tenses", notes:`<h4>Verbs — Action Words</h4><div class="note-box">The boy <strong>runs</strong> · She <strong>eats</strong> · The bird <strong>flies</strong></div><h4>Tenses</h4><ul><li><strong>Present</strong> — Happening now → I eat rice</li><li><strong>Past</strong> — Already done → I ate rice</li><li><strong>Future</strong> — Will happen → I will eat rice</li></ul><div class="note-box"><strong>Past Tense forms:</strong><br/>Go→Went · Come→Came · Eat→Ate · Run→Ran · See→Saw · Write→Wrote · Play→Played</div>`,
+        quiz:[
+          {q:"Which word is a verb?",options:["Happy","Quickly","Jump","Beautiful"],answer:2,exp:"'Jump' is a verb — it describes an action."},
+          {q:"What is the past tense of 'Go'?",options:["Goed","Goes","Went","Gone"],answer:2,exp:"The past tense of Go is Went — it is an irregular verb."},
+          {q:"'She will sing tomorrow.' — What tense is this?",options:["Present","Past","Future","None"],answer:2,exp:"'Will sing' shows future tense — the action has not happened yet."},
+          {q:"What is the past tense of 'Play'?",options:["Plaied","Played","Plays","Playing"],answer:1,exp:"For regular verbs, add '-ed' to make past tense. Play → Played."}
+        ]
+      },
+      { title:"Chapter 3: Punctuation", notes:`<h4>Punctuation Marks</h4><ul><li><strong>Full Stop (.)</strong> — Ends a statement</li><li><strong>Question Mark (?)</strong> — Ends a question</li><li><strong>Exclamation Mark (!)</strong> — Shows excitement</li><li><strong>Comma (,)</strong> — Short pause, separates list items</li><li><strong>Apostrophe (')</strong> — Ownership or shortened words: Riya's · Don't=Do not</li><li><strong>Inverted Commas (" ")</strong> — Someone's exact words</li></ul><div class="note-box"><strong>💡 Tip:</strong> Always re-read your writing to check punctuation!</div>`,
+        quiz:[
+          {q:"Which punctuation shows ownership?",options:["Comma","Full Stop","Apostrophe","Question mark"],answer:2,exp:"An apostrophe shows ownership. Example: Riya's bag means the bag belonging to Riya."},
+          {q:"What does 'Don't' mean in full?",options:["Do not","Does not","Did not","Done"],answer:0,exp:"Don't = Do not. The apostrophe replaces the missing letter 'o'."},
+          {q:"Which punctuation separates items in a list?",options:["Full stop","Comma","Exclamation mark","Apostrophe"],answer:1,exp:"A comma separates items in a list. Example: I have a pen, pencil and eraser."},
+          {q:"Which marks show someone's exact words?",options:["( )","[ ]","\" \"","< >"],answer:2,exp:"Inverted commas (\" \") show the exact words spoken by someone."}
+        ]
+      },
+      { title:"Chapter 4: Story Writing", notes:`<h4>Parts of a Good Story</h4><ul><li><strong>Beginning</strong> — Introduce characters and setting</li><li><strong>Middle</strong> — The main event or problem</li><li><strong>End</strong> — How the problem was solved</li></ul><div class="note-box"><strong>Useful Story Words:</strong><br/>Start: One day, Once upon a time, Long ago<br/>Middle: Suddenly, After that, Meanwhile, Then<br/>End: Finally, At last, In the end, And so</div>`,
+        quiz:[
+          {q:"Which part of a story introduces the characters?",options:["Middle","End","Beginning","Conclusion"],answer:2,exp:"The beginning of a story introduces the characters and the setting."},
+          {q:"Which word is good to use at the END of a story?",options:["Suddenly","Once upon a time","Finally","Meanwhile"],answer:2,exp:"'Finally' and 'At last' are good words to use at the end of a story."},
+          {q:"Which word is good to use at the START of a story?",options:["Finally","At last","In the end","Once upon a time"],answer:3,exp:"'Once upon a time' and 'One day' are great words to start a story."},
+          {q:"A story should have how many main parts?",options:["1","2","3","4"],answer:2,exp:"A story has 3 main parts: Beginning, Middle and End."}
+        ]
+      },
+      { title:"Chapter 5: Letter Writing", notes:`<h4>Types of Letters</h4><ul><li><strong>Informal</strong> — To friends and family (casual tone)</li><li><strong>Formal</strong> — To teachers, principals, offices (professional)</li></ul><h4>Informal Letter Format</h4><div class="note-box">Your Address · Date<br/>Dear [Name],<br/>Opening · Main Content · Closing<br/>Your loving friend, [Your Name]</div><h4>Formal Letter Format</h4><div class="note-box">Your Address · Date<br/>To, The Principal...<br/>Subject: [One line]<br/>Respected Sir/Madam,<br/>[Body]<br/>Yours obediently, [Name]</div>`,
+        quiz:[
+          {q:"Which type of letter is written to a Principal?",options:["Informal","Friendly","Formal","Personal"],answer:2,exp:"A formal letter is written to teachers, principals and offices using polite, professional language."},
+          {q:"How do you end an informal letter to a friend?",options:["Yours obediently","Yours faithfully","Your loving friend","Respected Sir"],answer:2,exp:"Informal letters to friends end with 'Your loving friend' or 'With love'."},
+          {q:"What comes at the very top of a letter?",options:["Signature","Subject","Your Address","Body"],answer:2,exp:"Your address goes at the top of the letter, followed by the date."},
+          {q:"Formal letters end with which closing?",options:["Your friend","With love","Yours obediently","Bye"],answer:2,exp:"Formal letters end with 'Yours obediently' or 'Yours sincerely'."}
+        ]
+      }
+    ],
+    "3": [
+      { title:"Chapter 1: Parts of Speech", notes:`<h4>The 8 Parts of Speech</h4><ul><li><strong>Noun</strong> — Naming word: Dog, India</li><li><strong>Pronoun</strong> — Replaces noun: He, She, They</li><li><strong>Verb</strong> — Action word: Run, Eat, Think</li><li><strong>Adjective</strong> — Describes noun: Beautiful, Tall</li><li><strong>Adverb</strong> — Describes verb: Quickly, Softly</li><li><strong>Preposition</strong> — Shows relation: In, On, Under, Between</li><li><strong>Conjunction</strong> — Joins words: And, But, Or, Because</li><li><strong>Interjection</strong> — Shows emotion: Wow! Ouch! Hurray!</li></ul>`,
+        quiz:[
+          {q:"What part of speech is the word 'Quickly'?",options:["Adjective","Noun","Adverb","Verb"],answer:2,exp:"'Quickly' is an adverb — it describes how the action (verb) is done."},
+          {q:"Which part of speech joins two sentences?",options:["Noun","Preposition","Interjection","Conjunction"],answer:3,exp:"A conjunction joins words or sentences. Example: and, but, because, or."},
+          {q:"What part of speech is 'Wow!'?",options:["Noun","Verb","Adjective","Interjection"],answer:3,exp:"'Wow!' is an interjection — it expresses a strong emotion or feeling."},
+          {q:"Which word is a preposition?",options:["Run","Happy","Under","Wow"],answer:2,exp:"'Under' is a preposition — it shows the relation between objects. Example: The cat sat under the table."}
+        ]
+      },
+      { title:"Chapter 2: Degrees of Comparison", notes:`<h4>3 Degrees of Adjectives</h4><div class="note-box"><strong>Positive</strong> — Ram is tall.<br/><strong>Comparative</strong> — Ram is taller than Shyam.<br/><strong>Superlative</strong> — Ram is the tallest in the class.</div><h4>Examples</h4><ul><li>Big → Bigger → Biggest</li><li>Fast → Faster → Fastest</li><li>Happy → Happier → Happiest</li><li>Good → Better → Best</li><li>Bad → Worse → Worst</li></ul><div class="note-box"><strong>Rule:</strong> Short adjectives add -er/-est. Long adjectives use more/most.</div>`,
+        quiz:[
+          {q:"What is the superlative form of 'Big'?",options:["Bigger","Most big","Biggest","More big"],answer:2,exp:"Big → Bigger → Biggest. Short adjectives add '-est' for superlative."},
+          {q:"What is the comparative form of 'Good'?",options:["Gooder","More good","Best","Better"],answer:3,exp:"Good → Better → Best. These are irregular forms that must be memorised."},
+          {q:"Which degree compares exactly two things?",options:["Positive","Comparative","Superlative","Absolute"],answer:1,exp:"The comparative degree compares exactly two things. Example: taller, faster, better."},
+          {q:"What is the superlative of 'Bad'?",options:["Baddest","More bad","Worst","Worse"],answer:2,exp:"Bad → Worse → Worst. These are irregular forms."}
+        ]
+      },
+      { title:"Chapter 3: Active & Passive Voice", notes:`<h4>Active Voice</h4><div class="note-box"><strong>Structure:</strong> Subject + Verb + Object<br/>Example: The cat chased the mouse.</div><h4>Passive Voice</h4><div class="note-box"><strong>Structure:</strong> Object + was/were + past participle + by + subject<br/>Example: The mouse was chased by the cat.</div><h4>More Examples</h4><ul><li>Active: She wrote a letter.</li><li>Passive: A letter was written by her.</li></ul><div class="note-box"><strong>💡 Use Active</strong> for direct, strong writing. Use Passive when doer is unknown.</div>`,
+        quiz:[
+          {q:"'The teacher teaches students.' — What voice is this?",options:["Passive","Active","Both","Neither"],answer:1,exp:"This is Active voice — the subject (teacher) is doing the action."},
+          {q:"'The letter was written by her.' — What voice is this?",options:["Active","Passive","Future","Present"],answer:1,exp:"This is Passive voice — the subject receives the action."},
+          {q:"In active voice, who does the action?",options:["The object","The verb","The subject","The preposition"],answer:2,exp:"In active voice, the subject (the main person/thing) performs the action."},
+          {q:"Change to passive: 'Ram ate the mango.'",options:["The mango was eaten by Ram","Ram was eaten by the mango","The mango ate Ram","Ram is eating the mango"],answer:0,exp:"Passive: The mango was eaten by Ram. Object becomes subject in passive voice."}
+        ]
+      },
+      { title:"Chapter 4: Essay Writing", notes:`<h4>Structure of an Essay</h4><ul><li><strong>Introduction</strong> — Introduce the topic</li><li><strong>Body</strong> — 2–3 paragraphs with main ideas</li><li><strong>Conclusion</strong> — Summarise and give opinion</li></ul><div class="note-box"><strong>Essay on My Best Friend:</strong><br/>Intro: My best friend's name is Arjun. We have been friends since Class 1.<br/>Body: Arjun is kind and helpful. We play cricket together every evening.<br/>Conclusion: I am lucky to have him as my friend.</div><h4>Tips</h4><ul><li>Write in paragraphs · Use adjectives · Avoid repeating words · Check spelling</li></ul>`,
+        quiz:[
+          {q:"How many main parts does an essay have?",options:["2","3","4","5"],answer:1,exp:"An essay has 3 main parts: Introduction, Body and Conclusion."},
+          {q:"Which part of an essay gives your final thoughts?",options:["Introduction","Body","Conclusion","Heading"],answer:2,exp:"The conclusion is the last paragraph where you summarise and share your final thoughts."},
+          {q:"How many paragraphs should the body of an essay have?",options:["Exactly 1","Exactly 5","At least 2-3","None"],answer:2,exp:"The body should have 2–3 paragraphs, each with a main idea and supporting details."},
+          {q:"What makes an essay more interesting?",options:["Repeating same words","Using describing words (adjectives)","Writing only in numbers","Using no punctuation"],answer:1,exp:"Using adjectives and descriptive language makes an essay interesting and vivid."}
+        ]
+      },
+      { title:"Chapter 5: Synonyms, Antonyms & Homophones", notes:`<h4>Synonyms — Same Meaning</h4><ul><li>Happy → Joyful, Glad, Pleased</li><li>Big → Large, Huge, Enormous</li><li>Fast → Quick, Swift, Rapid</li><li>Angry → Furious, Upset, Irritated</li></ul><h4>Antonyms — Opposite Meaning</h4><ul><li>Happy↔Sad · Strong↔Weak · Victory↔Defeat</li><li>Accept↔Reject · Success↔Failure · Ancient↔Modern</li></ul><h4>Homophones — Same Sound, Different Meaning</h4><div class="note-box">Here/Hear · There/Their/They're · Write/Right<br/>See/Sea · Sun/Son · Meet/Meat · Week/Weak</div>`,
+        quiz:[
+          {q:"What is a synonym of 'Happy'?",options:["Sad","Angry","Joyful","Tired"],answer:2,exp:"Joyful is a synonym of Happy — both mean feeling good and pleased."},
+          {q:"What is the antonym of 'Victory'?",options:["Win","Success","Defeat","Champion"],answer:2,exp:"Defeat is the antonym (opposite) of Victory."},
+          {q:"Which pair are homophones?",options:["Big/Large","Happy/Sad","See/Sea","Run/Walk"],answer:2,exp:"See and Sea are homophones — they sound the same but have different meanings and spellings."},
+          {q:"What is a synonym of 'Fast'?",options:["Slow","Quiet","Quick","Heavy"],answer:2,exp:"Quick is a synonym of Fast — both mean moving with speed."}
+        ]
+      }
+    ]
+  };
 
-    // Build chapter list
-    const ul = document.getElementById('chapterList');
-    chapters.forEach((ch, i) => {
-      const li = document.createElement('li');
-      li.className = 'chapter-item' + (i === 0 ? ' active' : '');
-      li.textContent = ch.title;
-      li.onclick = function() {
-        document.querySelectorAll('.chapter-item').forEach(x => x.classList.remove('active'));
-        li.classList.add('active');
-        document.getElementById('lessonTitle').textContent = ch.title;
-        document.getElementById('notesContent').innerHTML = ch.notes;
-      };
-      ul.appendChild(li);
+  // =============================================
+  // LOAD NOTES & QUIZ BASED ON URL
+  // =============================================
+  const allNotes = { science: scienceNotes, math: mathNotes, language: languageNotes };
+  const params = new URLSearchParams(window.location.search);
+  const cls = params.get('class') || '1';
+  const subject = params.get('subject') || 'science';
+  const chapters = (allNotes[subject] && allNotes[subject][cls]) || scienceNotes['1'];
+
+  const subjectNames = { science:'Science', math:'Mathematics', language:'English' };
+  document.getElementById('lessonMeta').textContent = `Class ${cls} · ${subjectNames[subject]||subject}`;
+  document.getElementById('printMeta').textContent = `Class ${cls} · ${subjectNames[subject]||subject} · yuvilearn.vercel.app`;
+
+  // Build chapter list
+  const ul = document.getElementById('chapterList');
+  chapters.forEach((ch, i) => {
+    const li = document.createElement('li');
+    li.className = 'chapter-item' + (i === 0 ? ' active' : '');
+    li.textContent = ch.title;
+    li.onclick = () => loadChapter(i);
+    ul.appendChild(li);
+  });
+
+  let currentChapter = 0;
+
+  function loadChapter(i) {
+    currentChapter = i;
+    const ch = chapters[i];
+    document.querySelectorAll('.chapter-item').forEach((x,j) => x.classList.toggle('active', j===i));
+    document.getElementById('lessonTitle').textContent = ch.title;
+    document.getElementById('printTitle').textContent = ch.title;
+    document.getElementById('notesContent').innerHTML = ch.notes;
+    loadQuiz(ch.quiz);
+    window.scrollTo({top:0, behavior:'smooth'});
+  }
+
+  // Load first chapter
+  loadChapter(0);
+
+  // =============================================
+  // QUIZ LOGIC
+  // =============================================
+  function loadQuiz(questions) {
+    const section = document.getElementById('quizSection');
+    const container = document.getElementById('quizQuestions');
+    const result = document.getElementById('quizResult');
+    result.style.display = 'none';
+    container.innerHTML = '';
+    section.style.display = 'block';
+
+    questions.forEach((q, qi) => {
+      const div = document.createElement('div');
+      div.className = 'quiz-question';
+      div.innerHTML = `<p>Q${qi+1}. ${q.q}</p><div class="quiz-options" id="opts_${qi}"></div><div class="explanation" id="exp_${qi}">💡 ${q.exp}</div>`;
+      container.appendChild(div);
+
+      q.options.forEach((opt, oi) => {
+        const btn = document.createElement('button');
+        btn.className = 'quiz-option';
+        btn.textContent = opt;
+        btn.onclick = () => checkAnswer(qi, oi, q.answer, q.options.length);
+        document.getElementById('opts_'+qi)?.appendChild(btn);
+      });
     });
+  }
 
-    // Load first chapter by default
-    document.getElementById('lessonTitle').textContent = chapters[0].title;
-    document.getElementById('notesContent').innerHTML = chapters[0].notes;
+  function checkAnswer(qi, selected, correct, total) {
+    const opts = document.querySelectorAll(`#opts_${qi} .quiz-option`);
+    opts.forEach((btn, i) => {
+      btn.classList.add('disabled');
+      if(i === correct) btn.classList.add('correct');
+      else if(i === selected && selected !== correct) btn.classList.add('wrong');
+    });
+    document.getElementById('exp_'+qi).style.display = 'block';
+
+    // Check if all answered
+    setTimeout(() => {
+      const allAnswered = [...document.querySelectorAll('.quiz-question')].every(q =>
+        q.querySelector('.correct') !== null
+      );
+      if(allAnswered) showResult();
+    }, 300);
+  }
+
+  function showResult() {
+    const correct = document.querySelectorAll('.quiz-option.correct').length;
+    const total = document.querySelectorAll('.quiz-question').length;
+    const pct = Math.round((correct/total)*100);
+    const result = document.getElementById('quizResult');
+    document.getElementById('quizScore').textContent = `${correct}/${total} Correct (${pct}%)`;
+    document.getElementById('quizMessage').textContent = pct >= 75
+      ? '🎉 Excellent! You have understood this chapter well!'
+      : pct >= 50 ? '👍 Good effort! Review the notes and try again.'
+      : '📖 Keep studying! Read the notes carefully and retry.';
+    result.className = 'quiz-result ' + (pct >= 75 ? 'pass' : 'fail');
+    result.style.display = 'block';
+    result.scrollIntoView({behavior:'smooth'});
+  }
+
+  function retryQuiz() {
+    loadQuiz(chapters[currentChapter].quiz);
+  }
+
+  // =============================================
+  // PRINT / SAVE PDF
+  // =============================================
+  function printNotes() {
+    window.print();
+  }
   </script>
 </body>
 </html>
