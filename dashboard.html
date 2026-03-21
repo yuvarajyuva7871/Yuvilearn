@@ -426,7 +426,52 @@
     localStorage.setItem('yuvi_last_lesson', JSON.stringify({
       title, subject, url, date: new Date().toLocaleDateString('en-IN')
     }));
-  }
+  }// ── Show pending doubts to teacher on dashboard ────────
+function renderTeacherDoubts() {
+  const pending = JSON.parse(localStorage.getItem('yuvi_pending_doubts') || '[]');
+  if(pending.length === 0) return '';
+  return `
+    <div style="background:#fff7ed;border:2px solid #fb923c;border-radius:18px;padding:24px;margin-top:24px">
+      <h3 style="font-size:1rem;font-weight:800;color:#0a1628;margin-bottom:16px">
+        📩 Pending Student Doubts (${pending.length})
+      </h3>
+      <p style="font-size:0.85rem;color:#666;margin-bottom:14px">
+        These doubts were not found in the database. Add them to <code>doubtDB</code> in doubts.html!
+      </p>
+      ${[...pending].reverse().map(p=>`
+        <div style="background:#fff;border-radius:10px;padding:12px 16px;margin-bottom:8px;display:flex;justify-content:space-between;align-items:center;gap:10px;flex-wrap:wrap">
+          <div>
+            <div style="font-weight:700;font-size:0.88rem;color:#0a1628">❓ ${p.doubt}</div>
+            <div style="font-size:0.75rem;color:#888;margin-top:3px">${p.subject} · ${p.date} · by ${p.name}</div>
+          </div>
+          <span style="background:#fed7aa;color:#92400e;padding:3px 10px;border-radius:50px;font-size:0.75rem;font-weight:700;white-space:nowrap">${p.status}</span>
+        </div>`).join('')}
+    </div>`;
+}
+```
+
+Then find where dashboard renders and add `${renderTeacherDoubts()}` at the end of the dashboard HTML string.
+
+---
+
+## ✅ How the Full System Works Now
+```
+Student types question
+        ↓
+Found in database? → YES → Show instant answer ✅
+        ↓ NO
+Show "Not Found" card with:
+  🌐 Search Google button (opens Google search)
+  ▶️ Search YouTube button (opens YouTube search)
+  📩 Submit doubt form (saves locally)
+        ↓
+Doubt saved to localStorage
+        ↓
+You see it on Dashboard → "Pending Doubts"
+        ↓
+You add the answer to doubtDB in doubts.html
+        ↓
+All students get the answer forever! 🎉
   </script>
 </body>
 </html>
