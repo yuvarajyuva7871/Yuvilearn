@@ -1,0 +1,523 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Study Timetable – Yuvilearn</title>
+  <link rel="stylesheet" href="style.css"/>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700;800&display=swap" rel="stylesheet"/>
+  <style>
+    /* ── PAGE ── */
+    .tt-page{max-width:1100px;margin:0 auto;padding:32px 20px}
+
+    /* ── SETUP CARD ── */
+    .setup-card{background:#f0f4ff;border-radius:20px;padding:32px;margin-bottom:32px}
+    .setup-card h2{font-size:1.3rem;font-weight:800;color:#0a1628;margin-bottom:6px}
+    .setup-card p{color:#666;font-size:0.9rem;margin-bottom:24px}
+    .setup-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));gap:20px}
+    .setup-field label{display:block;font-size:0.85rem;font-weight:700;color:#0a1628;margin-bottom:8px}
+    .setup-field select,.setup-field input{width:100%;padding:11px 14px;border:2px solid #ddd;border-radius:12px;font-family:inherit;font-size:0.9rem;outline:none;transition:border 0.2s;background:#fff}
+    .setup-field select:focus,.setup-field input:focus{border-color:#1e4db7}
+    .days-grid{display:grid;grid-template-columns:repeat(7,1fr);gap:6px;margin-top:8px}
+    .day-btn{padding:8px 4px;border-radius:10px;border:2px solid #ddd;background:#fff;font-weight:700;font-size:0.75rem;cursor:pointer;transition:all 0.2s;text-align:center;color:#0a1628}
+    .day-btn:hover{border-color:#1e4db7}
+    .day-btn.selected{background:#1e4db7;color:#fff;border-color:#1e4db7}
+    .generate-btn{margin-top:24px;width:100%;padding:14px;font-size:1rem;font-weight:800;background:#1e4db7;color:#fff;border:none;border-radius:14px;cursor:pointer;transition:background 0.2s}
+    .generate-btn:hover{background:#163a8a}
+
+    /* ── TIMETABLE ── */
+    .tt-header{display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:12px;margin-bottom:20px}
+    .tt-header h2{font-size:1.3rem;font-weight:800;color:#0a1628}
+    .tt-actions{display:flex;gap:10px;flex-wrap:wrap}
+    .btn-action{padding:9px 20px;border-radius:50px;font-weight:700;font-size:0.85rem;cursor:pointer;border:none;transition:all 0.2s}
+    .btn-print-tt{background:#0a1628;color:#fff}
+    .btn-print-tt:hover{background:#1e4db7}
+    .btn-reset{background:#f0f4ff;color:#1e4db7;border:2px solid #1e4db7}
+    .btn-reset:hover{background:#1e4db7;color:#fff}
+
+    /* ── WEEK GRID ── */
+    .week-grid{display:grid;gap:16px}
+    .day-card{background:#fff;border-radius:16px;overflow:hidden;box-shadow:0 2px 12px rgba(30,77,183,0.08)}
+    .day-header{padding:14px 20px;display:flex;align-items:center;justify-content:space-between}
+    .day-name{font-weight:800;font-size:1rem;color:#fff}
+    .day-total{font-size:0.82rem;color:rgba(255,255,255,0.85);font-weight:600}
+    .day-slots{padding:14px 20px;display:flex;flex-direction:column;gap:8px}
+    .slot{display:flex;align-items:center;gap:14px;padding:12px 16px;border-radius:12px;transition:transform 0.15s}
+    .slot:hover{transform:translateX(4px)}
+    .slot-time{font-size:0.82rem;font-weight:700;color:#666;min-width:80px;flex-shrink:0}
+    .slot-icon{font-size:1.4rem;flex-shrink:0}
+    .slot-content{flex:1}
+    .slot-subject{font-weight:700;font-size:0.92rem;color:#0a1628}
+    .slot-topic{font-size:0.8rem;color:#666;margin-top:2px}
+    .slot-duration{font-size:0.78rem;font-weight:700;padding:3px 10px;border-radius:50px;flex-shrink:0}
+    .slot-break{background:#f9f9f9;border:1px dashed #ddd}
+    .slot-break .slot-subject{color:#aaa;font-weight:600}
+
+    /* day header colors */
+    .mon{background:linear-gradient(90deg,#1e4db7,#3b82f6)}
+    .tue{background:linear-gradient(90deg,#16a34a,#22c55e)}
+    .wed{background:linear-gradient(90deg,#db2777,#ec4899)}
+    .thu{background:linear-gradient(90deg,#d97706,#f59e0b)}
+    .fri{background:linear-gradient(90deg,#7c3aed,#a78bfa)}
+    .sat{background:linear-gradient(90deg,#0891b2,#22d3ee)}
+    .sun{background:linear-gradient(90deg,#dc2626,#f87171)}
+
+    /* slot bg colors */
+    .bg-math{background:#eff6ff}
+    .bg-science{background:#f0fdf4}
+    .bg-language{background:#fdf2f8}
+    .bg-revision{background:#fefce8}
+    .bg-break{background:#f9fafb}
+
+    /* ── SUMMARY CARDS ── */
+    .summary-row{display:grid;grid-template-columns:repeat(auto-fit,minmax(180px,1fr));gap:16px;margin-bottom:28px}
+    .summary-card{background:#f0f4ff;border-radius:14px;padding:18px;text-align:center}
+    .summary-card .s-val{font-size:1.6rem;font-weight:800;color:#1e4db7}
+    .summary-card .s-lbl{font-size:0.8rem;color:#666;font-weight:600;margin-top:4px}
+
+    /* ── TIPS ── */
+    .tips-section{background:#fff7ed;border:2px solid #fb923c;border-radius:16px;padding:20px 24px;margin-top:24px}
+    .tips-section h3{font-weight:800;color:#0a1628;margin-bottom:14px;font-size:0.95rem}
+    .tip-item{display:flex;align-items:flex-start;gap:10px;margin-bottom:10px;font-size:0.88rem;color:#444}
+
+    /* ── PRINT ── */
+    @media print{
+      .navbar,.setup-card,.tt-actions,.tips-section,.footer{display:none!important}
+      .day-card{break-inside:avoid;box-shadow:none!important;border:1px solid #ddd}
+      .day-header{-webkit-print-color-adjust:exact;print-color-adjust:exact}
+      .slot{break-inside:avoid}
+      body{color:#000}
+      .print-tt-header{display:block!important}
+    }
+    .print-tt-header{display:none;text-align:center;margin-bottom:20px}
+    .print-tt-header h2{font-size:1.4rem;font-weight:800}
+    .print-tt-header p{color:#555;font-size:0.9rem}
+
+    @media(max-width:600px){
+      .days-grid{grid-template-columns:repeat(4,1fr)}
+      .slot-time{min-width:60px;font-size:0.75rem}
+    }
+  </style>
+</head>
+<body>
+  <nav class="navbar">
+    <div class="nav-container">
+      <div class="logo">📚 Yuvilearn</div>
+      <button class="menu-btn" onclick="toggleMenu()">☰</button>
+      <ul class="nav-links" id="navLinks">
+        <li><a href="index.html">Home</a></li>
+        <li><a href="lessons.html">Lessons</a></li>
+        <li><a href="dashboard.html">Dashboard</a></li>
+        <li><a href="profile.html">Profile</a></li>
+        <li><a href="contact.html">Contact</a></li>
+      </ul>
+    </div>
+  </nav>
+
+  <div class="page-header">
+    <h1>📅 Study Timetable Generator</h1>
+    <p>Auto-create your personalised weekly study plan</p>
+  </div>
+
+  <div class="tt-page" id="ttApp"></div>
+
+  <footer class="footer">
+    <div class="footer-inner">
+      <div class="footer-logo">📚 Yuvilearn</div>
+      <div class="footer-links">
+        <a href="index.html">Home</a><a href="lessons.html">Lessons</a>
+        <a href="dashboard.html">Dashboard</a><a href="profile.html">Profile</a>
+        <a href="contact.html">Contact</a>
+      </div>
+      <p class="footer-copy">© 2026 Yuvilearn. Built with ❤️ for students.</p>
+    </div>
+  </footer>
+
+  <script src="script.js"></script>
+  <script>
+  // ── Load profile defaults ──────────────────────────────
+  const profile = JSON.parse(localStorage.getItem('yuvi_profile') || '{}');
+  const savedTT = JSON.parse(localStorage.getItem('yuvi_timetable') || 'null');
+
+  // ── Subject data ──────────────────────────────────────
+  const subjectInfo = {
+    math:     { label:'Mathematics', icon:'🔢', bg:'bg-math',     color:'#1e4db7', dur:'#dbeafe', durTxt:'#1e4db7' },
+    science:  { label:'Science',     icon:'🔬', bg:'bg-science',  color:'#16a34a', dur:'#dcfce7', durTxt:'#166534' },
+    language: { label:'English',     icon:'🗣️', bg:'bg-language', color:'#db2777', dur:'#fce7f3', durTxt:'#9d174d' }
+  };
+
+  const dayColors = ['mon','tue','wed','thu','fri','sat','sun'];
+  const dayNames  = ['Monday','Tuesday','Wednesday','Thursday','Friday','Saturday','Sunday'];
+  const dayShort  = ['Mon','Tue','Wed','Thu','Fri','Sat','Sun'];
+
+  // ── Chapter topics by class & subject ─────────────────
+  const topics = {
+    math: {
+      "1":["Numbers 1–100","Addition","Subtraction","Shapes & Patterns","Measurement & Time"],
+      "2":["Numbers up to 1000","Addition with Carrying","Multiplication","Division","Fractions"],
+      "3":["Numbers up to 10,000","Large Number Operations","Geometry","Decimals & Money","Data & Graphs"],
+    },
+    science: {
+      "1":["Living & Non-Living Things","Plants Around Us","Animals Around Us","Our Body","Food We Eat"],
+      "2":["Plants – Types & Uses","Animals – Habitat & Food","Air, Water & Weather","Rocks & Soil","Our Solar System"],
+      "3":["Living World – Cells","Food & Nutrition","Matter & Materials","Force, Work & Energy","Earth & Environment"],
+    },
+    language: {
+      "1":["Alphabet & Phonics","Words & Vocabulary","Nouns","Sentences","Reading & Comprehension"],
+      "2":["Pronouns & Adjectives","Verbs & Tenses","Punctuation","Story Writing","Letter Writing"],
+      "3":["Parts of Speech","Degrees of Comparison","Active & Passive Voice","Essay Writing","Synonyms & Antonyms"],
+    }
+  };
+
+  // ── Render setup form ─────────────────────────────────
+  function renderSetup() {
+    const cls      = profile.cls || '1';
+    const subjects = profile.subjects || ['math','science','language'];
+
+    document.getElementById('ttApp').innerHTML = `
+      <div class="setup-card">
+        <h2>⚙️ Customise Your Timetable</h2>
+        <p>Fill in your preferences and we'll generate a smart weekly plan just for you!</p>
+        <div class="setup-grid">
+
+          <div class="setup-field">
+            <label>Your Class</label>
+            <select id="ttClass">
+              ${[1,2,3,4,5,6,7,8,9,10].map(c=>`<option value="${c}" ${c==cls?'selected':''}>Class ${c}</option>`).join('')}
+            </select>
+          </div>
+
+          <div class="setup-field">
+            <label>Daily Study Time (hours)</label>
+            <select id="ttHours">
+              <option value="1">1 hour</option>
+              <option value="1.5">1.5 hours</option>
+              <option value="2" selected>2 hours</option>
+              <option value="2.5">2.5 hours</option>
+              <option value="3">3 hours</option>
+            </select>
+          </div>
+
+          <div class="setup-field">
+            <label>Study Start Time</label>
+            <input type="time" id="ttStart" value="17:00"/>
+          </div>
+
+          <div class="setup-field">
+            <label>Subjects to Include</label>
+            <div style="display:flex;gap:8px;flex-wrap:wrap;margin-top:8px">
+              ${['math','science','language'].map(s=>`
+                <button class="day-btn ${subjects.includes(s)?'selected':''} subj-btn"
+                  data-subj="${s}" onclick="toggleBtn(this)" style="flex:1;min-width:80px">
+                  ${subjectInfo[s].icon} ${subjectInfo[s].label}
+                </button>`).join('')}
+            </div>
+          </div>
+
+          <div class="setup-field">
+            <label>Focus Subject (gets extra time)</label>
+            <select id="ttFocus">
+              <option value="">No focus subject</option>
+              ${['math','science','language'].map(s=>`<option value="${s}" ${subjects[0]===s?'selected':''}>${subjectInfo[s].icon} ${subjectInfo[s].label}</option>`).join('')}
+            </select>
+          </div>
+
+          <div class="setup-field">
+            <label>Break Duration (minutes)</label>
+            <select id="ttBreak">
+              <option value="0">No breaks</option>
+              <option value="10" selected>10 minutes</option>
+              <option value="15">15 minutes</option>
+              <option value="20">20 minutes</option>
+            </select>
+          </div>
+
+        </div>
+
+        <div class="setup-field" style="margin-top:20px">
+          <label>Study Days</label>
+          <div class="days-grid">
+            ${dayShort.map((d,i)=>`
+              <button class="day-btn ${i<6?'selected':''} day-sel-btn"
+                data-day="${i}" onclick="toggleBtn(this)">${d}</button>`).join('')}
+          </div>
+        </div>
+
+        <button class="generate-btn" onclick="generateTT()">
+          🗓️ Generate My Timetable →
+        </button>
+      </div>`;
+
+    // Show saved timetable if exists
+    if(savedTT) renderTT(savedTT);
+  }
+
+  function toggleBtn(el){ el.classList.toggle('selected'); }
+
+  // ── Generate Timetable ────────────────────────────────
+  function generateTT() {
+    const cls       = document.getElementById('ttClass').value;
+    const hours     = parseFloat(document.getElementById('ttHours').value);
+    const startTime = document.getElementById('ttStart').value;
+    const focus     = document.getElementById('ttFocus').value;
+    const breakMins = parseInt(document.getElementById('ttBreak').value);
+
+    const selSubjects = [...document.querySelectorAll('.subj-btn.selected')].map(b=>b.dataset.subj);
+    const selDays     = [...document.querySelectorAll('.day-sel-btn.selected')].map(b=>parseInt(b.dataset.day));
+
+    if(selSubjects.length === 0){ alert('Please select at least one subject!'); return; }
+    if(selDays.length === 0){ alert('Please select at least one study day!'); return; }
+
+    // Build timetable data
+    const totalMins  = hours * 60;
+    const tt = { cls, hours, startTime, focus, breakMins, subjects: selSubjects, days: selDays, schedule: {} };
+
+    // Assign topics across week
+    const topicQueue = {};
+    selSubjects.forEach(s => {
+      const t = (topics[s] && topics[s][cls]) || ['Chapter 1','Chapter 2','Chapter 3','Chapter 4','Chapter 5'];
+      topicQueue[s] = [...t, ...t]; // repeat so full week is covered
+    });
+    const topicIdx = {};
+    selSubjects.forEach(s => topicIdx[s]=0);
+
+    selDays.forEach((dayIdx, di) => {
+      const slots    = [];
+      let   cursor   = parseTime(startTime);
+      let   remaining = totalMins;
+
+      // Distribute subjects for the day
+      // Focus subject gets 40% if set, others split rest equally
+      const subjectMins = {};
+      if(focus && selSubjects.includes(focus)) {
+        const focusMins = Math.round(totalMins * 0.40);
+        const otherMins = Math.round((totalMins - focusMins) / (selSubjects.length - 1 || 1));
+        selSubjects.forEach(s => subjectMins[s] = s === focus ? focusMins : otherMins);
+      } else {
+        const perSubj = Math.floor(totalMins / selSubjects.length);
+        selSubjects.forEach(s => subjectMins[s] = perSubj);
+      }
+
+      // Rotate subjects based on day for variety
+      const daySubjects = [...selSubjects];
+      for(let r=0; r<di%selSubjects.length; r++) daySubjects.push(daySubjects.shift());
+
+      daySubjects.forEach((subj, si) => {
+        const mins = subjectMins[subj];
+        const info = subjectInfo[subj];
+        const topic = topicQueue[subj][topicIdx[subj] % topicQueue[subj].length];
+
+        // Add break before subject (except first)
+        if(si > 0 && breakMins > 0) {
+          slots.push({
+            type:'break', time:formatTime(cursor),
+            label:'☕ Break', topic:'Rest & refresh your mind',
+            mins:breakMins, bg:'bg-break'
+          });
+          cursor += breakMins;
+        }
+
+        slots.push({
+          type:'study',
+          time:formatTime(cursor),
+          icon:info.icon,
+          label:info.label,
+          topic:`${topic}`,
+          mins,
+          bg:info.bg,
+          dur:info.dur,
+          durTxt:info.durTxt,
+          link:`lesson-detail.html?class=${cls}&subject=${subj}`
+        });
+        cursor += mins;
+        topicIdx[subj]++;
+      });
+
+      // Add revision slot at end if time > 1.5 hrs
+      if(hours >= 1.5) {
+        if(breakMins > 0) {
+          slots.push({type:'break',time:formatTime(cursor),label:'☕ Short Break',topic:'Drink water & rest',mins:5,bg:'bg-break'});
+          cursor+=5;
+        }
+        slots.push({
+          type:'revision',
+          time:formatTime(cursor),
+          icon:'📖',
+          label:'Quick Revision',
+          topic:'Review today\'s notes & key points',
+          mins:15,
+          bg:'bg-revision',
+          dur:'#fef9c3',
+          durTxt:'#854d0e'
+        });
+      }
+
+      tt.schedule[dayIdx] = { slots, totalMins };
+    });
+
+    localStorage.setItem('yuvi_timetable', JSON.stringify(tt));
+    renderTT(tt);
+  }
+
+  // ── Render Timetable ──────────────────────────────────
+  function renderTT(tt) {
+    const container = document.getElementById('ttApp');
+
+    // Total weekly hours
+    const totalWeeklyMins = tt.days.length * tt.hours * 60;
+    const totalWeeklyHrs  = (totalWeeklyMins / 60).toFixed(1);
+    const chaptersPerWeek = tt.subjects.length * tt.days.length;
+
+    // Subject minutes per week
+    const subjWeekMins = {};
+    tt.subjects.forEach(s => {
+      let total = 0;
+      tt.days.forEach(d => {
+        if(tt.schedule[d]) {
+          tt.schedule[d].slots.filter(sl=>sl.label===subjectInfo[s].label).forEach(sl=>total+=sl.mins);
+        }
+      });
+      subjWeekMins[s] = total;
+    });
+
+    // Tips based on class
+    const clsNum = parseInt(tt.cls);
+    const tips = [
+      clsNum <= 3
+        ? '📌 For Class 1–3: Focus on understanding basics — don\'t rush. Read notes aloud!'
+        : '📌 For Class 4+: Make short notes while studying each chapter.',
+      '⏰ Study at the same time every day to build a strong habit.',
+      '🔄 Always do the chapter quiz after reading notes to test yourself.',
+      '💧 Drink water during breaks — it helps your brain stay sharp!',
+      tt.focus ? `⭐ You have set ${subjectInfo[tt.focus]?.label} as your focus subject — great choice!` : '🎯 Set a focus subject to give extra time to your weakest area.',
+    ];
+
+    // Build HTML
+    const dayCardsHTML = tt.days.map(dayIdx => {
+      const day    = tt.schedule[dayIdx];
+      const dName  = dayNames[dayIdx];
+      const dColor = dayColors[dayIdx];
+      const totalSlotMins = day.slots.filter(s=>s.type==='study').reduce((a,b)=>a+b.mins,0);
+
+      const slotsHTML = day.slots.map(slot => {
+        if(slot.type === 'break') return `
+          <div class="slot slot-break">
+            <span class="slot-time">${slot.time}</span>
+            <span class="slot-icon">☕</span>
+            <div class="slot-content">
+              <div class="slot-subject" style="color:#aaa">${slot.label}</div>
+              <div class="slot-topic">${slot.topic}</div>
+            </div>
+            <span class="slot-duration" style="background:#f3f4f6;color:#9ca3af">${slot.mins}m</span>
+          </div>`;
+
+        return `
+          <a href="${slot.link||'#'}" class="slot ${slot.bg}" style="text-decoration:none">
+            <span class="slot-time">${slot.time}</span>
+            <span class="slot-icon">${slot.icon}</span>
+            <div class="slot-content">
+              <div class="slot-subject">${slot.label}</div>
+              <div class="slot-topic">📖 ${slot.topic}</div>
+            </div>
+            <span class="slot-duration" style="background:${slot.dur||'#e0e7ff'};color:${slot.durTxt||'#1e4db7'}">${slot.mins}m</span>
+          </a>`;
+      }).join('');
+
+      return `
+        <div class="day-card">
+          <div class="day-header ${dColor}">
+            <span class="day-name">${dName}</span>
+            <span class="day-total">📚 ${(totalSlotMins/60).toFixed(1)}h study time</span>
+          </div>
+          <div class="day-slots">${slotsHTML}</div>
+        </div>`;
+    }).join('');
+
+    // Summary per subject
+    const subjSummary = tt.subjects.map(s => {
+      const info = subjectInfo[s];
+      const mins = subjWeekMins[s] || 0;
+      return `
+        <div class="summary-card">
+          <div style="font-size:1.6rem">${info.icon}</div>
+          <div class="s-val" style="color:${info.color}">${(mins/60).toFixed(1)}h</div>
+          <div class="s-lbl">${info.label}/week</div>
+        </div>`;
+    }).join('');
+
+    const tipsHTML = tips.map(t=>`<div class="tip-item"><span>•</span><span>${t}</span></div>`).join('');
+
+    // Find the existing timetable output div or append after setup
+    let ttOut = document.getElementById('ttOutput');
+    if(!ttOut) {
+      ttOut = document.createElement('div');
+      ttOut.id = 'ttOutput';
+      container.appendChild(ttOut);
+    }
+
+    ttOut.innerHTML = `
+      <!-- Print Header -->
+      <div class="print-tt-header">
+        <h2>📅 Yuvilearn Study Timetable</h2>
+        <p>Class ${tt.cls} · ${tt.subjects.map(s=>subjectInfo[s].label).join(', ')} · Generated on ${new Date().toLocaleDateString('en-IN')}</p>
+      </div>
+
+      <!-- Timetable Header -->
+      <div class="tt-header">
+        <h2>📅 Your Weekly Study Plan — Class ${tt.cls}</h2>
+        <div class="tt-actions">
+          <button class="btn-action btn-print-tt" onclick="window.print()">🖨️ Print / Save PDF</button>
+          <button class="btn-action btn-reset" onclick="document.getElementById('ttOutput').remove()">🔄 Regenerate</button>
+        </div>
+      </div>
+
+      <!-- Summary Row -->
+      <div class="summary-row">
+        <div class="summary-card">
+          <div style="font-size:1.6rem">📅</div>
+          <div class="s-val">${tt.days.length}</div>
+          <div class="s-lbl">Study Days/Week</div>
+        </div>
+        <div class="summary-card">
+          <div style="font-size:1.6rem">⏱️</div>
+          <div class="s-val">${totalWeeklyHrs}h</div>
+          <div class="s-lbl">Total Study/Week</div>
+        </div>
+        <div class="summary-card">
+          <div style="font-size:1.6rem">📖</div>
+          <div class="s-val">${chaptersPerWeek}</div>
+          <div class="s-lbl">Topics This Week</div>
+        </div>
+        ${subjSummary}
+      </div>
+
+      <!-- Day Cards -->
+      <div class="week-grid">${dayCardsHTML}</div>
+
+      <!-- Study Tips -->
+      <div class="tips-section">
+        <h3>💡 Smart Study Tips for You</h3>
+        ${tipsHTML}
+      </div>`;
+
+    ttOut.scrollIntoView({behavior:'smooth'});
+  }
+
+  // ── Time helpers ──────────────────────────────────────
+  function parseTime(str) {
+    const [h,m] = str.split(':').map(Number);
+    return h*60+m;
+  }
+  function formatTime(mins) {
+    const h   = Math.floor(mins/60)%24;
+    const m   = mins%60;
+    const ampm= h>=12?'PM':'AM';
+    const h12 = h%12||12;
+    return `${h12}:${String(m).padStart(2,'0')} ${ampm}`;
+  }
+
+  // ── Init ──────────────────────────────────────────────
+  renderSetup();
+  </script>
+</body>
+</html>
