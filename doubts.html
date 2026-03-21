@@ -679,7 +679,7 @@
   function renderChapters() {
     currentClass = document.getElementById('classFilter').value;
     if(!currentSubject) currentSubject = 'math';
-    const doubts = doubtDB[currentSubject]?.[currentClass] || [];
+    let doubts = []; if(currentSubject === 'ss') {   doubts = socialStudiesDB[currentClass] || []; } else if(currentSubject === 'career') {   doubts = careerDB; } else {   doubts = doubtDB[currentSubject]?.[currentClass] || []; }
     const chapters = {};
     doubts.forEach(d => {
       if(!chapters[d.chapter]) chapters[d.chapter] = [];
