@@ -1,0 +1,91 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Lesson – Yuvilearn</title>
+  <link rel="stylesheet" href="style.css"/>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700;800&display=swap" rel="stylesheet"/>
+</head>
+<body>
+
+  <nav class="navbar">
+    <div class="nav-container">
+      <div class="logo">📚 Yuvilearn</div>
+      <button class="menu-btn" onclick="toggleMenu()">☰</button>
+      <ul class="nav-links" id="navLinks">
+        <li><a href="index.html">Home</a></li>
+        <li><a href="lessons.html">Lessons</a></li>
+        <li><a href="profile.html">My Profile</a></li>
+        <li><a href="contact.html">Contact</a></li>
+      </ul>
+    </div>
+  </nav>
+
+  <div class="lesson-page">
+    <div class="lesson-header">
+      <a href="lessons.html" class="back-btn">← Back to Lessons</a>
+      <h1 id="lessonTitle">Chapter 1: Introduction</h1>
+      <p id="lessonMeta">Class 1 · Mathematics</p>
+    </div>
+
+    <div class="lesson-layout">
+      <!-- Video Side -->
+      <div class="video-side">
+        <div class="chapter-list">
+          <h3>📋 Chapters</h3>
+          <ul>
+            <li class="chapter-item active" onclick="selectChapter(this, 'Chapter 1: Introduction')">Chapter 1: Introduction</li>
+            <li class="chapter-item" onclick="selectChapter(this, 'Chapter 2: Core Concepts')">Chapter 2: Core Concepts</li>
+            <li class="chapter-item" onclick="selectChapter(this, 'Chapter 3: Practice Problems')">Chapter 3: Practice Problems</li>
+            <li class="chapter-item" onclick="selectChapter(this, 'Chapter 4: Advanced Topics')">Chapter 4: Advanced Topics</li>
+            <li class="chapter-item" onclick="selectChapter(this, 'Chapter 5: Revision')">Chapter 5: Revision</li>
+          </ul>
+        </div>
+
+        <div class="video-box">
+          <div class="video-placeholder">
+            <span>▶</span>
+            <p>Video Lecture</p>
+            <small>Add your YouTube embed link here</small>
+          </div>
+        </div>
+      </div>
+
+      <!-- Notes Side -->
+      <div class="notes-side">
+        <h3>📝 Notes</h3>
+        <div class="notes-content" id="notesContent">
+          <h4>What you'll learn in this chapter:</h4>
+          <ul>
+            <li>Key concepts and definitions</li>
+            <li>Step-by-step explanations</li>
+            <li>Examples and solved problems</li>
+            <li>Important formulas to remember</li>
+          </ul>
+          <div class="note-box">
+            <strong>💡 Key Point:</strong> Add your lesson notes here. You can write formulas, definitions, and explanations for students.
+          </div>
+          <p>This section will contain the detailed notes for this chapter. Update this content with actual lesson material for each class and subject.</p>
+        </div>
+        <button class="btn-primary" style="margin-top:20px;border:none;cursor:pointer;width:100%" onclick="markDone()">✅ Mark as Complete</button>
+      </div>
+    </div>
+  </div>
+
+  <footer class="footer">
+    <div class="footer-inner">
+      <div class="footer-logo">📚 Yuvilearn</div>
+      <div class="footer-links">
+        <a href="index.html">Home</a>
+        <a href="lessons.html">Lessons</a>
+        <a href="profile.html">Profile</a>
+        <a href="contact.html">Contact</a>
+      </div>
+      <p class="footer-copy">© 2026 Yuvilearn. Built with ❤️ for students.</p>
+    </div>
+  </footer>
+
+  <script src="script.js"></script>
+</body>
+</html>
