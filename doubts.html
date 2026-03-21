@@ -1273,7 +1273,7 @@
     isSearching = true;
   }
 
-  function searchDoubts() {
+  function searchDoubts() {   const val = document.getElementById('doubtSearch').value.trim();   if(!val) return;   const results = smartSearch(val);   if(results.length > 0) {     renderSearchResults(results, val);     isSearching = true;     document.getElementById('searchResultsArea').scrollIntoView({behavior:'smooth'});   } else {     // Not found — show fallback     showNotFound(val);   } } {
     const val = document.getElementById('doubtSearch').value;
     if(!val.trim()) return;
     const results = smartSearch(val);
@@ -1442,7 +1442,107 @@
     if(doubt) { currentDoubt=doubt; renderAnswer(doubt,subj); }
     window.scrollTo({top:0,behavior:'smooth'});
   }
+// ── NOT FOUND FALLBACK ─────────────────────────────────
+function showNotFound(query) {
+  isSearching = true;
+  const googleUrl  = `https://www.google.com/search?q=${encodeURIComponent(query+' for class students explanation')}`;
+  const youtubeUrl = `https://www.youtube.com/results?search_query=${encodeURIComponent(query+' explained for kids')}`;
 
+  document.getElementById('searchResultsArea').innerHTML = `
+    <div class="not-found-card">
+      <div class="not-found-icon">🔍</div>
+      <div class="not-found-title">We couldn't find this doubt in our database yet!</div>
+      <div class="not-found-sub">But don't worry — here are 3 ways to get your answer:</div>
+      <div class="not-found-query">"${query}"</div>
+
+      <div class="options-grid">
+        <a class="option-card option-google" href="${googleUrl}" target="_blank">
+          <div class="option-icon">🌐</div>
+          <div class="option-title">Search Google</div>
+          <div class="option-desc">Find a detailed text explanation</div>
+        </a>
+        <a class="option-card option-youtube" href="${youtubeUrl}" target="_blank">
+          <div class="option-icon">▶️</div>
+          <div class="option-title">Search YouTube</div>
+          <div class="option-desc">Watch a video explanation</div>
+        </a>
+      </div>
+
+      <div class="submit-doubt-form">
+        <h4>📩 Submit this doubt to your teacher</h4>
+        <p style="font-size:0.82rem;color:#555;margin-bottom:12px">We'll add the answer to Yuvilearn so all students can benefit!</p>
+        <input class="submit-input" id="submitName" type="text" placeholder="Your name (optional)"/>
+        <textarea class="submit-input" id="submitDoubt" rows="3"
+          placeholder="Describe your doubt in detail...">${query}</textarea>
+        <select class="submit-input" id="submitSubject">
+          <option value="">Which subject is this doubt about?</option>
+          <option value="Math">🔢 Mathematics</option>
+          <option value="Science">🔬 Science</option>
+          <option value="English">🗣️ English</option>
+          <option value="General">📌 General</option>
+        </select>
+        <button class="btn-submit-doubt" onclick="submitDoubt()">📩 Submit My Doubt</button>
+        <div class="submit-success" id="submitSuccess">
+          ✅ Doubt submitted! Your teacher will add the answer soon. Thank you!
+        </div>
+      </div>
+    </div>
+
+    <!-- Pending submitted doubts -->
+    <div class="pending-doubts-section" id="pendingSection"></div>`;
+
+  renderPendingDoubts();
+  document.getElementById('searchResultsArea').scrollIntoView({behavior:'smooth'});
+}
+
+// ── Submit doubt ───────────────────────────────────────
+function submitDoubt() {
+  const name    = document.getElementById('submitName')?.value.trim() || 'Anonymous';
+  const doubt   = document.getElementById('submitDoubt')?.value.trim();
+  const subject = document.getElementById('submitSubject')?.value || 'General';
+
+  if(!doubt) { alert('Please describe your doubt first!'); return; }
+
+  // Save to localStorage
+  const pending = JSON.parse(localStorage.getItem('yuvi_pending_doubts') || '[]');
+  pending.push({
+    id: 'pd_' + Date.now(),
+    name, doubt, subject,
+    date: new Date().toLocaleDateString('en-IN'),
+    status: 'Pending'
+  });
+  localStorage.setItem('yuvi_pending_doubts', JSON.stringify(pending));
+
+  // Show success message
+  document.getElementById('submitSuccess').style.display = 'block';
+  document.getElementById('submitDoubt').value = '';
+  document.getElementById('submitName').value  = '';
+
+  // Refresh pending list
+  renderPendingDoubts();
+}
+
+// ── Show pending submitted doubts ─────────────────────
+function renderPendingDoubts() {
+  const section = document.getElementById('pendingSection');
+  if(!section) return;
+  const pending = JSON.parse(localStorage.getItem('yuvi_pending_doubts') || '[]');
+  if(pending.length === 0) { section.innerHTML=''; return; }
+
+  section.innerHTML = `
+    <h3>📋 Your Submitted Doubts (${pending.length})</h3>
+    ${[...pending].reverse().map(p => `
+      <div class="pending-item">
+        <div class="pending-q">❓ ${p.doubt}</div>
+        <div style="display:flex;flex-direction:column;align-items:flex-end;gap:4px;flex-shrink:0">
+          <span class="pending-status">${p.status}</span>
+          <span style="font-size:0.72rem;color:#aaa">${p.date} · ${p.subject}</span>
+        </div>
+      </div>`).join('')}
+    <p style="font-size:0.78rem;color:#aaa;text-align:center;margin-top:8px">
+      Your teacher will review and add answers soon!
+    </p>`;
+}
   // ── Init ───────────────────────────────────────────────
   const savedProfile = JSON.parse(localStorage.getItem('yuvi_profile')||'{}');
   if(savedProfile.cls && ['1','2','3'].includes(String(savedProfile.cls))) {
