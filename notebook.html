@@ -1,0 +1,391 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>My Notebook – Yuvilearn</title>
+  <link rel="stylesheet" href="style.css"/>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700;800&display=swap" rel="stylesheet"/>
+  <style>
+    /* ── LAYOUT ── */
+    .nb-page{max-width:1100px;margin:0 auto;padding:28px 20px;display:grid;grid-template-columns:280px 1fr;gap:24px;align-items:start}
+    @media(max-width:750px){.nb-page{grid-template-columns:1fr}.nb-sidebar{order:2}.nb-main{order:1}}
+
+    /* ── SIDEBAR ── */
+    .nb-sidebar{}
+    .nb-sidebar h3{font-size:1rem;font-weight:800;color:#0a1628;margin-bottom:14px}
+    .new-note-btn{width:100%;padding:12px;background:#1e4db7;color:#fff;border:none;border-radius:12px;font-weight:700;font-size:0.95rem;cursor:pointer;margin-bottom:16px;transition:background .2s}
+    .new-note-btn:hover{background:#163a8a}
+    .search-box{width:100%;padding:10px 14px;border:2px solid #ddd;border-radius:10px;font-family:inherit;font-size:0.88rem;outline:none;margin-bottom:14px;transition:border .2s;box-sizing:border-box}
+    .search-box:focus{border-color:#1e4db7}
+    .filter-tabs{display:flex;gap:6px;flex-wrap:wrap;margin-bottom:14px}
+    .filter-tab{padding:5px 12px;border-radius:50px;border:2px solid #ddd;background:#fff;font-size:0.78rem;font-weight:600;cursor:pointer;transition:all .2s;color:#555}
+    .filter-tab.active{background:#1e4db7;color:#fff;border-color:#1e4db7}
+    .notes-list{display:flex;flex-direction:column;gap:8px;max-height:520px;overflow-y:auto}
+    .note-item{background:#f0f4ff;border-radius:12px;padding:14px;cursor:pointer;border:2px solid transparent;transition:all .15s}
+    .note-item:hover{border-color:#1e4db7}
+    .note-item.active{border-color:#1e4db7;background:#e8efff}
+    .note-item-title{font-weight:700;font-size:0.9rem;color:#0a1628;margin-bottom:4px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+    .note-item-meta{font-size:0.75rem;color:#888;display:flex;gap:6px;align-items:center;flex-wrap:wrap}
+    .note-tag{padding:2px 8px;border-radius:50px;font-size:0.7rem;font-weight:600}
+    .tag-math{background:#dbeafe;color:#1e4db7}
+    .tag-science{background:#dcfce7;color:#166534}
+    .tag-language{background:#fce7f3;color:#9d174d}
+    .tag-general{background:#f3f4f6;color:#555}
+    .empty-notes{text-align:center;color:#aaa;font-size:0.88rem;padding:28px 16px}
+
+    /* ── MAIN EDITOR ── */
+    .nb-main{}
+    .editor-toolbar{display:flex;gap:6px;flex-wrap:wrap;align-items:center;margin-bottom:10px;background:#f0f4ff;padding:10px 14px;border-radius:12px}
+    .tool-btn{padding:6px 12px;border-radius:8px;border:none;background:#fff;font-size:0.82rem;font-weight:600;cursor:pointer;color:#0a1628;transition:all .15s;border:1px solid #ddd}
+    .tool-btn:hover{background:#1e4db7;color:#fff;border-color:#1e4db7}
+    .tool-btn.active{background:#1e4db7;color:#fff;border-color:#1e4db7}
+    .tool-sep{width:1px;background:#ddd;height:24px;margin:0 4px}
+    .color-dot{width:18px;height:18px;border-radius:50%;cursor:pointer;border:2px solid transparent;transition:border .15s;flex-shrink:0}
+    .color-dot:hover,.color-dot.active{border-color:#0a1628}
+    .note-title-input{width:100%;padding:12px 16px;border:2px solid #ddd;border-radius:12px;font-family:inherit;font-size:1.1rem;font-weight:800;color:#0a1628;outline:none;margin-bottom:10px;transition:border .2s;box-sizing:border-box}
+    .note-title-input:focus{border-color:#1e4db7}
+    .note-meta-row{display:flex;gap:10px;align-items:center;margin-bottom:10px;flex-wrap:wrap}
+    .meta-select{padding:7px 12px;border:2px solid #ddd;border-radius:10px;font-family:inherit;font-size:0.85rem;outline:none;transition:border .2s;background:#fff;color:#0a1628}
+    .meta-select:focus{border-color:#1e4db7}
+    .editor-area{width:100%;min-height:340px;padding:16px;border:2px solid #ddd;border-radius:12px;font-family:'Inter',sans-serif;font-size:0.95rem;line-height:1.7;outline:none;transition:border .2s;box-sizing:border-box;color:#1a1a2e;background:#fff;resize:vertical}
+    .editor-area:focus{border-color:#1e4db7}
+    .editor-actions{display:flex;gap:10px;margin-top:12px;flex-wrap:wrap}
+    .btn-save{background:#1e4db7;color:#fff;border:none;padding:11px 24px;border-radius:50px;font-weight:700;cursor:pointer;font-size:0.9rem;transition:background .2s}
+    .btn-save:hover{background:#163a8a}
+    .btn-delete{background:#fff;color:#dc2626;border:2px solid #dc2626;padding:11px 24px;border-radius:50px;font-weight:700;cursor:pointer;font-size:0.9rem;transition:all .2s}
+    .btn-delete:hover{background:#dc2626;color:#fff}
+    .btn-print-note{background:#f0f4ff;color:#1e4db7;border:2px solid #1e4db7;padding:11px 24px;border-radius:50px;font-weight:700;cursor:pointer;font-size:0.9rem;transition:all .2s}
+    .btn-print-note:hover{background:#1e4db7;color:#fff}
+    .save-status{font-size:0.82rem;color:#16a34a;font-weight:600;margin-top:8px;min-height:18px}
+    .word-count{font-size:0.78rem;color:#aaa;margin-top:6px}
+    .no-note-selected{text-align:center;padding:60px 20px;color:#aaa}
+    .no-note-selected .big-icon{font-size:3.5rem;margin-bottom:14px}
+    .no-note-selected p{font-size:0.95rem;margin-bottom:16px}
+
+    /* ── HIGHLIGHT COLORS ── */
+    .hl-yellow{background:#fef9c3}
+    .hl-green{background:#dcfce7}
+    .hl-blue{background:#dbeafe}
+    .hl-pink{background:#fce7f3}
+
+    /* ── PRINT ── */
+    @media print{
+      .navbar,.nb-sidebar,.editor-toolbar,.editor-actions,.footer,.save-status,.word-count{display:none!important}
+      .nb-page{grid-template-columns:1fr!important}
+      .editor-area{border:none!important;min-height:auto!important}
+      .note-title-input{border:none!important;font-size:1.4rem!important}
+      .print-note-header{display:block!important}
+    }
+    .print-note-header{display:none;margin-bottom:16px;border-bottom:2px solid #0a1628;padding-bottom:12px}
+  </style>
+</head>
+<body>
+  <nav class="navbar">
+    <div class="nav-container">
+      <div class="logo">📚 Yuvilearn</div>
+      <button class="menu-btn" onclick="toggleMenu()">☰</button>
+      <ul class="nav-links" id="navLinks">
+        <li><a href="index.html">Home</a></li>
+        <li><a href="lessons.html">Lessons</a></li>
+        <li><a href="dashboard.html">Dashboard</a></li>
+        <li><a href="timetable.html">Timetable</a></li>
+        <li><a href="notebook.html" class="active">Notebook</a></li>
+        <li><a href="profile.html">Profile</a></li>
+        <li><a href="contact.html">Contact</a></li>
+      </ul>
+    </div>
+  </nav>
+
+  <div class="page-header">
+    <h1>📝 My Notebook</h1>
+    <p>Write, save and organise your personal study notes</p>
+  </div>
+
+  <div class="nb-page">
+    <!-- SIDEBAR -->
+    <div class="nb-sidebar">
+      <button class="new-note-btn" onclick="newNote()">+ New Note</button>
+      <input class="search-box" type="text" placeholder="🔍 Search notes..." oninput="searchNotes(this.value)"/>
+      <div class="filter-tabs">
+        <button class="filter-tab active" onclick="filterNotes('all',this)">All</button>
+        <button class="filter-tab" onclick="filterNotes('math',this)">🔢 Math</button>
+        <button class="filter-tab" onclick="filterNotes('science',this)">🔬 Science</button>
+        <button class="filter-tab" onclick="filterNotes('language',this)">🗣️ English</button>
+        <button class="filter-tab" onclick="filterNotes('general',this)">📌 General</button>
+      </div>
+      <div class="notes-list" id="notesList"></div>
+    </div>
+
+    <!-- MAIN EDITOR -->
+    <div class="nb-main" id="editorArea">
+      <div class="no-note-selected">
+        <div class="big-icon">📝</div>
+        <p>Select a note or create a new one to start writing!</p>
+        <button class="new-note-btn" style="display:inline-block;width:auto;padding:12px 28px" onclick="newNote()">+ Create First Note</button>
+      </div>
+    </div>
+  </div>
+
+  <footer class="footer">
+    <div class="footer-inner">
+      <div class="footer-logo">📚 Yuvilearn</div>
+      <div class="footer-links">
+        <a href="index.html">Home</a><a href="lessons.html">Lessons</a>
+        <a href="dashboard.html">Dashboard</a><a href="notebook.html">Notebook</a>
+        <a href="contact.html">Contact</a>
+      </div>
+      <p class="footer-copy">© 2026 Yuvilearn. Built with ❤️ for students.</p>
+    </div>
+  </footer>
+
+  <script src="script.js"></script>
+  <script>
+  // ── State ──────────────────────────────────────────────
+  let notes       = JSON.parse(localStorage.getItem('yuvi_notes') || '[]');
+  let currentId   = null;
+  let filterSubj  = 'all';
+  let searchQuery = '';
+  let saveTimer   = null;
+  let activeColor = null;
+
+  const profile = JSON.parse(localStorage.getItem('yuvi_profile') || '{}');
+
+  // ── Save notes to localStorage ─────────────────────────
+  function persist() {
+    localStorage.setItem('yuvi_notes', JSON.stringify(notes));
+  }
+
+  // ── Render sidebar list ───────────────────────────────
+  function renderList() {
+    const list = document.getElementById('notesList');
+    let filtered = notes.filter(n => {
+      const matchSubj = filterSubj === 'all' || n.subject === filterSubj;
+      const matchSearch = !searchQuery ||
+        n.title.toLowerCase().includes(searchQuery) ||
+        n.content.toLowerCase().includes(searchQuery);
+      return matchSubj && matchSearch;
+    }).sort((a,b) => b.updatedAt - a.updatedAt);
+
+    if(filtered.length === 0) {
+      list.innerHTML = `<div class="empty-notes">📭 No notes found.<br/>Create your first note!</div>`;
+      return;
+    }
+
+    list.innerHTML = filtered.map(n => `
+      <div class="note-item ${n.id === currentId ? 'active' : ''}" onclick="openNote('${n.id}')">
+        <div class="note-item-title">${n.title || 'Untitled Note'}</div>
+        <div class="note-item-meta">
+          <span class="note-tag tag-${n.subject||'general'}">${subjectLabel(n.subject)}</span>
+          <span>${formatDate(n.updatedAt)}</span>
+          ${n.chapter ? `<span>· ${n.chapter}</span>` : ''}
+        </div>
+      </div>`).join('');
+  }
+
+  // ── Open a note ────────────────────────────────────────
+  function openNote(id) {
+    currentId = id;
+    const note = notes.find(n => n.id === id);
+    if(!note) return;
+    renderList();
+    renderEditor(note);
+  }
+
+  // ── Render editor ──────────────────────────────────────
+  function renderEditor(note) {
+    document.getElementById('editorArea').innerHTML = `
+      <div class="print-note-header">
+        <strong style="font-size:1.3rem">${note.title||'Note'}</strong><br/>
+        <span style="font-size:0.85rem;color:#555">Yuvilearn Notebook · ${formatDate(note.updatedAt)}</span>
+      </div>
+
+      <div class="editor-toolbar">
+        <button class="tool-btn" onclick="fmt('bold')" title="Bold"><b>B</b></button>
+        <button class="tool-btn" onclick="fmt('italic')" title="Italic"><i>I</i></button>
+        <button class="tool-btn" onclick="fmt('underline')" title="Underline"><u>U</u></button>
+        <div class="tool-sep"></div>
+        <button class="tool-btn" onclick="insertList('ul')" title="Bullet list">• List</button>
+        <button class="tool-btn" onclick="insertList('ol')" title="Numbered list">1. List</button>
+        <div class="tool-sep"></div>
+        <button class="tool-btn" onclick="insertFormula()" title="Insert formula box">∑ Formula</button>
+        <button class="tool-btn" onclick="insertKeyPoint()" title="Key point box">💡 Key Point</button>
+        <div class="tool-sep"></div>
+        <span style="font-size:0.78rem;color:#888;font-weight:600">Highlight:</span>
+        <div class="color-dot ${activeColor==='#fef9c3'?'active':''}" style="background:#fef9c3" onclick="setHighlight('#fef9c3',this)" title="Yellow"></div>
+        <div class="color-dot ${activeColor==='#dcfce7'?'active':''}" style="background:#dcfce7" onclick="setHighlight('#dcfce7',this)" title="Green"></div>
+        <div class="color-dot ${activeColor==='#dbeafe'?'active':''}" style="background:#dbeafe" onclick="setHighlight('#dbeafe',this)" title="Blue"></div>
+        <div class="color-dot ${activeColor==='#fce7f3'?'active':''}" style="background:#fce7f3" onclick="setHighlight('#fce7f3',this)" title="Pink"></div>
+      </div>
+
+      <input class="note-title-input" id="noteTitle" type="text"
+        placeholder="Note title..." value="${escHtml(note.title||'')}"
+        oninput="autoSave()"/>
+
+      <div class="note-meta-row">
+        <select class="meta-select" id="noteSubject" onchange="autoSave()">
+          <option value="general" ${note.subject==='general'||!note.subject?'selected':''}>📌 General</option>
+          <option value="math"     ${note.subject==='math'?'selected':''}>🔢 Mathematics</option>
+          <option value="science"  ${note.subject==='science'?'selected':''}>🔬 Science</option>
+          <option value="language" ${note.subject==='language'?'selected':''}>🗣️ English</option>
+        </select>
+        <input class="meta-select" type="text" id="noteChapter" placeholder="Chapter name (optional)"
+          value="${escHtml(note.chapter||'')}" oninput="autoSave()" style="flex:1;min-width:160px"/>
+      </div>
+
+      <div class="editor-area" id="noteEditor" contenteditable="true"
+        oninput="autoSave();updateWordCount()"
+        onpaste="handlePaste(event)"
+        style="outline:none">${note.content || ''}</div>
+
+      <div class="word-count" id="wordCount"></div>
+      <div class="save-status" id="saveStatus"></div>
+
+      <div class="editor-actions">
+        <button class="btn-save" onclick="saveNow()">💾 Save Note</button>
+        <button class="btn-print-note" onclick="window.print()">🖨️ Print / PDF</button>
+        <button class="btn-delete" onclick="deleteNote('${note.id}')">🗑️ Delete</button>
+      </div>`;
+
+    updateWordCount();
+    document.getElementById('noteEditor').focus();
+  }
+
+  // ── New note ───────────────────────────────────────────
+  function newNote() {
+    const id = 'note_' + Date.now();
+    const cls = profile.cls || '';
+    const note = {
+      id, title:'', content:'', subject:'general', chapter:'',
+      createdAt: Date.now(), updatedAt: Date.now()
+    };
+    notes.unshift(note);
+    persist();
+    currentId = id;
+    renderList();
+    renderEditor(note);
+  }
+
+  // ── Auto save (debounced) ──────────────────────────────
+  function autoSave() {
+    clearTimeout(saveTimer);
+    document.getElementById('saveStatus').textContent = '...';
+    saveTimer = setTimeout(() => saveNow(true), 800);
+  }
+
+  function saveNow(silent=false) {
+    const note = notes.find(n => n.id === currentId);
+    if(!note) return;
+    note.title   = document.getElementById('noteTitle')?.value || '';
+    note.subject = document.getElementById('noteSubject')?.value || 'general';
+    note.chapter = document.getElementById('noteChapter')?.value || '';
+    note.content = document.getElementById('noteEditor')?.innerHTML || '';
+    note.updatedAt = Date.now();
+    persist();
+    renderList();
+    const st = document.getElementById('saveStatus');
+    if(st) st.textContent = silent ? '✅ Auto-saved' : '✅ Saved!';
+    setTimeout(() => { if(st) st.textContent=''; }, 2000);
+  }
+
+  // ── Delete note ────────────────────────────────────────
+  function deleteNote(id) {
+    if(!confirm('Delete this note? This cannot be undone.')) return;
+    notes = notes.filter(n => n.id !== id);
+    persist();
+    currentId = null;
+    renderList();
+    document.getElementById('editorArea').innerHTML = `
+      <div class="no-note-selected">
+        <div class="big-icon">📝</div>
+        <p>Note deleted. Create a new note to continue!</p>
+        <button class="new-note-btn" style="display:inline-block;width:auto;padding:12px 28px" onclick="newNote()">+ New Note</button>
+      </div>`;
+  }
+
+  // ── Formatting ─────────────────────────────────────────
+  function fmt(cmd) {
+    document.getElementById('noteEditor').focus();
+    document.execCommand(cmd, false, null);
+    autoSave();
+  }
+
+  function insertList(type) {
+    document.getElementById('noteEditor').focus();
+    document.execCommand(type==='ul'?'insertUnorderedList':'insertOrderedList', false, null);
+    autoSave();
+  }
+
+  function insertFormula() {
+    const box = `<div style="background:#f0f4ff;border-left:4px solid #1e4db7;padding:10px 14px;border-radius:0 8px 8px 0;margin:8px 0;font-family:monospace;font-size:0.95rem">✏️ Write your formula here</div><p><br></p>`;
+    document.getElementById('noteEditor').focus();
+    document.execCommand('insertHTML', false, box);
+    autoSave();
+  }
+
+  function insertKeyPoint() {
+    const box = `<div style="background:#fef9c3;border-left:4px solid #f59e0b;padding:10px 14px;border-radius:0 8px 8px 0;margin:8px 0;font-size:0.92rem">💡 <strong>Key Point:</strong> Write here</div><p><br></p>`;
+    document.getElementById('noteEditor').focus();
+    document.execCommand('insertHTML', false, box);
+    autoSave();
+  }
+
+  function setHighlight(color, el) {
+    activeColor = activeColor === color ? null : color;
+    document.querySelectorAll('.color-dot').forEach(d => d.classList.remove('active'));
+    if(activeColor) el.classList.add('active');
+    document.getElementById('noteEditor').focus();
+    if(activeColor) document.execCommand('hiliteColor', false, color);
+    autoSave();
+  }
+
+  // ── Filter & search ────────────────────────────────────
+  function filterNotes(subj, btn) {
+    filterSubj = subj;
+    document.querySelectorAll('.filter-tab').forEach(t=>t.classList.remove('active'));
+    btn.classList.add('active');
+    renderList();
+  }
+
+  function searchNotes(q) {
+    searchQuery = q.toLowerCase();
+    renderList();
+  }
+
+  // ── Word count ──────────────────────────────────────────
+  function updateWordCount() {
+    const el = document.getElementById('noteEditor');
+    const wc = document.getElementById('wordCount');
+    if(!el || !wc) return;
+    const words = el.innerText.trim().split(/\s+/).filter(w=>w).length;
+    const chars = el.innerText.length;
+    wc.textContent = `${words} words · ${chars} characters`;
+  }
+
+  // ── Paste handler (strip styles) ───────────────────────
+  function handlePaste(e) {
+    e.preventDefault();
+    const text = (e.clipboardData || window.clipboardData).getData('text/plain');
+    document.execCommand('insertText', false, text);
+  }
+
+  // ── Helpers ────────────────────────────────────────────
+  function subjectLabel(s) {
+    return {math:'🔢 Math', science:'🔬 Science', language:'🗣️ English', general:'📌 General'}[s] || '📌 General';
+  }
+  function formatDate(ts) {
+    if(!ts) return '';
+    const d = new Date(ts);
+    return d.toLocaleDateString('en-IN',{day:'numeric',month:'short',year:'2-digit'});
+  }
+  function escHtml(str) {
+    return str.replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/"/g,'&quot;');
+  }
+
+  // ── Init ───────────────────────────────────────────────
+  renderList();
+  // Open last edited note automatically
+  if(notes.length > 0) openNote(notes[0].id);
+  </script>
+</body>
+</html>
