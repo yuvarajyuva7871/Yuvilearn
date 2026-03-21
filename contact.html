@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Contact – Yuvilearn</title>
+  <link rel="stylesheet" href="style.css"/>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700;800&display=swap" rel="stylesheet"/>
+</head>
+<body>
+
+  <nav class="navbar">
+    <div class="nav-container">
+      <div class="logo">📚 Yuvilearn</div>
+      <button class="menu-btn" onclick="toggleMenu()">☰</button>
+      <ul class="nav-links" id="navLinks">
+        <li><a href="index.html">Home</a></li>
+        <li><a href="lessons.html">Lessons</a></li>
+        <li><a href="profile.html">My Profile</a></li>
+        <li><a href="contact.html" class="active">Contact</a></li>
+      </ul>
+    </div>
+  </nav>
+
+  <div class="page-header">
+    <h1>Contact Us</h1>
+    <p>Have a question or suggestion? We'd love to hear from you.</p>
+  </div>
+
+  <div class="section">
+    <div class="contact-grid">
+      <div class="contact-info">
+        <h3>Get in Touch</h3>
+        <div class="contact-item">📧 <span>yuvilearn@gmail.com</span></div>
+        <div class="contact-item">📍 <span>India</span></div>
+        <div class="contact-item">🕒 <span>Mon–Sat, 9am–6pm</span></div>
+        <div class="contact-note">
+          <strong>For Students:</strong> Ask us about any lesson or topic you're struggling with!
+        </div>
+      </div>
+      <div class="contact-form-box">
+        <form onsubmit="submitForm(event)">
+          <label>Your Name</label>
+          <input type="text" placeholder="Enter your name" required class="form-input"/>
+          <label>Email Address</label>
+          <input type="email" placeholder="Enter your email" required class="form-input"/>
+          <label>Subject</label>
+          <input type="text" placeholder="What's this about?" required class="form-input"/>
+          <label>Message</label>
+          <textarea rows="5" placeholder="Write your message here..." required class="form-input"></textarea>
+          <button type="submit" class="btn-primary" style="border:none;cursor:pointer;width:100%">Send Message →</button>
+        </form>
+        <div id="formSuccess" style="display:none" class="success-msg">✅ Message sent! We'll get back to you soon.</div>
+      </div>
+    </div>
+  </div>
+
+  <footer class="footer">
+    <div class="footer-inner">
+      <div class="footer-logo">📚 Yuvilearn</div>
+      <div class="footer-links">
+        <a href="index.html">Home</a>
+        <a href="lessons.html">Lessons</a>
+        <a href="profile.html">Profile</a>
+        <a href="contact.html">Contact</a>
+      </div>
+      <p class="footer-copy">© 2026 Yuvilearn. Built with ❤️ for students.</p>
+    </div>
+  </footer>
+
+  <script src="script.js"></script>
+</body>
+</html>
