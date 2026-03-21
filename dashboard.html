@@ -7,10 +7,7 @@
   <link rel="stylesheet" href="style.css"/>
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700;800&display=swap" rel="stylesheet"/>
   <style>
-    /* === DASHBOARD STYLES === */
     .dashboard{max-width:1100px;margin:0 auto;padding:32px 20px}
-
-    /* Welcome Banner */
     .welcome-banner{background:linear-gradient(135deg,#0a1628,#1e4db7);border-radius:20px;padding:28px 32px;color:#fff;display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:16px;margin-bottom:28px}
     .welcome-left{display:flex;align-items:center;gap:18px}
     .welcome-avatar{font-size:3.5rem;background:rgba(255,255,255,0.15);border-radius:50%;width:72px;height:72px;display:flex;align-items:center;justify-content:center}
@@ -19,8 +16,6 @@
     .welcome-badge{background:rgba(255,255,255,0.15);border-radius:12px;padding:12px 20px;text-align:center}
     .welcome-badge .streak{font-size:1.8rem;font-weight:800}
     .welcome-badge .streak-label{font-size:0.8rem;opacity:0.85}
-
-    /* Resume Card */
     .resume-card{background:#fff7ed;border:2px solid #fb923c;border-radius:16px;padding:20px 24px;margin-bottom:28px;display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:12px}
     .resume-left{display:flex;align-items:center;gap:14px}
     .resume-icon{font-size:2rem}
@@ -28,29 +23,20 @@
     .resume-meta{font-size:0.85rem;color:#666;margin-top:2px}
     .btn-resume{background:#fb923c;color:#fff;border:none;padding:10px 22px;border-radius:50px;font-weight:700;cursor:pointer;font-size:0.9rem;white-space:nowrap}
     .btn-resume:hover{background:#ea7c2b}
-
-    /* Stats Row */
     .stats-row{display:grid;grid-template-columns:repeat(auto-fit,minmax(160px,1fr));gap:16px;margin-bottom:28px}
     .stat-card{background:#f0f4ff;border-radius:16px;padding:20px;text-align:center}
     .stat-card .stat-icon{font-size:1.8rem;margin-bottom:8px}
     .stat-card .stat-val{font-size:1.8rem;font-weight:800;color:#1e4db7}
     .stat-card .stat-lbl{font-size:0.8rem;color:#666;font-weight:600;margin-top:2px}
-
-    /* Grid Layout */
     .dash-grid{display:grid;grid-template-columns:1fr 1fr;gap:24px;margin-bottom:28px}
     .dash-card{background:#f0f4ff;border-radius:18px;padding:24px}
-    .dash-card h3{font-size:1rem;font-weight:800;color:#0a1628;margin-bottom:18px;display:flex;align-items:center;gap:8px}
-
-    /* Progress Rings */
+    .dash-card h3{font-size:1rem;font-weight:800;color:#0a1628;margin-bottom:18px}
     .rings-container{display:flex;justify-content:space-around;flex-wrap:wrap;gap:16px}
     .ring-item{text-align:center}
     .ring-label{font-size:0.85rem;font-weight:700;color:#0a1628;margin-top:10px}
-    .ring-pct{font-size:0.8rem;color:#666}
     svg.ring{transform:rotate(-90deg)}
     .ring-track{fill:none;stroke:#e2e8f0;stroke-width:8}
     .ring-fill{fill:none;stroke-width:8;stroke-linecap:round;transition:stroke-dashoffset 1s ease}
-
-    /* Subject Lessons */
     .subject-section{margin-bottom:16px}
     .subject-header{display:flex;align-items:center;justify-content:space-between;margin-bottom:8px}
     .subject-name{font-weight:700;font-size:0.9rem;color:#0a1628}
@@ -61,8 +47,6 @@
     .sci-fill{background:#16a34a}
     .lang-fill{background:#db2777}
     .chapters-done{font-size:0.78rem;color:#888;margin-top:4px}
-
-    /* Quiz History */
     .quiz-history{max-height:260px;overflow-y:auto}
     .quiz-item{display:flex;align-items:center;justify-content:space-between;padding:10px 14px;background:#fff;border-radius:10px;margin-bottom:8px;font-size:0.88rem}
     .quiz-item-left{display:flex;align-items:center;gap:10px}
@@ -73,8 +57,6 @@
     .score-pass{background:#dcfce7;color:#166534}
     .score-fail{background:#fee2e2;color:#991b1b}
     .no-data{color:#aaa;font-size:0.88rem;text-align:center;padding:20px}
-
-    /* Expected Score */
     .expected-section{background:#f0f4ff;border-radius:18px;padding:24px;margin-bottom:28px}
     .expected-section h3{font-size:1rem;font-weight:800;color:#0a1628;margin-bottom:18px}
     .expected-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(200px,1fr));gap:16px}
@@ -87,8 +69,6 @@
     .exp-bar{height:8px;background:#e2e8f0;border-radius:50px;overflow:hidden;margin:10px 0}
     .exp-bar-fill{height:100%;border-radius:50px;transition:width 1s ease}
     .exp-tip{font-size:0.78rem;color:#666;margin-top:6px}
-
-    /* Lessons List */
     .lessons-list{display:flex;flex-direction:column;gap:8px;max-height:280px;overflow-y:auto}
     .lesson-item{display:flex;align-items:center;gap:12px;padding:10px 14px;background:#fff;border-radius:10px;cursor:pointer;transition:background 0.15s;text-decoration:none}
     .lesson-item:hover{background:#dbeafe}
@@ -97,8 +77,13 @@
     .lesson-name{font-size:0.88rem;font-weight:600;color:#0a1628}
     .lesson-sub{font-size:0.75rem;color:#888}
     .lesson-arrow{color:#1e4db7;font-size:0.9rem;font-weight:700}
-
-    /* Responsive */
+    .pending-doubts-box{background:#fff7ed;border:2px solid #fb923c;border-radius:18px;padding:24px;margin-top:24px}
+    .pending-doubts-box h3{font-size:1rem;font-weight:800;color:#0a1628;margin-bottom:8px}
+    .pending-doubts-box p{font-size:0.85rem;color:#666;margin-bottom:14px}
+    .pending-doubt-item{background:#fff;border-radius:10px;padding:12px 16px;margin-bottom:8px;display:flex;justify-content:space-between;align-items:center;gap:10px;flex-wrap:wrap}
+    .pending-doubt-q{font-weight:700;font-size:0.88rem;color:#0a1628}
+    .pending-doubt-meta{font-size:0.75rem;color:#888;margin-top:3px}
+    .pending-badge{background:#fed7aa;color:#92400e;padding:3px 10px;border-radius:50px;font-size:0.75rem;font-weight:700;white-space:nowrap}
     @media(max-width:700px){
       .dash-grid{grid-template-columns:1fr}
       .welcome-banner{flex-direction:column}
@@ -112,33 +97,12 @@
       <div class="logo">📚 Yuvilearn</div>
       <button class="menu-btn" onclick="toggleMenu()">☰</button>
       <ul class="nav-links" id="navLinks">
-  <li><a href="index.html">Home</a></li>
-  <li><a href="lessons.html">Lessons</a></li>
-  <li><a href="dashboard.html">Dashboard</a></li>
-  <li><a href="timetable.html">Timetable</a></li>
-  <li><a href="notebook.html">Notebook</a></li>
-  <li><a href="doubts.html">Doubt Solver</a></li>
-  <li><a href="profile.html">Profile</a></li>
-  <li><a href="contact.html">Contact</a></li>
-</ul>
-  <li><a href="index.html">Home</a></li>
-  <li><a href="lessons.html">Lessons</a></li>
-  <li><a href="dashboard.html">Dashboard</a></li>
-  <li><a href="timetable.html">Timetable</a></li>
-  <li><a href="notebook.html">Notebook</a></li>
-  <li><a href="profile.html">Profile</a></li>
-  <li><a href="contact.html">Contact</a></li>
-</ul>
-  <li><a href="index.html">Home</a></li>
-  <li><a href="lessons.html">Lessons</a></li>
-  <li><a href="dashboard.html">Dashboard</a></li>
-  <li><a href="timetable.html">Timetable</a></li>
-  <li><a href="profile.html">Profile</a></li>
-  <li><a href="contact.html">Contact</a></li>
-</ul>
         <li><a href="index.html">Home</a></li>
         <li><a href="lessons.html">Lessons</a></li>
         <li><a href="dashboard.html" class="active">Dashboard</a></li>
+        <li><a href="timetable.html">Timetable</a></li>
+        <li><a href="notebook.html">Notebook</a></li>
+        <li><a href="doubts.html">Doubt Solver</a></li>
         <li><a href="profile.html">Profile</a></li>
         <li><a href="contact.html">Contact</a></li>
       </ul>
@@ -153,8 +117,10 @@
     <div class="footer-inner">
       <div class="footer-logo">📚 Yuvilearn</div>
       <div class="footer-links">
-        <a href="index.html">Home</a><a href="lessons.html">Lessons</a>
-        <a href="dashboard.html">Dashboard</a><a href="profile.html">Profile</a>
+        <a href="index.html">Home</a>
+        <a href="lessons.html">Lessons</a>
+        <a href="dashboard.html">Dashboard</a>
+        <a href="doubts.html">Doubt Solver</a>
         <a href="contact.html">Contact</a>
       </div>
       <p class="footer-copy">© 2026 Yuvilearn. Built with ❤️ for students.</p>
@@ -163,42 +129,38 @@
 
   <script src="script.js"></script>
   <script>
-  // ── Redirect if no profile ──────────────────────────────
+  // Redirect if no profile
   const profile = JSON.parse(localStorage.getItem('yuvi_profile') || 'null');
   if(!profile || !profile.name) { window.location.href = 'profile.html'; }
 
-  // ── Data ────────────────────────────────────────────────
+  // Data
   const completed   = JSON.parse(localStorage.getItem('completed')   || '[]');
   const quizHistory = JSON.parse(localStorage.getItem('yuvi_quiz_history') || '[]');
   const lastLesson  = JSON.parse(localStorage.getItem('yuvi_last_lesson')  || 'null');
+  const cls         = profile?.cls || '1';
+  const subjects    = profile?.subjects || ['math','science','language'];
+  const CHAPTERS_PER = 5;
 
-  const cls      = profile.cls;
-  const subjects = profile.subjects || ['math','science','language'];
-  const CHAPTERS_PER = 5; // 5 chapters per subject
-
-  // Subject display info
   const subjectInfo = {
-    math:     { label:'Mathematics', icon:'🔢', color:'#1e4db7', fillClass:'math-fill',     ringColor:'#1e4db7' },
-    science:  { label:'Science',     icon:'🔬', color:'#16a34a', fillClass:'sci-fill',      ringColor:'#16a34a' },
-    language: { label:'English',     icon:'🗣️', color:'#db2777', fillClass:'lang-fill',    ringColor:'#db2777' }
+    math:     { label:'Mathematics', icon:'🔢', color:'#1e4db7', fillClass:'math-fill', ringColor:'#1e4db7' },
+    science:  { label:'Science',     icon:'🔬', color:'#16a34a', fillClass:'sci-fill',  ringColor:'#16a34a' },
+    language: { label:'English',     icon:'🗣️', color:'#db2777', fillClass:'lang-fill', ringColor:'#db2777' }
   };
 
-  // Count completions per subject
   function countDone(subj) {
-    return completed.filter(c => c.toLowerCase().includes(subj === 'language' ? 'english' : subj === 'math' ? 'math' : 'science') ||
-      c.toLowerCase().includes(subj)).length;
+    return completed.filter(c =>
+      c.toLowerCase().includes(subj==='language'?'english':subj==='math'?'math':'science') ||
+      c.toLowerCase().includes(subj)
+    ).length;
   }
 
-  // Calculate expected score based on quiz history + completion
   function expectedScore(subj) {
     const subjQuizzes = quizHistory.filter(q => q.subject === subj);
     const done = Math.min(countDone(subj), CHAPTERS_PER);
-    if(subjQuizzes.length === 0) {
-      return Math.round((done / CHAPTERS_PER) * 60); // base from completion
-    }
-    const avgPct = subjQuizzes.reduce((a,b) => a + b.pct, 0) / subjQuizzes.length;
-    const compBonus = (done / CHAPTERS_PER) * 20;
-    return Math.min(Math.round((avgPct * 0.8) + compBonus), 100);
+    if(subjQuizzes.length === 0) return Math.round((done/CHAPTERS_PER)*60);
+    const avgPct = subjQuizzes.reduce((a,b)=>a+b.pct,0)/subjQuizzes.length;
+    const compBonus = (done/CHAPTERS_PER)*20;
+    return Math.min(Math.round((avgPct*0.8)+compBonus), 100);
   }
 
   function getExpTip(score) {
@@ -208,39 +170,46 @@
     return '💪 Start more lessons to improve your score!';
   }
 
-  // ── Streak ──────────────────────────────────────────────
   function getStreak() {
     const lastDate = localStorage.getItem('yuvi_last_visit');
     const today    = new Date().toDateString();
     let streak     = parseInt(localStorage.getItem('yuvi_streak') || '1');
     if(lastDate !== today) {
-      const yesterday = new Date(); yesterday.setDate(yesterday.getDate()-1);
+      const yesterday = new Date();
+      yesterday.setDate(yesterday.getDate()-1);
       streak = lastDate === yesterday.toDateString() ? streak+1 : 1;
       localStorage.setItem('yuvi_streak', streak);
       localStorage.setItem('yuvi_last_visit', today);
     }
     return streak;
   }
-  const streak = getStreak();
 
-  // ── Build All Lessons List for this class ───────────────
   function buildLessonsList() {
     const chapters = ['Chapter 1','Chapter 2','Chapter 3','Chapter 4','Chapter 5'];
     let items = [];
     subjects.forEach(subj => {
-      chapters.forEach((ch, i) => {
-        const key  = `${ch}: ${subjectInfo[subj].label} Class ${cls}`;
-        const done = completed.some(c => c.includes(ch) && (c.toLowerCase().includes(subj) || c.toLowerCase().includes(subjectInfo[subj].label.toLowerCase())));
-        items.push({ subj, ch: `${ch}`, label: `${subjectInfo[subj].icon} ${ch}`, sub: `Class ${cls} · ${subjectInfo[subj].label}`, done, url:`lesson-detail.html?class=${cls}&subject=${subj}` });
+      chapters.forEach(ch => {
+        const done = completed.some(c =>
+          c.includes(ch) && (
+            c.toLowerCase().includes(subj) ||
+            c.toLowerCase().includes(subjectInfo[subj].label.toLowerCase())
+          )
+        );
+        items.push({
+          subj, ch,
+          label:`${subjectInfo[subj].icon} ${ch}`,
+          sub:`Class ${cls} · ${subjectInfo[subj].label}`,
+          done,
+          url:`lesson-detail.html?class=${cls}&subject=${subj}`
+        });
       });
     });
     return items;
   }
 
-  // ── Render Ring SVG ─────────────────────────────────────
   function ring(pct, color) {
     const r = 36, circ = 2*Math.PI*r;
-    const offset = circ - (pct/100)*circ;
+    const offset = circ-(pct/100)*circ;
     return `<svg class="ring" width="88" height="88" viewBox="0 0 88 88">
       <circle class="ring-track" cx="44" cy="44" r="${r}"/>
       <circle class="ring-fill" cx="44" cy="44" r="${r}" stroke="${color}"
@@ -251,12 +220,14 @@
     </svg>`;
   }
 
-  // ── RENDER DASHBOARD ────────────────────────────────────
+  // Build dashboard
+  const streak        = getStreak();
   const totalChaps    = subjects.length * CHAPTERS_PER;
   const totalDone     = Math.min(completed.length, totalChaps);
   const overallPct    = totalChaps > 0 ? Math.round((totalDone/totalChaps)*100) : 0;
   const lessons       = buildLessonsList();
 
+  // Resume card
   let resumeHTML = '';
   if(lastLesson && lastLesson.title) {
     resumeHTML = `
@@ -272,7 +243,7 @@
       </div>`;
   }
 
-  // Progress per subject
+  // Progress bars
   let progressHTML = subjects.map(subj => {
     const done = Math.min(countDone(subj), CHAPTERS_PER);
     const pct  = Math.round((done/CHAPTERS_PER)*100);
@@ -290,18 +261,18 @@
       </div>`;
   }).join('');
 
-  // Progress rings
+  // Rings
   let ringsHTML = subjects.map(subj => {
     const done = Math.min(countDone(subj), CHAPTERS_PER);
     const pct  = Math.round((done/CHAPTERS_PER)*100);
     const info = subjectInfo[subj];
-    return `<div class="ring-item">${ring(pct, info.ringColor)}<div class="ring-label">${info.icon} ${info.label}</div></div>`;
+    return `<div class="ring-item">${ring(pct,info.ringColor)}<div class="ring-label">${info.icon} ${info.label}</div></div>`;
   }).join('');
 
   // Quiz history
   let quizHTML = '';
   if(quizHistory.length === 0) {
-    quizHTML = `<div class="no-data">📝 No quiz attempts yet.<br/>Complete a chapter quiz to see your history!</div>`;
+    quizHTML = `<div class="no-data">📝 No quiz attempts yet.<br/>Complete a chapter quiz to see history!</div>`;
   } else {
     quizHTML = [...quizHistory].reverse().slice(0,10).map(q => {
       const pass = q.pct >= 75;
@@ -310,8 +281,8 @@
         <div class="quiz-item-left">
           <div class="quiz-dot" style="background:${info.color}"></div>
           <div>
-            <div class="quiz-name">${q.chapter}</div>
-            <div class="quiz-date">${q.subject ? subjectInfo[q.subject]?.label : ''} · ${q.date||''}</div>
+            <div class="quiz-name">${q.chapter||'Quiz'}</div>
+            <div class="quiz-date">${subjectInfo[q.subject]?.label||''} · ${q.date||''}</div>
           </div>
         </div>
         <span class="quiz-score-badge ${pass?'score-pass':'score-fail'}">${q.score}/${q.total} (${q.pct}%)</span>
@@ -334,8 +305,9 @@
 
   // Lessons list
   let lessonsHTML = lessons.slice(0,12).map(l =>
-    `<a href="${l.url}" class="lesson-item" onclick="saveLastLesson('${l.label}','${subjectInfo[l.subj].label}','${l.url}')">
-      <span class="lesson-status">${l.done ? '✅' : '⭕'}</span>
+    `<a href="${l.url}" class="lesson-item"
+      onclick="saveLastLesson('${l.label}','${subjectInfo[l.subj].label}','${l.url}')">
+      <span class="lesson-status">${l.done?'✅':'⭕'}</span>
       <div class="lesson-info">
         <div class="lesson-name">${l.label}</div>
         <div class="lesson-sub">${l.sub}</div>
@@ -344,7 +316,26 @@
     </a>`
   ).join('');
 
-  // ── Inject HTML ─────────────────────────────────────────
+  // Pending doubts from students
+  function renderTeacherDoubts() {
+    const pending = JSON.parse(localStorage.getItem('yuvi_pending_doubts') || '[]');
+    if(pending.length === 0) return '';
+    return `
+      <div class="pending-doubts-box">
+        <h3>📩 Pending Student Doubts (${pending.length})</h3>
+        <p>These doubts were not found in the database. Add them to <strong>doubtDB</strong> in doubts.html!</p>
+        ${[...pending].reverse().map(p=>`
+          <div class="pending-doubt-item">
+            <div>
+              <div class="pending-doubt-q">❓ ${p.doubt}</div>
+              <div class="pending-doubt-meta">${p.subject} · ${p.date} · by ${p.name}</div>
+            </div>
+            <span class="pending-badge">${p.status}</span>
+          </div>`).join('')}
+      </div>`;
+  }
+
+  // Inject all HTML
   document.getElementById('dashApp').innerHTML = `
 
     <!-- Welcome Banner -->
@@ -385,7 +376,7 @@
       </div>
       <div class="stat-card">
         <div class="stat-icon">⭐</div>
-        <div class="stat-val">${quizHistory.length > 0 ? Math.round(quizHistory.reduce((a,b)=>a+b.pct,0)/quizHistory.length) : 0}%</div>
+        <div class="stat-val">${quizHistory.length>0?Math.round(quizHistory.reduce((a,b)=>a+b.pct,0)/quizHistory.length):0}%</div>
         <div class="stat-lbl">Avg Quiz Score</div>
       </div>
     </div>
@@ -419,59 +410,18 @@
         <div class="lessons-list">${lessonsHTML}</div>
         <a href="lessons.html" style="display:inline-block;margin-top:14px;font-size:0.88rem;color:#1e4db7;font-weight:700">View all lessons →</a>
       </div>
-    </div>`;
+    </div>
+
+    <!-- Pending Student Doubts (Teacher View) -->
+    ${renderTeacherDoubts()}`;
 
   // Save last lesson
   function saveLastLesson(title, subject, url) {
     localStorage.setItem('yuvi_last_lesson', JSON.stringify({
-      title, subject, url, date: new Date().toLocaleDateString('en-IN')
+      title, subject, url,
+      date: new Date().toLocaleDateString('en-IN')
     }));
-  }// ── Show pending doubts to teacher on dashboard ────────
-function renderTeacherDoubts() {
-  const pending = JSON.parse(localStorage.getItem('yuvi_pending_doubts') || '[]');
-  if(pending.length === 0) return '';
-  return `
-    <div style="background:#fff7ed;border:2px solid #fb923c;border-radius:18px;padding:24px;margin-top:24px">
-      <h3 style="font-size:1rem;font-weight:800;color:#0a1628;margin-bottom:16px">
-        📩 Pending Student Doubts (${pending.length})
-      </h3>
-      <p style="font-size:0.85rem;color:#666;margin-bottom:14px">
-        These doubts were not found in the database. Add them to <code>doubtDB</code> in doubts.html!
-      </p>
-      ${[...pending].reverse().map(p=>`
-        <div style="background:#fff;border-radius:10px;padding:12px 16px;margin-bottom:8px;display:flex;justify-content:space-between;align-items:center;gap:10px;flex-wrap:wrap">
-          <div>
-            <div style="font-weight:700;font-size:0.88rem;color:#0a1628">❓ ${p.doubt}</div>
-            <div style="font-size:0.75rem;color:#888;margin-top:3px">${p.subject} · ${p.date} · by ${p.name}</div>
-          </div>
-          <span style="background:#fed7aa;color:#92400e;padding:3px 10px;border-radius:50px;font-size:0.75rem;font-weight:700;white-space:nowrap">${p.status}</span>
-        </div>`).join('')}
-    </div>`;
-}
-```
-
-Then find where dashboard renders and add `${renderTeacherDoubts()}` at the end of the dashboard HTML string.
-
----
-
-## ✅ How the Full System Works Now
-```
-Student types question
-        ↓
-Found in database? → YES → Show instant answer ✅
-        ↓ NO
-Show "Not Found" card with:
-  🌐 Search Google button (opens Google search)
-  ▶️ Search YouTube button (opens YouTube search)
-  📩 Submit doubt form (saves locally)
-        ↓
-Doubt saved to localStorage
-        ↓
-You see it on Dashboard → "Pending Doubts"
-        ↓
-You add the answer to doubtDB in doubts.html
-        ↓
-All students get the answer forever! 🎉
+  }
   </script>
 </body>
 </html>
