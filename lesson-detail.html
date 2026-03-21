@@ -8,7 +8,6 @@
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700;800&display=swap" rel="stylesheet"/>
 </head>
 <body>
-
   <nav class="navbar">
     <div class="nav-container">
       <div class="logo">📚 Yuvilearn</div>
@@ -25,53 +24,31 @@
   <div class="lesson-page">
     <div class="lesson-header">
       <a href="lessons.html" class="back-btn">← Back to Lessons</a>
-      <h1 id="lessonTitle">Chapter 1: Introduction</h1>
-      <p id="lessonMeta">Class 1 · Mathematics</p>
+      <h1 id="lessonTitle">Chapter 1</h1>
+      <p id="lessonMeta">Select a chapter to begin</p>
     </div>
 
     <div class="lesson-layout">
-      <!-- Video Side -->
+      <!-- Left: Chapter list + Video -->
       <div class="video-side">
         <div class="chapter-list">
           <h3>📋 Chapters</h3>
-          <ul>
-            <li class="chapter-item active" onclick="selectChapter(this, 'Chapter 1: Introduction')">Chapter 1: Introduction</li>
-            <li class="chapter-item" onclick="selectChapter(this, 'Chapter 2: Core Concepts')">Chapter 2: Core Concepts</li>
-            <li class="chapter-item" onclick="selectChapter(this, 'Chapter 3: Practice Problems')">Chapter 3: Practice Problems</li>
-            <li class="chapter-item" onclick="selectChapter(this, 'Chapter 4: Advanced Topics')">Chapter 4: Advanced Topics</li>
-            <li class="chapter-item" onclick="selectChapter(this, 'Chapter 5: Revision')">Chapter 5: Revision</li>
-          </ul>
+          <ul id="chapterList"></ul>
         </div>
-
         <div class="video-box">
-          <iframe
-            width="100%"
-            height="100%"
-            src="https://www.youtube.com/embed/bOfhtNUgaeZfzfG4"
-            frameborder="0"
-            allowfullscreen
-            style="border-radius:14px">
-          </iframe>
-          </div>
+          <div class="video-placeholder">
+            <span>▶</span>
+            <p>Video Lecture</p>
+            <small>Coming soon</small>
           </div>
         </div>
       </div>
 
-      <!-- Notes Side -->
+      <!-- Right: Notes -->
       <div class="notes-side">
         <h3>📝 Notes</h3>
         <div class="notes-content" id="notesContent">
-          <h4>What you'll learn in this chapter:</h4>
-          <ul>
-            <li>Key concepts and definitions</li>
-            <li>Step-by-step explanations</li>
-            <li>Examples and solved problems</li>
-            <li>Important formulas to remember</li>
-          </ul>
-          <div class="note-box">
-            <strong>💡 Key Point:</strong> Add your lesson notes here. You can write formulas, definitions, and explanations for students.
-          </div>
-          <p>This section will contain the detailed notes for this chapter. Update this content with actual lesson material for each class and subject.</p>
+          <p style="color:#888">Select a chapter from the left to see notes.</p>
         </div>
         <button class="btn-primary" style="margin-top:20px;border:none;cursor:pointer;width:100%" onclick="markDone()">✅ Mark as Complete</button>
       </div>
@@ -82,15 +59,377 @@
     <div class="footer-inner">
       <div class="footer-logo">📚 Yuvilearn</div>
       <div class="footer-links">
-        <a href="index.html">Home</a>
-        <a href="lessons.html">Lessons</a>
-        <a href="profile.html">Profile</a>
-        <a href="contact.html">Contact</a>
+        <a href="index.html">Home</a><a href="lessons.html">Lessons</a>
+        <a href="profile.html">Profile</a><a href="contact.html">Contact</a>
       </div>
       <p class="footer-copy">© 2026 Yuvilearn. Built with ❤️ for students.</p>
     </div>
   </footer>
 
   <script src="script.js"></script>
+  <script>
+    // =============================================
+    // ALL SCIENCE NOTES — CLASS 1, 2, 3
+    // =============================================
+    const scienceNotes = {
+      "1": [
+        {
+          title: "Chapter 1: Living & Non-Living Things",
+          notes: `
+            <h4>🌱 What are Living Things?</h4>
+            <p>Living things are those that are alive. They can grow, breathe, eat, move and reproduce.</p>
+            <div class="note-box"><strong>Examples of Living Things:</strong> Plants, Animals, Birds, Fish, Humans, Insects</div>
+            <h4>🪨 What are Non-Living Things?</h4>
+            <p>Non-living things do not grow, breathe or reproduce. They are not alive.</p>
+            <div class="note-box"><strong>Examples of Non-Living Things:</strong> Rock, Chair, Table, Car, Water, Air</div>
+            <h4>📌 Key Differences</h4>
+            <ul>
+              <li>Living things need food and water — non-living things do not</li>
+              <li>Living things grow and change — non-living things stay the same</li>
+              <li>Living things can reproduce (make babies) — non-living things cannot</li>
+              <li>Living things breathe — non-living things do not</li>
+            </ul>
+            <div class="note-box"><strong>💡 Remember:</strong> All animals and plants are living things. Stones, toys and books are non-living things.</div>
+          `
+        },
+        {
+          title: "Chapter 2: Plants Around Us",
+          notes: `
+            <h4>🌿 Parts of a Plant</h4>
+            <ul>
+              <li><strong>Roots</strong> — Hold the plant in soil and absorb water</li>
+              <li><strong>Stem</strong> — Carries water and food to all parts</li>
+              <li><strong>Leaves</strong> — Make food for the plant using sunlight</li>
+              <li><strong>Flower</strong> — Helps the plant reproduce</li>
+              <li><strong>Fruit</strong> — Protects the seeds inside</li>
+            </ul>
+            <div class="note-box"><strong>💡 Fun Fact:</strong> Leaves are green because of a special substance called Chlorophyll. It helps leaves make food from sunlight.</div>
+            <h4>🌞 What do Plants Need to Grow?</h4>
+            <ul>
+              <li>Sunlight ☀️</li>
+              <li>Water 💧</li>
+              <li>Soil 🌍</li>
+              <li>Air 🌬️</li>
+            </ul>
+            <div class="note-box"><strong>📌 Key Point:</strong> Plants make their own food using sunlight, water and air. This process is called Photosynthesis.</div>
+          `
+        },
+        {
+          title: "Chapter 3: Animals Around Us",
+          notes: `
+            <h4>🐾 Types of Animals</h4>
+            <ul>
+              <li><strong>Pet Animals</strong> — Dog, Cat, Rabbit (kept at home)</li>
+              <li><strong>Wild Animals</strong> — Lion, Tiger, Elephant (live in forests)</li>
+              <li><strong>Farm Animals</strong> — Cow, Goat, Hen (kept on farms)</li>
+              <li><strong>Water Animals</strong> — Fish, Crocodile, Dolphin (live in water)</li>
+              <li><strong>Birds</strong> — Parrot, Sparrow, Eagle (can fly)</li>
+            </ul>
+            <div class="note-box"><strong>💡 Key Point:</strong> Animals that eat only plants are called Herbivores. Animals that eat only meat are called Carnivores. Animals that eat both are called Omnivores.</div>
+            <h4>🏠 Animal Homes</h4>
+            <ul>
+              <li>Dog — Kennel</li>
+              <li>Cow — Shed</li>
+              <li>Lion — Den</li>
+              <li>Bird — Nest</li>
+              <li>Rabbit — Burrow</li>
+            </ul>
+          `
+        },
+        {
+          title: "Chapter 4: Our Body",
+          notes: `
+            <h4>👁️ Sense Organs</h4>
+            <p>We have 5 sense organs that help us understand the world around us:</p>
+            <ul>
+              <li>👀 <strong>Eyes</strong> — for seeing</li>
+              <li>👂 <strong>Ears</strong> — for hearing</li>
+              <li>👃 <strong>Nose</strong> — for smelling</li>
+              <li>👅 <strong>Tongue</strong> — for tasting</li>
+              <li>✋ <strong>Skin</strong> — for touching and feeling</li>
+            </ul>
+            <div class="note-box"><strong>💡 Remember:</strong> We should take care of our body by eating healthy food, exercising daily, sleeping well and keeping ourselves clean.</div>
+            <h4>🦷 Keeping Healthy</h4>
+            <ul>
+              <li>Brush teeth twice a day</li>
+              <li>Wash hands before eating</li>
+              <li>Eat fruits and vegetables</li>
+              <li>Drink clean water</li>
+              <li>Exercise and play outdoors</li>
+            </ul>
+          `
+        },
+        {
+          title: "Chapter 5: Food We Eat",
+          notes: `
+            <h4>🍎 Types of Food</h4>
+            <ul>
+              <li><strong>Energy giving foods</strong> — Rice, Bread, Potato, Sugar (give us energy to work and play)</li>
+              <li><strong>Body building foods</strong> — Milk, Eggs, Meat, Dal (help us grow strong)</li>
+              <li><strong>Protective foods</strong> — Fruits, Vegetables (protect us from diseases)</li>
+            </ul>
+            <div class="note-box"><strong>💡 Key Point:</strong> Eating all types of food together is called a Balanced Diet. A balanced diet keeps us healthy and strong.</div>
+            <h4>🌾 Where Does Food Come From?</h4>
+            <ul>
+              <li>Plants give us — fruits, vegetables, grains, pulses</li>
+              <li>Animals give us — milk, eggs, meat, honey</li>
+            </ul>
+            <div class="note-box"><strong>📌 Remember:</strong> We should avoid eating too much junk food like chips and sweets as they are not good for our health.</div>
+          `
+        }
+      ],
+      "2": [
+        {
+          title: "Chapter 1: Plants — Types & Uses",
+          notes: `
+            <h4>🌳 Types of Plants</h4>
+            <ul>
+              <li><strong>Trees</strong> — Very tall, strong woody stem, live for many years. Example: Mango, Neem, Banyan</li>
+              <li><strong>Shrubs</strong> — Medium height, woody stem near base. Example: Rose, Hibiscus, Tulsi</li>
+              <li><strong>Herbs</strong> — Small, soft green stem. Example: Mint, Coriander, Grass</li>
+              <li><strong>Climbers</strong> — Weak stem, climb on walls or other plants. Example: Money plant, Pea</li>
+            </ul>
+            <div class="note-box"><strong>💡 Uses of Plants:</strong> Food, Medicine, Wood for furniture, Paper, Shade and Fresh air (Oxygen)</div>
+            <h4>🌱 How Plants Reproduce</h4>
+            <ul>
+              <li>From seeds — Most plants grow from seeds</li>
+              <li>From leaves — Example: Bryophyllum</li>
+              <li>From stem — Example: Sugarcane, Potato</li>
+            </ul>
+          `
+        },
+        {
+          title: "Chapter 2: Animals — Habitat & Food",
+          notes: `
+            <h4>🏡 Animal Habitats</h4>
+            <p>A habitat is the natural home of an animal where it finds food, water and shelter.</p>
+            <ul>
+              <li><strong>Land animals</strong> — live on land (Lion, Elephant, Dog)</li>
+              <li><strong>Water animals</strong> — live in water (Fish, Whale, Frog)</li>
+              <li><strong>Aerial animals</strong> — spend most time flying (Eagle, Bat, Butterfly)</li>
+              <li><strong>Amphibians</strong> — live on both land and water (Frog, Crocodile)</li>
+            </ul>
+            <h4>🍖 What Animals Eat</h4>
+            <div class="note-box">
+              <strong>Herbivores</strong> — Eat only plants (Cow, Rabbit, Deer)<br/>
+              <strong>Carnivores</strong> — Eat only animals (Lion, Snake, Eagle)<br/>
+              <strong>Omnivores</strong> — Eat both plants and animals (Human, Bear, Crow)
+            </div>
+          `
+        },
+        {
+          title: "Chapter 3: Air, Water & Weather",
+          notes: `
+            <h4>💨 Air</h4>
+            <ul>
+              <li>Air is all around us — we cannot see it but we can feel it</li>
+              <li>Air is needed for breathing by all living things</li>
+              <li>Moving air is called Wind</li>
+              <li>Air is made of many gases — the most important is Oxygen</li>
+            </ul>
+            <h4>💧 Water</h4>
+            <ul>
+              <li>Water is found in rivers, lakes, seas and underground</li>
+              <li>We use water for drinking, cooking, bathing and farming</li>
+              <li>Water has 3 forms — Solid (Ice), Liquid (Water), Gas (Steam/Vapour)</li>
+            </ul>
+            <div class="note-box"><strong>💡 Save Water:</strong> Always close taps, do not waste water. Water is precious!</div>
+            <h4>🌦️ Weather</h4>
+            <ul>
+              <li>Weather tells us how the sky and air feel each day</li>
+              <li>Types: Sunny, Rainy, Cloudy, Windy, Foggy, Stormy</li>
+              <li>Seasons in India: Summer, Monsoon (Rainy), Winter</li>
+            </ul>
+          `
+        },
+        {
+          title: "Chapter 4: Rocks & Soil",
+          notes: `
+            <h4>🪨 Rocks</h4>
+            <ul>
+              <li>Rocks are hard materials found on the Earth's surface</li>
+              <li>Rocks can be big like mountains or small like pebbles</li>
+              <li>Types of rocks: Hard rocks (granite), Soft rocks (limestone), Layered rocks (sandstone)</li>
+              <li>Rocks are used to build houses, roads and monuments</li>
+            </ul>
+            <h4>🌍 Soil</h4>
+            <ul>
+              <li>Soil is the top layer of the Earth's surface</li>
+              <li>Soil is made of tiny pieces of rock, dead plants and animals</li>
+              <li>Plants grow in soil — soil gives them nutrients and support</li>
+            </ul>
+            <div class="note-box">
+              <strong>Types of Soil:</strong><br/>
+              🟫 Sandy soil — dry, water drains fast, not good for crops<br/>
+              🟤 Clay soil — holds water well, sticky when wet<br/>
+              🌱 Loamy soil — best for growing plants, has nutrients
+            </div>
+          `
+        },
+        {
+          title: "Chapter 5: Our Solar System",
+          notes: `
+            <h4>🌞 The Sun</h4>
+            <ul>
+              <li>The Sun is a star — it is a huge ball of hot gases</li>
+              <li>The Sun gives us light and heat</li>
+              <li>The Sun is the centre of our Solar System</li>
+            </ul>
+            <h4>🪐 Planets</h4>
+            <p>There are 8 planets in our Solar System. In order from the Sun:</p>
+            <div class="note-box">
+              ☿ Mercury → ♀ Venus → 🌍 Earth → ♂ Mars → ♃ Jupiter → ♄ Saturn → ⛢ Uranus → ♆ Neptune
+            </div>
+            <ul>
+              <li>Earth is the only planet with life</li>
+              <li>Earth has one Moon</li>
+              <li>Jupiter is the biggest planet</li>
+              <li>Mercury is the smallest planet</li>
+            </ul>
+            <div class="note-box"><strong>💡 Remember:</strong> "My Very Educated Mother Just Served Us Noodles" — first letter of each word helps remember planet order!</div>
+          `
+        }
+      ],
+      "3": [
+        {
+          title: "Chapter 1: Living World — Cells",
+          notes: `
+            <h4>🔬 What is a Cell?</h4>
+            <ul>
+              <li>All living things are made of tiny units called Cells</li>
+              <li>Cells are so small we need a microscope to see them</li>
+              <li>The cell is called the basic unit of life</li>
+            </ul>
+            <h4>🧫 Parts of a Cell</h4>
+            <ul>
+              <li><strong>Cell Membrane</strong> — Outer covering that protects the cell</li>
+              <li><strong>Nucleus</strong> — Controls all activities of the cell (the "brain")</li>
+              <li><strong>Cytoplasm</strong> — Jelly-like fluid that fills the cell</li>
+            </ul>
+            <div class="note-box"><strong>Plant Cell vs Animal Cell:</strong> Plant cells have a cell wall and chloroplasts. Animal cells do not have these.</div>
+          `
+        },
+        {
+          title: "Chapter 2: Food & Nutrition",
+          notes: `
+            <h4>🍽️ Nutrients in Food</h4>
+            <ul>
+              <li><strong>Carbohydrates</strong> — Give energy. Found in rice, bread, potato, sugar</li>
+              <li><strong>Proteins</strong> — Help grow and repair body. Found in dal, eggs, milk, meat</li>
+              <li><strong>Fats</strong> — Give energy and keep us warm. Found in butter, oil, nuts</li>
+              <li><strong>Vitamins</strong> — Protect from diseases. Found in fruits and vegetables</li>
+              <li><strong>Minerals</strong> — Keep bones and teeth strong. Found in milk, green vegetables</li>
+              <li><strong>Water</strong> — Helps body functions. We need 6–8 glasses daily</li>
+            </ul>
+            <div class="note-box"><strong>💡 Balanced Diet:</strong> A meal that contains all 6 nutrients in the right amounts is called a balanced diet.</div>
+            <h4>⚠️ Deficiency Diseases</h4>
+            <ul>
+              <li>Lack of Vitamin C → Scurvy (bleeding gums)</li>
+              <li>Lack of Vitamin D → Rickets (weak bones)</li>
+              <li>Lack of Iron → Anaemia (weakness)</li>
+            </ul>
+          `
+        },
+        {
+          title: "Chapter 3: Matter & Materials",
+          notes: `
+            <h4>🧪 What is Matter?</h4>
+            <p>Everything around us that has mass and takes up space is called Matter.</p>
+            <h4>3 States of Matter</h4>
+            <ul>
+              <li><strong>Solid</strong> — Has fixed shape and size. Example: Ice, Stone, Wood</li>
+              <li><strong>Liquid</strong> — Has fixed volume but no fixed shape. Example: Water, Milk, Oil</li>
+              <li><strong>Gas</strong> — Has no fixed shape or volume. Example: Air, Steam, Smoke</li>
+            </ul>
+            <div class="note-box">
+              <strong>Changes of State:</strong><br/>
+              🧊 Ice (solid) → 💧 Water (liquid) → when heated → ♨️ Steam (gas)<br/>
+              This process can be reversed by cooling.
+            </div>
+            <h4>🔄 Physical vs Chemical Changes</h4>
+            <ul>
+              <li><strong>Physical Change</strong> — Shape or size changes but substance stays same (cutting paper, melting ice)</li>
+              <li><strong>Chemical Change</strong> — New substance is formed (burning wood, cooking food, rusting iron)</li>
+            </ul>
+          `
+        },
+        {
+          title: "Chapter 4: Force, Work & Energy",
+          notes: `
+            <h4>💪 What is Force?</h4>
+            <ul>
+              <li>A push or pull applied on an object is called Force</li>
+              <li>Force can make things move, stop, speed up or change direction</li>
+              <li>Types: Push, Pull, Gravitational force, Magnetic force, Friction</li>
+            </ul>
+            <div class="note-box"><strong>Gravity:</strong> The force that pulls everything towards the Earth. That's why things fall down when we drop them!</div>
+            <h4>⚡ What is Energy?</h4>
+            <ul>
+              <li>Energy is the ability to do work</li>
+              <li>Sources of energy: Sun (solar), Food, Wind, Water, Fuel</li>
+              <li>Forms of energy: Light, Heat, Sound, Electrical, Mechanical</li>
+            </ul>
+            <div class="note-box"><strong>💡 Key Point:</strong> Energy cannot be created or destroyed — it can only change from one form to another. This is the Law of Conservation of Energy.</div>
+          `
+        },
+        {
+          title: "Chapter 5: Earth & Environment",
+          notes: `
+            <h4>🌍 Layers of the Earth</h4>
+            <ul>
+              <li><strong>Crust</strong> — Outermost layer, where we live</li>
+              <li><strong>Mantle</strong> — Hot semi-solid rock layer below the crust</li>
+              <li><strong>Core</strong> — Innermost layer, made of very hot molten metal</li>
+            </ul>
+            <h4>🌊 Natural Resources</h4>
+            <ul>
+              <li><strong>Renewable</strong> — Can be used again and again (Sunlight, Wind, Water)</li>
+              <li><strong>Non-renewable</strong> — Will run out one day (Coal, Petroleum, Natural Gas)</li>
+            </ul>
+            <div class="note-box"><strong>🌱 Environmental Protection:</strong><br/>
+              ✅ Plant more trees<br/>
+              ✅ Save water and electricity<br/>
+              ✅ Reduce, Reuse, Recycle<br/>
+              ✅ Avoid plastic bags<br/>
+              ❌ Don't pollute rivers or cut trees
+            </div>
+            <h4>🌡️ Climate Change</h4>
+            <ul>
+              <li>Earth is getting warmer because of pollution — this is called Global Warming</li>
+              <li>It causes floods, droughts and melting of polar ice</li>
+              <li>We can help by using less fuel and planting more trees</li>
+            </ul>
+          `
+        }
+      ]
+    };
+
+    // Load correct class notes based on URL
+    const params = new URLSearchParams(window.location.search);
+    const cls = params.get('class') || '1';
+    const subject = params.get('subject') || 'science';
+    const chapters = scienceNotes[cls] || scienceNotes['1'];
+
+    document.getElementById('lessonMeta').textContent = `Class ${cls} · Science`;
+
+    // Build chapter list
+    const ul = document.getElementById('chapterList');
+    chapters.forEach((ch, i) => {
+      const li = document.createElement('li');
+      li.className = 'chapter-item' + (i === 0 ? ' active' : '');
+      li.textContent = ch.title;
+      li.onclick = function() {
+        document.querySelectorAll('.chapter-item').forEach(x => x.classList.remove('active'));
+        li.classList.add('active');
+        document.getElementById('lessonTitle').textContent = ch.title;
+        document.getElementById('notesContent').innerHTML = ch.notes;
+      };
+      ul.appendChild(li);
+    });
+
+    // Load first chapter by default
+    document.getElementById('lessonTitle').textContent = chapters[0].title;
+    document.getElementById('notesContent').innerHTML = chapters[0].notes;
+  </script>
 </body>
 </html>
