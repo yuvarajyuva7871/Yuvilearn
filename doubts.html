@@ -8,8 +8,6 @@
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700;800&display=swap" rel="stylesheet"/>
   <style>
     .ds-page{max-width:1100px;margin:0 auto;padding:28px 20px}
-
-    /* Search Hero */
     .search-hero{background:linear-gradient(135deg,#0a1628,#1e4db7);border-radius:20px;padding:36px 28px;text-align:center;margin-bottom:28px}
     .search-hero h2{color:#fff;font-size:1.5rem;font-weight:800;margin-bottom:8px}
     .search-hero p{color:rgba(255,255,255,0.8);margin-bottom:24px;font-size:0.95rem}
@@ -20,8 +18,6 @@
     .search-suggestions{display:flex;gap:8px;flex-wrap:wrap;justify-content:center;margin-top:14px}
     .suggestion-chip{background:rgba(255,255,255,0.15);color:#fff;padding:6px 14px;border-radius:50px;font-size:0.8rem;cursor:pointer;border:1px solid rgba(255,255,255,0.3);transition:background .2s}
     .suggestion-chip:hover{background:rgba(255,255,255,0.25)}
-
-    /* Filter Bar */
     .filter-row{display:flex;gap:10px;flex-wrap:wrap;align-items:center;margin-bottom:24px}
     .filter-row label{font-weight:700;font-size:0.88rem;color:#0a1628}
     .filter-select{padding:9px 14px;border:2px solid #ddd;border-radius:10px;font-family:inherit;font-size:0.88rem;outline:none;transition:border .2s;background:#fff;color:#0a1628}
@@ -32,12 +28,8 @@
     .subj-tab.active{background:#1e4db7;color:#fff;border-color:#1e4db7}
     .subj-tab.science.active{background:#16a34a;border-color:#16a34a}
     .subj-tab.language.active{background:#db2777;border-color:#db2777}
-
-    /* Layout */
     .ds-layout{display:grid;grid-template-columns:320px 1fr;gap:24px;align-items:start}
     @media(max-width:800px){.ds-layout{grid-template-columns:1fr}}
-
-    /* Chapter List */
     .chapter-panel h3{font-size:0.95rem;font-weight:800;color:#0a1628;margin-bottom:12px}
     .chapter-accordion{display:flex;flex-direction:column;gap:6px}
     .ch-item{background:#f0f4ff;border-radius:12px;overflow:hidden;border:2px solid transparent;transition:border .15s}
@@ -51,9 +43,6 @@
     .doubt-chip{display:block;padding:8px 12px;border-radius:8px;background:#fff;margin-bottom:6px;cursor:pointer;font-size:0.83rem;color:#1e4db7;font-weight:600;border:1px solid #ddd;transition:all .15s;text-align:left;width:100%}
     .doubt-chip:hover{background:#1e4db7;color:#fff;border-color:#1e4db7}
     .doubt-chip.active{background:#1e4db7;color:#fff;border-color:#1e4db7}
-
-    /* Answer Panel */
-    .answer-panel{}
     .answer-empty{text-align:center;padding:60px 20px;color:#aaa;background:#f9faff;border-radius:20px}
     .answer-empty .big{font-size:3rem;margin-bottom:12px}
     .answer-card{background:#fff;border-radius:20px;padding:28px;box-shadow:0 4px 20px rgba(30,77,183,0.08);border:2px solid #e8efff}
@@ -78,8 +67,6 @@
     .related-chips{display:flex;flex-direction:column;gap:6px}
     .related-chip{padding:10px 14px;border-radius:10px;background:#f0f4ff;cursor:pointer;font-size:0.85rem;font-weight:600;color:#1e4db7;border:1px solid transparent;transition:all .15s;text-align:left}
     .related-chip:hover{background:#1e4db7;color:#fff}
-
-    /* Search results */
     .search-results{margin-bottom:24px}
     .search-results h3{font-size:0.95rem;font-weight:800;color:#0a1628;margin-bottom:12px}
     .result-item{background:#f0f4ff;border-radius:12px;padding:14px 18px;cursor:pointer;margin-bottom:8px;border:2px solid transparent;transition:all .15s}
@@ -88,36 +75,35 @@
     .result-meta{font-size:0.78rem;color:#888;display:flex;gap:8px}
     .no-results{text-align:center;padding:28px;color:#aaa;font-size:0.9rem;background:#f9faff;border-radius:14px}
     .highlight{background:#fef9c3;border-radius:3px;padding:0 2px}
-    /* ── NOT FOUND CARD ── */
-.not-found-card{background:#fff;border-radius:20px;padding:28px;border:2px solid #fb923c;box-shadow:0 4px 20px rgba(251,146,60,0.1)}
-.not-found-icon{font-size:3rem;text-align:center;margin-bottom:12px}
-.not-found-title{font-size:1.1rem;font-weight:800;color:#0a1628;text-align:center;margin-bottom:6px}
-.not-found-sub{font-size:0.88rem;color:#666;text-align:center;margin-bottom:24px}
-.not-found-query{background:#fff7ed;border:2px solid #fb923c;border-radius:12px;padding:12px 16px;font-size:0.9rem;font-weight:700;color:#92400e;text-align:center;margin-bottom:20px}
-.options-grid{display:grid;grid-template-columns:1fr 1fr;gap:12px;margin-bottom:20px}
-@media(max-width:500px){.options-grid{grid-template-columns:1fr}}
-.option-card{border-radius:14px;padding:18px 14px;text-align:center;cursor:pointer;border:2px solid transparent;transition:all .2s;text-decoration:none;display:block}
-.option-card:hover{transform:translateY(-2px);box-shadow:0 6px 16px rgba(0,0,0,0.1)}
-.option-google{background:#f0f4ff;border-color:#dbeafe}
-.option-google:hover{border-color:#1e4db7}
-.option-youtube{background:#fff1f1;border-color:#fecaca}
-.option-youtube:hover{border-color:#dc2626}
-.option-icon{font-size:1.8rem;margin-bottom:8px}
-.option-title{font-weight:700;font-size:0.88rem;color:#0a1628;margin-bottom:4px}
-.option-desc{font-size:0.75rem;color:#888}
-.submit-doubt-form{background:#f0fdf4;border-radius:14px;padding:20px;border:2px solid #bbf7d0;margin-top:4px}
-.submit-doubt-form h4{font-weight:800;color:#166534;margin-bottom:14px;font-size:0.95rem}
-.submit-input{width:100%;padding:10px 14px;border:2px solid #ddd;border-radius:10px;font-family:inherit;font-size:0.9rem;outline:none;margin-bottom:10px;box-sizing:border-box;transition:border .2s;background:#fff}
-.submit-input:focus{border-color:#16a34a}
-.btn-submit-doubt{background:#16a34a;color:#fff;border:none;padding:12px 24px;border-radius:50px;font-weight:700;cursor:pointer;font-size:0.9rem;width:100%;transition:background .2s}
-.btn-submit-doubt:hover{background:#15803d}
-.submit-success{background:#dcfce7;border-radius:12px;padding:16px;text-align:center;font-weight:700;color:#166534;margin-top:10px;display:none}
-.pending-doubts-section{margin-top:28px}
-.pending-doubts-section h3{font-size:0.95rem;font-weight:800;color:#0a1628;margin-bottom:12px}
-.pending-item{background:#fff7ed;border-radius:10px;padding:12px 16px;margin-bottom:8px;display:flex;align-items:center;justify-content:space-between;gap:10px}
-.pending-q{font-size:0.88rem;font-weight:600;color:#0a1628;flex:1}
-.pending-status{font-size:0.75rem;padding:3px 10px;border-radius:50px;background:#fed7aa;color:#92400e;font-weight:600;white-space:nowrap}
-.pending-empty{color:#aaa;font-size:0.85rem;text-align:center;padding:16px}
+    .not-found-card{background:#fff;border-radius:20px;padding:28px;border:2px solid #fb923c;box-shadow:0 4px 20px rgba(251,146,60,0.1)}
+    .not-found-icon{font-size:3rem;text-align:center;margin-bottom:12px}
+    .not-found-title{font-size:1.1rem;font-weight:800;color:#0a1628;text-align:center;margin-bottom:6px}
+    .not-found-sub{font-size:0.88rem;color:#666;text-align:center;margin-bottom:24px}
+    .not-found-query{background:#fff7ed;border:2px solid #fb923c;border-radius:12px;padding:12px 16px;font-size:0.9rem;font-weight:700;color:#92400e;text-align:center;margin-bottom:20px}
+    .options-grid{display:grid;grid-template-columns:1fr 1fr;gap:12px;margin-bottom:20px}
+    @media(max-width:500px){.options-grid{grid-template-columns:1fr}}
+    .option-card{border-radius:14px;padding:18px 14px;text-align:center;cursor:pointer;border:2px solid transparent;transition:all .2s;text-decoration:none;display:block}
+    .option-card:hover{transform:translateY(-2px);box-shadow:0 6px 16px rgba(0,0,0,0.1)}
+    .option-google{background:#f0f4ff;border-color:#dbeafe}
+    .option-google:hover{border-color:#1e4db7}
+    .option-youtube{background:#fff1f1;border-color:#fecaca}
+    .option-youtube:hover{border-color:#dc2626}
+    .option-icon{font-size:1.8rem;margin-bottom:8px}
+    .option-title{font-weight:700;font-size:0.88rem;color:#0a1628;margin-bottom:4px}
+    .option-desc{font-size:0.75rem;color:#888}
+    .submit-doubt-form{background:#f0fdf4;border-radius:14px;padding:20px;border:2px solid #bbf7d0;margin-top:4px}
+    .submit-doubt-form h4{font-weight:800;color:#166534;margin-bottom:14px;font-size:0.95rem}
+    .submit-input{width:100%;padding:10px 14px;border:2px solid #ddd;border-radius:10px;font-family:inherit;font-size:0.9rem;outline:none;margin-bottom:10px;box-sizing:border-box;transition:border .2s;background:#fff}
+    .submit-input:focus{border-color:#16a34a}
+    .btn-submit-doubt{background:#16a34a;color:#fff;border:none;padding:12px 24px;border-radius:50px;font-weight:700;cursor:pointer;font-size:0.9rem;width:100%;transition:background .2s}
+    .btn-submit-doubt:hover{background:#15803d}
+    .submit-success{background:#dcfce7;border-radius:12px;padding:16px;text-align:center;font-weight:700;color:#166534;margin-top:10px;display:none}
+    .pending-doubts-section{margin-top:28px}
+    .pending-doubts-section h3{font-size:0.95rem;font-weight:800;color:#0a1628;margin-bottom:12px}
+    .pending-item{background:#fff7ed;border-radius:10px;padding:12px 16px;margin-bottom:8px;display:flex;align-items:center;justify-content:space-between;gap:10px}
+    .pending-q{font-size:0.88rem;font-weight:600;color:#0a1628;flex:1}
+    .pending-status{font-size:0.75rem;padding:3px 10px;border-radius:50px;background:#fed7aa;color:#92400e;font-weight:600;white-space:nowrap}
+    .pending-empty{color:#aaa;font-size:0.85rem;text-align:center;padding:16px}
   </style>
 </head>
 <body>
@@ -126,15 +112,6 @@
       <div class="logo">📚 Yuvilearn</div>
       <button class="menu-btn" onclick="toggleMenu()">☰</button>
       <ul class="nav-links" id="navLinks">
-  <li><a href="index.html">Home</a></li>
-  <li><a href="lessons.html">Lessons</a></li>
-  <li><a href="dashboard.html">Dashboard</a></li>
-  <li><a href="timetable.html">Timetable</a></li>
-  <li><a href="notebook.html">Notebook</a></li>
-  <li><a href="doubts.html">Doubt Solver</a></li>
-  <li><a href="profile.html">Profile</a></li>
-  <li><a href="contact.html">Contact</a></li>
-      </ul>
         <li><a href="index.html">Home</a></li>
         <li><a href="lessons.html">Lessons</a></li>
         <li><a href="dashboard.html">Dashboard</a></li>
@@ -153,7 +130,6 @@
   </div>
 
   <div class="ds-page">
-    <!-- Search Hero -->
     <div class="search-hero">
       <h2>What's your doubt today?</h2>
       <p>Type your question below or browse by chapter</p>
@@ -173,7 +149,6 @@
       </div>
     </div>
 
-    <!-- Filter Row -->
     <div class="filter-row">
       <label>Class:</label>
       <select class="filter-select" id="classFilter" onchange="renderChapters()">
@@ -183,18 +158,14 @@
       </select>
       <label>Subject:</label>
       <div class="subj-tabs">
-  <button class="subj-tab active" data-subj="math"
-    onclick="setSubject('math',this)">🔢 Math</button>
-  <button class="subj-tab science" data-subj="science"
-    onclick="setSubject('science',this)">🔬 Science</button>
-  <button class="subj-tab language" data-subj="language"
-    onclick="setSubject('language',this)">🗣️ English</button>
-</div>
+        <button class="subj-tab active" data-subj="math" onclick="setSubject('math',this)">🔢 Math</button>
+        <button class="subj-tab science" data-subj="science" onclick="setSubject('science',this)">🔬 Science</button>
+        <button class="subj-tab language" data-subj="language" onclick="setSubject('language',this)">🗣️ English</button>
+      </div>
+    </div>
 
-    <!-- Search Results (shown when searching) -->
     <div id="searchResultsArea"></div>
 
-    <!-- Main Layout -->
     <div class="ds-layout">
       <div class="chapter-panel">
         <h3>📋 Browse by Chapter</h3>
@@ -214,8 +185,10 @@
     <div class="footer-inner">
       <div class="footer-logo">📚 Yuvilearn</div>
       <div class="footer-links">
-        <a href="index.html">Home</a><a href="lessons.html">Lessons</a>
-        <a href="dashboard.html">Dashboard</a><a href="doubts.html">Doubt Solver</a>
+        <a href="index.html">Home</a>
+        <a href="lessons.html">Lessons</a>
+        <a href="dashboard.html">Dashboard</a>
+        <a href="doubts.html">Doubt Solver</a>
         <a href="contact.html">Contact</a>
       </div>
       <p class="footer-copy">© 2026 Yuvilearn. Built with ❤️ for students.</p>
@@ -224,1022 +197,382 @@
 
   <script src="script.js"></script>
   <script>
-  // ════════════════════════════════════════════════════
-  // DOUBT DATABASE — All 3 subjects, Class 1–3
-  // Add more doubts here in the same format!
-  // ════════════════════════════════════════════════════
-  const doubtDB = {
 
-    // ── MATH ─────────────────────────────────────────
-    math: {
-      "1": [
-        {
-          id:"m1c1q1", chapter:"Chapter 1: Numbers 1–100",
-          q:"What are numbers and why do we use them?",
-          keywords:["number","numbers","count","counting","why use numbers"],
-          answer:`<p>Numbers are symbols we use to <strong>count, measure and compare</strong> things around us.</p>
-          <div class="key-box">💡 We use numbers every day — to tell the time, count objects, measure length, and more!</div>
-          <p>The numbers we use are called <strong>Hindu-Arabic numerals</strong>: 0, 1, 2, 3, 4, 5, 6, 7, 8, 9</p>
-          <p>All other numbers are made using these 10 digits!</p>
-          <div class="example-box"><strong>Example:</strong> If you have 5 apples and get 3 more, you need numbers to find out you now have 8 apples!</div>`,
-          related:["m1c1q2","m1c1q3","m1c2q1"]
-        },
-        {
-          id:"m1c1q2", chapter:"Chapter 1: Numbers 1–100",
-          q:"What is the difference between greater than and less than?",
-          keywords:["greater than","less than","compare","bigger","smaller","symbol"],
-          answer:`<p>We use special symbols to compare two numbers:</p>
-          <ul class="answer-steps">
-            <li><span class="step-num">1</span><span><strong>&gt; (Greater than)</strong> — the left number is bigger. Example: 8 &gt; 5 means 8 is greater than 5</span></li>
-            <li><span class="step-num">2</span><span><strong>&lt; (Less than)</strong> — the left number is smaller. Example: 3 &lt; 7 means 3 is less than 7</span></li>
-            <li><span class="step-num">3</span><span><strong>= (Equal to)</strong> — both numbers are the same. Example: 4 = 4</span></li>
-          </ul>
-          <div class="key-box">💡 <strong>Trick:</strong> The symbol always opens towards the bigger number — like a hungry mouth eating the larger number!</div>
-          <div class="example-box"><strong>Example:</strong> 9 &gt; 2 (9 is bigger) · 1 &lt; 6 (1 is smaller) · 5 = 5 (both equal)</div>`,
-          related:["m1c1q1","m1c1q3"]
-        },
-        {
-          id:"m1c1q3", chapter:"Chapter 1: Numbers 1–100",
-          q:"What are even and odd numbers?",
-          keywords:["even","odd","even numbers","odd numbers"],
-          answer:`<p><strong>Even numbers</strong> are numbers that can be divided exactly by 2 with nothing left over.</p>
-          <p><strong>Odd numbers</strong> cannot be divided exactly by 2 — they always have 1 left over.</p>
-          <div class="key-box green">✅ Even numbers: 2, 4, 6, 8, 10, 12... (always end in 0,2,4,6,8)</div>
-          <div class="key-box yellow">⚡ Odd numbers: 1, 3, 5, 7, 9, 11... (always end in 1,3,5,7,9)</div>
-          <div class="example-box"><strong>Easy trick:</strong> If the last digit is 0,2,4,6 or 8 → Even. If the last digit is 1,3,5,7 or 9 → Odd!</div>`,
-          related:["m1c1q1","m1c1q2"]
-        },
-        {
-          id:"m1c2q1", chapter:"Chapter 2: Addition",
-          q:"What is addition and how does it work?",
-          keywords:["addition","add","adding","plus","sum","what is addition"],
-          answer:`<p>Addition means <strong>putting two or more numbers together</strong> to get a bigger total number.</p>
-          <div class="key-box">➕ The symbol for addition is <strong>+</strong> (plus sign)<br/>The answer is called the <strong>Sum</strong></div>
-          <ul class="answer-steps">
-            <li><span class="step-num">1</span><span>Write the numbers you want to add</span></li>
-            <li><span class="step-num">2</span><span>Count all the objects together</span></li>
-            <li><span class="step-num">3</span><span>The total is your answer (sum)</span></li>
-          </ul>
-          <div class="example-box"><strong>Example:</strong> 3 + 4 = 7<br/>(3 apples + 4 apples = 7 apples total)</div>
-          <div class="key-box green">💡 Rule: Adding 0 to any number gives the same number. 5 + 0 = 5</div>`,
-          related:["m1c2q2","m1c2q3","m1c3q1"]
-        },
-        {
-          id:"m1c2q2", chapter:"Chapter 2: Addition",
-          q:"Does the order matter in addition?",
-          keywords:["order addition","commutative","change order","same answer"],
-          answer:`<p>No! The order of numbers in addition does NOT matter. You get the same answer either way.</p>
-          <div class="key-box">This rule is called the <strong>Commutative Property of Addition</strong></div>
-          <div class="example-box">
-            <strong>Example:</strong><br/>
-            3 + 5 = 8<br/>
-            5 + 3 = 8 ✅ (same answer!)<br/><br/>
-            7 + 2 = 9<br/>
-            2 + 7 = 9 ✅ (same answer!)
-          </div>
-          <div class="key-box green">💡 Tip: Always start with the bigger number and count forward — it's faster!</div>`,
-          related:["m1c2q1","m1c2q3"]
-        },
-        {
-          id:"m1c2q3", chapter:"Chapter 2: Addition",
-          q:"What happens when you add zero to a number?",
-          keywords:["add zero","plus zero","adding 0","zero property"],
-          answer:`<p>When you add <strong>zero (0)</strong> to any number, the number stays the same!</p>
-          <div class="key-box">This is called the <strong>Identity Property of Addition</strong><br/>Zero is called the <strong>additive identity</strong></div>
-          <div class="example-box">
-            5 + 0 = 5 ✅<br/>
-            0 + 9 = 9 ✅<br/>
-            100 + 0 = 100 ✅
-          </div>
-          <p>Think of it this way — if you have 5 chocolates and nobody gives you any more (0), you still have 5!</p>`,
-          related:["m1c2q1","m1c2q2"]
-        },
-        {
-          id:"m1c3q1", chapter:"Chapter 3: Subtraction",
-          q:"What is subtraction?",
-          keywords:["subtraction","subtract","minus","take away","difference","what is subtraction"],
-          answer:`<p>Subtraction means <strong>taking away</strong> a number from another to find what is left.</p>
-          <div class="key-box">➖ The symbol for subtraction is <strong>−</strong> (minus sign)<br/>The answer is called the <strong>Difference</strong></div>
-          <ul class="answer-steps">
-            <li><span class="step-num">1</span><span>Start with the bigger number</span></li>
-            <li><span class="step-num">2</span><span>Take away (remove) the smaller number</span></li>
-            <li><span class="step-num">3</span><span>What remains is your answer</span></li>
-          </ul>
-          <div class="example-box"><strong>Example:</strong> 8 − 3 = 5<br/>(Had 8 mangoes, ate 3, now 5 are left)</div>
-          <div class="key-box green">💡 Subtraction is the opposite of Addition! If 3+4=7, then 7−4=3</div>`,
-          related:["m1c3q2","m1c2q1"]
-        },
-        {
-          id:"m1c3q2", chapter:"Chapter 3: Subtraction",
-          q:"What happens when you subtract a number from itself?",
-          keywords:["subtract itself","same number minus","result zero","minus itself"],
-          answer:`<p>When you subtract any number from itself, the answer is always <strong>zero (0)</strong>!</p>
-          <div class="key-box">Any number − itself = 0</div>
-          <div class="example-box">
-            5 − 5 = 0 ✅<br/>
-            9 − 9 = 0 ✅<br/>
-            100 − 100 = 0 ✅
-          </div>
-          <p>Think of it like this — if you have 5 chocolates and eat all 5, you have 0 left!</p>`,
-          related:["m1c3q1","m1c2q3"]
-        },
-        {
-          id:"m1c4q1", chapter:"Chapter 4: Shapes & Patterns",
-          q:"What are 2D shapes? Name the basic ones.",
-          keywords:["2d shapes","shapes","flat shapes","circle","square","triangle","rectangle"],
-          answer:`<p><strong>2D shapes</strong> are flat shapes that have only length and width — no thickness.</p>
-          <ul class="answer-steps">
-            <li><span class="step-num">⭕</span><span><strong>Circle</strong> — perfectly round, no corners, no sides. Example: coin, wheel</span></li>
-            <li><span class="step-num">🟥</span><span><strong>Square</strong> — 4 equal sides, 4 equal corners. Example: dice face, tile</span></li>
-            <li><span class="step-num">📄</span><span><strong>Rectangle</strong> — 4 sides (2 long, 2 short), 4 corners. Example: book, door</span></li>
-            <li><span class="step-num">🔺</span><span><strong>Triangle</strong> — 3 sides, 3 corners. Example: pizza slice, roof</span></li>
-          </ul>
-          <div class="key-box">💡 Easy trick: Count the sides to name the shape! 3 sides = Triangle, 4 equal sides = Square</div>`,
-          related:["m1c4q2","m1c5q1"]
-        },
-        {
-          id:"m1c4q2", chapter:"Chapter 4: Shapes & Patterns",
-          q:"What is a pattern in maths?",
-          keywords:["pattern","patterns","repeating","sequence","what is pattern"],
-          answer:`<p>A <strong>pattern</strong> is a sequence of shapes, numbers or colours that <strong>repeats itself</strong> in a regular way.</p>
-          <div class="example-box">
-            <strong>Shape pattern:</strong> 🔴🔵🔴🔵🔴 → next is 🔵<br/>
-            <strong>Number pattern:</strong> 2, 4, 6, 8, ___ → next is 10<br/>
-            <strong>Colour pattern:</strong> Red, Blue, Green, Red, Blue, ___ → next is Green
-          </div>
-          <ul class="answer-steps">
-            <li><span class="step-num">1</span><span>Look at what comes first</span></li>
-            <li><span class="step-num">2</span><span>Find what repeats</span></li>
-            <li><span class="step-num">3</span><span>Continue the pattern</span></li>
-          </ul>`,
-          related:["m1c4q1","m1c1q3"]
-        },
-        {
-          id:"m1c5q1", chapter:"Chapter 5: Measurement & Time",
-          q:"What is the difference between centimetre and metre?",
-          keywords:["centimetre","metre","cm","length","measurement","meter","unit"],
-          answer:`<p>Both centimetre (cm) and metre (m) are units used to measure <strong>length</strong>.</p>
-          <ul class="answer-steps">
-            <li><span class="step-num">cm</span><span><strong>Centimetre (cm)</strong> — used to measure small things like a pencil, book or hand</span></li>
-            <li><span class="step-num">m</span><span><strong>Metre (m)</strong> — used to measure bigger things like height of a person, length of a room</span></li>
-          </ul>
-          <div class="key-box">📏 <strong>100 centimetres = 1 metre</strong></div>
-          <div class="example-box">
-            Your pencil = about 15 cm<br/>
-            Your height = about 1.2 m (120 cm)<br/>
-            A cricket pitch = 20 metres
-          </div>`,
-          related:["m1c5q2"]
-        },
-        {
-          id:"m1c5q2", chapter:"Chapter 5: Measurement & Time",
-          q:"How do we read time on a clock?",
-          keywords:["clock","time","hour","minute","read time","short hand","long hand"],
-          answer:`<p>A clock has <strong>two hands</strong> that point to numbers to show the time.</p>
-          <ul class="answer-steps">
-            <li><span class="step-num">1</span><span><strong>Short hand (Hour hand)</strong> — points to the hour (1–12)</span></li>
-            <li><span class="step-num">2</span><span><strong>Long hand (Minute hand)</strong> — points to the minutes. When it points to 12, it means 0 minutes (o'clock)</span></li>
-            <li><span class="step-num">3</span><span>Read the hour first, then the minutes</span></li>
-          </ul>
-          <div class="key-box">⏰ <strong>60 minutes = 1 hour · 24 hours = 1 day</strong></div>
-          <div class="example-box">Short hand on 3, long hand on 12 → <strong>3 o'clock</strong><br/>Short hand on 5, long hand on 6 → <strong>5:30</strong></div>`,
-          related:["m1c5q1"]
-        }
-      ],
-      "2": [
-        {
-          id:"m2c1q1", chapter:"Chapter 1: Numbers up to 1000",
-          q:"What is place value?",
-          keywords:["place value","hundreds","tens","ones","digit position","value of digit"],
-          answer:`<p><strong>Place value</strong> means the value of a digit depending on its position in a number.</p>
-          <ul class="answer-steps">
-            <li><span class="step-num">H</span><span><strong>Hundreds</strong> — the leftmost digit in a 3-digit number</span></li>
-            <li><span class="step-num">T</span><span><strong>Tens</strong> — the middle digit</span></li>
-            <li><span class="step-num">O</span><span><strong>Ones</strong> — the rightmost digit</span></li>
-          </ul>
-          <div class="key-box">In <strong>345</strong>: 3 is in hundreds place (value=300), 4 is in tens place (value=40), 5 is in ones place (value=5)</div>
-          <div class="example-box">345 = 300 + 40 + 5 (this is called expanded form)</div>`,
-          related:["m2c1q2","m2c2q1"]
-        },
-        {
-          id:"m2c1q2", chapter:"Chapter 1: Numbers up to 1000",
-          q:"How do we compare 3-digit numbers?",
-          keywords:["compare numbers","greater","smaller","3 digit","three digit","which is bigger"],
-          answer:`<p>To compare two 3-digit numbers, follow these steps in order:</p>
-          <ul class="answer-steps">
-            <li><span class="step-num">1</span><span>Compare the <strong>Hundreds</strong> digit first — bigger hundreds = bigger number</span></li>
-            <li><span class="step-num">2</span><span>If hundreds are equal, compare the <strong>Tens</strong> digit</span></li>
-            <li><span class="step-num">3</span><span>If tens are equal too, compare the <strong>Ones</strong> digit</span></li>
-          </ul>
-          <div class="example-box">
-            Compare 456 and 432:<br/>
-            Hundreds: 4 = 4 (equal, move to tens)<br/>
-            Tens: 5 &gt; 3<br/>
-            So <strong>456 &gt; 432</strong> ✅
-          </div>`,
-          related:["m2c1q1","m1c1q2"]
-        },
-        {
-          id:"m2c3q1", chapter:"Chapter 3: Multiplication",
-          q:"What is multiplication? How is it related to addition?",
-          keywords:["multiplication","multiply","times","repeated addition","what is multiplication"],
-          answer:`<p>Multiplication is <strong>repeated addition</strong> of the same number.</p>
-          <div class="key-box">✖️ Instead of adding the same number again and again, we multiply!</div>
-          <div class="example-box">
-            3 × 4 means "3 groups of 4"<br/>
-            = 4 + 4 + 4 = <strong>12</strong><br/><br/>
-            5 × 3 means "5 groups of 3"<br/>
-            = 3 + 3 + 3 + 3 + 3 = <strong>15</strong>
-          </div>
-          <div class="key-box green">💡 Rules: Any number × 0 = 0 · Any number × 1 = same number · Order doesn't matter: 3×4 = 4×3</div>`,
-          related:["m2c3q2","m2c4q1","m1c2q1"]
-        },
-        {
-          id:"m2c3q2", chapter:"Chapter 3: Multiplication",
-          q:"How do we learn multiplication tables easily?",
-          keywords:["tables","multiplication table","times table","learn tables","memorise","table trick"],
-          answer:`<p>Here are the best tricks to remember multiplication tables:</p>
-          <ul class="answer-steps">
-            <li><span class="step-num">×2</span><span>Just double the number: 2×6 = 6+6 = 12</span></li>
-            <li><span class="step-num">×5</span><span>Always ends in 0 or 5: 5×4=20, 5×7=35</span></li>
-            <li><span class="step-num">×10</span><span>Just add a zero: 10×8=80, 10×3=30</span></li>
-            <li><span class="step-num">×9</span><span>Fingers trick: hold up 9 fingers, fold the Nth finger, read left digits = tens, right = ones</span></li>
-          </ul>
-          <div class="key-box">💡 Practice 5 minutes every day — tables become automatic in 2 weeks!</div>`,
-          related:["m2c3q1","m2c4q1"]
-        },
-        {
-          id:"m2c4q1", chapter:"Chapter 4: Division",
-          q:"What is division? What do dividend, divisor and quotient mean?",
-          keywords:["division","divide","dividend","divisor","quotient","remainder","what is division"],
-          answer:`<p>Division means <strong>sharing equally</strong> or splitting into equal groups.</p>
-          <div class="key-box">➗ Division is the opposite of multiplication!</div>
-          <ul class="answer-steps">
-            <li><span class="step-num">÷</span><span><strong>Dividend</strong> — the number being divided (12 in 12÷3)</span></li>
-            <li><span class="step-num">=</span><span><strong>Divisor</strong> — the number we divide by (3 in 12÷3)</span></li>
-            <li><span class="step-num">✅</span><span><strong>Quotient</strong> — the answer (4 in 12÷3=4)</span></li>
-            <li><span class="step-num">R</span><span><strong>Remainder</strong> — what is left over if it doesn't divide exactly</span></li>
-          </ul>
-          <div class="example-box">12 ÷ 3 = 4 (12 sweets shared among 3 friends = 4 each, nothing left)<br/>13 ÷ 3 = 4 remainder 1</div>`,
-          related:["m2c3q1","m2c5q1"]
-        },
-        {
-          id:"m2c5q1", chapter:"Chapter 5: Fractions",
-          q:"What is a fraction? What is numerator and denominator?",
-          keywords:["fraction","numerator","denominator","half","quarter","what is fraction"],
-          answer:`<p>A <strong>fraction</strong> represents a part of a whole. We write it as one number over another.</p>
-          <div class="key-box">
-            In fraction <strong>3/5</strong>:<br/>
-            <strong>3</strong> = Numerator (top) → parts we have<br/>
-            <strong>5</strong> = Denominator (bottom) → total equal parts
-          </div>
-          <ul class="answer-steps">
-            <li><span class="step-num">½</span><span><strong>One half</strong> — 1 part out of 2 equal parts</span></li>
-            <li><span class="step-num">¼</span><span><strong>One quarter</strong> — 1 part out of 4 equal parts</span></li>
-            <li><span class="step-num">¾</span><span><strong>Three quarters</strong> — 3 parts out of 4 equal parts</span></li>
-          </ul>
-          <div class="example-box">Pizza cut into 4 equal slices, you eat 1 slice = you ate <strong>1/4</strong> of the pizza</div>`,
-          related:["m2c4q1","m2c1q1"]
-        }
-      ],
-      "3": [
-        {
-          id:"m3c1q1", chapter:"Chapter 1: Numbers up to 10,000",
-          q:"What is the thousands place in a 4-digit number?",
-          keywords:["thousands","4 digit","four digit","place value thousands","1000"],
-          answer:`<p>In a 4-digit number, we have four place values:</p>
-          <ul class="answer-steps">
-            <li><span class="step-num">Th</span><span><strong>Thousands</strong> — leftmost digit. Example: in 4567, the 4 = 4000</span></li>
-            <li><span class="step-num">H</span><span><strong>Hundreds</strong> — second digit. The 5 = 500</span></li>
-            <li><span class="step-num">T</span><span><strong>Tens</strong> — third digit. The 6 = 60</span></li>
-            <li><span class="step-num">O</span><span><strong>Ones</strong> — last digit. The 7 = 7</span></li>
-          </ul>
-          <div class="key-box">4567 = 4000 + 500 + 60 + 7</div>
-          <div class="example-box">The smallest 4-digit number = <strong>1000</strong><br/>The largest 4-digit number = <strong>9999</strong></div>`,
-          related:["m3c1q2","m2c1q1"]
-        },
-        {
-          id:"m3c1q2", chapter:"Chapter 1: Numbers up to 10,000",
-          q:"What are Roman numerals? How do we read them?",
-          keywords:["roman numerals","roman","I V X L C","roman numbers"],
-          answer:`<p>Roman numerals are a number system that uses <strong>letters</strong> instead of digits.</p>
-          <div class="key-box">I=1 · V=5 · X=10 · L=50 · C=100 · D=500 · M=1000</div>
-          <ul class="answer-steps">
-            <li><span class="step-num">+</span><span><strong>Addition rule:</strong> Smaller value after larger = ADD. VI = 5+1 = 6</span></li>
-            <li><span class="step-num">−</span><span><strong>Subtraction rule:</strong> Smaller value before larger = SUBTRACT. IV = 5−1 = 4</span></li>
-          </ul>
-          <div class="example-box">IV=4 · IX=9 · XL=40 · XC=90 · XI=11 · XX=20 · XV=15</div>
-          <div class="key-box green">💡 Memory trick: "I Value Xtra Large Cups Daily Morning" = I,V,X,L,C,D,M</div>`,
-          related:["m3c1q1"]
-        },
-        {
-          id:"m3c3q1", chapter:"Chapter 3: Geometry",
-          q:"What is the difference between 2D and 3D shapes?",
-          keywords:["2d 3d","two dimensional","three dimensional","flat shapes","solid shapes","difference 2d 3d"],
-          answer:`<p><strong>2D shapes</strong> are flat — they have only length and width (no height/depth).</p>
-          <p><strong>3D shapes</strong> are solid — they have length, width AND height/depth.</p>
-          <div class="key-box">2D = Flat (can be drawn on paper) · 3D = Solid (can be held in your hand)</div>
-          <ul class="answer-steps">
-            <li><span class="step-num">2D</span><span>Circle, Square, Rectangle, Triangle</span></li>
-            <li><span class="step-num">3D</span><span>Sphere (ball), Cube (dice), Cuboid (box), Cylinder (can), Cone (ice cream)</span></li>
-          </ul>
-          <div class="example-box">A drawing of a box = 2D · An actual box = 3D<br/>Cube has 6 faces, 12 edges and 8 corners</div>`,
-          related:["m3c3q2","m1c4q1"]
-        },
-        {
-          id:"m3c3q2", chapter:"Chapter 3: Geometry",
-          q:"What are the types of angles?",
-          keywords:["angles","acute","obtuse","right angle","types of angles","angle"],
-          answer:`<p>An <strong>angle</strong> is the amount of turn between two lines that meet at a point.</p>
-          <ul class="answer-steps">
-            <li><span class="step-num">90°</span><span><strong>Right angle</strong> — exactly 90 degrees. Example: corner of a square, letter L</span></li>
-            <li><span class="step-num">&lt;90°</span><span><strong>Acute angle</strong> — less than 90 degrees. Example: tip of a sharp pencil</span></li>
-            <li><span class="step-num">&gt;90°</span><span><strong>Obtuse angle</strong> — more than 90 but less than 180 degrees</span></li>
-            <li><span class="step-num">180°</span><span><strong>Straight angle</strong> — exactly 180 degrees, a straight line</span></li>
-          </ul>
-          <div class="key-box">💡 Memory trick: <strong>A</strong>cute = <strong>A</strong> cute little angle (small!) · <strong>O</strong>btuse = <strong>O</strong>h what a big angle!</div>`,
-          related:["m3c3q1","m1c4q1"]
-        },
-        {
-          id:"m3c4q1", chapter:"Chapter 4: Decimals & Money",
-          q:"What is a decimal number?",
-          keywords:["decimal","decimal point","decimal number","point","tenths","hundredths"],
-          answer:`<p>A <strong>decimal number</strong> has a whole part and a fraction part separated by a dot called the <strong>decimal point</strong>.</p>
-          <div class="key-box">Example: <strong>3.5</strong> = 3 whole and 5 tenths</div>
-          <ul class="answer-steps">
-            <li><span class="step-num">0.1</span><span><strong>One tenth</strong> — 1 out of 10 equal parts</span></li>
-            <li><span class="step-num">0.01</span><span><strong>One hundredth</strong> — 1 out of 100 equal parts</span></li>
-            <li><span class="step-num">3.75</span><span>3 whole + 7 tenths + 5 hundredths</span></li>
-          </ul>
-          <div class="example-box">In money: ₹45.75 = 45 Rupees and 75 Paise<br/>The dot separates Rupees from Paise!</div>`,
-          related:["m3c4q2","m2c5q1"]
-        },
-        {
-          id:"m3c4q2", chapter:"Chapter 4: Decimals & Money",
-          q:"How many paise make one rupee?",
-          keywords:["rupee","paise","money","indian currency","100 paise","currency"],
-          answer:`<p>Indian currency uses <strong>Rupees (₹)</strong> and <strong>Paise</strong>.</p>
-          <div class="key-box">💰 <strong>100 Paise = 1 Rupee (₹1)</strong></div>
-          <ul class="answer-steps">
-            <li><span class="step-num">coins</span><span>50p, ₹1, ₹2, ₹5, ₹10</span></li>
-            <li><span class="step-num">notes</span><span>₹10, ₹20, ₹50, ₹100, ₹200, ₹500</span></li>
-          </ul>
-          <div class="example-box">
-            ₹5.50 = 5 Rupees and 50 Paise<br/>
-            If you have ₹10 and spend ₹6.50, you get ₹3.50 back
-          </div>`,
-          related:["m3c4q1"]
-        }
-      ]
-    },
-
-    // ── SCIENCE ──────────────────────────────────────
-    science: {
-      "1": [
-        {
-          id:"s1c1q1", chapter:"Chapter 1: Living & Non-Living Things",
-          q:"What is the difference between living and non-living things?",
-          keywords:["living","non-living","difference","alive","not alive","living things"],
-          answer:`<p><strong>Living things</strong> are alive — they grow, breathe, eat, move and can reproduce.</p>
-          <p><strong>Non-living things</strong> are not alive — they cannot grow, breathe or reproduce on their own.</p>
-          <div class="key-box green">✅ Living: Plants, Animals, Birds, Fish, Humans, Insects, Bacteria</div>
-          <div class="key-box yellow">❌ Non-living: Rock, Chair, Table, Car, Book, Water, Air</div>
-          <ul class="answer-steps">
-            <li><span class="step-num">1</span><span>Living things need food and water — non-living things do not</span></li>
-            <li><span class="step-num">2</span><span>Living things grow and change — non-living things stay the same</span></li>
-            <li><span class="step-num">3</span><span>Living things breathe — non-living things do not</span></li>
-          </ul>`,
-          related:["s1c1q2","s1c2q1"]
-        },
-        {
-          id:"s1c1q2", chapter:"Chapter 1: Living & Non-Living Things",
-          q:"Can fire be considered a living thing?",
-          keywords:["fire living","is fire alive","fire non-living","fire breathe"],
-          answer:`<p>This is a great question! Fire is <strong>NOT a living thing</strong>, even though it seems alive.</p>
-          <ul class="answer-steps">
-            <li><span class="step-num">❌</span><span>Fire cannot reproduce (make more fire on its own)</span></li>
-            <li><span class="step-num">❌</span><span>Fire does not grow by taking in nutrition/food</span></li>
-            <li><span class="step-num">❌</span><span>Fire does not have cells</span></li>
-            <li><span class="step-num">❌</span><span>Fire cannot respond to its environment like living things do</span></li>
-          </ul>
-          <div class="key-box">Fire is a <strong>chemical reaction</strong> — not a living organism. It needs oxygen and fuel to burn, but that is not the same as breathing!</div>`,
-          related:["s1c1q1"]
-        },
-        {
-          id:"s1c2q1", chapter:"Chapter 2: Plants Around Us",
-          q:"What is photosynthesis?",
-          keywords:["photosynthesis","how plants make food","chlorophyll","sunlight food","plant food"],
-          answer:`<p><strong>Photosynthesis</strong> is the process by which plants make their own food using sunlight, water and carbon dioxide.</p>
-          <ul class="answer-steps">
-            <li><span class="step-num">1</span><span>Leaves absorb <strong>sunlight</strong> using chlorophyll (the green substance)</span></li>
-            <li><span class="step-num">2</span><span>Roots absorb <strong>water</strong> from the soil</span></li>
-            <li><span class="step-num">3</span><span>Leaves take in <strong>carbon dioxide</strong> from the air through tiny holes</span></li>
-            <li><span class="step-num">4</span><span>Using sunlight energy, these are converted into <strong>glucose (food)</strong> and <strong>oxygen</strong></span></li>
-          </ul>
-          <div class="key-box">💡 Formula: Sunlight + Water + CO₂ → Glucose + Oxygen</div>
-          <div class="key-box green">🌱 Plants give us the oxygen we breathe as a by-product of photosynthesis!</div>`,
-          related:["s1c2q2","s1c1q1"]
-        },
-        {
-          id:"s1c2q2", chapter:"Chapter 2: Plants Around Us",
-          q:"What are the parts of a plant and their functions?",
-          keywords:["parts of plant","root","stem","leaf","flower","function","parts"],
-          answer:`<p>A plant has 5 main parts, each with a specific job:</p>
-          <ul class="answer-steps">
-            <li><span class="step-num">🌱</span><span><strong>Roots</strong> — absorb water and minerals from soil, hold plant firmly in ground</span></li>
-            <li><span class="step-num">🌿</span><span><strong>Stem</strong> — supports the plant, carries water and food to all parts</span></li>
-            <li><span class="step-num">🍃</span><span><strong>Leaves</strong> — make food through photosynthesis, breathe through tiny pores</span></li>
-            <li><span class="step-num">🌸</span><span><strong>Flower</strong> — helps the plant reproduce, attracts insects for pollination</span></li>
-            <li><span class="step-num">🍎</span><span><strong>Fruit</strong> — develops from flower, protects the seeds inside</span></li>
-          </ul>`,
-          related:["s1c2q1","s1c1q1"]
-        },
-        {
-          id:"s1c3q1", chapter:"Chapter 3: Animals Around Us",
-          q:"What is the difference between herbivores, carnivores and omnivores?",
-          keywords:["herbivore","carnivore","omnivore","animals eat","food chain","diet animals"],
-          answer:`<p>Animals are classified by what they eat:</p>
-          <ul class="answer-steps">
-            <li><span class="step-num">🌿</span><span><strong>Herbivores</strong> — eat ONLY plants. Example: Cow, Rabbit, Deer, Elephant, Horse</span></li>
-            <li><span class="step-num">🥩</span><span><strong>Carnivores</strong> — eat ONLY animals (meat). Example: Lion, Tiger, Snake, Eagle, Crocodile</span></li>
-            <li><span class="step-num">🌿🥩</span><span><strong>Omnivores</strong> — eat BOTH plants and animals. Example: Human, Bear, Crow, Rat, Dog</span></li>
-          </ul>
-          <div class="key-box">💡 Memory trick: <strong>Herb</strong>ivore = <strong>Herb</strong>s (plants) · <strong>Carn</strong>ivore = <strong>Carn</strong>al (flesh) · <strong>Omni</strong>vore = <strong>Omni</strong> means all!</div>`,
-          related:["s1c3q2","s1c1q1"]
-        },
-        {
-          id:"s1c3q2", chapter:"Chapter 3: Animals Around Us",
-          q:"What are the homes of different animals called?",
-          keywords:["animal homes","den","kennel","nest","burrow","stable","animal shelter"],
-          answer:`<p>Different animals live in different types of homes. Here are the most important ones:</p>
-          <ul class="answer-steps">
-            <li><span class="step-num">🐕</span><span><strong>Dog</strong> → Kennel</span></li>
-            <li><span class="step-num">🦁</span><span><strong>Lion</strong> → Den</span></li>
-            <li><span class="step-num">🐄</span><span><strong>Cow/Horse</strong> → Shed / Stable</span></li>
-            <li><span class="step-num">🐦</span><span><strong>Bird</strong> → Nest</span></li>
-            <li><span class="step-num">🐇</span><span><strong>Rabbit</strong> → Burrow</span></li>
-            <li><span class="step-num">🐝</span><span><strong>Bee</strong> → Hive</span></li>
-            <li><span class="step-num">🕷️</span><span><strong>Spider</strong> → Web</span></li>
-          </ul>`,
-          related:["s1c3q1"]
-        },
-        {
-          id:"s1c4q1", chapter:"Chapter 4: Our Body",
-          q:"What are the 5 sense organs and their functions?",
-          keywords:["sense organs","five senses","eyes","ears","nose","tongue","skin","5 senses"],
-          answer:`<p>We have <strong>5 sense organs</strong> that help us understand and experience the world:</p>
-          <ul class="answer-steps">
-            <li><span class="step-num">👀</span><span><strong>Eyes</strong> — for seeing. Help us see colours, shapes, movement and light</span></li>
-            <li><span class="step-num">👂</span><span><strong>Ears</strong> — for hearing. Help us hear sounds, music and speech</span></li>
-            <li><span class="step-num">👃</span><span><strong>Nose</strong> — for smelling. Can detect thousands of different smells</span></li>
-            <li><span class="step-num">👅</span><span><strong>Tongue</strong> — for tasting. Detects sweet, sour, salty, bitter and spicy</span></li>
-            <li><span class="step-num">✋</span><span><strong>Skin</strong> — for touching. Feels heat, cold, pain, pressure and texture</span></li>
-          </ul>`,
-          related:["s1c4q2","s1c1q1"]
-        },
-        {
-          id:"s1c5q1", chapter:"Chapter 5: Food We Eat",
-          q:"What is a balanced diet?",
-          keywords:["balanced diet","nutrition","healthy food","types of food","diet"],
-          answer:`<p>A <strong>balanced diet</strong> is a meal that contains all types of nutrients in the right amounts to keep us healthy.</p>
-          <ul class="answer-steps">
-            <li><span class="step-num">⚡</span><span><strong>Energy giving foods</strong> — Rice, Bread, Potato, Sugar (give energy)</span></li>
-            <li><span class="step-num">💪</span><span><strong>Body building foods</strong> — Milk, Eggs, Dal, Meat (help grow and repair)</span></li>
-            <li><span class="step-num">🛡️</span><span><strong>Protective foods</strong> — Fruits, Vegetables (protect from diseases)</span></li>
-          </ul>
-          <div class="key-box green">🥗 Eating all three types of food every day = Balanced Diet = Healthy body!</div>
-          <div class="example-box">A meal of rice + dal + vegetables + milk = a balanced diet ✅</div>`,
-          related:["s1c5q2","s1c4q1"]
-        },
-        {
-          id:"s1c5q2", chapter:"Chapter 5: Food We Eat",
-          q:"Why should we avoid junk food?",
-          keywords:["junk food","unhealthy food","chips","why avoid","bad food"],
-          answer:`<p>Junk food like chips, cold drinks, burgers and sweets tastes good but is <strong>bad for our health</strong>.</p>
-          <ul class="answer-steps">
-            <li><span class="step-num">❌</span><span>High in sugar and fat — leads to weight gain</span></li>
-            <li><span class="step-num">❌</span><span>Low in vitamins and minerals — weakens the body</span></li>
-            <li><span class="step-num">❌</span><span>Can cause tooth decay, diabetes and heart problems</span></li>
-            <li><span class="step-num">❌</span><span>Makes you feel tired and reduces concentration</span></li>
-          </ul>
-          <div class="key-box">🥦 Eat more fruits, vegetables, milk and whole grains for a strong and healthy body!</div>`,
-          related:["s1c5q1"]
-        }
-      ],
-      "2": [
-        {
-          id:"s2c1q1", chapter:"Chapter 1: Plants — Types & Uses",
-          q:"What is the difference between trees, shrubs and herbs?",
-          keywords:["trees shrubs herbs","types plants","difference plants","herb shrub tree"],
-          answer:`<p>Plants are grouped by their size and stem type:</p>
-          <ul class="answer-steps">
-            <li><span class="step-num">🌳</span><span><strong>Trees</strong> — very tall, thick woody stem, live many years. Example: Mango, Banyan, Neem</span></li>
-            <li><span class="step-num">🌿</span><span><strong>Shrubs</strong> — medium height, woody stem near base, many branches. Example: Rose, Hibiscus, Tulsi</span></li>
-            <li><span class="step-num">🌱</span><span><strong>Herbs</strong> — small, soft green stem, short life. Example: Mint, Coriander, Grass</span></li>
-            <li><span class="step-num">🍃</span><span><strong>Climbers</strong> — weak stem, climb on walls. Example: Money plant, Pea plant</span></li>
-          </ul>`,
-          related:["s2c1q2","s1c2q1"]
-        },
-        {
-          id:"s2c1q2", chapter:"Chapter 1: Plants — Types & Uses",
-          q:"What are the uses of plants?",
-          keywords:["uses plants","importance of plants","why plants important","plants give us"],
-          answer:`<p>Plants are extremely important to us and all living things:</p>
-          <ul class="answer-steps">
-            <li><span class="step-num">🍎</span><span><strong>Food</strong> — fruits, vegetables, grains, pulses, oils</span></li>
-            <li><span class="step-num">💊</span><span><strong>Medicine</strong> — Neem, Tulsi, Aloe Vera are used as medicines</span></li>
-            <li><span class="step-num">🌬️</span><span><strong>Oxygen</strong> — plants release oxygen through photosynthesis</span></li>
-            <li><span class="step-num">🪵</span><span><strong>Wood</strong> — for furniture, paper, building materials</span></li>
-            <li><span class="step-num">🌧️</span><span><strong>Rainfall</strong> — forests attract rain and prevent drought</span></li>
-            <li><span class="step-num">🌡️</span><span><strong>Temperature</strong> — trees provide shade and keep Earth cool</span></li>
-          </ul>`,
-          related:["s2c1q1","s1c2q1"]
-        },
-        {
-          id:"s2c3q1", chapter:"Chapter 3: Air, Water & Weather",
-          q:"What are the three forms of water?",
-          keywords:["forms water","states water","solid liquid gas water","ice steam","water forms"],
-          answer:`<p>Water exists in <strong>three forms (states)</strong>:</p>
-          <ul class="answer-steps">
-            <li><span class="step-num">🧊</span><span><strong>Solid → Ice</strong> — water freezes at 0°C. Fixed shape and size</span></li>
-            <li><span class="step-num">💧</span><span><strong>Liquid → Water</strong> — flows freely. No fixed shape, has fixed volume</span></li>
-            <li><span class="step-num">♨️</span><span><strong>Gas → Water Vapour/Steam</strong> — water boils at 100°C. No fixed shape or size</span></li>
-          </ul>
-          <div class="key-box">🔥 Ice → Water (melting at 0°C) → Steam (boiling at 100°C)<br/>❄️ Steam → Water (condensing) → Ice (freezing)</div>
-          <div class="example-box">The same water molecule can be ice in winter, liquid water you drink, and steam when you boil it!</div>`,
-          related:["s2c3q2","s1c1q1"]
-        },
-        {
-          id:"s2c3q2", chapter:"Chapter 3: Air, Water & Weather",
-          q:"What is the water cycle?",
-          keywords:["water cycle","evaporation","condensation","precipitation","rain cycle"],
-          answer:`<p>The <strong>water cycle</strong> is the continuous movement of water on Earth.</p>
-          <ul class="answer-steps">
-            <li><span class="step-num">1</span><span><strong>Evaporation</strong> — Sun heats water in oceans/rivers → water turns to vapour and rises up</span></li>
-            <li><span class="step-num">2</span><span><strong>Condensation</strong> — Water vapour cools high up → forms tiny water droplets → forms clouds</span></li>
-            <li><span class="step-num">3</span><span><strong>Precipitation</strong> — Droplets become heavy → fall as rain, snow or hail</span></li>
-            <li><span class="step-num">4</span><span><strong>Collection</strong> — Water collects in rivers, lakes, oceans → cycle repeats</span></li>
-          </ul>
-          <div class="key-box green">🌍 The water cycle ensures Earth always has fresh water — it never runs out!</div>`,
-          related:["s2c3q1"]
-        },
-        {
-          id:"s2c5q1", chapter:"Chapter 5: Our Solar System",
-          q:"What are the 8 planets in order from the Sun?",
-          keywords:["planets","solar system","8 planets","order planets","name planets"],
-          answer:`<p>Our Solar System has <strong>8 planets</strong> orbiting the Sun:</p>
-          <ul class="answer-steps">
-            <li><span class="step-num">1</span><span>☿ <strong>Mercury</strong> — closest to Sun, smallest planet, very hot days and cold nights</span></li>
-            <li><span class="step-num">2</span><span>♀ <strong>Venus</strong> — hottest planet, covered in thick clouds</span></li>
-            <li><span class="step-num">3</span><span>🌍 <strong>Earth</strong> — our home, only planet with life and liquid water</span></li>
-            <li><span class="step-num">4</span><span>♂ <strong>Mars</strong> — the Red Planet, has the tallest volcano</span></li>
-            <li><span class="step-num">5</span><span>♃ <strong>Jupiter</strong> — largest planet, has a giant storm called Great Red Spot</span></li>
-            <li><span class="step-num">6</span><span>♄ <strong>Saturn</strong> — has beautiful rings made of ice and rock</span></li>
-            <li><span class="step-num">7</span><span>⛢ <strong>Uranus</strong> — rotates on its side!</span></li>
-            <li><span class="step-num">8</span><span>♆ <strong>Neptune</strong> — farthest, has the strongest winds</span></li>
-          </ul>
-          <div class="key-box">💡 Memory trick: <strong>My Very Educated Mother Just Served Us Noodles</strong></div>`,
-          related:["s2c5q2"]
-        },
-        {
-          id:"s2c5q2", chapter:"Chapter 5: Our Solar System",
-          q:"Why is Earth special compared to other planets?",
-          keywords:["earth special","why life on earth","earth only planet","life earth","unique earth"],
-          answer:`<p>Earth is the <strong>only known planet with life</strong> because it has the perfect conditions:</p>
-          <ul class="answer-steps">
-            <li><span class="step-num">💧</span><span><strong>Liquid water</strong> — essential for all life. Earth has oceans, rivers and lakes</span></li>
-            <li><span class="step-num">🌬️</span><span><strong>Atmosphere</strong> — layer of air with oxygen to breathe and carbon dioxide for plants</span></li>
-            <li><span class="step-num">🌡️</span><span><strong>Right temperature</strong> — not too hot, not too cold — perfect for living things</span></li>
-            <li><span class="step-num">🛡️</span><span><strong>Ozone layer</strong> — protects us from harmful UV rays from the Sun</span></li>
-            <li><span class="step-num">🧲</span><span><strong>Magnetic field</strong> — protects Earth from dangerous solar winds</span></li>
-          </ul>`,
-          related:["s2c5q1"]
-        }
-      ],
-      "3": [
-        {
-          id:"s3c1q1", chapter:"Chapter 1: Living World — Cells",
-          q:"What is a cell and why is it called the basic unit of life?",
-          keywords:["cell","basic unit","unit of life","what is cell","why cell basic"],
-          answer:`<p>A <strong>cell</strong> is the smallest unit that makes up all living things. It is like a tiny room — everything needed for life happens inside it.</p>
-          <div class="key-box">🔬 Cell is called the <strong>basic unit of life</strong> because all living things — from bacteria to elephants — are made of cells</div>
-          <ul class="answer-steps">
-            <li><span class="step-num">🧫</span><span><strong>Cell Membrane</strong> — outer covering, controls what enters and leaves the cell</span></li>
-            <li><span class="step-num">🧠</span><span><strong>Nucleus</strong> — the "brain" of the cell, controls all activities</span></li>
-            <li><span class="step-num">💧</span><span><strong>Cytoplasm</strong> — jelly-like fluid that fills the cell, where chemical reactions happen</span></li>
-          </ul>
-          <div class="example-box">Your body has about 37 TRILLION cells! Each one is so small you need a microscope to see it.</div>`,
-          related:["s3c1q2","s1c1q1"]
-        },
-        {
-          id:"s3c1q2", chapter:"Chapter 1: Living World — Cells",
-          q:"What is the difference between plant cells and animal cells?",
-          keywords:["plant cell","animal cell","difference","cell wall","chloroplast","cell types"],
-          answer:`<p>Plant cells and animal cells are similar but have some important differences:</p>
-          <ul class="answer-steps">
-            <li><span class="step-num">🌿</span><span><strong>Cell Wall</strong> — present in plant cells ONLY. Gives extra strength and rigid shape</span></li>
-            <li><span class="step-num">🟢</span><span><strong>Chloroplasts</strong> — present in plant cells ONLY. Contains chlorophyll for photosynthesis</span></li>
-            <li><span class="step-num">💧</span><span><strong>Large Vacuole</strong> — plant cells have a large central vacuole for storing water</span></li>
-            <li><span class="step-num">✅</span><span>Both have: Cell membrane, Nucleus, Cytoplasm, Mitochondria</span></li>
-          </ul>
-          <div class="key-box green">💡 Easy trick: <strong>Plant cells have extra P things</strong> — Plant wall, Photosynthesis (chloroplasts)</div>`,
-          related:["s3c1q1","s1c2q1"]
-        },
-        {
-          id:"s3c3q1", chapter:"Chapter 3: Matter & Materials",
-          q:"What are the three states of matter?",
-          keywords:["states matter","solid liquid gas","three states","matter","forms of matter"],
-          answer:`<p>All matter (everything around us) exists in one of <strong>three states</strong>:</p>
-          <ul class="answer-steps">
-            <li><span class="step-num">🪨</span><span><strong>Solid</strong> — fixed shape and size. Particles packed tightly together. Example: Ice, Stone, Wood, Iron</span></li>
-            <li><span class="step-num">💧</span><span><strong>Liquid</strong> — fixed volume but no fixed shape — takes shape of container. Example: Water, Milk, Oil, Mercury</span></li>
-            <li><span class="step-num">💨</span><span><strong>Gas</strong> — no fixed shape or volume — spreads to fill any container. Example: Air, Steam, Smoke, LPG</span></li>
-          </ul>
-          <div class="key-box">🔥 By heating or cooling, matter can change from one state to another!</div>`,
-          related:["s3c3q2","s2c3q1"]
-        },
-        {
-          id:"s3c3q2", chapter:"Chapter 3: Matter & Materials",
-          q:"What is the difference between physical and chemical change?",
-          keywords:["physical change","chemical change","difference","reversible","new substance"],
-          answer:`<p><strong>Physical Change</strong> — Only the shape, size or state changes. NO new substance is formed. Usually reversible.</p>
-          <p><strong>Chemical Change</strong> — A completely NEW substance is formed. Usually NOT reversible.</p>
-          <ul class="answer-steps">
-            <li><span class="step-num">🔄</span><span><strong>Physical:</strong> Melting ice, cutting paper, folding cloth, dissolving salt in water</span></li>
-            <li><span class="step-num">⚗️</span><span><strong>Chemical:</strong> Burning wood, cooking food, rusting iron, souring of milk, digestion</span></li>
-          </ul>
-          <div class="key-box">💡 Key test: If you get a NEW substance → Chemical change. If the substance is the same → Physical change</div>
-          <div class="example-box">Ice → Water (physical, reversible) · Wood → Ash (chemical, irreversible)</div>`,
-          related:["s3c3q1","s2c3q1"]
-        },
-        {
-          id:"s3c4q1", chapter:"Chapter 4: Force, Work & Energy",
-          q:"What is gravity and who discovered it?",
-          keywords:["gravity","gravitational force","newton","apple fall","what is gravity","discovered gravity"],
-          answer:`<p><strong>Gravity</strong> is the force that pulls every object towards the centre of the Earth.</p>
-          <div class="key-box">🍎 <strong>Sir Isaac Newton</strong> discovered gravity when he saw an apple fall from a tree!</div>
-          <ul class="answer-steps">
-            <li><span class="step-num">1</span><span>Gravity is what makes things fall down when dropped</span></li>
-            <li><span class="step-num">2</span><span>Gravity keeps us on the ground — without it we would float away!</span></li>
-            <li><span class="step-num">3</span><span>Gravity keeps the Moon orbiting around Earth</span></li>
-            <li><span class="step-num">4</span><span>Gravity keeps Earth and other planets orbiting around the Sun</span></li>
-          </ul>
-          <div class="example-box">Throw a ball up → gravity pulls it back down. Jump → gravity brings you back to the ground!</div>`,
-          related:["s3c4q2","s1c4q1"]
-        },
-        {
-          id:"s3c4q2", chapter:"Chapter 4: Force, Work & Energy",
-          q:"What is the difference between renewable and non-renewable energy?",
-          keywords:["renewable","non-renewable","energy sources","solar wind","coal petroleum","types energy"],
-          answer:`<p><strong>Renewable energy</strong> sources can be used again and again — they will NEVER run out.</p>
-          <p><strong>Non-renewable energy</strong> sources will eventually run out — they take millions of years to form.</p>
-          <ul class="answer-steps">
-            <li><span class="step-num">♻️</span><span><strong>Renewable:</strong> Solar (Sun), Wind, Water (hydro), Geothermal, Tidal</span></li>
-            <li><span class="step-num">⛽</span><span><strong>Non-renewable:</strong> Coal, Petroleum (oil), Natural Gas, Nuclear fuel</span></li>
-          </ul>
-          <div class="key-box green">🌍 We should use more renewable energy to protect our planet and save non-renewable resources!</div>`,
-          related:["s3c4q1","s3c5q1"]
-        },
-        {
-          id:"s3c5q1", chapter:"Chapter 5: Earth & Environment",
-          q:"What is global warming and how can we stop it?",
-          keywords:["global warming","climate change","greenhouse","pollution","environment","temperature rise"],
-          answer:`<p><strong>Global warming</strong> means the gradual increase in Earth's average temperature due to excess greenhouse gases.</p>
-          <ul class="answer-steps">
-            <li><span class="step-num">❓</span><span><strong>Cause:</strong> Burning fossil fuels, deforestation and factories release CO₂ and other greenhouse gases</span></li>
-            <li><span class="step-num">😟</span><span><strong>Effects:</strong> Ice caps melt → sea level rises → floods, droughts, extreme weather</span></li>
-          </ul>
-          <div class="key-box">🌱 How WE can help stop global warming:</div>
-          <ul class="answer-steps">
-            <li><span class="step-num">🌳</span><span>Plant more trees</span></li>
-            <li><span class="step-num">💡</span><span>Save electricity — switch off lights and fans when not needed</span></li>
-            <li><span class="step-num">🚲</span><span>Walk, cycle or use public transport instead of cars</span></li>
-            <li><span class="step-num">♻️</span><span>Reduce, Reuse, Recycle — avoid plastic</span></li>
-          </ul>`,
-          related:["s3c4q2","s3c5q2"]
-        },
-        {
-          id:"s3c5q2", chapter:"Chapter 5: Earth & Environment",
-          q:"What are the layers of the Earth?",
-          keywords:["layers earth","crust mantle core","inside earth","earth layers","earth structure"],
-          answer:`<p>The Earth is made of <strong>three main layers</strong>:</p>
-          <ul class="answer-steps">
-            <li><span class="step-num">🌍</span><span><strong>Crust</strong> — outermost, thinnest layer. This is where we live! Made of rock and soil. Thickness: 5–70 km</span></li>
-            <li><span class="step-num">🔥</span><span><strong>Mantle</strong> — middle layer, very thick. Made of hot semi-solid rock that moves slowly. Thickness: ~2900 km</span></li>
-            <li><span class="step-num">⚡</span><span><strong>Core</strong> — innermost layer. Outer core = liquid iron, Inner core = solid iron. Extremely hot (5000°C+)</span></li>
-          </ul>
-          <div class="key-box">🌋 When mantle rock pushes through the crust, it comes out as lava in a volcanic eruption!</div>`,
-          related:["s3c5q1","s2c5q1"]
-        }
-      ]
-    },
-
-    // ── LANGUAGE ─────────────────────────────────────
-    language: {
-      "1": [
-        {
-          id:"l1c1q1", chapter:"Chapter 1: Alphabet & Phonics",
-          q:"What are vowels and consonants?",
-          keywords:["vowels","consonants","alphabet","letters","a e i o u"],
-          answer:`<p>The 26 letters of the English alphabet are divided into two groups:</p>
-          <div class="key-box green">🔤 <strong>Vowels (5):</strong> A, E, I, O, U<br/>These make open sounds — air flows freely from your mouth</div>
-          <div class="key-box">🔤 <strong>Consonants (21):</strong> All other letters (B,C,D,F,G,H,J,K,L,M,N,P,Q,R,S,T,V,W,X,Y,Z)<br/>These make sounds by blocking or limiting airflow</div>
-          <div class="example-box">
-            Every word must have at least one vowel!<br/>
-            cat = c(consonant) + a(vowel) + t(consonant) ✅<br/>
-            sky = s+k+y — here Y acts as a vowel!
-          </div>`,
-          related:["l1c1q2","l1c2q1"]
-        },
-        {
-          id:"l1c1q2", chapter:"Chapter 1: Alphabet & Phonics",
-          q:"What is phonics and why do we learn it?",
-          keywords:["phonics","sounds","letter sounds","read phonics","why phonics"],
-          answer:`<p><strong>Phonics</strong> is the method of learning to read by understanding the sounds that letters make.</p>
-          <ul class="answer-steps">
-            <li><span class="step-num">1</span><span>Each letter has a specific sound: B=/b/, C=/k/, D=/d/, F=/f/</span></li>
-            <li><span class="step-num">2</span><span>By blending sounds together, we can read new words</span></li>
-            <li><span class="step-num">3</span><span>Phonics helps us spell words correctly too</span></li>
-          </ul>
-          <div class="example-box">
-            C + A + T = /k/ + /a/ + /t/ = "cat"<br/>
-            D + O + G = /d/ + /o/ + /g/ = "dog"
-          </div>
-          <div class="key-box green">💡 Learning phonics is the FASTEST way to learn to read English!</div>`,
-          related:["l1c1q1","l1c2q1"]
-        },
-        {
-          id:"l1c3q1", chapter:"Chapter 3: Nouns",
-          q:"What is a noun? Give examples.",
-          keywords:["noun","naming word","what is noun","examples noun","person place thing"],
-          answer:`<p>A <strong>noun</strong> is a <strong>naming word</strong>. It is the name of a person, place, animal or thing.</p>
-          <ul class="answer-steps">
-            <li><span class="step-num">👤</span><span><strong>Person:</strong> Girl, Boy, Teacher, Mother, Doctor, Ram, Priya</span></li>
-            <li><span class="step-num">📍</span><span><strong>Place:</strong> School, Park, India, Market, Mumbai, Garden</span></li>
-            <li><span class="step-num">🐾</span><span><strong>Animal:</strong> Cat, Dog, Lion, Parrot, Elephant, Tiger</span></li>
-            <li><span class="step-num">📦</span><span><strong>Thing:</strong> Book, Pen, Chair, Table, Mango, Computer</span></li>
-          </ul>
-          <div class="key-box">💡 To find a noun in a sentence, ask "<strong>Who?</strong>" or "<strong>What?</strong>" — the answer is the noun!</div>
-          <div class="example-box">The <u>dog</u> sat on the <u>mat</u>. → dog and mat are nouns</div>`,
-          related:["l1c3q2","l1c4q1","l2c1q1"]
-        },
-        {
-          id:"l1c3q2", chapter:"Chapter 3: Nouns",
-          q:"What is the difference between singular and plural nouns?",
-          keywords:["singular","plural","one many","more than one","plurals","singular plural"],
-          answer:`<p><strong>Singular</strong> means one. <strong>Plural</strong> means more than one.</p>
-          <ul class="answer-steps">
-            <li><span class="step-num">+s</span><span>Most nouns — add 's': Cat→Cats, Dog→Dogs, Book→Books</span></li>
-            <li><span class="step-num">+es</span><span>Nouns ending in s, sh, ch, x, z — add 'es': Bus→Buses, Box→Boxes, Watch→Watches</span></li>
-            <li><span class="step-num">ies</span><span>Nouns ending in consonant+y — change y to 'ies': Baby→Babies, City→Cities</span></li>
-            <li><span class="step-num">ves</span><span>Some nouns ending in f — change f to 'ves': Leaf→Leaves, Wolf→Wolves</span></li>
-          </ul>
-          <div class="key-box yellow">⚡ Irregular plurals (must memorise!): Man→Men · Woman→Women · Child→Children · Mouse→Mice · Tooth→Teeth</div>`,
-          related:["l1c3q1","l1c4q1"]
-        },
-        {
-          id:"l1c4q1", chapter:"Chapter 4: Sentences",
-          q:"What is a sentence? What makes a good sentence?",
-          keywords:["sentence","what is sentence","complete sentence","good sentence","parts sentence"],
-          answer:`<p>A <strong>sentence</strong> is a group of words that makes <strong>complete sense</strong>.</p>
-          <div class="key-box green">✅ Good sentence: "The dog is running." (makes complete sense)<br/>❌ Not a sentence: "Dog running the." (makes no sense)</div>
-          <p>Every good sentence must have:</p>
-          <ul class="answer-steps">
-            <li><span class="step-num">1</span><span><strong>Subject</strong> — who or what the sentence is about: <em>The cat</em> sat on the mat</span></li>
-            <li><span class="step-num">2</span><span><strong>Predicate</strong> — what the subject does: The cat <em>sat on the mat</em></span></li>
-            <li><span class="step-num">3</span><span>Start with a <strong>capital letter</strong></span></li>
-            <li><span class="step-num">4</span><span>End with correct <strong>punctuation</strong> (. ? !)</span></li>
-          </ul>`,
-          related:["l1c4q2","l1c3q1"]
-        },
-        {
-          id:"l1c4q2", chapter:"Chapter 4: Sentences",
-          q:"What are the different types of sentences?",
-          keywords:["types sentences","statement","question","exclamation","command","sentence types"],
-          answer:`<p>There are <strong>4 types of sentences</strong> in English:</p>
-          <ul class="answer-steps">
-            <li><span class="step-num">.</span><span><strong>Statement (Declarative)</strong> — tells us something. Ends with full stop (.)<br/><em>The sky is blue.</em></span></li>
-            <li><span class="step-num">?</span><span><strong>Question (Interrogative)</strong> — asks something. Ends with question mark (?)<br/><em>What is your name?</em></span></li>
-            <li><span class="step-num">!</span><span><strong>Exclamation</strong> — shows strong feeling. Ends with exclamation mark (!)<br/><em>What a beautiful flower!</em></span></li>
-            <li><span class="step-num">→</span><span><strong>Command (Imperative)</strong> — gives an order or instruction. Usually ends with full stop (.)<br/><em>Close the door. Please sit down.</em></span></li>
-          </ul>`,
-          related:["l1c4q1","l2c3q1"]
-        }
-      ],
-      "2": [
-        {
-          id:"l2c1q1", chapter:"Chapter 1: Pronouns & Adjectives",
-          q:"What is a pronoun? Why do we use pronouns?",
-          keywords:["pronoun","what is pronoun","he she they","replace noun","pronouns list"],
-          answer:`<p>A <strong>pronoun</strong> is a word used <strong>instead of a noun</strong> to avoid repeating it.</p>
-          <div class="example-box">
-            Without pronouns: "Riya went to school. Riya carried Riya's bag."<br/>
-            With pronouns: "Riya went to school. <strong>She</strong> carried <strong>her</strong> bag." ✅
-          </div>
-          <div class="key-box">
-            I/Me/My/Mine → yourself<br/>
-            He/Him/His → boy or man<br/>
-            She/Her/Hers → girl or woman<br/>
-            It/Its → thing or animal<br/>
-            We/Us/Our → group including yourself<br/>
-            They/Them/Their → other people or things
-          </div>`,
-          related:["l2c1q2","l1c3q1"]
-        },
-        {
-          id:"l2c1q2", chapter:"Chapter 1: Pronouns & Adjectives",
-          q:"What is an adjective? How do we identify it?",
-          keywords:["adjective","describing word","what is adjective","types adjective","identify adjective"],
-          answer:`<p>An <strong>adjective</strong> is a word that <strong>describes a noun</strong>. It tells us more about a person, place or thing.</p>
-          <div class="key-box">💡 To find an adjective, ask: What kind? Which one? How many? How much?</div>
-          <ul class="answer-steps">
-            <li><span class="step-num">📏</span><span><strong>Size:</strong> big, small, tall, short, tiny, huge</span></li>
-            <li><span class="step-num">🎨</span><span><strong>Colour:</strong> red, blue, green, yellow, purple</span></li>
-            <li><span class="step-num">✨</span><span><strong>Quality:</strong> soft, hard, beautiful, ugly, sweet, bitter</span></li>
-            <li><span class="step-num">🔢</span><span><strong>Number:</strong> one, three, many, few, several</span></li>
-          </ul>
-          <div class="example-box">The <u>tall</u> boy wore a <u>blue</u> shirt.<br/>tall → describes boy · blue → describes shirt</div>`,
-          related:["l2c1q1","l2c2q1"]
-        },
-        {
-          id:"l2c2q1", chapter:"Chapter 2: Verbs & Tenses",
-          q:"What are the three tenses in English?",
-          keywords:["tenses","past present future","three tenses","what is tense","verb tense"],
-          answer:`<p>A <strong>tense</strong> tells us WHEN an action happens. There are 3 main tenses:</p>
-          <ul class="answer-steps">
-            <li><span class="step-num">Now</span><span><strong>Present Tense</strong> — action happening NOW<br/><em>I eat rice. She plays cricket. He reads.</em></span></li>
-            <li><span class="step-num">Past</span><span><strong>Past Tense</strong> — action ALREADY happened<br/><em>I ate rice. She played cricket. He read.</em></span></li>
-            <li><span class="step-num">Future</span><span><strong>Future Tense</strong> — action WILL happen<br/><em>I will eat rice. She will play cricket.</em></span></li>
-          </ul>
-          <div class="key-box yellow">⚡ Common irregular past tenses to memorise:<br/>Go→Went · Come→Came · Eat→Ate · Run→Ran · See→Saw · Write→Wrote · Take→Took</div>`,
-          related:["l2c2q2","l2c1q1"]
-        },
-        {
-          id:"l2c2q2", chapter:"Chapter 2: Verbs & Tenses",
-          q:"What is a verb? Give examples.",
-          keywords:["verb","action word","doing word","what is verb","examples verb"],
-          answer:`<p>A <strong>verb</strong> is a word that shows an <strong>action, state or event</strong>. Every sentence must have a verb!</p>
-          <ul class="answer-steps">
-            <li><span class="step-num">🏃</span><span><strong>Action verbs:</strong> Run, Jump, Eat, Write, Sing, Dance, Play, Think</span></li>
-            <li><span class="step-num">😊</span><span><strong>State verbs:</strong> Is, Are, Was, Were, Seem, Feel, Look, Appear</span></li>
-          </ul>
-          <div class="key-box">💡 To find the verb, ask: <strong>What is the subject doing?</strong><br/>The bird <u>flies</u>. She <u>eats</u> an apple. He <u>is</u> happy.</div>
-          <div class="example-box">She <u>runs</u> fast. (action) · He <u>seems</u> tired. (state) · They <u>played</u> cricket. (past action)</div>`,
-          related:["l2c2q1","l1c4q1"]
-        },
-        {
-          id:"l2c3q1", chapter:"Chapter 3: Punctuation",
-          q:"What are the main punctuation marks and their uses?",
-          keywords:["punctuation","full stop","comma","question mark","apostrophe","punctuation marks"],
-          answer:`<p><strong>Punctuation marks</strong> help us read and understand sentences correctly:</p>
-          <ul class="answer-steps">
-            <li><span class="step-num">.</span><span><strong>Full Stop</strong> — ends a statement: I love reading.</span></li>
-            <li><span class="step-num">?</span><span><strong>Question Mark</strong> — ends a question: Where are you going?</span></li>
-            <li><span class="step-num">!</span><span><strong>Exclamation Mark</strong> — shows strong feeling: Wow, that's amazing!</span></li>
-            <li><span class="step-num">,</span><span><strong>Comma</strong> — short pause, separates list items: I have a pen, pencil and eraser.</span></li>
-            <li><span class="step-num">'</span><span><strong>Apostrophe</strong> — ownership (Riya's bag) or shortened words (don't = do not)</span></li>
-            <li><span class="step-num">" "</span><span><strong>Inverted Commas</strong> — someone's exact words: She said, "I am happy."</span></li>
-          </ul>`,
-          related:["l1c4q2","l2c4q1"]
-        },
-        {
-          id:"l2c4q1", chapter:"Chapter 4: Story Writing",
-          q:"What are the parts of a good story?",
-          keywords:["story writing","parts story","beginning middle end","how write story","narrative"],
-          answer:`<p>A good story has <strong>3 main parts</strong>:</p>
-          <ul class="answer-steps">
-            <li><span class="step-num">1</span><span><strong>Beginning</strong> — Introduce the characters and setting. Answer: Who? Where? When?<br/><em>"One day, a boy named Raju found a lost puppy in the park."</em></span></li>
-            <li><span class="step-num">2</span><span><strong>Middle</strong> — The main event or problem. Answer: What happened?<br/><em>"The puppy was hungry and scared. Raju tried to find its owner."</em></span></li>
-            <li><span class="step-num">3</span><span><strong>End</strong> — How the problem was solved. Answer: How did it end?<br/><em>"Finally, Raju kept the puppy. It became his best friend."</em></span></li>
-          </ul>
-          <div class="key-box">✍️ Useful words: START: Once upon a time, One day · MIDDLE: Suddenly, Then, After that · END: Finally, At last</div>`,
-          related:["l2c3q1","l2c5q1"]
-        }
-      ],
-      "3": [
-        {
-          id:"l3c1q1", chapter:"Chapter 1: Parts of Speech",
-          q:"What are the 8 parts of speech?",
-          keywords:["parts of speech","8 parts","noun verb adjective","grammar","parts speech"],
-          answer:`<p>Every word in English belongs to one of <strong>8 parts of speech</strong>:</p>
-          <ul class="answer-steps">
-            <li><span class="step-num">1</span><span><strong>Noun</strong> — naming word: Dog, India, Happiness</span></li>
-            <li><span class="step-num">2</span><span><strong>Pronoun</strong> — replaces noun: He, She, They, It, We</span></li>
-            <li><span class="step-num">3</span><span><strong>Verb</strong> — action/state: Run, Eat, Is, Seem</span></li>
-            <li><span class="step-num">4</span><span><strong>Adjective</strong> — describes noun: Beautiful, Tall, Sweet, Three</span></li>
-            <li><span class="step-num">5</span><span><strong>Adverb</strong> — describes verb/adjective: Quickly, Very, Always, Softly</span></li>
-            <li><span class="step-num">6</span><span><strong>Preposition</strong> — shows relation: In, On, Under, Between, Behind</span></li>
-            <li><span class="step-num">7</span><span><strong>Conjunction</strong> — joins words/sentences: And, But, Or, Because, So</span></li>
-            <li><span class="step-num">8</span><span><strong>Interjection</strong> — expresses emotion: Wow! Ouch! Hurray! Oh!</span></li>
-          </ul>`,
-          related:["l3c1q2","l2c2q2","l2c1q2"]
-        },
-        {
-          id:"l3c1q2", chapter:"Chapter 1: Parts of Speech",
-          q:"What is the difference between adjective and adverb?",
-          keywords:["adjective adverb","difference","adverb","describes verb","describes noun"],
-          answer:`<p>Both adjectives and adverbs are describing words, but they describe different things:</p>
-          <ul class="answer-steps">
-            <li><span class="step-num">ADJ</span><span><strong>Adjective</strong> — describes a NOUN (person, place or thing)<br/>The <u>fast</u> car. (fast describes the car = noun)</span></li>
-            <li><span class="step-num">ADV</span><span><strong>Adverb</strong> — describes a VERB (action), adjective or another adverb<br/>He ran <u>fast</u>. (fast describes ran = verb)</span></li>
-          </ul>
-          <div class="key-box">💡 Most adverbs end in <strong>-ly</strong>: Quickly, Softly, Slowly, Carefully, Happily</div>
-          <div class="example-box">
-            She is a <u>quick</u> learner. (quick = adjective, describes learner)<br/>
-            She learns <u>quickly</u>. (quickly = adverb, describes learns)
-          </div>`,
-          related:["l3c1q1","l2c1q2"]
-        },
-        {
-          id:"l3c2q1", chapter:"Chapter 2: Degrees of Comparison",
-          q:"What are the three degrees of comparison?",
-          keywords:["degrees comparison","comparative","superlative","positive","taller tallest","comparison"],
-          answer:`<p>Adjectives have <strong>3 degrees</strong> to show comparison:</p>
-          <ul class="answer-steps">
-            <li><span class="step-num">1</span><span><strong>Positive</strong> — describes one thing: Ram is <em>tall</em>.</span></li>
-            <li><span class="step-num">2</span><span><strong>Comparative</strong> — compares TWO things, add -er: Ram is <em>taller</em> than Shyam.</span></li>
-            <li><span class="step-num">3</span><span><strong>Superlative</strong> — compares THREE or more, add -est: Ram is the <em>tallest</em> in the class.</span></li>
-          </ul>
-          <div class="key-box">
-            Big → Bigger → Biggest<br/>
-            Fast → Faster → Fastest<br/>
-            Happy → Happier → Happiest<br/>
-            <strong>Irregular:</strong> Good→Better→Best · Bad→Worse→Worst · Far→Farther→Farthest
-          </div>
-          <div class="key-box green">💡 Long adjectives use MORE/MOST: more beautiful · most intelligent</div>`,
-          related:["l3c2q2","l3c1q1"]
-        },
-        {
-          id:"l3c2q2", chapter:"Chapter 2: Degrees of Comparison",
-          q:"What are irregular degrees of comparison?",
-          keywords:["irregular comparison","good better best","bad worse worst","irregular adjective"],
-          answer:`<p><strong>Irregular adjectives</strong> do NOT follow the normal -er/-est rule. They change completely!</p>
-          <ul class="answer-steps">
-            <li><span class="step-num">✅</span><span>Good → <strong>Better</strong> → <strong>Best</strong></span></li>
-            <li><span class="step-num">✅</span><span>Bad → <strong>Worse</strong> → <strong>Worst</strong></span></li>
-            <li><span class="step-num">✅</span><span>Far → <strong>Farther</strong> → <strong>Farthest</strong></span></li>
-            <li><span class="step-num">✅</span><span>Little → <strong>Less</strong> → <strong>Least</strong></span></li>
-            <li><span class="step-num">✅</span><span>Many/Much → <strong>More</strong> → <strong>Most</strong></span></li>
-          </ul>
-          <div class="key-box yellow">⚡ These MUST be memorised — you cannot guess them from the positive form!</div>`,
-          related:["l3c2q1","l3c1q1"]
-        },
-        {
-          id:"l3c5q1", chapter:"Chapter 5: Synonyms, Antonyms & Homophones",
-          q:"What are synonyms? Give examples.",
-          keywords:["synonyms","same meaning","similar words","synonym examples","what is synonym"],
-          answer:`<p><strong>Synonyms</strong> are words that have the <strong>same or similar meaning</strong>.</p>
-          <div class="key-box">Using synonyms makes your writing more interesting and avoids repetition!</div>
-          <ul class="answer-steps">
-            <li><span class="step-num">😊</span><span>Happy → Joyful, Glad, Pleased, Cheerful, Delighted</span></li>
-            <li><span class="step-num">⚡</span><span>Fast → Quick, Swift, Rapid, Speedy, Hasty</span></li>
-            <li><span class="step-num">🐘</span><span>Big → Large, Huge, Enormous, Gigantic, Vast</span></li>
-            <li><span class="step-num">😡</span><span>Angry → Furious, Upset, Irritated, Annoyed, Livid</span></li>
-            <li><span class="step-num">🧠</span><span>Smart → Clever, Intelligent, Bright, Wise, Brilliant</span></li>
-          </ul>`,
-          related:["l3c5q2","l3c5q3"]
-        },
-        {
-          id:"l3c5q2", chapter:"Chapter 5: Synonyms, Antonyms & Homophones",
-          q:"What are antonyms? Give examples.",
-          keywords:["antonyms","opposite words","opposite meaning","antonym examples","what is antonym"],
-          answer:`<p><strong>Antonyms</strong> are words that have <strong>opposite meanings</strong>.</p>
-          <ul class="answer-steps">
-            <li><span class="step-num">↔️</span><span>Happy ↔ Sad · Strong ↔ Weak · Ancient ↔ Modern</span></li>
-            <li><span class="step-num">↔️</span><span>Victory ↔ Defeat · Courage ↔ Cowardice · Success ↔ Failure</span></li>
-            <li><span class="step-num">↔️</span><span>Accept ↔ Reject · Include ↔ Exclude · Expand ↔ Contract</span></li>
-            <li><span class="step-num">↔️</span><span>Beautiful ↔ Ugly · Honest ↔ Dishonest · Polite ↔ Rude</span></li>
-          </ul>
-          <div class="key-box green">💡 Many antonyms are formed by adding a prefix: Happy→Unhappy · Honest→Dishonest · Possible→Impossible</div>`,
-          related:["l3c5q1","l3c5q3"]
-        },
-        {
-          id:"l3c5q3", chapter:"Chapter 5: Synonyms, Antonyms & Homophones",
-          q:"What are homophones? Why are they confusing?",
-          keywords:["homophones","same sound","different meaning","here hear","write right","homophone"],
-          answer:`<p><strong>Homophones</strong> are words that <strong>sound the same</strong> but have different spellings and meanings.</p>
-          <div class="key-box yellow">⚠️ Homophones are tricky because they sound identical but mean completely different things!</div>
-          <ul class="answer-steps">
-            <li><span class="step-num">👂</span><span><strong>Here / Hear</strong> — "Come here" vs "I can hear music"</span></li>
-            <li><span class="step-num">✍️</span><span><strong>Write / Right</strong> — "Write a letter" vs "Turn right"</span></li>
-            <li><span class="step-num">🌊</span><span><strong>See / Sea</strong> — "I can see you" vs "The sea is blue"</span></li>
-            <li><span class="step-num">☀️</span><span><strong>Sun / Son</strong> — "The sun shines" vs "My son is five"</span></li>
-            <li><span class="step-num">🥩</span><span><strong>Meet / Meat</strong> — "Let's meet" vs "I eat meat"</span></li>
-            <li><span class="step-num">📅</span><span><strong>Week / Weak</strong> — "This week" vs "I feel weak"</span></li>
-          </ul>`,
-          related:["l3c5q1","l3c5q2"]
-        }
-      ]
-    }
-  };
-
-  // ── State ──────────────────────────────────────────────
+  // ── State ──
   let currentSubject = 'math';
   let currentClass   = '1';
   let currentDoubt   = null;
   let isSearching    = false;
 
-  // ── Smart search — fuzzy keyword match ────────────────
+  const subjectInfo = {
+    math:     { label:'Mathematics', icon:'🔢', color:'#1e4db7' },
+    science:  { label:'Science',     icon:'🔬', color:'#16a34a' },
+    language: { label:'English',     icon:'🗣️', color:'#db2777' }
+  };
+
+  // ══════════════════════════════════════════════
+  // DOUBT DATABASE
+  // ══════════════════════════════════════════════
+  const doubtDB = {
+    math: {
+      "1": [
+        { id:"m1c1q1", chapter:"Chapter 1: Numbers 1–100",
+          q:"What are numbers and why do we use them?",
+          keywords:["number","numbers","count","counting","why use numbers"],
+          answer:`<p>Numbers are symbols we use to <strong>count, measure and compare</strong> things around us.</p><div class="key-box">💡 We use numbers every day — to tell time, count objects, measure length!</div><div class="example-box"><strong>Example:</strong> 5 apples + 3 more = 8 apples total</div>`,
+          related:["m1c1q2","m1c2q1"] },
+        { id:"m1c1q2", chapter:"Chapter 1: Numbers 1–100",
+          q:"What is the difference between greater than and less than?",
+          keywords:["greater than","less than","compare","bigger","smaller","symbol"],
+          answer:`<ul class="answer-steps"><li><span class="step-num">&gt;</span><span><strong>Greater than</strong> — left number is bigger: 8 &gt; 5</span></li><li><span class="step-num">&lt;</span><span><strong>Less than</strong> — left number is smaller: 3 &lt; 7</span></li><li><span class="step-num">=</span><span><strong>Equal to</strong> — both same: 4 = 4</span></li></ul><div class="key-box">💡 The symbol opens towards the bigger number — like a hungry mouth!</div>`,
+          related:["m1c1q1","m1c1q3"] },
+        { id:"m1c1q3", chapter:"Chapter 1: Numbers 1–100",
+          q:"What are even and odd numbers?",
+          keywords:["even","odd","even numbers","odd numbers"],
+          answer:`<div class="key-box green">✅ Even numbers end in 0,2,4,6,8 → 2,4,6,8,10...</div><div class="key-box yellow">⚡ Odd numbers end in 1,3,5,7,9 → 1,3,5,7,9...</div><div class="example-box"><strong>Trick:</strong> Divide by 2 — no remainder = Even, remainder 1 = Odd</div>`,
+          related:["m1c1q1","m1c1q2"] },
+        { id:"m1c2q1", chapter:"Chapter 2: Addition",
+          q:"What is addition and how does it work?",
+          keywords:["addition","add","adding","plus","sum","what is addition"],
+          answer:`<p>Addition means <strong>putting two or more numbers together</strong> to get a bigger total.</p><div class="key-box">➕ Symbol: + (plus) · Answer called: Sum</div><div class="example-box"><strong>Example:</strong> 3 + 4 = 7 (3 apples + 4 apples = 7 apples)</div><div class="key-box green">💡 Adding 0 gives same number: 5 + 0 = 5</div>`,
+          related:["m1c2q2","m1c3q1"] },
+        { id:"m1c2q2", chapter:"Chapter 2: Addition",
+          q:"Does the order matter in addition?",
+          keywords:["order addition","commutative","change order","same answer"],
+          answer:`<p>No! Order does NOT matter in addition.</p><div class="example-box">3 + 5 = 8 and 5 + 3 = 8 ✅ (same answer!)</div><div class="key-box">This is called the <strong>Commutative Property</strong></div>`,
+          related:["m1c2q1","m1c2q3"] },
+        { id:"m1c2q3", chapter:"Chapter 2: Addition",
+          q:"What happens when you add zero to a number?",
+          keywords:["add zero","plus zero","adding 0","zero property"],
+          answer:`<p>Adding zero to any number gives the <strong>same number</strong>!</p><div class="example-box">5 + 0 = 5 ✅ · 9 + 0 = 9 ✅ · 100 + 0 = 100 ✅</div><div class="key-box">Zero is called the <strong>additive identity</strong></div>`,
+          related:["m1c2q1","m1c2q2"] },
+        { id:"m1c3q1", chapter:"Chapter 3: Subtraction",
+          q:"What is subtraction?",
+          keywords:["subtraction","subtract","minus","take away","difference"],
+          answer:`<p>Subtraction means <strong>taking away</strong> a number to find what is left.</p><div class="key-box">➖ Symbol: − (minus) · Answer called: Difference</div><div class="example-box"><strong>Example:</strong> 8 − 3 = 5 (had 8 mangoes, ate 3, now 5 left)</div><div class="key-box green">💡 Opposite of addition! If 3+4=7, then 7−4=3</div>`,
+          related:["m1c3q2","m1c2q1"] },
+        { id:"m1c3q2", chapter:"Chapter 3: Subtraction",
+          q:"What happens when you subtract a number from itself?",
+          keywords:["subtract itself","same number minus","result zero"],
+          answer:`<p>Any number minus itself = <strong>zero (0)</strong>!</p><div class="example-box">5−5=0 ✅ · 9−9=0 ✅ · 100−100=0 ✅</div>`,
+          related:["m1c3q1"] },
+        { id:"m1c4q1", chapter:"Chapter 4: Shapes & Patterns",
+          q:"What are 2D shapes? Name the basic ones.",
+          keywords:["2d shapes","shapes","circle","square","triangle","rectangle"],
+          answer:`<ul class="answer-steps"><li><span class="step-num">⭕</span><span><strong>Circle</strong> — round, no corners. Example: coin, wheel</span></li><li><span class="step-num">🟥</span><span><strong>Square</strong> — 4 equal sides, 4 corners</span></li><li><span class="step-num">📄</span><span><strong>Rectangle</strong> — 4 sides (2 long, 2 short)</span></li><li><span class="step-num">🔺</span><span><strong>Triangle</strong> — 3 sides, 3 corners</span></li></ul><div class="key-box">💡 Count the sides to name the shape!</div>`,
+          related:["m1c4q2"] },
+        { id:"m1c4q2", chapter:"Chapter 4: Shapes & Patterns",
+          q:"What is a pattern in maths?",
+          keywords:["pattern","patterns","repeating","sequence"],
+          answer:`<p>A <strong>pattern</strong> repeats itself in a regular way.</p><div class="example-box">🔴🔵🔴🔵 → next is 🔴<br/>2,4,6,8 → next is 10</div>`,
+          related:["m1c4q1"] },
+        { id:"m1c5q1", chapter:"Chapter 5: Measurement & Time",
+          q:"What is the difference between centimetre and metre?",
+          keywords:["centimetre","metre","cm","length","measurement"],
+          answer:`<div class="key-box">📏 <strong>100 centimetres = 1 metre</strong></div><ul class="answer-steps"><li><span class="step-num">cm</span><span>For small things: pencil, book</span></li><li><span class="step-num">m</span><span>For bigger things: height, room length</span></li></ul>`,
+          related:["m1c5q2"] },
+        { id:"m1c5q2", chapter:"Chapter 5: Measurement & Time",
+          q:"How do we read time on a clock?",
+          keywords:["clock","time","hour","minute","read time"],
+          answer:`<ul class="answer-steps"><li><span class="step-num">1</span><span><strong>Short hand</strong> = Hour hand (points to hour)</span></li><li><span class="step-num">2</span><span><strong>Long hand</strong> = Minute hand</span></li></ul><div class="key-box">⏰ 60 minutes = 1 hour · 24 hours = 1 day</div><div class="example-box">Short hand on 3, long hand on 12 → <strong>3 o'clock</strong></div>`,
+          related:["m1c5q1"] }
+      ],
+      "2": [
+        { id:"m2c1q1", chapter:"Chapter 1: Numbers up to 1000",
+          q:"What is place value?",
+          keywords:["place value","hundreds","tens","ones","digit position"],
+          answer:`<div class="key-box">In <strong>345</strong>: 3=Hundreds(300), 4=Tens(40), 5=Ones(5)</div><div class="example-box">345 = 300 + 40 + 5 (expanded form)</div>`,
+          related:["m2c1q2"] },
+        { id:"m2c1q2", chapter:"Chapter 1: Numbers up to 1000",
+          q:"How do we compare 3-digit numbers?",
+          keywords:["compare numbers","3 digit","which is bigger"],
+          answer:`<ul class="answer-steps"><li><span class="step-num">1</span><span>Compare <strong>Hundreds</strong> first</span></li><li><span class="step-num">2</span><span>If equal, compare <strong>Tens</strong></span></li><li><span class="step-num">3</span><span>If equal, compare <strong>Ones</strong></span></li></ul><div class="example-box">456 vs 432 → Hundreds equal → Tens: 5&gt;3 → <strong>456 &gt; 432</strong></div>`,
+          related:["m2c1q1"] },
+        { id:"m2c3q1", chapter:"Chapter 3: Multiplication",
+          q:"What is multiplication? How is it related to addition?",
+          keywords:["multiplication","multiply","times","repeated addition"],
+          answer:`<p>Multiplication is <strong>repeated addition</strong>.</p><div class="example-box">3 × 4 = 4+4+4 = <strong>12</strong></div><div class="key-box green">💡 Rules: any × 0 = 0 · any × 1 = same · 3×4 = 4×3</div>`,
+          related:["m2c3q2","m2c4q1"] },
+        { id:"m2c3q2", chapter:"Chapter 3: Multiplication",
+          q:"How do we learn multiplication tables easily?",
+          keywords:["tables","multiplication table","times table","learn tables"],
+          answer:`<ul class="answer-steps"><li><span class="step-num">×2</span><span>Double the number: 2×6=12</span></li><li><span class="step-num">×5</span><span>Always ends 0 or 5: 5×4=20</span></li><li><span class="step-num">×10</span><span>Add a zero: 10×8=80</span></li></ul>`,
+          related:["m2c3q1"] },
+        { id:"m2c4q1", chapter:"Chapter 4: Division",
+          q:"What is division? What do dividend, divisor and quotient mean?",
+          keywords:["division","divide","dividend","divisor","quotient","remainder"],
+          answer:`<p>Division = <strong>sharing equally</strong>.</p><div class="key-box">➗ 12 ÷ 3 = 4<br/>Dividend=12 · Divisor=3 · Quotient=4</div><div class="key-box green">💡 Opposite of multiplication! 3×4=12 so 12÷3=4</div>`,
+          related:["m2c3q1","m2c5q1"] },
+        { id:"m2c5q1", chapter:"Chapter 5: Fractions",
+          q:"What is a fraction? What is numerator and denominator?",
+          keywords:["fraction","numerator","denominator","half","quarter"],
+          answer:`<div class="key-box">In <strong>3/5</strong>: 3=Numerator(top, parts we have) · 5=Denominator(bottom, total parts)</div><div class="example-box">Pizza cut into 4 slices, eat 1 = <strong>1/4</strong> of pizza</div>`,
+          related:["m2c4q1"] }
+      ],
+      "3": [
+        { id:"m3c1q1", chapter:"Chapter 1: Numbers up to 10,000",
+          q:"What is the thousands place in a 4-digit number?",
+          keywords:["thousands","4 digit","place value thousands"],
+          answer:`<div class="key-box">In <strong>4,567</strong>: 4=Thousands(4000) · 5=Hundreds(500) · 6=Tens(60) · 7=Ones(7)</div><div class="example-box">Smallest 4-digit = 1000 · Largest = 9999</div>`,
+          related:["m3c1q2"] },
+        { id:"m3c1q2", chapter:"Chapter 1: Numbers up to 10,000",
+          q:"What are Roman numerals?",
+          keywords:["roman numerals","roman","I V X L C"],
+          answer:`<div class="key-box">I=1 · V=5 · X=10 · L=50 · C=100</div><ul class="answer-steps"><li><span class="step-num">+</span><span>Smaller after larger = ADD: VI=6</span></li><li><span class="step-num">−</span><span>Smaller before larger = SUBTRACT: IV=4</span></li></ul>`,
+          related:["m3c1q1"] },
+        { id:"m3c3q1", chapter:"Chapter 3: Geometry",
+          q:"What is the difference between 2D and 3D shapes?",
+          keywords:["2d 3d","flat shapes","solid shapes"],
+          answer:`<div class="key-box">2D = Flat (circle, square) · 3D = Solid (sphere, cube)</div><ul class="answer-steps"><li><span class="step-num">3D</span><span>Cube=6 faces,12 edges,8 corners · Sphere=round · Cylinder=2 circles · Cone=pointed top</span></li></ul>`,
+          related:["m3c3q2"] },
+        { id:"m3c3q2", chapter:"Chapter 3: Geometry",
+          q:"What are the types of angles?",
+          keywords:["angles","acute","obtuse","right angle","types of angles"],
+          answer:`<ul class="answer-steps"><li><span class="step-num">90°</span><span><strong>Right angle</strong> — exactly 90°</span></li><li><span class="step-num">&lt;90°</span><span><strong>Acute angle</strong> — less than 90°</span></li><li><span class="step-num">&gt;90°</span><span><strong>Obtuse angle</strong> — more than 90°</span></li></ul><div class="key-box">💡 Acute = small · Obtuse = big!</div>`,
+          related:["m3c3q1"] },
+        { id:"m3c4q1", chapter:"Chapter 4: Decimals & Money",
+          q:"What is a decimal number?",
+          keywords:["decimal","decimal point","tenths","hundredths"],
+          answer:`<p>A decimal has a whole part and fraction part separated by a <strong>decimal point (.)</strong></p><div class="key-box">3.5 = 3 whole + 5 tenths · 0.1 = one tenth</div><div class="example-box">₹45.75 = 45 Rupees and 75 Paise</div>`,
+          related:["m3c4q2"] },
+        { id:"m3c4q2", chapter:"Chapter 4: Decimals & Money",
+          q:"How many paise make one rupee?",
+          keywords:["rupee","paise","money","indian currency"],
+          answer:`<div class="key-box">💰 <strong>100 Paise = 1 Rupee (₹1)</strong></div><div class="example-box">₹10 − ₹6.50 = ₹3.50 change</div>`,
+          related:["m3c4q1"] }
+      ]
+    },
+
+    science: {
+      "1": [
+        { id:"s1c1q1", chapter:"Chapter 1: Living & Non-Living Things",
+          q:"What is the difference between living and non-living things?",
+          keywords:["living","non-living","difference","alive"],
+          answer:`<div class="key-box green">✅ Living: Plants, Animals, Humans — grow, breathe, reproduce</div><div class="key-box yellow">❌ Non-living: Rock, Chair, Book — do NOT grow or breathe</div>`,
+          related:["s1c1q2","s1c2q1"] },
+        { id:"s1c1q2", chapter:"Chapter 1: Living & Non-Living Things",
+          q:"Can fire be considered a living thing?",
+          keywords:["fire living","is fire alive","fire non-living"],
+          answer:`<p>No! Fire is <strong>NOT living</strong>.</p><ul class="answer-steps"><li><span class="step-num">❌</span><span>Cannot reproduce on its own</span></li><li><span class="step-num">❌</span><span>Has no cells</span></li><li><span class="step-num">❌</span><span>Does not take in nutrition</span></li></ul><div class="key-box">Fire is a <strong>chemical reaction</strong>, not a living organism!</div>`,
+          related:["s1c1q1"] },
+        { id:"s1c2q1", chapter:"Chapter 2: Plants Around Us",
+          q:"What is photosynthesis?",
+          keywords:["photosynthesis","how plants make food","chlorophyll","sunlight food"],
+          answer:`<ul class="answer-steps"><li><span class="step-num">1</span><span>Leaves absorb <strong>sunlight</strong> using chlorophyll</span></li><li><span class="step-num">2</span><span>Roots absorb <strong>water</strong> from soil</span></li><li><span class="step-num">3</span><span>Leaves take in <strong>CO₂</strong> from air</span></li><li><span class="step-num">4</span><span>These make <strong>glucose (food) + oxygen</strong></span></li></ul><div class="key-box">💡 Sunlight + Water + CO₂ → Glucose + Oxygen</div>`,
+          related:["s1c2q2"] },
+        { id:"s1c2q2", chapter:"Chapter 2: Plants Around Us",
+          q:"What are the parts of a plant and their functions?",
+          keywords:["parts of plant","root","stem","leaf","flower","function"],
+          answer:`<ul class="answer-steps"><li><span class="step-num">🌱</span><span><strong>Roots</strong> — absorb water, hold plant in ground</span></li><li><span class="step-num">🌿</span><span><strong>Stem</strong> — supports plant, carries water</span></li><li><span class="step-num">🍃</span><span><strong>Leaves</strong> — make food via photosynthesis</span></li><li><span class="step-num">🌸</span><span><strong>Flower</strong> — helps plant reproduce</span></li><li><span class="step-num">🍎</span><span><strong>Fruit</strong> — protects seeds</span></li></ul>`,
+          related:["s1c2q1"] },
+        { id:"s1c3q1", chapter:"Chapter 3: Animals Around Us",
+          q:"What is the difference between herbivores, carnivores and omnivores?",
+          keywords:["herbivore","carnivore","omnivore","animals eat"],
+          answer:`<ul class="answer-steps"><li><span class="step-num">🌿</span><span><strong>Herbivores</strong> — eat ONLY plants: Cow, Rabbit, Deer</span></li><li><span class="step-num">🥩</span><span><strong>Carnivores</strong> — eat ONLY meat: Lion, Tiger, Snake</span></li><li><span class="step-num">🌿🥩</span><span><strong>Omnivores</strong> — eat BOTH: Human, Bear, Crow</span></li></ul><div class="key-box">💡 Herb=plants · Carn=flesh · Omni=all!</div>`,
+          related:["s1c3q2"] },
+        { id:"s1c3q2", chapter:"Chapter 3: Animals Around Us",
+          q:"What are the homes of different animals called?",
+          keywords:["animal homes","den","kennel","nest","burrow"],
+          answer:`<ul class="answer-steps"><li><span class="step-num">🐕</span><span>Dog → Kennel</span></li><li><span class="step-num">🦁</span><span>Lion → Den</span></li><li><span class="step-num">🐦</span><span>Bird → Nest</span></li><li><span class="step-num">🐇</span><span>Rabbit → Burrow</span></li><li><span class="step-num">🐝</span><span>Bee → Hive</span></li></ul>`,
+          related:["s1c3q1"] },
+        { id:"s1c4q1", chapter:"Chapter 4: Our Body",
+          q:"What are the 5 sense organs and their functions?",
+          keywords:["sense organs","five senses","eyes","ears","nose","tongue","skin"],
+          answer:`<ul class="answer-steps"><li><span class="step-num">👀</span><span><strong>Eyes</strong> — seeing</span></li><li><span class="step-num">👂</span><span><strong>Ears</strong> — hearing</span></li><li><span class="step-num">👃</span><span><strong>Nose</strong> — smelling</span></li><li><span class="step-num">👅</span><span><strong>Tongue</strong> — tasting</span></li><li><span class="step-num">✋</span><span><strong>Skin</strong> — touching/feeling</span></li></ul>`,
+          related:[] },
+        { id:"s1c5q1", chapter:"Chapter 5: Food We Eat",
+          q:"What is a balanced diet?",
+          keywords:["balanced diet","nutrition","healthy food","types of food"],
+          answer:`<ul class="answer-steps"><li><span class="step-num">⚡</span><span><strong>Energy giving</strong> — Rice, Bread, Potato</span></li><li><span class="step-num">💪</span><span><strong>Body building</strong> — Milk, Eggs, Dal</span></li><li><span class="step-num">🛡️</span><span><strong>Protective</strong> — Fruits, Vegetables</span></li></ul><div class="key-box green">Eating all 3 types = <strong>Balanced Diet</strong> = Healthy body!</div>`,
+          related:["s1c5q2"] },
+        { id:"s1c5q2", chapter:"Chapter 5: Food We Eat",
+          q:"Why should we avoid junk food?",
+          keywords:["junk food","unhealthy","chips","bad food"],
+          answer:`<ul class="answer-steps"><li><span class="step-num">❌</span><span>High sugar/fat → weight gain</span></li><li><span class="step-num">❌</span><span>Low vitamins → weakens body</span></li><li><span class="step-num">❌</span><span>Causes tooth decay, diabetes</span></li></ul><div class="key-box">🥦 Eat more fruits, vegetables and milk!</div>`,
+          related:["s1c5q1"] }
+      ],
+      "2": [
+        { id:"s2c1q1", chapter:"Chapter 1: Plants — Types & Uses",
+          q:"What is the difference between trees, shrubs and herbs?",
+          keywords:["trees shrubs herbs","types plants"],
+          answer:`<ul class="answer-steps"><li><span class="step-num">🌳</span><span><strong>Trees</strong> — very tall, thick woody stem: Mango, Banyan</span></li><li><span class="step-num">🌿</span><span><strong>Shrubs</strong> — medium, woody at base: Rose, Tulsi</span></li><li><span class="step-num">🌱</span><span><strong>Herbs</strong> — small, soft stem: Mint, Coriander</span></li></ul>`,
+          related:["s2c1q2"] },
+        { id:"s2c1q2", chapter:"Chapter 1: Plants — Types & Uses",
+          q:"What are the uses of plants?",
+          keywords:["uses plants","importance plants","why plants important"],
+          answer:`<ul class="answer-steps"><li><span class="step-num">🍎</span><span><strong>Food</strong> — fruits, vegetables, grains</span></li><li><span class="step-num">💊</span><span><strong>Medicine</strong> — Neem, Tulsi, Aloe Vera</span></li><li><span class="step-num">🌬️</span><span><strong>Oxygen</strong> — through photosynthesis</span></li><li><span class="step-num">🪵</span><span><strong>Wood</strong> — furniture, paper</span></li></ul>`,
+          related:["s2c1q1"] },
+        { id:"s2c3q1", chapter:"Chapter 3: Air, Water & Weather",
+          q:"What are the three forms of water?",
+          keywords:["forms water","states water","ice steam","water forms"],
+          answer:`<ul class="answer-steps"><li><span class="step-num">🧊</span><span><strong>Solid → Ice</strong> — freezes at 0°C</span></li><li><span class="step-num">💧</span><span><strong>Liquid → Water</strong> — flows freely</span></li><li><span class="step-num">♨️</span><span><strong>Gas → Steam</strong> — boils at 100°C</span></li></ul>`,
+          related:["s2c3q2"] },
+        { id:"s2c3q2", chapter:"Chapter 3: Air, Water & Weather",
+          q:"What is the water cycle?",
+          keywords:["water cycle","evaporation","condensation","precipitation","rain"],
+          answer:`<ul class="answer-steps"><li><span class="step-num">1</span><span><strong>Evaporation</strong> — Sun heats water → vapour rises</span></li><li><span class="step-num">2</span><span><strong>Condensation</strong> — vapour cools → forms clouds</span></li><li><span class="step-num">3</span><span><strong>Precipitation</strong> — falls as rain/snow</span></li><li><span class="step-num">4</span><span><strong>Collection</strong> — collects in rivers/oceans</span></li></ul>`,
+          related:["s2c3q1"] },
+        { id:"s2c5q1", chapter:"Chapter 5: Our Solar System",
+          q:"What are the 8 planets in order from the Sun?",
+          keywords:["planets","solar system","8 planets","order planets"],
+          answer:`<div class="key-box">☿Mercury → ♀Venus → 🌍Earth → ♂Mars → ♃Jupiter → ♄Saturn → ⛢Uranus → ♆Neptune</div><div class="key-box green">💡 Trick: <strong>My Very Educated Mother Just Served Us Noodles</strong></div>`,
+          related:["s2c5q2"] },
+        { id:"s2c5q2", chapter:"Chapter 5: Our Solar System",
+          q:"Why is Earth special compared to other planets?",
+          keywords:["earth special","why life on earth","unique earth"],
+          answer:`<ul class="answer-steps"><li><span class="step-num">💧</span><span>Has liquid water</span></li><li><span class="step-num">🌬️</span><span>Has oxygen atmosphere</span></li><li><span class="step-num">🌡️</span><span>Right temperature for life</span></li><li><span class="step-num">🛡️</span><span>Ozone layer protects from UV rays</span></li></ul>`,
+          related:["s2c5q1"] }
+      ],
+      "3": [
+        { id:"s3c1q1", chapter:"Chapter 1: Living World — Cells",
+          q:"What is a cell and why is it called the basic unit of life?",
+          keywords:["cell","basic unit","unit of life","what is cell"],
+          answer:`<p>A cell is the <strong>smallest unit</strong> that makes up all living things.</p><ul class="answer-steps"><li><span class="step-num">🧫</span><span><strong>Cell Membrane</strong> — outer covering</span></li><li><span class="step-num">🧠</span><span><strong>Nucleus</strong> — controls all activities</span></li><li><span class="step-num">💧</span><span><strong>Cytoplasm</strong> — jelly fluid filling cell</span></li></ul>`,
+          related:["s3c1q2"] },
+        { id:"s3c1q2", chapter:"Chapter 1: Living World — Cells",
+          q:"What is the difference between plant cells and animal cells?",
+          keywords:["plant cell","animal cell","difference","cell wall","chloroplast"],
+          answer:`<div class="key-box green">Plant cells ONLY have: Cell Wall + Chloroplasts + Large Vacuole</div><div class="key-box">Both have: Cell membrane, Nucleus, Cytoplasm</div>`,
+          related:["s3c1q1"] },
+        { id:"s3c3q1", chapter:"Chapter 3: Matter & Materials",
+          q:"What are the three states of matter?",
+          keywords:["states matter","solid liquid gas","three states"],
+          answer:`<ul class="answer-steps"><li><span class="step-num">🪨</span><span><strong>Solid</strong> — fixed shape and size: Ice, Stone</span></li><li><span class="step-num">💧</span><span><strong>Liquid</strong> — no fixed shape: Water, Milk</span></li><li><span class="step-num">💨</span><span><strong>Gas</strong> — no fixed shape or volume: Air, Steam</span></li></ul>`,
+          related:["s3c3q2"] },
+        { id:"s3c3q2", chapter:"Chapter 3: Matter & Materials",
+          q:"What is the difference between physical and chemical change?",
+          keywords:["physical change","chemical change","reversible","new substance"],
+          answer:`<div class="key-box">Physical: NO new substance, usually reversible (melting ice, cutting paper)</div><div class="key-box yellow">Chemical: NEW substance formed, NOT reversible (burning wood, rusting iron)</div>`,
+          related:["s3c3q1"] },
+        { id:"s3c4q1", chapter:"Chapter 4: Force, Work & Energy",
+          q:"What is gravity and who discovered it?",
+          keywords:["gravity","gravitational force","newton","apple fall"],
+          answer:`<div class="key-box">🍎 <strong>Sir Isaac Newton</strong> discovered gravity when he saw an apple fall!</div><ul class="answer-steps"><li><span class="step-num">1</span><span>Pulls everything towards Earth's centre</span></li><li><span class="step-num">2</span><span>Keeps Moon orbiting Earth</span></li><li><span class="step-num">3</span><span>Keeps planets orbiting Sun</span></li></ul>`,
+          related:["s3c4q2"] },
+        { id:"s3c4q2", chapter:"Chapter 4: Force, Work & Energy",
+          q:"What is the difference between renewable and non-renewable energy?",
+          keywords:["renewable","non-renewable","energy sources","solar wind","coal petroleum"],
+          answer:`<div class="key-box green">♻️ Renewable — never runs out: Solar, Wind, Water, Geothermal</div><div class="key-box yellow">⛽ Non-renewable — will run out: Coal, Petroleum, Natural Gas</div>`,
+          related:["s3c4q1","s3c5q1"] },
+        { id:"s3c5q1", chapter:"Chapter 5: Earth & Environment",
+          q:"What is global warming and how can we stop it?",
+          keywords:["global warming","climate change","greenhouse","pollution"],
+          answer:`<p>Earth's temperature rising due to excess greenhouse gases.</p><ul class="answer-steps"><li><span class="step-num">🌳</span><span>Plant more trees</span></li><li><span class="step-num">💡</span><span>Save electricity</span></li><li><span class="step-num">🚲</span><span>Walk or cycle instead of cars</span></li><li><span class="step-num">♻️</span><span>Reduce, Reuse, Recycle</span></li></ul>`,
+          related:["s3c4q2"] },
+        { id:"s3c5q2", chapter:"Chapter 5: Earth & Environment",
+          q:"What are the layers of the Earth?",
+          keywords:["layers earth","crust mantle core","inside earth"],
+          answer:`<ul class="answer-steps"><li><span class="step-num">🌍</span><span><strong>Crust</strong> — outermost, where we live</span></li><li><span class="step-num">🔥</span><span><strong>Mantle</strong> — hot semi-solid rock</span></li><li><span class="step-num">⚡</span><span><strong>Core</strong> — innermost, extremely hot iron</span></li></ul>`,
+          related:["s3c5q1"] }
+      ]
+    },
+
+    language: {
+      "1": [
+        { id:"l1c1q1", chapter:"Chapter 1: Alphabet & Phonics",
+          q:"What are vowels and consonants?",
+          keywords:["vowels","consonants","alphabet","letters","a e i o u"],
+          answer:`<div class="key-box green">🔤 <strong>Vowels (5):</strong> A, E, I, O, U</div><div class="key-box">🔤 <strong>Consonants (21):</strong> All other letters</div><div class="example-box">Every word must have at least one vowel!</div>`,
+          related:["l1c1q2"] },
+        { id:"l1c1q2", chapter:"Chapter 1: Alphabet & Phonics",
+          q:"What is phonics and why do we learn it?",
+          keywords:["phonics","sounds","letter sounds","read phonics"],
+          answer:`<p>Phonics = learning to read by understanding sounds letters make.</p><div class="example-box">C+A+T = /k/+/a/+/t/ = "cat"</div><div class="key-box green">💡 Fastest way to learn to read English!</div>`,
+          related:["l1c1q1"] },
+        { id:"l1c3q1", chapter:"Chapter 3: Nouns",
+          q:"What is a noun? Give examples.",
+          keywords:["noun","naming word","what is noun","person place thing"],
+          answer:`<p>A noun is a <strong>naming word</strong> — name of a person, place, animal or thing.</p><ul class="answer-steps"><li><span class="step-num">👤</span><span>Person: Girl, Teacher, Doctor</span></li><li><span class="step-num">📍</span><span>Place: School, India, Park</span></li><li><span class="step-num">🐾</span><span>Animal: Cat, Lion, Parrot</span></li><li><span class="step-num">📦</span><span>Thing: Book, Chair, Mango</span></li></ul>`,
+          related:["l1c3q2","l1c4q1"] },
+        { id:"l1c3q2", chapter:"Chapter 3: Nouns",
+          q:"What is the difference between singular and plural nouns?",
+          keywords:["singular","plural","one many","more than one"],
+          answer:`<ul class="answer-steps"><li><span class="step-num">+s</span><span>Most nouns: Cat→Cats, Dog→Dogs</span></li><li><span class="step-num">+es</span><span>Ending s,sh,ch,x: Bus→Buses, Box→Boxes</span></li><li><span class="step-num">ies</span><span>Ending y: Baby→Babies, City→Cities</span></li></ul><div class="key-box yellow">Irregular: Man→Men · Child→Children · Tooth→Teeth</div>`,
+          related:["l1c3q1"] },
+        { id:"l1c4q1", chapter:"Chapter 4: Sentences",
+          q:"What is a sentence? What makes a good sentence?",
+          keywords:["sentence","what is sentence","complete sentence"],
+          answer:`<div class="key-box green">✅ Good: "The dog is running." (makes sense)</div><div class="key-box yellow">❌ Not: "Dog running the." (no sense)</div><ul class="answer-steps"><li><span class="step-num">1</span><span>Has Subject + Predicate</span></li><li><span class="step-num">2</span><span>Starts with Capital letter</span></li><li><span class="step-num">3</span><span>Ends with correct punctuation . ? !</span></li></ul>`,
+          related:["l1c4q2"] },
+        { id:"l1c4q2", chapter:"Chapter 4: Sentences",
+          q:"What are the different types of sentences?",
+          keywords:["types sentences","statement","question","exclamation","command"],
+          answer:`<ul class="answer-steps"><li><span class="step-num">.</span><span><strong>Statement</strong> — tells something: The sky is blue.</span></li><li><span class="step-num">?</span><span><strong>Question</strong> — asks something: What is your name?</span></li><li><span class="step-num">!</span><span><strong>Exclamation</strong> — strong feeling: What a flower!</span></li><li><span class="step-num">→</span><span><strong>Command</strong> — gives order: Close the door.</span></li></ul>`,
+          related:["l1c4q1"] }
+      ],
+      "2": [
+        { id:"l2c1q1", chapter:"Chapter 1: Pronouns & Adjectives",
+          q:"What is a pronoun? Why do we use pronouns?",
+          keywords:["pronoun","what is pronoun","he she they","replace noun"],
+          answer:`<p>A pronoun replaces a noun to avoid repetition.</p><div class="key-box">I/Me/My · He/Him/His · She/Her · It/Its · We/Our · They/Their</div><div class="example-box">Riya went to school. <strong>She</strong> carried <strong>her</strong> bag. ✅</div>`,
+          related:["l2c1q2"] },
+        { id:"l2c1q2", chapter:"Chapter 1: Pronouns & Adjectives",
+          q:"What is an adjective? How do we identify it?",
+          keywords:["adjective","describing word","what is adjective"],
+          answer:`<p>An adjective <strong>describes a noun</strong>.</p><div class="example-box">The <u>tall</u> boy wore a <u>blue</u> shirt.</div><ul class="answer-steps"><li><span class="step-num">📏</span><span>Size: big, small, tall, short</span></li><li><span class="step-num">🎨</span><span>Colour: red, blue, green</span></li><li><span class="step-num">✨</span><span>Quality: soft, hard, sweet</span></li></ul>`,
+          related:["l2c1q1"] },
+        { id:"l2c2q1", chapter:"Chapter 2: Verbs & Tenses",
+          q:"What are the three tenses in English?",
+          keywords:["tenses","past present future","three tenses","what is tense"],
+          answer:`<ul class="answer-steps"><li><span class="step-num">Now</span><span><strong>Present</strong> — I eat rice. She plays.</span></li><li><span class="step-num">Past</span><span><strong>Past</strong> — I ate rice. She played.</span></li><li><span class="step-num">Future</span><span><strong>Future</strong> — I will eat. She will play.</span></li></ul><div class="key-box yellow">Go→Went · Come→Came · Eat→Ate · Run→Ran · See→Saw</div>`,
+          related:["l2c2q2"] },
+        { id:"l2c2q2", chapter:"Chapter 2: Verbs & Tenses",
+          q:"What is a verb? Give examples.",
+          keywords:["verb","action word","doing word","what is verb"],
+          answer:`<p>A verb shows an <strong>action or state</strong>.</p><div class="example-box">She <u>runs</u> fast. He <u>is</u> happy. They <u>played</u> cricket.</div><div class="key-box">💡 Ask: What is the subject DOING? → that's the verb!</div>`,
+          related:["l2c2q1"] },
+        { id:"l2c3q1", chapter:"Chapter 3: Punctuation",
+          q:"What are the main punctuation marks and their uses?",
+          keywords:["punctuation","full stop","comma","question mark","apostrophe"],
+          answer:`<ul class="answer-steps"><li><span class="step-num">.</span><span><strong>Full Stop</strong> — ends statement</span></li><li><span class="step-num">?</span><span><strong>Question Mark</strong> — ends question</span></li><li><span class="step-num">!</span><span><strong>Exclamation Mark</strong> — strong feeling</span></li><li><span class="step-num">,</span><span><strong>Comma</strong> — short pause, list items</span></li><li><span class="step-num">'</span><span><strong>Apostrophe</strong> — ownership or shortened words</span></li></ul>`,
+          related:["l2c4q1"] },
+        { id:"l2c4q1", chapter:"Chapter 4: Story Writing",
+          q:"What are the parts of a good story?",
+          keywords:["story writing","parts story","beginning middle end"],
+          answer:`<ul class="answer-steps"><li><span class="step-num">1</span><span><strong>Beginning</strong> — Introduce characters and setting</span></li><li><span class="step-num">2</span><span><strong>Middle</strong> — Main event or problem</span></li><li><span class="step-num">3</span><span><strong>End</strong> — How problem was solved</span></li></ul><div class="key-box">Start: Once upon a time · Middle: Suddenly, Then · End: Finally, At last</div>`,
+          related:["l2c3q1"] }
+      ],
+      "3": [
+        { id:"l3c1q1", chapter:"Chapter 1: Parts of Speech",
+          q:"What are the 8 parts of speech?",
+          keywords:["parts of speech","8 parts","noun verb adjective","grammar"],
+          answer:`<ul class="answer-steps"><li><span class="step-num">1</span><span><strong>Noun</strong> — naming word</span></li><li><span class="step-num">2</span><span><strong>Pronoun</strong> — replaces noun</span></li><li><span class="step-num">3</span><span><strong>Verb</strong> — action/state</span></li><li><span class="step-num">4</span><span><strong>Adjective</strong> — describes noun</span></li><li><span class="step-num">5</span><span><strong>Adverb</strong> — describes verb</span></li><li><span class="step-num">6</span><span><strong>Preposition</strong> — shows relation: in, on, under</span></li><li><span class="step-num">7</span><span><strong>Conjunction</strong> — joins: and, but, or</span></li><li><span class="step-num">8</span><span><strong>Interjection</strong> — emotion: Wow! Ouch!</span></li></ul>`,
+          related:["l3c1q2"] },
+        { id:"l3c1q2", chapter:"Chapter 1: Parts of Speech",
+          q:"What is the difference between adjective and adverb?",
+          keywords:["adjective adverb","difference","adverb","describes verb"],
+          answer:`<div class="key-box">Adjective describes a NOUN · Adverb describes a VERB</div><div class="example-box">She is a <u>quick</u> learner. (quick=adjective)<br/>She learns <u>quickly</u>. (quickly=adverb)</div><div class="key-box green">💡 Most adverbs end in -ly: quickly, softly, slowly</div>`,
+          related:["l3c1q1"] },
+        { id:"l3c2q1", chapter:"Chapter 2: Degrees of Comparison",
+          q:"What are the three degrees of comparison?",
+          keywords:["degrees comparison","comparative","superlative","positive"],
+          answer:`<ul class="answer-steps"><li><span class="step-num">1</span><span><strong>Positive</strong> — one thing: Ram is tall.</span></li><li><span class="step-num">2</span><span><strong>Comparative</strong> — two things (+er): Ram is taller than Shyam.</span></li><li><span class="step-num">3</span><span><strong>Superlative</strong> — three+ (+est): Ram is the tallest.</span></li></ul><div class="key-box">Good→Better→Best · Bad→Worse→Worst · Far→Farther→Farthest</div>`,
+          related:["l3c2q2"] },
+        { id:"l3c2q2", chapter:"Chapter 2: Degrees of Comparison",
+          q:"What are irregular degrees of comparison?",
+          keywords:["irregular comparison","good better best","bad worse worst"],
+          answer:`<ul class="answer-steps"><li><span class="step-num">✅</span><span>Good → Better → Best</span></li><li><span class="step-num">✅</span><span>Bad → Worse → Worst</span></li><li><span class="step-num">✅</span><span>Little → Less → Least</span></li><li><span class="step-num">✅</span><span>Many → More → Most</span></li></ul><div class="key-box yellow">These MUST be memorised — cannot be guessed!</div>`,
+          related:["l3c2q1"] },
+        { id:"l3c5q1", chapter:"Chapter 5: Synonyms, Antonyms & Homophones",
+          q:"What are synonyms? Give examples.",
+          keywords:["synonyms","same meaning","similar words","what is synonym"],
+          answer:`<p>Synonyms have the <strong>same or similar meaning</strong>.</p><ul class="answer-steps"><li><span class="step-num">😊</span><span>Happy → Joyful, Glad, Pleased</span></li><li><span class="step-num">⚡</span><span>Fast → Quick, Swift, Rapid</span></li><li><span class="step-num">🐘</span><span>Big → Large, Huge, Enormous</span></li></ul>`,
+          related:["l3c5q2","l3c5q3"] },
+        { id:"l3c5q2", chapter:"Chapter 5: Synonyms, Antonyms & Homophones",
+          q:"What are antonyms? Give examples.",
+          keywords:["antonyms","opposite words","opposite meaning","what is antonym"],
+          answer:`<p>Antonyms have <strong>opposite meanings</strong>.</p><ul class="answer-steps"><li><span class="step-num">↔️</span><span>Happy ↔ Sad · Strong ↔ Weak</span></li><li><span class="step-num">↔️</span><span>Victory ↔ Defeat · Success ↔ Failure</span></li></ul><div class="key-box green">Many antonyms use prefix: Happy→Unhappy · Honest→Dishonest</div>`,
+          related:["l3c5q1","l3c5q3"] },
+        { id:"l3c5q3", chapter:"Chapter 5: Synonyms, Antonyms & Homophones",
+          q:"What are homophones? Why are they confusing?",
+          keywords:["homophones","same sound","different meaning","here hear","write right"],
+          answer:`<p>Homophones <strong>sound the same</strong> but have different spellings and meanings.</p><ul class="answer-steps"><li><span class="step-num">👂</span><span>Here / Hear</span></li><li><span class="step-num">✍️</span><span>Write / Right</span></li><li><span class="step-num">🌊</span><span>See / Sea</span></li><li><span class="step-num">☀️</span><span>Sun / Son</span></li><li><span class="step-num">📅</span><span>Week / Weak</span></li></ul>`,
+          related:["l3c5q1","l3c5q2"] }
+      ]
+    }
+  };
+
+  // ── Smart Search ───────────────────────────────────────
   function smartSearch(query) {
     if(!query.trim()) return [];
     const q = query.toLowerCase();
@@ -1271,17 +604,21 @@
       return;
     }
     const results = smartSearch(val);
-    renderSearchResults(results, val);
+    if(results.length > 0) renderSearchResults(results, val);
     isSearching = true;
   }
 
-  function searchDoubts() {   const val = document.getElementById('doubtSearch').value.trim();   if(!val) return;   const results = smartSearch(val);   if(results.length > 0) {     renderSearchResults(results, val);     isSearching = true;     document.getElementById('searchResultsArea').scrollIntoView({behavior:'smooth'});   } else {     // Not found — show fallback     showNotFound(val);   } } {
-    const val = document.getElementById('doubtSearch').value;
-    if(!val.trim()) return;
+  function searchDoubts() {
+    const val = document.getElementById('doubtSearch').value.trim();
+    if(!val) return;
     const results = smartSearch(val);
-    renderSearchResults(results, val);
-    isSearching = true;
-    document.getElementById('searchResultsArea').scrollIntoView({behavior:'smooth'});
+    if(results.length > 0) {
+      renderSearchResults(results, val);
+      isSearching = true;
+      document.getElementById('searchResultsArea').scrollIntoView({behavior:'smooth'});
+    } else {
+      showNotFound(val);
+    }
   }
 
   function quickSearch(q) {
@@ -1291,10 +628,6 @@
 
   function renderSearchResults(results, query) {
     const area = document.getElementById('searchResultsArea');
-    if(results.length === 0) {
-      area.innerHTML = `<div class="search-results"><h3>Search Results for "${query}"</h3><div class="no-results">😕 No matching doubts found.<br/>Try different keywords or browse by chapter below.</div></div>`;
-      return;
-    }
     const subjLabel = {math:'🔢 Math', science:'🔬 Science', language:'🗣️ English'};
     area.innerHTML = `
       <div class="search-results">
@@ -1303,7 +636,7 @@
           <div class="result-item" onclick="openDoubtFromSearch('${r.id}','${r.subj}','${r.cls}')">
             <div class="result-q">${highlightText(r.q, query)}</div>
             <div class="result-meta">
-              <span class="note-tag bc-tag bc-${r.subj}">${subjLabel[r.subj]}</span>
+              <span class="bc-tag bc-${r.subj}">${subjLabel[r.subj]}</span>
               <span>Class ${r.cls}</span>
               <span>· ${r.chapter}</span>
             </div>
@@ -1325,20 +658,17 @@
     currentSubject = subj;
     currentClass   = cls;
     document.getElementById('classFilter').value = cls;
-    document.querySelectorAll('.subj-tab').forEach(t=>t.classList.remove('active'));
-    document.querySelectorAll('.subj-tab').forEach(t=>{
-      if(t.dataset?.subj===subj||t.onclick?.toString().includes(subj)) t.classList.add('active');
+    document.querySelectorAll('.subj-tab').forEach(t => {
+      t.classList.remove('active');
+      if(t.dataset.subj === subj) t.classList.add('active');
     });
     renderChapters();
     const doubt = (doubtDB[subj]?.[cls]||[]).find(d=>d.id===id);
-    if(doubt) {
-      currentDoubt = doubt;
-      renderAnswer(doubt, subj);
-      setTimeout(()=>document.getElementById('answerPanel').scrollIntoView({behavior:'smooth'}),100);
-    }
+    if(doubt) { currentDoubt=doubt; renderAnswer(doubt,subj); }
+    setTimeout(()=>document.getElementById('answerPanel').scrollIntoView({behavior:'smooth'}),100);
   }
 
-  // ── Subject filter ─────────────────────────────────────
+  // ── Subject & Chapter ──────────────────────────────────
   function setSubject(subj, btn) {
     currentSubject = subj;
     document.querySelectorAll('.subj-tab').forEach(t=>t.classList.remove('active'));
@@ -1346,29 +676,24 @@
     renderChapters();
   }
 
-  // ── Render chapter accordion ───────────────────────────
   function renderChapters() {
-    currentClass = document.getElementById('classFilter').value;function renderChapters() {
-  currentClass = document.getElementById('classFilter').value;
-  if(!currentSubject) currentSubject = 'math';
+    currentClass = document.getElementById('classFilter').value;
+    if(!currentSubject) currentSubject = 'math';
     const doubts = doubtDB[currentSubject]?.[currentClass] || [];
     const chapters = {};
     doubts.forEach(d => {
       if(!chapters[d.chapter]) chapters[d.chapter] = [];
       chapters[d.chapter].push(d);
     });
-
     const acc = document.getElementById('chapterAccordion');
     if(Object.keys(chapters).length === 0) {
-      acc.innerHTML = `<div style="color:#aaa;font-size:0.88rem;text-align:center;padding:20px">No doubts loaded yet for this class/subject.</div>`;
+      acc.innerHTML = `<div style="color:#aaa;font-size:0.88rem;text-align:center;padding:20px">No doubts for this selection yet.</div>`;
       return;
     }
-
     acc.innerHTML = Object.entries(chapters).map(([ch, ds], i) => `
       <div class="ch-item ${i===0?'open':''}" id="chi_${i}">
         <div class="ch-header" onclick="toggleChapter(${i})">
-          <span>${ch}</span>
-          <span class="ch-arrow">▶</span>
+          <span>${ch}</span><span class="ch-arrow">▶</span>
         </div>
         <div class="ch-doubts">
           ${ds.map(d => `
@@ -1379,37 +704,30 @@
   }
 
   function toggleChapter(i) {
-    const el = document.getElementById('chi_'+i);
-    el.classList.toggle('open');
+    document.getElementById('chi_'+i).classList.toggle('open');
   }
 
-  // ── Open a doubt ───────────────────────────────────────
   function openDoubt(id) {
-    const doubts = doubtDB[currentSubject]?.[currentClass] || [];
-    const doubt  = doubts.find(d=>d.id===id);
+    const doubt = (doubtDB[currentSubject]?.[currentClass]||[]).find(d=>d.id===id);
     if(!doubt) return;
     currentDoubt = doubt;
     renderChapters();
     renderAnswer(doubt, currentSubject);
+    document.getElementById('answerPanel').scrollIntoView({behavior:'smooth'});
   }
 
-  // ── Render answer ──────────────────────────────────────
   function renderAnswer(doubt, subj) {
     const subjLabels = {math:'🔢 Mathematics', science:'🔬 Science', language:'🗣️ English'};
-    const relatedDoubts = getRelated(doubt, subj);
-
+    const relatedDoubts = getRelated(doubt);
     document.getElementById('answerPanel').innerHTML = `
       <div class="answer-card">
         <div class="answer-breadcrumb">
           <span class="bc-tag bc-${subj}">${subjLabels[subj]}</span>
-          <span>›</span>
-          <span>Class ${currentClass}</span>
-          <span>›</span>
-          <span>${doubt.chapter}</span>
+          <span>›</span><span>Class ${currentClass}</span>
+          <span>›</span><span>${doubt.chapter}</span>
         </div>
         <div class="answer-question">🤔 ${doubt.q}</div>
         <div class="answer-body">${doubt.answer}</div>
-
         ${relatedDoubts.length > 0 ? `
         <div class="related-section">
           <h4>🔗 Related Doubts</h4>
@@ -1423,8 +741,8 @@
       </div>`;
   }
 
-  function getRelated(doubt, subj) {
-    if(!doubt.related || doubt.related.length === 0) return [];
+  function getRelated(doubt) {
+    if(!doubt.related || doubt.related.length===0) return [];
     const results = [];
     doubt.related.forEach(rid => {
       ['math','science','language'].forEach(s => {
@@ -1438,131 +756,116 @@
   }
 
   function openRelated(id, subj, cls) {
-    currentSubject = subj;
-    currentClass   = cls;
-    document.getElementById('classFilter').value = cls;
+    currentSubject=subj; currentClass=cls;
+    document.getElementById('classFilter').value=cls;
+    document.querySelectorAll('.subj-tab').forEach(t=>{
+      t.classList.remove('active');
+      if(t.dataset.subj===subj) t.classList.add('active');
+    });
     renderChapters();
-    const doubt = (doubtDB[subj]?.[cls]||[]).find(d=>d.id===id);
-    if(doubt) { currentDoubt=doubt; renderAnswer(doubt,subj); }
+    const doubt=(doubtDB[subj]?.[cls]||[]).find(d=>d.id===id);
+    if(doubt){currentDoubt=doubt;renderAnswer(doubt,subj);}
     window.scrollTo({top:0,behavior:'smooth'});
   }
-// ── NOT FOUND FALLBACK ─────────────────────────────────
-function showNotFound(query) {
-  isSearching = true;
-  const googleUrl  = `https://www.google.com/search?q=${encodeURIComponent(query+' for class students explanation')}`;
-  const youtubeUrl = `https://www.youtube.com/results?search_query=${encodeURIComponent(query+' explained for kids')}`;
 
-  document.getElementById('searchResultsArea').innerHTML = `
-    <div class="not-found-card">
-      <div class="not-found-icon">🔍</div>
-      <div class="not-found-title">We couldn't find this doubt in our database yet!</div>
-      <div class="not-found-sub">But don't worry — here are 3 ways to get your answer:</div>
-      <div class="not-found-query">"${query}"</div>
-
-      <div class="options-grid">
-        <a class="option-card option-google" href="${googleUrl}" target="_blank">
-          <div class="option-icon">🌐</div>
-          <div class="option-title">Search Google</div>
-          <div class="option-desc">Find a detailed text explanation</div>
-        </a>
-        <a class="option-card option-youtube" href="${youtubeUrl}" target="_blank">
-          <div class="option-icon">▶️</div>
-          <div class="option-title">Search YouTube</div>
-          <div class="option-desc">Watch a video explanation</div>
-        </a>
-      </div>
-
-      <div class="submit-doubt-form">
-        <h4>📩 Submit this doubt to your teacher</h4>
-        <p style="font-size:0.82rem;color:#555;margin-bottom:12px">We'll add the answer to Yuvilearn so all students can benefit!</p>
-        <input class="submit-input" id="submitName" type="text" placeholder="Your name (optional)"/>
-        <textarea class="submit-input" id="submitDoubt" rows="3"
-          placeholder="Describe your doubt in detail...">${query}</textarea>
-        <select class="submit-input" id="submitSubject">
-          <option value="">Which subject is this doubt about?</option>
-          <option value="Math">🔢 Mathematics</option>
-          <option value="Science">🔬 Science</option>
-          <option value="English">🗣️ English</option>
-          <option value="General">📌 General</option>
-        </select>
-        <button class="btn-submit-doubt" onclick="submitDoubt()">📩 Submit My Doubt</button>
-        <div class="submit-success" id="submitSuccess">
-          ✅ Doubt submitted! Your teacher will add the answer soon. Thank you!
+  // ── Not Found Fallback ─────────────────────────────────
+  function showNotFound(query) {
+    isSearching = true;
+    const googleUrl  = `https://www.google.com/search?q=${encodeURIComponent(query+' for class students simple explanation')}`;
+    const youtubeUrl = `https://www.youtube.com/results?search_query=${encodeURIComponent(query+' explained for kids')}`;
+    document.getElementById('searchResultsArea').innerHTML = `
+      <div class="not-found-card">
+        <div class="not-found-icon">🔍</div>
+        <div class="not-found-title">This doubt is not in our database yet!</div>
+        <div class="not-found-sub">Don't worry — here are 3 ways to get your answer:</div>
+        <div class="not-found-query">"${query}"</div>
+        <div class="options-grid">
+          <a class="option-card option-google" href="${googleUrl}" target="_blank">
+            <div class="option-icon">🌐</div>
+            <div class="option-title">Search Google</div>
+            <div class="option-desc">Get a detailed text explanation</div>
+          </a>
+          <a class="option-card option-youtube" href="${youtubeUrl}" target="_blank">
+            <div class="option-icon">▶️</div>
+            <div class="option-title">Search YouTube</div>
+            <div class="option-desc">Watch a video explanation</div>
+          </a>
+        </div>
+        <div class="submit-doubt-form">
+          <h4>📩 Submit this doubt to your teacher</h4>
+          <p style="font-size:0.82rem;color:#555;margin-bottom:12px">We'll add the answer so all students benefit!</p>
+          <input class="submit-input" id="submitName" type="text" placeholder="Your name (optional)"/>
+          <textarea class="submit-input" id="submitDoubt" rows="3"
+            placeholder="Describe your doubt...">${query}</textarea>
+          <select class="submit-input" id="submitSubject">
+            <option value="">Which subject?</option>
+            <option>🔢 Mathematics</option>
+            <option>🔬 Science</option>
+            <option>🗣️ English</option>
+            <option>📌 General</option>
+          </select>
+          <button class="btn-submit-doubt" onclick="submitDoubt()">📩 Submit My Doubt</button>
+          <div class="submit-success" id="submitSuccess">
+            ✅ Doubt submitted! Your teacher will add the answer soon. Thank you!
+          </div>
         </div>
       </div>
-    </div>
+      <div class="pending-doubts-section" id="pendingSection"></div>`;
+    renderPendingDoubts();
+    document.getElementById('searchResultsArea').scrollIntoView({behavior:'smooth'});
+  }
 
-    <!-- Pending submitted doubts -->
-    <div class="pending-doubts-section" id="pendingSection"></div>`;
+  function submitDoubt() {
+    const name    = document.getElementById('submitName')?.value.trim() || 'Anonymous';
+    const doubt   = document.getElementById('submitDoubt')?.value.trim();
+    const subject = document.getElementById('submitSubject')?.value || 'General';
+    if(!doubt) { alert('Please describe your doubt first!'); return; }
+    const pending = JSON.parse(localStorage.getItem('yuvi_pending_doubts') || '[]');
+    pending.push({ id:'pd_'+Date.now(), name, doubt, subject, date:new Date().toLocaleDateString('en-IN'), status:'Pending' });
+    localStorage.setItem('yuvi_pending_doubts', JSON.stringify(pending));
+    document.getElementById('submitSuccess').style.display = 'block';
+    document.getElementById('submitDoubt').value = '';
+    document.getElementById('submitName').value  = '';
+    renderPendingDoubts();
+  }
 
-  renderPendingDoubts();
-  document.getElementById('searchResultsArea').scrollIntoView({behavior:'smooth'});
-}
+  function renderPendingDoubts() {
+    const section = document.getElementById('pendingSection');
+    if(!section) return;
+    const pending = JSON.parse(localStorage.getItem('yuvi_pending_doubts') || '[]');
+    if(pending.length === 0) { section.innerHTML=''; return; }
+    section.innerHTML = `
+      <h3 style="font-size:0.95rem;font-weight:800;color:#0a1628;margin-bottom:12px">
+        📋 Your Submitted Doubts (${pending.length})
+      </h3>
+      ${[...pending].reverse().map(p=>`
+        <div class="pending-item">
+          <div class="pending-q">❓ ${p.doubt}</div>
+          <div style="display:flex;flex-direction:column;align-items:flex-end;gap:4px;flex-shrink:0">
+            <span class="pending-status">${p.status}</span>
+            <span style="font-size:0.72rem;color:#aaa">${p.date} · ${p.subject}</span>
+          </div>
+        </div>`).join('')}
+      <p style="font-size:0.78rem;color:#aaa;text-align:center;margin-top:8px">
+        Your teacher will review and add answers soon!
+      </p>`;
+  }
 
-// ── Submit doubt ───────────────────────────────────────
-function submitDoubt() {
-  const name    = document.getElementById('submitName')?.value.trim() || 'Anonymous';
-  const doubt   = document.getElementById('submitDoubt')?.value.trim();
-  const subject = document.getElementById('submitSubject')?.value || 'General';
-
-  if(!doubt) { alert('Please describe your doubt first!'); return; }
-
-  // Save to localStorage
-  const pending = JSON.parse(localStorage.getItem('yuvi_pending_doubts') || '[]');
-  pending.push({
-    id: 'pd_' + Date.now(),
-    name, doubt, subject,
-    date: new Date().toLocaleDateString('en-IN'),
-    status: 'Pending'
-  });
-  localStorage.setItem('yuvi_pending_doubts', JSON.stringify(pending));
-
-  // Show success message
-  document.getElementById('submitSuccess').style.display = 'block';
-  document.getElementById('submitDoubt').value = '';
-  document.getElementById('submitName').value  = '';
-
-  // Refresh pending list
-  renderPendingDoubts();
-}
-
-// ── Show pending submitted doubts ─────────────────────
-function renderPendingDoubts() {
-  const section = document.getElementById('pendingSection');
-  if(!section) return;
-  const pending = JSON.parse(localStorage.getItem('yuvi_pending_doubts') || '[]');
-  if(pending.length === 0) { section.innerHTML=''; return; }
-
-  section.innerHTML = `
-    <h3>📋 Your Submitted Doubts (${pending.length})</h3>
-    ${[...pending].reverse().map(p => `
-      <div class="pending-item">
-        <div class="pending-q">❓ ${p.doubt}</div>
-        <div style="display:flex;flex-direction:column;align-items:flex-end;gap:4px;flex-shrink:0">
-          <span class="pending-status">${p.status}</span>
-          <span style="font-size:0.72rem;color:#aaa">${p.date} · ${p.subject}</span>
-        </div>
-      </div>`).join('')}
-    <p style="font-size:0.78rem;color:#aaa;text-align:center;margin-top:8px">
-      Your teacher will review and add answers soon!
-    </p>`;
-}
   // ── Init ───────────────────────────────────────────────
   const savedProfile = JSON.parse(localStorage.getItem('yuvi_profile')||'{}');
   if(savedProfile.cls && ['1','2','3'].includes(String(savedProfile.cls))) {
     document.getElementById('classFilter').value = savedProfile.cls;
+    currentClass = String(savedProfile.cls);
   }
   if(savedProfile.subjects?.length > 0) {
     currentSubject = savedProfile.subjects[0];
     document.querySelectorAll('.subj-tab').forEach(t => {
-      const txt = t.textContent.toLowerCase();
-      if(txt.includes('math') && currentSubject==='math') t.classList.add('active');
-      else if(txt.includes('science') && currentSubject==='science') t.classList.add('active');
-      else if(txt.includes('english') && currentSubject==='language') t.classList.add('active');
-      else t.classList.remove('active');
+      t.classList.remove('active');
+      if(t.dataset.subj === currentSubject) t.classList.add('active');
     });
   }
   renderChapters();
+
   </script>
 </body>
 </html>
