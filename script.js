@@ -1,3 +1,22 @@
+// Save quiz results to history
+function saveQuizResult(chapter, subject, score, total) {
+  const history = JSON.parse(localStorage.getItem('yuvi_quiz_history') || '[]');
+  history.push({
+    chapter, subject,
+    score, total,
+    pct: Math.round((score/total)*100),
+    date: new Date().toLocaleDateString('en-IN')
+  });
+  localStorage.setItem('yuvi_quiz_history', JSON.stringify(history));
+}
+
+// Save last visited lesson
+function saveLastLesson(title, subject, url) {
+  localStorage.setItem('yuvi_last_lesson', JSON.stringify({
+    title, subject, url,
+    date: new Date().toLocaleDateString('en-IN')
+  }));
+}
 // Mobile menu
 function toggleMenu(){
   document.getElementById('navLinks').classList.toggle('open');
