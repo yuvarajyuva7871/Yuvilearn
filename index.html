@@ -1,453 +1,177 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta name="google-site-verification" content="Pdf_TBQ4f949bwAly3FAOvZNS81-_ESosSe44EHX5_c" />
-  <meta charset="UTF-8"/>
-  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-  <title>Yuvilearn – #1 NEET Preparation Platform</title>
-  <link rel="stylesheet" href="style.css"/>
-  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700;800&display=swap" rel="stylesheet"/>
+  <!-- SEO META -->
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="description" content="Yuvilearn - Learn smarter with premium education in Physics, NEET, and career guidance." />
+  <meta name="keywords" content="Yuvilearn, NEET coaching, Physics classes, online learning India" />
+  <meta name="author" content="Yuvilearn" />
+
+  <title>Yuvilearn | Learn Smart</title>
+
+  <!-- FAVICON -->
+  <link rel="icon" href="logo.png" />
+
+  <!-- GOOGLE FONT -->
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@600&family=Inter:wght@300;400;500&display=swap" rel="stylesheet">
+
   <style>
-    /* ── HERO ── */
-    .neet-hero{background:linear-gradient(135deg,#0a1628 0%,#1a3a6b 50%,#1e4db7 100%);color:#fff;padding:80px 20px 60px;text-align:center;position:relative;overflow:hidden}
-    .neet-hero::before{content:'';position:absolute;top:-50%;left:-50%;width:200%;height:200%;background:radial-gradient(circle,rgba(30,77,183,0.3) 0%,transparent 60%);pointer-events:none}
-    .hero-badge{display:inline-flex;align-items:center;gap:8px;background:rgba(255,255,255,0.12);border:1px solid rgba(255,255,255,0.25);padding:8px 20px;border-radius:50px;font-size:0.85rem;font-weight:600;margin-bottom:24px}
-    .hero-badge .dot{width:8px;height:8px;background:#22c55e;border-radius:50%;animation:pulse 2s infinite}
-    @keyframes pulse{0%,100%{opacity:1}50%{opacity:0.4}}
-    .neet-hero h1{font-size:clamp(2rem,6vw,3.5rem);font-weight:800;line-height:1.15;margin-bottom:20px}
-    .neet-hero h1 span{color:#60a5fa}
-    .neet-hero p{font-size:1.1rem;opacity:0.88;max-width:600px;margin:0 auto 36px}
-    .hero-btns{display:flex;gap:14px;justify-content:center;flex-wrap:wrap;margin-bottom:48px}
-    .btn-hero-primary{background:#fff;color:#1e4db7;padding:14px 32px;border-radius:50px;font-weight:800;font-size:1rem;text-decoration:none;transition:all .2s;box-shadow:0 4px 20px rgba(0,0,0,0.2)}
-    .btn-hero-primary:hover{transform:translateY(-2px);box-shadow:0 8px 28px rgba(0,0,0,0.3)}
-    .btn-hero-outline{background:transparent;color:#fff;padding:14px 32px;border-radius:50px;font-weight:700;font-size:1rem;text-decoration:none;border:2px solid rgba(255,255,255,0.5);transition:all .2s}
-    .btn-hero-outline:hover{background:rgba(255,255,255,0.1)}
-    .hero-stats{display:flex;justify-content:center;gap:40px;flex-wrap:wrap;padding-top:32px;border-top:1px solid rgba(255,255,255,0.15)}
-    .hero-stat-val{font-size:1.8rem;font-weight:800;display:block}
-    .hero-stat-lbl{font-size:0.82rem;opacity:0.75;margin-top:2px}
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+      font-family: 'Inter', sans-serif;
+    }
 
-    /* ── COUNTDOWN ── */
-    .countdown-bar{background:#0a1628;padding:18px 20px;text-align:center}
-    .countdown-inner{max-width:800px;margin:0 auto;display:flex;align-items:center;justify-content:center;gap:20px;flex-wrap:wrap}
-    .countdown-label{color:rgba(255,255,255,0.8);font-size:0.9rem;font-weight:600}
-    .countdown-boxes{display:flex;gap:10px}
-    .cd-box{background:rgba(255,255,255,0.1);border-radius:10px;padding:10px 14px;text-align:center;min-width:60px}
-    .cd-val{font-size:1.4rem;font-weight:800;color:#60a5fa;display:block}
-    .cd-lbl{font-size:0.7rem;color:rgba(255,255,255,0.6)}
-    .cd-sep{color:rgba(255,255,255,0.4);font-size:1.4rem;font-weight:800;align-self:flex-start;padding-top:10px}
+    body {
+      background: #0f0f1a;
+      color: #fff;
+      line-height: 1.6;
+    }
 
-    /* ── SUBJECTS ── */
-    .subjects-section{padding:70px 20px;background:#fff}
-    .subjects-section .section-title{text-align:center;font-size:1.8rem;font-weight:800;color:#0a1628;margin-bottom:8px}
-    .subjects-section .section-sub{text-align:center;color:#666;margin-bottom:40px}
-    .subject-cards-neet{display:grid;grid-template-columns:repeat(auto-fit,minmax(300px,1fr));gap:24px;max-width:1100px;margin:0 auto}
-    .subject-card-neet{border-radius:20px;padding:32px;cursor:pointer;transition:all .2s;text-decoration:none;display:block;position:relative;overflow:hidden}
-    .subject-card-neet::before{content:'';position:absolute;top:0;right:0;width:120px;height:120px;border-radius:50%;opacity:0.1;transform:translate(30px,-30px)}
-    .subject-card-neet:hover{transform:translateY(-6px);box-shadow:0 16px 40px rgba(0,0,0,0.15)}
-    .bio-card{background:linear-gradient(135deg,#f0fdf4,#dcfce7);border:2px solid #86efac}
-    .bio-card::before{background:#16a34a}
-    .physics-card{background:linear-gradient(135deg,#eff6ff,#dbeafe);border:2px solid #93c5fd}
-    .physics-card::before{background:#1e4db7}
-    .chem-card{background:linear-gradient(135deg,#fff7ed,#fed7aa);border:2px solid #fdba74}
-    .chem-card::before{background:#f59e0b}
-    .subj-icon{font-size:2.8rem;margin-bottom:16px;display:block}
-    .subj-name{font-size:1.2rem;font-weight:800;color:#0a1628;margin-bottom:8px}
-    .subj-desc{font-size:0.88rem;color:#555;margin-bottom:16px;line-height:1.6}
-    .subj-chapters{display:flex;gap:8px;flex-wrap:wrap}
-    .ch-pill{padding:4px 12px;border-radius:50px;font-size:0.75rem;font-weight:600}
-    .bio-pill{background:#dcfce7;color:#166534}
-    .physics-pill{background:#dbeafe;color:#1e4db7}
-    .chem-pill{background:#fed7aa;color:#92400e}
-    .subj-cta{display:inline-flex;align-items:center;gap:6px;font-weight:700;font-size:0.9rem;margin-top:16px}
-    .bio-cta{color:#16a34a}
-    .physics-cta{color:#1e4db7}
-    .chem-cta{color:#d97706}
+    header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 20px 60px;
+      background: rgba(0,0,0,0.4);
+      backdrop-filter: blur(10px);
+    }
 
-    /* ── PLANS ── */
-    .plans-section{padding:70px 20px;background:#f0f4ff}
-    .plans-section .section-title{text-align:center;font-size:1.8rem;font-weight:800;color:#0a1628;margin-bottom:8px}
-    .plans-section .section-sub{text-align:center;color:#666;margin-bottom:40px}
-    .plans-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(280px,1fr));gap:24px;max-width:900px;margin:0 auto}
-    .plan-card{background:#fff;border-radius:20px;padding:32px;border:2px solid #e8efff;position:relative;transition:all .2s}
-    .plan-card.popular{border-color:#1e4db7;transform:scale(1.03)}
-    .popular-badge{position:absolute;top:-14px;left:50%;transform:translateX(-50%);background:#1e4db7;color:#fff;padding:5px 20px;border-radius:50px;font-size:0.78rem;font-weight:700;white-space:nowrap}
-    .plan-name{font-size:1rem;font-weight:700;color:#666;margin-bottom:8px}
-    .plan-price{font-size:2.5rem;font-weight:800;color:#0a1628;margin-bottom:4px}
-    .plan-price span{font-size:1rem;color:#888;font-weight:500}
-    .plan-desc{font-size:0.85rem;color:#888;margin-bottom:24px}
-    .plan-features{list-style:none;margin-bottom:28px}
-    .plan-features li{padding:8px 0;border-bottom:1px solid #f0f4ff;font-size:0.88rem;color:#444;display:flex;align-items:center;gap:8px}
-    .plan-features li:last-child{border:none}
-    .feat-yes{color:#16a34a;font-weight:700}
-    .feat-no{color:#ccc}
-    .btn-plan-free{width:100%;padding:13px;border-radius:50px;border:2px solid #1e4db7;background:#fff;color:#1e4db7;font-weight:700;cursor:pointer;font-size:0.95rem;transition:all .2s}
-    .btn-plan-free:hover{background:#f0f4ff}
-    .btn-plan-paid{width:100%;padding:13px;border-radius:50px;border:none;background:#1e4db7;color:#fff;font-weight:700;cursor:pointer;font-size:0.95rem;transition:all .2s}
-    .btn-plan-paid:hover{background:#163a8a}
+    .logo {
+      font-family: 'Playfair Display', serif;
+      font-size: 28px;
+      color: #a855f7;
+    }
 
-    /* ── FEATURES ── */
-    .features-section{padding:70px 20px;background:#0a1628}
-    .features-section .section-title{text-align:center;font-size:1.8rem;font-weight:800;color:#fff;margin-bottom:8px}
-    .features-section .section-sub{text-align:center;color:rgba(255,255,255,0.7);margin-bottom:40px}
-    .features-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));gap:20px;max-width:1100px;margin:0 auto}
-    .feat-card{background:rgba(255,255,255,0.06);border-radius:16px;padding:24px;border:1px solid rgba(255,255,255,0.1);transition:all .2s}
-    .feat-card:hover{background:rgba(255,255,255,0.1)}
-    .feat-card-icon{font-size:2rem;margin-bottom:14px}
-    .feat-card-title{font-size:1rem;font-weight:700;color:#fff;margin-bottom:8px}
-    .feat-card-desc{font-size:0.85rem;color:rgba(255,255,255,0.65);line-height:1.6}
+    nav a {
+      margin-left: 20px;
+      text-decoration: none;
+      color: #ddd;
+      transition: 0.3s;
+    }
 
-    /* ── TESTIMONIALS ── */
-    .testimonials{padding:70px 20px;background:#fff}
-    .testimonials .section-title{text-align:center;font-size:1.8rem;font-weight:800;color:#0a1628;margin-bottom:8px}
-    .testimonials .section-sub{text-align:center;color:#666;margin-bottom:40px}
-    .testi-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(280px,1fr));gap:20px;max-width:1100px;margin:0 auto}
-    .testi-card{background:#f0f4ff;border-radius:16px;padding:24px;border:2px solid transparent;transition:border .2s}
-    .testi-card:hover{border-color:#1e4db7}
-    .testi-stars{color:#f59e0b;font-size:1rem;margin-bottom:12px}
-    .testi-text{font-size:0.9rem;color:#333;line-height:1.7;margin-bottom:16px;font-style:italic}
-    .testi-author{display:flex;align-items:center;gap:10px}
-    .testi-avatar{width:40px;height:40px;border-radius:50%;background:#1e4db7;display:flex;align-items:center;justify-content:center;font-size:1.1rem;color:#fff;font-weight:700}
-    .testi-name{font-weight:700;font-size:0.88rem;color:#0a1628}
-    .testi-score{font-size:0.78rem;color:#16a34a;font-weight:600}
+    nav a:hover {
+      color: #a855f7;
+    }
 
-    /* ── CTA ── */
-    .final-cta{background:linear-gradient(135deg,#1e4db7,#0a1628);padding:80px 20px;text-align:center;color:#fff}
-    .final-cta h2{font-size:2rem;font-weight:800;margin-bottom:14px}
-    .final-cta p{opacity:0.88;margin-bottom:32px;font-size:1.05rem}
+    .hero {
+      text-align: center;
+      padding: 120px 20px;
+    }
 
-    @media(max-width:700px){
-      .hero-stats{gap:24px}
-      .countdown-boxes{gap:6px}
-      .cd-box{min-width:50px;padding:8px 10px}
+    .hero h1 {
+      font-size: 48px;
+      font-family: 'Playfair Display', serif;
+      margin-bottom: 20px;
+    }
+
+    .hero p {
+      color: #bbb;
+      max-width: 600px;
+      margin: auto;
+    }
+
+    .btn {
+      display: inline-block;
+      margin-top: 30px;
+      padding: 12px 30px;
+      background: #a855f7;
+      color: white;
+      border-radius: 30px;
+      text-decoration: none;
+      transition: 0.3s;
+    }
+
+    .btn:hover {
+      background: #9333ea;
+    }
+
+    .courses {
+      padding: 80px 40px;
+      text-align: center;
+    }
+
+    .courses h2 {
+      margin-bottom: 40px;
+      font-family: 'Playfair Display', serif;
+    }
+
+    .course-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+      gap: 20px;
+    }
+
+    .card {
+      background: #1a1a2e;
+      padding: 30px;
+      border-radius: 15px;
+      transition: 0.3s;
+    }
+
+    .card:hover {
+      transform: translateY(-5px);
+      background: #22223b;
+    }
+
+    footer {
+      text-align: center;
+      padding: 20px;
+      background: #0a0a14;
+      color: #aaa;
     }
   </style>
 </head>
+
 <body>
 
-  <!-- NAVBAR -->
-  <nav class="navbar">
-    <div class="nav-container">
-      <div class="logo">🧬 Yuvilearn NEET</div>
-      <button class="menu-btn" onclick="toggleMenu()">☰</button>
-      <ul class="nav-links" id="navLinks">
-        <li><a href="index.html" class="active">Home</a></li>
-        <li><a href="neet-courses.html">Courses</a></li>
-        <li><a href="mocktest.html">Mock Tests</a></li>
-        <li><a href="neet-dashboard.html">Dashboard</a></li>
-        <li><a href="doubts.html">Doubts</a></li>
-        <li><a href="profile.html">Profile</a></li>
-      </ul>
-    </div>
-  </nav>
+  <!-- HEADER -->
+  <header>
+    <div class="logo">Yuvilearn</div>
+    <nav>
+      <a href="#">Home</a>
+      <a href="#">Courses</a>
+      <a href="#">About</a>
+      <a href="#">Contact</a>
+    </nav>
+  </header>
 
-  <!-- NEET COUNTDOWN -->
-  <div class="countdown-bar">
-    <div class="countdown-inner">
-      <span class="countdown-label">⏰ NEET 2026 Countdown:</span>
-      <div class="countdown-boxes">
-        <div class="cd-box"><span class="cd-val" id="cd-days">--</span><span class="cd-lbl">Days</span></div>
-        <span class="cd-sep">:</span>
-        <div class="cd-box"><span class="cd-val" id="cd-hours">--</span><span class="cd-lbl">Hours</span></div>
-        <span class="cd-sep">:</span>
-        <div class="cd-box"><span class="cd-val" id="cd-mins">--</span><span class="cd-lbl">Mins</span></div>
-        <span class="cd-sep">:</span>
-        <div class="cd-box"><span class="cd-val" id="cd-secs">--</span><span class="cd-lbl">Secs</span></div>
-      </div>
-      <span style="color:rgba(255,255,255,0.7);font-size:0.82rem">May 4, 2026</span>
-    </div>
-  </div>
+  <!-- HERO SECTION -->
+  <section class="hero">
+    <h1>Learn Smart. Grow Faster.</h1>
+    <p>Premium education platform for NEET, Physics, and career guidance designed to help students achieve excellence.</p>
+    <a href="#" class="btn">Explore Courses</a>
+  </section>
 
-  <!-- HERO -->
-  <section class="neet-hero">
-    <div class="hero-badge">
-      <span class="dot"></span>
-      India's Smart NEET Preparation Platform
-    </div>
-    <h1>Crack <span>NEET 2026</span><br/>With Confidence!</h1>
-    <p>Complete Biology, Physics & Chemistry — Chapter notes, Mock tests, Doubt solving and Score prediction. All in one place.</p>
-    <div class="hero-btns">
-      <a href="neet-courses.html" class="btn-hero-primary">🚀 Start Free Today</a>
-      <a href="mocktest.html" class="btn-hero-outline">📝 Try Free Mock Test</a>
-    </div>
-    <div class="hero-stats">
-      <div>
-        <span class="hero-stat-val">3 Subjects</span>
-        <span class="hero-stat-lbl">Biology · Physics · Chemistry</span>
+  <!-- COURSES -->
+  <section class="courses">
+    <h2>Our Courses</h2>
+    <div class="course-grid">
+
+      <div class="card">
+        <h3>NEET Physics</h3>
+        <p>Concept-based learning with problem-solving techniques.</p>
       </div>
-      <div>
-        <span class="hero-stat-val">97 Chapters</span>
-        <span class="hero-stat-lbl">Complete NEET Syllabus</span>
+
+      <div class="card">
+        <h3>Crash Course</h3>
+        <p>Quick revision strategies to boost your score.</p>
       </div>
-      <div>
-        <span class="hero-stat-val">₹99/mo</span>
-        <span class="hero-stat-lbl">Premium Access</span>
+
+      <div class="card">
+        <h3>Career Guidance</h3>
+        <p>Choose the right path after 12th with expert support.</p>
       </div>
-      <div>
-        <span class="hero-stat-val">1800 Qs</span>
-        <span class="hero-stat-lbl">Mock Test Questions</span>
-      </div>
+
     </div>
   </section>
 
-  <!-- SUBJECTS -->
-  <section class="subjects-section">
-    <h2 class="section-title">Complete NEET Syllabus</h2>
-    <p class="section-sub">All 3 subjects covered — exactly as per NTA NEET pattern</p>
-    <div class="subject-cards-neet">
-      <a href="neet-courses.html?subject=biology" class="subject-card-neet bio-card">
-        <span class="subj-icon">🧬</span>
-        <div class="subj-name">Biology</div>
-        <div class="subj-desc">Botany + Zoology — 90 questions in NEET. Highest weightage. Master cell biology, genetics, ecology and human physiology.</div>
-        <div class="subj-chapters">
-          <span class="ch-pill bio-pill">Cell Biology</span>
-          <span class="ch-pill bio-pill">Genetics</span>
-          <span class="ch-pill bio-pill">Ecology</span>
-          <span class="ch-pill bio-pill">Human Physiology</span>
-          <span class="ch-pill bio-pill">+38 more</span>
-        </div>
-        <div class="subj-cta bio-cta">Start Biology →</div>
-      </a>
-      <a href="neet-courses.html?subject=physics" class="subject-card-neet physics-card">
-        <span class="subj-icon">⚡</span>
-        <div class="subj-name">Physics</div>
-        <div class="subj-desc">45 questions in NEET. Mechanics, Thermodynamics, Optics, Modern Physics and Electrostatics — with formula sheets.</div>
-        <div class="subj-chapters">
-          <span class="ch-pill physics-pill">Mechanics</span>
-          <span class="ch-pill physics-pill">Thermodynamics</span>
-          <span class="ch-pill physics-pill">Optics</span>
-          <span class="ch-pill physics-pill">Modern Physics</span>
-          <span class="ch-pill physics-pill">+15 more</span>
-        </div>
-        <div class="subj-cta physics-cta">Start Physics →</div>
-      </a>
-      <a href="neet-courses.html?subject=chemistry" class="subject-card-neet chem-card">
-        <span class="subj-icon">🧪</span>
-        <div class="subj-name">Chemistry</div>
-        <div class="subj-desc">45 questions in NEET. Physical, Organic and Inorganic Chemistry — reactions, equations and concepts simplified.</div>
-        <div class="subj-chapters">
-          <span class="ch-pill chem-pill">Physical Chemistry</span>
-          <span class="ch-pill chem-pill">Organic Chemistry</span>
-          <span class="ch-pill chem-pill">Inorganic Chemistry</span>
-          <span class="ch-pill chem-pill">+12 more</span>
-        </div>
-        <div class="subj-cta chem-cta">Start Chemistry →</div>
-      </a>
-    </div>
-  </section>
-
-  <!-- FEATURES -->
-  <section class="features-section">
-    <h2 class="section-title">Everything You Need to Crack NEET</h2>
-    <p class="section-sub">Built specifically for NEET aspirants</p>
-    <div class="features-grid">
-      <div class="feat-card">
-        <div class="feat-card-icon">📝</div>
-        <div class="feat-card-title">Chapter-wise Mock Tests</div>
-        <div class="feat-card-desc">50 questions per chapter with Easy, Medium and Hard levels. Timer, auto-submit and detailed analysis.</div>
-      </div>
-      <div class="feat-card">
-        <div class="feat-card-icon">🎯</div>
-        <div class="feat-card-title">NEET Score Predictor</div>
-        <div class="feat-card-desc">Based on your mock test performance, we predict your NEET score and rank in real time.</div>
-      </div>
-      <div class="feat-card">
-        <div class="feat-card-icon">📊</div>
-        <div class="feat-card-title">Smart Dashboard</div>
-        <div class="feat-card-desc">Daily targets, chapter completion tracker, weak topic detector and exam readiness score.</div>
-      </div>
-      <div class="feat-card">
-        <div class="feat-card-icon">🤔</div>
-        <div class="feat-card-title">Doubt Solver</div>
-        <div class="feat-card-desc">5 free doubts per day. Instant answers from our pre-loaded NEET question bank.</div>
-      </div>
-      <div class="feat-card">
-        <div class="feat-card-icon">📄</div>
-        <div class="feat-card-title">Chapter Notes & PDFs</div>
-        <div class="feat-card-desc">Concise notes for every NEET chapter. Download as PDF to study offline.</div>
-      </div>
-      <div class="feat-card">
-        <div class="feat-card-icon">⏰</div>
-        <div class="feat-card-title">Live Countdown</div>
-        <div class="feat-card-desc">Always know exactly how many days, hours and minutes are left for NEET 2026.</div>
-      </div>
-      <div class="feat-card">
-        <div class="feat-card-icon">📱</div>
-        <div class="feat-card-title">Works on All Devices</div>
-        <div class="feat-card-desc">Study on your phone, tablet or laptop. Fast, lightweight and mobile friendly.</div>
-      </div>
-      <div class="feat-card">
-        <div class="feat-card-icon">💰</div>
-        <div class="feat-card-title">Only ₹99/Month</div>
-        <div class="feat-card-desc">Full premium access at just ₹99/month — cheaper than any coaching institute.</div>
-      </div>
-    </div>
-  </section>
-
-  <!-- PRICING PLANS -->
-  <section class="plans-section">
-    <h2 class="section-title">Simple, Affordable Plans</h2>
-    <p class="section-sub">Start free — upgrade when you're ready</p>
-    <div class="plans-grid">
-      <!-- Free Plan -->
-      <div class="plan-card">
-        <div class="plan-name">Free Plan</div>
-        <div class="plan-price">₹0 <span>/forever</span></div>
-        <div class="plan-desc">Perfect to get started</div>
-        <ul class="plan-features">
-          <li><span class="feat-yes">✅</span> 1 Free mock test per subject</li>
-          <li><span class="feat-yes">✅</span> 5 doubts per day</li>
-          <li><span class="feat-yes">✅</span> Chapter notes (preview)</li>
-          <li><span class="feat-yes">✅</span> NEET countdown timer</li>
-          <li><span class="feat-no">✗</span> Full test series</li>
-          <li><span class="feat-no">✗</span> PDF downloads</li>
-          <li><span class="feat-no">✗</span> Score predictor</li>
-          <li><span class="feat-no">✗</span> Rank predictor</li>
-        </ul>
-        <button class="btn-plan-free" onclick="window.location.href='profile.html'">Get Started Free</button>
-      </div>
-      <!-- Premium Plan -->
-      <div class="plan-card popular">
-        <div class="popular-badge">⭐ Most Popular</div>
-        <div class="plan-name">Premium Plan</div>
-        <div class="plan-price">₹99 <span>/month</span></div>
-        <div class="plan-desc">Everything you need to crack NEET</div>
-        <ul class="plan-features">
-          <li><span class="feat-yes">✅</span> Unlimited mock tests</li>
-          <li><span class="feat-yes">✅</span> Full chapter-wise test series</li>
-          <li><span class="feat-yes">✅</span> Unlimited doubts</li>
-          <li><span class="feat-yes">✅</span> All chapter notes + PDFs</li>
-          <li><span class="feat-yes">✅</span> NEET score predictor</li>
-          <li><span class="feat-yes">✅</span> Rank predictor</li>
-          <li><span class="feat-yes">✅</span> Daily target tracker</li>
-          <li><span class="feat-yes">✅</span> Priority doubt solving</li>
-        </ul>
-        <button class="btn-plan-paid" onclick="showPayment()">🚀 Get Premium — ₹99/mo</button>
-      </div>
-    </div>
-  </section>
-
-  <!-- TESTIMONIALS -->
-  <section class="testimonials">
-    <h2 class="section-title">Students Love Yuvilearn</h2>
-    <p class="section-sub">Real results from real NEET aspirants</p>
-    <div class="testi-grid">
-      <div class="testi-card">
-        <div class="testi-stars">⭐⭐⭐⭐⭐</div>
-        <div class="testi-text">"The mock tests are exactly like the real NEET pattern. The score predictor motivated me to study harder every day!"</div>
-        <div class="testi-author">
-          <div class="testi-avatar">P</div>
-          <div><div class="testi-name">Priya Sharma</div><div class="testi-score">Predicted Score: 620/720</div></div>
-        </div>
-      </div>
-      <div class="testi-card">
-        <div class="testi-stars">⭐⭐⭐⭐⭐</div>
-        <div class="testi-text">"At only ₹99/month this is the best investment for NEET prep. Chapter notes are clear and to the point — no time wasted!"</div>
-        <div class="testi-author">
-          <div class="testi-avatar">R</div>
-          <div><div class="testi-name">Rahul Kumar</div><div class="testi-score">Predicted Score: 580/720</div></div>
-        </div>
-      </div>
-      <div class="testi-card">
-        <div class="testi-stars">⭐⭐⭐⭐⭐</div>
-        <div class="testi-text">"The doubt solver answered my Biology questions instantly. The daily target tracker keeps me disciplined and on schedule!"</div>
-        <div class="testi-author">
-          <div class="testi-avatar">A</div>
-          <div><div class="testi-name">Ananya Patel</div><div class="testi-score">Predicted Score: 645/720</div></div>
-        </div>
-      </div>
-    </div>
-  </section>
-
-  <!-- FINAL CTA -->
-  <section class="final-cta">
-    <h2>Start Your NEET Journey Today! 🚀</h2>
-    <p>Join thousands of students preparing smarter with Yuvilearn.<br/>First mock test is completely FREE!</p>
-    <div style="display:flex;gap:14px;justify-content:center;flex-wrap:wrap">
-      <a href="profile.html" class="btn-hero-primary">Start Free Now →</a>
-      <a href="mocktest.html" class="btn-hero-outline">Try Free Mock Test</a>
-    </div>
-  </section>
-
-  <!-- PAYMENT MODAL -->
-  <div id="paymentModal" style="display:none;position:fixed;inset:0;background:rgba(0,0,0,0.7);z-index:999;display:none;align-items:center;justify-content:center;padding:20px">
-    <div style="background:#fff;border-radius:20px;padding:32px;max-width:440px;width:100%;text-align:center">
-      <div style="font-size:2.5rem;margin-bottom:12px">🚀</div>
-      <h3 style="font-size:1.3rem;font-weight:800;color:#0a1628;margin-bottom:8px">Get Premium Access</h3>
-      <div style="font-size:2rem;font-weight:800;color:#1e4db7;margin-bottom:4px">₹99<span style="font-size:1rem;color:#888;font-weight:500">/month</span></div>
-      <p style="color:#666;font-size:0.88rem;margin-bottom:24px">Unlock everything — unlimited tests, all notes, score predictor and more!</p>
-      <div style="background:#f0f4ff;border-radius:12px;padding:16px;margin-bottom:20px;text-align:left">
-        <div style="font-size:0.85rem;color:#444;line-height:2">
-          ✅ Unlimited mock tests<br/>
-          ✅ All chapter notes + PDFs<br/>
-          ✅ NEET score & rank predictor<br/>
-          ✅ Unlimited doubt solving<br/>
-          ✅ Daily target tracker
-        </div>
-      </div>
-      <div style="display:flex;flex-direction:column;gap:10px">
-        <button onclick="payNow()" style="background:#1e4db7;color:#fff;border:none;padding:14px;border-radius:50px;font-weight:700;font-size:1rem;cursor:pointer">💳 Pay ₹99 via Razorpay</button>
-        <button onclick="payUPI()" style="background:#22c55e;color:#fff;border:none;padding:14px;border-radius:50px;font-weight:700;font-size:1rem;cursor:pointer">📱 Pay via UPI / PhonePe / GPay</button>
-        <button onclick="closePayment()" style="background:#f0f4ff;color:#666;border:none;padding:12px;border-radius:50px;font-weight:600;cursor:pointer">Cancel</button>
-      </div>
-    </div>
-  </div>
-
-  <footer class="footer">
-    <div class="footer-inner">
-      <div class="footer-logo">🧬 Yuvilearn NEET</div>
-      <p style="color:rgba(255,255,255,0.6);font-size:0.85rem;margin:8px 0">India's Smart NEET Preparation Platform</p>
-      <div class="footer-links">
-        <a href="index.html">Home</a>
-        <a href="neet-courses.html">Courses</a>
-        <a href="mocktest.html">Mock Tests</a>
-        <a href="neet-dashboard.html">Dashboard</a>
-        <a href="doubts.html">Doubts</a>
-      </div>
-      <p class="footer-copy">© 2026 Yuvilearn. Built for NEET Aspirants ❤️</p>
-    </div>
+  <!-- FOOTER -->
+  <footer>
+    <p>© 2026 Yuvilearn. All rights reserved.</p>
   </footer>
 
-  <script src="script.js"></script>
-  <script>
-  // NEET 2026 Countdown — May 4, 2026
-  function updateCountdown() {
-    const neetDate = new Date('2026-05-04T08:00:00');
-    const now = new Date();
-    const diff = neetDate - now;
-    if(diff <= 0) {
-      document.getElementById('cd-days').textContent = '0';
-      document.getElementById('cd-hours').textContent = '00';
-      document.getElementById('cd-mins').textContent = '00';
-      document.getElementById('cd-secs').textContent = '00';
-      return;
-    }
-    const days  = Math.floor(diff / (1000*60*60*24));
-    const hours = Math.floor((diff % (1000*60*60*24)) / (1000*60*60));
-    const mins  = Math.floor((diff % (1000*60*60)) / (1000*60));
-    const secs  = Math.floor((diff % (1000*60)) / 1000);
-    document.getElementById('cd-days').textContent  = days;
-    document.getElementById('cd-hours').textContent = String(hours).padStart(2,'0');
-    document.getElementById('cd-mins').textContent  = String(mins).padStart(2,'0');
-    document.getElementById('cd-secs').textContent  = String(secs).padStart(2,'0');
-  }
-  setInterval(updateCountdown, 1000);
-  updateCountdown();
-
-  // Payment
-  function showPayment() {
-    document.getElementById('paymentModal').style.display = 'flex';
-  }
-  function closePayment() {
-    document.getElementById('paymentModal').style.display = 'none';
-  }
-  function payNow() {
-    // Replace with your Razorpay key
-    alert('Razorpay integration coming soon!\nFor now contact: yuvilearn@gmail.com\nUPI: your-upi-id@upi');
-  }
-  function payUPI() {
-    // Replace YOUR_UPI_ID with your actual UPI ID
-    window.location.href = 'upi://pay?pa=YOUR_UPI_ID&pn=Yuvilearn&am=99&cu=INR&tn=Yuvilearn Premium';
-  }
-  </script>
 </body>
 </html>
