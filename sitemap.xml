@@ -1,9 +1,23 @@
-<?xml version="1.0" encoding="UTF-8"?>
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
+
   <url>
-    <loc>https://www.yuvilearn.vercel.app/</loc>
-    <lastmod>2026-03-22</lastmod>
-    <changefreq>weekly</changefreq>
-    <priority>1.00</priority>
+    <loc>https://yuvilearn.vercel.app/</loc>
   </url>
+
+  <url>
+    <loc>https://yuvilearn.vercel.app/courses.html</loc>
+  </url>
+
+  <url>
+    <loc>https://yuvilearn.vercel.app/neet-physics.html</loc>
+  </url>
+
+  <url>
+    <loc>https://yuvilearn.vercel.app/about.html</loc>
+  </url>
+
+  <url>
+    <loc>https://yuvilearn.vercel.app/contact.html</loc>
+  </url>
+
 </urlset>
