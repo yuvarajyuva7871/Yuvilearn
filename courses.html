@@ -7,41 +7,56 @@
 
 <body class="bg-gray-50 p-8 text-center">
 
-<h1 class="text-3xl font-bold">NEET Physics Courses</h1>
+<h1 class="text-3xl font-bold">Your Course</h1>
 
-<p class="mt-2 text-gray-600">
-Courses designed based on your class and target
-</p>
+<div id="courseContainer" class="mt-8"></div>
 
-<div class="grid md:grid-cols-2 gap-6 mt-8">
-
-  <div class="bg-white p-6 rounded-xl shadow">
-    <h3 class="font-semibold text-lg">Class 11 NEET Physics</h3>
-    <p class="text-gray-600 mt-2">
-      Build strong fundamentals for NEET
-    </p>
-  </div>
-
-  <div class="bg-white p-6 rounded-xl shadow">
-    <h3 class="font-semibold text-lg">Class 12 NEET Physics</h3>
-    <p class="text-gray-600 mt-2">
-      Focus on boards + NEET preparation
-    </p>
-  </div>
-
-  <div class="bg-white p-6 rounded-xl shadow">
-    <h3 class="font-semibold text-lg">Dropper NEET Physics</h3>
-    <p class="text-gray-600 mt-2">
-      Full revision + problem solving
-    </p>
-  </div>
-
-</div>
-
-<a href="https://wa.me/919876543210"
+<a href="https://t.me/Yuvilearn"
    class="inline-block mt-8 px-6 py-2 bg-green-500 text-white rounded-lg">
    Talk to Mentor
 </a>
+
+<script>
+  // Get class from URL
+  const params = new URLSearchParams(window.location.search);
+  const userClass = params.get("class");
+
+  const container = document.getElementById("courseContainer");
+
+  // Course Data
+  const courses = {
+    "11": {
+      title: "Class 11 NEET Physics",
+      desc: "Build strong fundamentals for NEET",
+    },
+    "12": {
+      title: "Class 12 NEET Physics",
+      desc: "Board + NEET focused preparation",
+    },
+    "dropper": {
+      title: "Dropper NEET Physics",
+      desc: "Full revision + PYQs + strategy",
+    }
+  };
+
+  // Show course
+  if (courses[userClass]) {
+    container.innerHTML = `
+      <div class="bg-white p-6 rounded-xl shadow max-w-md mx-auto">
+        <h2 class="text-xl font-semibold">${courses[userClass].title}</h2>
+        <p class="text-gray-600 mt-2">${courses[userClass].desc}</p>
+
+        <button class="mt-4 px-4 py-2 bg-violet-600 text-white rounded">
+          Enroll Now
+        </button>
+      </div>
+    `;
+  } else {
+    container.innerHTML = `
+      <p class="text-red-500">Invalid selection. Please go back.</p>
+    `;
+  }
+</script>
 
 </body>
 </html>
