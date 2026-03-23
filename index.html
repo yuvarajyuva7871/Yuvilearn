@@ -1,13 +1,15 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <script src="https://cdn.tailwindcss.com"></script>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
   <title>Yuvilearn</title>
 
-  <style>
-   <body class="bg-gray-50 text-gray-800 font-sans">
+  <!-- Tailwind CDN -->
+  <script src="https://cdn.tailwindcss.com"></script>
+</head>
+
+<body class="bg-gray-50 text-gray-800 font-sans">
 
   <!-- HEADER -->
   <header class="bg-violet-600 text-white text-center py-8 shadow-md">
@@ -20,21 +22,23 @@
     <h2 class="text-2xl font-semibold">What do you want to become?</h2>
 
     <div class="grid grid-cols-2 md:grid-cols-4 gap-6 mt-6">
-      <a href="neet.html" class="bg-white p-6 rounded-xl shadow hover:scale-105 transition">
+
+      <a href="neet.html" class="bg-white p-6 rounded-xl shadow hover:scale-105 transition block">
         Doctor (NEET)
       </a>
 
-      <a href="jee.html" class="bg-white p-6 rounded-xl shadow hover:scale-105 transition">
+      <a href="jee.html" class="bg-white p-6 rounded-xl shadow hover:scale-105 transition block">
         Engineer (JEE)
       </a>
 
-      <a href="govt.html" class="bg-white p-6 rounded-xl shadow hover:scale-105 transition">
+      <a href="govt.html" class="bg-white p-6 rounded-xl shadow hover:scale-105 transition block">
         Govt Job
       </a>
 
-      <a href="confused.html" class="bg-white p-6 rounded-xl shadow hover:scale-105 transition">
+      <a href="confused.html" class="bg-white p-6 rounded-xl shadow hover:scale-105 transition block">
         I'm Confused
       </a>
+
     </div>
   </section>
 
@@ -54,13 +58,15 @@
     <h2 class="text-2xl font-semibold">Subjects</h2>
 
     <div class="grid grid-cols-2 md:grid-cols-3 gap-6 mt-6">
-      <a href="physics.html" class="bg-white p-6 rounded-xl shadow hover:scale-105 transition">
+
+      <a href="physics.html" class="bg-white p-6 rounded-xl shadow hover:scale-105 transition block">
         Physics
       </a>
 
-      <a href="chemistry.html" class="bg-white p-6 rounded-xl shadow hover:scale-105 transition">
+      <a href="chemistry.html" class="bg-white p-6 rounded-xl shadow hover:scale-105 transition block">
         Chemistry
       </a>
+
     </div>
   </section>
 
@@ -92,11 +98,16 @@
     <h2 class="text-2xl font-semibold">Need Guidance?</h2>
     <p class="text-gray-600 mt-2">Talk to a mentor directly</p>
 
-    <a href="https://wa.me/91XXXXXXXXXX"
+    <a href="https://wa.me/919876543210"
        class="inline-block mt-4 px-6 py-2 bg-green-500 text-white rounded-lg hover:bg-green-600">
        Chat on WhatsApp
     </a>
   </section>
+
+  <!-- FOOTER -->
+  <footer class="bg-gray-900 text-white text-center py-4 mt-6">
+    <p>© 2026 Yuvilearn</p>
+  </footer>
 
 </body>
 </html>
