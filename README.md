@@ -1,12 +1,15 @@
-# Yuvilearn (Rewrite v2)
+# Yuvilearn (Restructured)
 
-This is a clean static rewrite with only the requested modules:
+Project has been reorganized for clarity.
 
-- Home (`index.html`)
-- Class (`class.html`)
-- Course (`course.html`)
-- NEET (`neet.html`)
-- Foundation (`foundation.html`)
-- Login (`login.html`)
+## Structure
+- `index.html` (home)
+- `pages/class.html`
+- `pages/course.html`
+- `pages/neet.html`
+- `pages/foundation.html`
+- `pages/login.html`
+- `assets/css/style.css`
+- `assets/js/app.js`
 
-Tech stack: HTML + CSS + Vanilla JS.
+This keeps the portal simple while making files easier to manage.
