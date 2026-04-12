@@ -1,21 +1,121 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Yuvilearn Dashboard</title>
+
+<style>
+body {
+    margin: 0;
+    font-family: 'Segoe UI', sans-serif;
+    background: #0f172a;
+    color: white;
+}
+
+header {
+    background: linear-gradient(90deg, #22c55e, #06b6d4);
+    padding: 15px;
+    text-align: center;
+    color: black;
+}
+
+.container {
+    padding: 20px;
+}
+
+.card {
+    background: #1e293b;
+    padding: 20px;
+    border-radius: 12px;
+    margin: 15px 0;
+}
+
+button {
+    padding: 10px 20px;
+    border: none;
+    border-radius: 8px;
+    background: #22c55e;
+    color: white;
+    cursor: pointer;
+}
+
+.logout {
+    background: red;
+}
+</style>
+</head>
+
+<body>
+
+<header>
+    <h1>🎓 Yuvilearn Dashboard</h1>
+</header>
+
+<div class="container">
+
+    <!-- Student Info -->
+    <div class="card">
+        <h2 id="welcome"></h2>
+        <p id="class"></p>
+        <p id="goal"></p>
+    </div>
+
+    <!-- Actions -->
+    <div class="card">
+        <h3>📚 Learning Actions</h3>
+        <button onclick="startLearning()">Start Learning</button>
+        <button onclick="takeTest()">Take Test</button>
+        <button onclick="askAI()">Ask AI Doubt</button>
+    </div>
+
+    <!-- Progress -->
+    <div class="card">
+        <h3>📊 Progress</h3>
+        <p>Coming soon: Track your improvement</p>
+    </div>
+
+    <!-- Logout -->
+    <div class="card">
+        <button class="logout" onclick="logout()">Logout</button>
+    </div>
+
+</div>
+
 <script>
+/* 🔹 Load user data */
 const name = localStorage.getItem("name");
 const studentClass = localStorage.getItem("class");
 const goal = localStorage.getItem("goal");
 
-document.body.innerHTML = `
-    <h1>Welcome ${name} 🎓</h1>
-    <p>Class: ${studentClass}</p>
-    <p>Goal: ${goal}</p>
+/* 🔹 If not logged in */
+if (!name) {
+    window.location.href = "login.html";
+}
 
-    <br>
+/* 🔹 Display data */
+document.getElementById("welcome").innerText = "Welcome " + name + " 👋";
+document.getElementById("class").innerText = "Class: " + studentClass;
+document.getElementById("goal").innerText = "Goal: " + goal;
 
-    <button onclick="logout()">Logout</button>
-`;
-</script>
-<script>
+/* 🔹 Functions */
 function logout() {
     localStorage.clear();
     window.location.href = "login.html";
 }
+
+function startLearning() {
+    alert("Coming soon: Learning modules");
+}
+
+function takeTest() {
+    alert("Coming soon: NEET tests");
+}
+
+function askAI() {
+    alert("Coming soon: AI doubt solver");
+}
 </script>
+
+</body>
+</html>
