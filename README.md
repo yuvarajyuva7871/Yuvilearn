@@ -1,8 +1,7 @@
-# Yuvilearn (Rewritten Simple Version)
+# Yuvilearn Website (Fresh Rewrite)
 
-This project is intentionally minimal and rewritten to avoid major merge conflicts.
+All previous files were removed and the website was rewritten from scratch with only these pages:
 
-## Active pages
 - `index.html`
 - `class.html`
 - `course.html`
@@ -10,7 +9,4 @@ This project is intentionally minimal and rewritten to avoid major merge conflic
 - `foundation.html`
 - `login.html`
 
-## Stack
-- HTML
-- CSS
-- Vanilla JavaScript
+Tech stack: HTML, CSS, Vanilla JS.

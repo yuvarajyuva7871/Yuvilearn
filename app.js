@@ -1,14 +1,12 @@
 (() => {
   const year = document.getElementById('year');
-  if (year) {
-    year.textContent = String(new Date().getFullYear());
-  }
+  if (year) year.textContent = String(new Date().getFullYear());
 
-  const loginForm = document.querySelector('[data-login-form]');
-  if (loginForm) {
-    loginForm.addEventListener('submit', (event) => {
-      event.preventDefault();
-      alert('Login flow will be connected to backend soon.');
+  const login = document.querySelector('[data-login-form]');
+  if (login) {
+    login.addEventListener('submit', (e) => {
+      e.preventDefault();
+      alert('Login backend is not connected yet.');
     });
   }
 })();
