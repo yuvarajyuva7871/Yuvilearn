@@ -1,176 +1,21 @@
 <!DOCTYPE html>
-<html lang="en">
-<head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Dashboard | Yuvilearn AI</title>
-  <link rel="stylesheet" href="css/global.css">
-  <style>
-    body { display: flex; height: 100vh; overflow: hidden; background-color: var(--bg-color); }
-    aside { width: 260px; background: rgba(15, 23, 42, 0.95); border-right: 1px solid var(--glass-border); display: flex; flex-direction: column; padding: 1.5rem; z-index: 20; }
-    .logo-container { margin-bottom: 2.5rem; }
-    .nav-items { display: flex; flex-direction: column; gap: 0.5rem; flex-grow: 1; }
-    .nav-item { display: flex; align-items: center; justify-content: space-between; gap: 0.75rem; padding: 0.75rem 1rem; border-radius: 8px; color: var(--text-muted); transition: all 0.2s ease; font-weight: 500; cursor: pointer; }
-    .nav-item:hover, .nav-item.active { background: var(--glass-bg); color: var(--text-main); }
-    .nav-item.active { border-left: 3px solid var(--primary); }
-    
-    .nav-inner { display: flex; align-items: center; gap: 0.75rem; }
-    .badge { font-size: 0.7rem; background: var(--primary); padding: 0.1rem 0.4rem; border-radius: 8px; color: white;}
+<html>
+<body style="background:#0f172a; color:white; text-align:center;">
 
-    .user-profile { display: flex; align-items: center; gap: 1rem; margin-top: auto; padding-top: 1rem; border-top: 1px solid var(--glass-border); cursor: pointer; }
-    .user-profile:hover { opacity: 0.8; }
-    .avatar { width: 40px; height: 40px; border-radius: 50%; background: linear-gradient(135deg, var(--primary), var(--secondary)); display: flex; align-items: center; justify-content: center; font-weight: bold; }
+<h1>Welcome to Yuvilearn 🎓</h1>
 
-    main { flex: 1; display: flex; flex-direction: column; position: relative; }
-    .chat-header { padding: 1rem 2rem; border-bottom: 1px solid var(--glass-border); display: flex; justify-content: space-between; align-items: center; background: rgba(15, 23, 42, 0.8); backdrop-filter: blur(10px); z-index: 10; }
-    
-    .header-actions { display: flex; gap: 1rem; align-items: center; }
-    .subject-selector { background: var(--glass-bg); border: 1px solid var(--glass-border); color: white; padding: 0.5rem 1rem; border-radius: 8px; outline: none; cursor: pointer; font-family: inherit;}
-    .subject-selector option { background: var(--bg-color); }
-    
-    .chat-container { flex: 1; overflow-y: auto; padding: 2rem; display: flex; flex-direction: column; gap: 1.5rem; scroll-behavior: smooth; }
-    .message { max-width: 80%; display: flex; flex-direction: column; gap: 0.5rem; animation: fadeIn 0.3s ease forwards; }
-    .message.user { align-self: flex-end; }
-    .message.ai { align-self: flex-start; }
-    .bubble { padding: 1rem 1.25rem; border-radius: 16px; line-height: 1.6; }
-    .message.user .bubble { background: var(--primary); color: white; border-bottom-right-radius: 4px; }
-    .message.ai .bubble { background: var(--glass-bg); border: 1px solid var(--glass-border); border-bottom-left-radius: 4px; }
+<script type="module">
+import { auth } from './firebase.js';
+import { onAuthStateChanged } from "https://www.gstatic.com/firebasejs/10.12.0/firebase-auth.js";
 
-    .input-container { padding: 1.5rem 2rem; background: var(--bg-color); border-top: 1px solid var(--glass-border); }
-    .input-box { display: flex; align-items: flex-end; background: rgba(255, 255, 255, 0.03); border: 1px solid var(--glass-border); border-radius: 12px; padding: 0.5rem; transition: border-color 0.3s; }
-    .input-box:focus-within { border-color: var(--primary); }
-    textarea { flex: 1; background: transparent; border: none; color: white; padding: 0.75rem; resize: none; outline: none; font-family: 'Inter', sans-serif; min-height: 24px; max-height: 150px; }
-    textarea::placeholder { color: var(--text-muted); }
+onAuthStateChanged(auth, (user) => {
+    if (user) {
+        document.body.innerHTML += "<p>" + user.email + "</p>";
+    } else {
+        window.location.href = "login.html";
+    }
+});
+</script>
 
-    .action-btn { background: var(--primary); color: white; border: none; width: 40px; height: 40px; border-radius: 8px; display: flex; align-items: center; justify-content: center; cursor: pointer; transition: all 0.2s; margin-left: 0.5rem; flex-shrink: 0; }
-    .action-btn:hover { background: var(--primary-hover); transform: scale(1.05); }
-    .icon-btn { background: transparent; color: var(--text-muted); border: none; width: 40px; height: 40px; border-radius: 8px; display: flex; align-items: center; justify-content: center; cursor: pointer; transition: all 0.2s; }
-    .icon-btn:hover { background: var(--glass-bg); color: white; }
-
-    .welcome-screen { display: flex; flex-direction: column; align-items: center; justify-content: center; height: 100%; text-align: center; opacity: 0.7; }
-    .loading-dots { display: flex; gap: 4px; padding: 5px 0; }
-    .dot { width: 8px; height: 8px; background: var(--text-muted); border-radius: 50%; animation: bounce 1.4s infinite ease-in-out both; }
-    .dot:nth-child(1) { animation-delay: -0.32s; }
-    .dot:nth-child(2) { animation-delay: -0.16s; }
-    
-    @keyframes bounce { 0%, 80%, 100% { transform: scale(0); } 40% { transform: scale(1); } }
-    
-    .placeholder-view { display: flex; flex-direction: column; align-items: center; justify-content: center; height: 100%; text-align: center; padding: 2rem; }
-    .placeholder-view h2 { margin-bottom: 1rem; font-size: 2rem; color: white; }
-    .placeholder-view p { color: var(--text-muted); max-width: 500px; }
-  </style>
-</head>
-<body>
-
-  <aside>
-    <div class="logo-container">
-      <a href="index.html" class="logo">Yuvilearn</a>
-    </div>
-
-    <div class="nav-items">
-      <div class="nav-item active" onclick="switchTab('solver-tab', this)">
-        <div class="nav-inner">
-          <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"></path></svg>
-          Doubt Solver
-        </div>
-      </div>
-      <div class="nav-item" onclick="switchTab('planner-tab', this)">
-        <div class="nav-inner">
-          <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="4" width="18" height="18" rx="2" ry="2"></rect><line x1="16" y1="2" x2="16" y2="6"></line><line x1="8" y1="2" x2="8" y2="6"></line><line x1="3" y1="10" x2="21" y2="10"></line></svg>
-          Study Planner
-        </div>
-        <span class="badge">New</span>
-      </div>
-      <div class="nav-item" onclick="switchTab('mock-tab', this)">
-        <div class="nav-inner">
-          <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M20.24 12.24a6 6 0 0 0-8.49-8.49L5 10.5V19h8.5z"></path><line x1="16" y1="8" x2="2" y2="22"></line><line x1="17.5" y1="15" x2="9" y2="15"></line></svg>
-          Mock Tests
-        </div>
-      </div>
-    </div>
-
-    <div class="user-profile" onclick="handleLogout()" title="Click to logout">
-      <div class="avatar">S</div>
-      <div>
-        <div style="font-size: 0.9rem; font-weight: 600;">Student</div>
-        <div style="font-size: 0.75rem; color: var(--text-muted);">Sign Out</div>
-      </div>
-    </div>
-  </aside>
-
-  <main>
-    
-    <!-- DASHBOARD: Doubt Solver Tab -->
-    <div id="solver-tab" class="tab-content active">
-        <header class="chat-header">
-          <div>
-            <h2 style="font-size: 1.25rem;">AI Doubt Solver</h2>
-          </div>
-          <div class="header-actions">
-            <button class="btn btn-outline" style="padding: 0.4rem 1rem; font-size: 0.8rem;" onclick="clearChat()">Clear Chat</button>
-            <select class="subject-selector" id="subjectSelector">
-              <option value="physics">Physics</option>
-              <option value="chemistry">Chemistry</option>
-              <option value="biology">Biology</option>
-            </select>
-          </div>
-        </header>
-
-        <div class="chat-container" id="chatbox">
-          <div class="welcome-screen" id="welcomeScreen">
-            <svg xmlns="http://www.w3.org/2000/svg" width="48" height="48" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" style="color: var(--primary); margin-bottom: 1rem;"><circle cx="12" cy="12" r="10"></circle><path d="M9.09 9a3 3 0 0 1 5.83 1c0 2-3 3-3 3"></path><line x1="12" y1="17" x2="12.01" y2="17"></line></svg>
-            <h3>What are you stuck on today?</h3>
-            <p style="color: var(--text-muted); margin-top: 0.5rem; max-width: 400px;">
-              Type your physics, chemistry, or biology doubt below. You can paste an image, and I will remember our chat.
-            </p>
-          </div>
-        </div>
-
-        <div class="input-container">
-          <div class="input-box">
-            <button class="icon-btn" title="Upload Image" onclick="simulateAttach()">
-              <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21.44 11.05l-9.19 9.19a6 6 0 0 1-8.49-8.49l9.19-9.19a4 4 0 0 1 5.66 5.66l-9.2 9.19a2 2 0 0 1-2.83-2.83l8.49-8.48"></path></svg>
-            </button>
-            <textarea 
-              id="userInput" 
-              rows="1" 
-              placeholder="e.g. Find the acceleration of a 2kg block..."
-              oninput="this.style.height = ''; this.style.height = this.scrollHeight + 'px'"
-              onkeydown="if(event.key === 'Enter' && !event.shiftKey) { event.preventDefault(); sendMessage(); }"
-            ></textarea>
-            <button class="action-btn" onclick="sendMessage()">
-              <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="22" y1="2" x2="11" y2="13"></line><polygon points="22 2 15 22 11 13 2 9 22 2"></polygon></svg>
-            </button>
-          </div>
-        </div>
-    </div>
-    
-    <!-- DASHBOARD: Study Planner Tab -->
-    <div id="planner-tab" class="tab-content">
-        <header class="chat-header">
-          <h2 style="font-size: 1.25rem;">Study Planner</h2>
-        </header>
-        <div class="placeholder-view">
-            <svg xmlns="http://www.w3.org/2000/svg" width="60" height="60" viewBox="0 0 24 24" fill="none" stroke="var(--primary)" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" style="margin-bottom: 1.5rem;"><path d="M12 2v20M17 5H9.5a3.5 3.5 0 0 0 0 7h5a3.5 3.5 0 0 1 0 7H6"></path></svg>
-            <h2 class="gradient-text">AI Study Planner Coming Soon</h2>
-            <p>We are building an intelligent system that will generate personalized weekly timetables focused perfectly on your Grade 9 & 10 pacing. Check back next week!</p>
-        </div>
-    </div>
-
-    <!-- DASHBOARD: Mock Tests Tab -->
-    <div id="mock-tab" class="tab-content">
-        <header class="chat-header">
-          <h2 style="font-size: 1.25rem;">Mock Tests</h2>
-        </header>
-        <div class="placeholder-view">
-            <svg xmlns="http://www.w3.org/2000/svg" width="60" height="60" viewBox="0 0 24 24" fill="none" stroke="var(--secondary)" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" style="margin-bottom: 1.5rem;"><path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"></path><polyline points="22 4 12 14.01 9 11.01"></polyline></svg>
-            <h2 class="gradient-text">Evaluate Your Understanding</h2>
-            <p>Our Mock testing engine will soon provide real-time questions customized exactly to the doubts you've been asking. Master specific chapters efficiently.</p>
-        </div>
-    </div>
-
-  </main>
-
-  <script src="js/app.js"></script>
 </body>
 </html>
