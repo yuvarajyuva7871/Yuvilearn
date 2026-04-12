@@ -13,9 +13,28 @@
 
 <button onclick="login()">Login</button>
 
+    <button onclick="googleLogin()" style="margin-top:10px;">
+Login with Google
+</button>
+
 <p>New user? <a href="signup.html">Sign Up</a></p>
 
 <script type="module">
+    import { GoogleAuthProvider, signInWithPopup } from "https://www.gstatic.com/firebasejs/10.12.0/firebase-auth.js";
+
+async function googleLogin() {
+    const provider = new GoogleAuthProvider();
+
+    try {
+        await signInWithPopup(auth, provider);
+        alert("Google Login Successful!");
+        window.location.href = "dashboard.html";
+    } catch (error) {
+        alert(error.message);
+    }
+}
+
+window.googleLogin = googleLogin;
 import { auth } from './firebase.js';
 import { signInWithEmailAndPassword } from "https://www.gstatic.com/firebasejs/10.12.0/firebase-auth.js";
 
