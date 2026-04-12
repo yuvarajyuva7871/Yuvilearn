@@ -1,12 +1,16 @@
-# Yuvilearn (Simple Version)
+# Yuvilearn (Rewritten Simple Version)
 
-Current simplified website pages:
-- `index.html` (home)
+This project is intentionally minimal and rewritten to avoid major merge conflicts.
+
+## Active pages
+- `index.html`
 - `class.html`
 - `course.html`
 - `neet.html`
 - `foundation.html`
 - `login.html`
 
-Tech:
-- HTML + CSS + JS
+## Stack
+- HTML
+- CSS
+- Vanilla JavaScript

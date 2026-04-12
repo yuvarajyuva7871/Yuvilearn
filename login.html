@@ -7,17 +7,35 @@
   <link rel="stylesheet" href="style.css">
 </head>
 <body>
-  <main class="container page login-wrap">
-    <a href="index.html">← Back to Home</a>
+  <header class="header">
+    <div class="container nav">
+      <a href="index.html" class="brand">Yuvilearn</a>
+      <nav class="links">
+        <a href="class.html">Class</a>
+        <a href="course.html">Course</a>
+        <a href="neet.html">NEET</a>
+        <a href="foundation.html">Foundation</a>
+      </nav>
+    </div>
+  </header>
+
+  <main class="container page">
     <h1>Login Interface</h1>
-    <form class="login-card">
-      <label>Email</label>
-      <input type="email" placeholder="student@yuvilearn.com" required>
-      <label>Password</label>
-      <input type="password" placeholder="••••••••" required>
-      <button class="btn" type="submit">Login</button>
+    <form class="login-card" data-login-form>
+      <label for="email">Email</label>
+      <input id="email" type="email" placeholder="student@yuvilearn.com" required>
+
+      <label for="password">Password</label>
+      <input id="password" type="password" placeholder="••••••••" required>
+
+      <button type="submit" class="btn">Login</button>
     </form>
   </main>
+
+  <footer class="footer">
+    <div class="container">© <span id="year"></span> Yuvilearn</div>
+  </footer>
+
   <script src="app.js"></script>
 </body>
 </html>

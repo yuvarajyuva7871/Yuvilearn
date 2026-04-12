@@ -3,8 +3,8 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <meta name="description" content="Yuvilearn simple portal with Class, Course, NEET, Foundation, and Login access.">
-  <title>Yuvilearn</title>
+  <meta name="description" content="Yuvilearn simple portal: Class, Course, NEET, Foundation, and Login.">
+  <title>Yuvilearn | Simple Portal</title>
   <link rel="stylesheet" href="style.css">
 </head>
 <body>
@@ -16,28 +16,44 @@
         <a href="course.html">Course</a>
         <a href="neet.html">NEET</a>
         <a href="foundation.html">Foundation</a>
-        <a class="btn small" href="login.html">Login</a>
+        <a href="login.html" class="btn small">Login</a>
       </nav>
     </div>
   </header>
 
   <main class="container hero">
-    <p class="tag">Simple Student Dashboard</p>
-    <h1>Choose one section and start learning.</h1>
-    <p class="sub">We’ve kept Yuvilearn simple for now: Class, Course, NEET, Foundation, and Login only.</p>
+    <span class="tag">Simple Dashboard</span>
+    <h1>Choose your section and continue learning.</h1>
+    <p class="subtitle">Only the requested modules are active right now: Class, Course, NEET, Foundation, and Login.</p>
 
     <section class="grid">
-      <a class="card" href="class.html"><h2>Class</h2><p>Daily class schedule and subject rooms.</p></a>
-      <a class="card" href="course.html"><h2>Course</h2><p>Browse available course plans and batches.</p></a>
-      <a class="card" href="neet.html"><h2>NEET</h2><p>NEET-specific preparation modules and tests.</p></a>
-      <a class="card" href="foundation.html"><h2>Foundation</h2><p>Foundation program for early preparation.</p></a>
-      <a class="card card-login" href="login.html"><h2>Login Interface</h2><p>Student and mentor login access.</p></a>
+      <a href="class.html" class="card">
+        <h2>Class</h2>
+        <p>Open daily class schedule and classroom links.</p>
+      </a>
+      <a href="course.html" class="card">
+        <h2>Course</h2>
+        <p>View available batches and course overview.</p>
+      </a>
+      <a href="neet.html" class="card">
+        <h2>NEET</h2>
+        <p>NEET preparation modules and practice plan.</p>
+      </a>
+      <a href="foundation.html" class="card">
+        <h2>Foundation</h2>
+        <p>Foundation track for concept building.</p>
+      </a>
+      <a href="login.html" class="card">
+        <h2>Login Interface</h2>
+        <p>Student and mentor sign-in entry point.</p>
+      </a>
     </section>
   </main>
 
   <footer class="footer">
     <div class="container">© <span id="year"></span> Yuvilearn</div>
   </footer>
+
   <script src="app.js"></script>
 </body>
 </html>
