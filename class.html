@@ -1,34 +1,34 @@
-<!DOCTYPE html>
-<html>
+<!doctype html>
+<html lang="en">
 <head>
-  <title>Select Class</title>
-  <script src="https://cdn.tailwindcss.com"></script>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Class | Yuvilearn</title>
+  <link rel="stylesheet" href="style.css">
 </head>
+<body>
+  <header class="header">
+    <div class="container nav">
+      <a href="index.html" class="brand">Yuvilearn</a>
+      <nav class="links">
+        <a href="class.html">Class</a>
+        <a href="course.html">Course</a>
+        <a href="neet.html">NEET</a>
+        <a href="foundation.html">Foundation</a>
+        <a href="login.html" class="btn small">Login</a>
+      </nav>
+    </div>
+  </header>
 
-<body class="bg-gray-50 text-center p-8">
+  <main class="container main">
+    <section class="panel">
+      <h1>Class</h1>
+      <p>Class schedule and lesson links will be listed here.</p>
+      <a class="btn" href="login.html">Login to Continue</a>
+    </section>
+  </main>
 
-<h1 class="text-3xl font-bold">Select Your Class</h1>
-
-<div class="grid grid-cols-1 md:grid-cols-3 gap-6 mt-8">
-
-  <a href="target.html?class=11"
-     class="bg-white p-6 rounded-xl shadow hover:scale-105">
-     Class 11
-  </a>
-
-  <a href="target.html?class=12"
-     class="bg-white p-6 rounded-xl shadow hover:scale-105">
-     Class 12
-  </a>
-
-  <a href="target.html?class=dropper"
-     class="bg-white p-6 rounded-xl shadow hover:scale-105">
-     Dropper
-  </a>
-<a href="courses.html?class=11">Class 11</a>
-<a href="courses.html?class=12">Class 12</a>
-<a href="courses.html?class=dropper">Dropper</a>
-</div>
-
+  <footer class="footer"><div class="container">© <span id="year"></span> Yuvilearn</div></footer>
+  <script src="app.js"></script>
 </body>
 </html>
