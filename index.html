@@ -1,151 +1,68 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Yuvilearn | Advanced AI Doubt Solver for NEET</title>
-  <link rel="stylesheet" href="css/global.css">
-  <style>
-    /* Content sections */
-    section { padding: 6rem 5%; position: relative; z-index: 10; }
-    .section-title { text-align: center; font-size: 2.5rem; margin-bottom: 3rem; }
-    
-    .hero { min-height: 100vh; display: flex; flex-direction: column; justify-content: center; align-items: center; text-align: center; position: relative; }
-    .hero-content { max-width: 800px; z-index: 10; padding-top: 4rem;}
-    .badge { display: inline-block; padding: 0.5rem 1rem; background: var(--glass-bg); border: 1px solid var(--glass-border); border-radius: 999px; font-size: 0.875rem; font-weight: 500; color: #cbd5e1; margin-bottom: 1.5rem; }
-    .hero h1 { font-size: 4rem; line-height: 1.1; margin-bottom: 1.5rem; }
-    .hero p { font-size: 1.25rem; color: var(--text-muted); margin-bottom: 2.5rem; }
-    .hero-buttons { display: flex; gap: 1rem; justify-content: center; }
-
-    /* Features Grid */
-    .features-preview { margin-top: 4rem; display: flex; gap: 2rem; justify-content: center; flex-wrap: wrap; }
-    .feature-card { padding: 1.5rem; width: 250px; text-align: left; transition: transform 0.3s ease; }
-    .feature-card:hover { transform: translateY(-5px); border-color: rgba(79, 70, 229, 0.5);}
-    .feature-icon { font-size: 2rem; margin-bottom: 1rem; }
-    .feature-card h3 { font-size: 1.25rem; margin-bottom: 0.5rem; }
-    .feature-card p { font-size: 0.9rem; color: var(--text-muted); }
-
-    /* How It Works */
-    .steps-container { display: flex; max-width: 1000px; margin: 0 auto; gap: 3rem; align-items: stretch; justify-content: space-between; flex-wrap: wrap; }
-    .step { flex: 1; min-width: 280px; text-align: center; padding: 2rem; background: rgba(30, 41, 59, 0.5); border-radius: 16px; border: 1px solid var(--glass-border); position: relative; }
-    .step-number { width: 40px; height: 40px; background: var(--primary); color: white; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-weight: bold; font-size: 1.2rem; margin: -3rem auto 1.5rem auto; box-shadow: 0 4px 10px rgba(0,0,0,0.3); }
-
-    /* Testimonials */
-    .testimonials { background: rgba(15, 23, 42, 0.5); }
-    .testimonial-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 2rem; max-width: 1000px; margin: 0 auto; }
-    .testimonial-card { padding: 2rem; }
-    .quote { font-style: italic; color: #e2e8f0; margin-bottom: 1rem; }
-    .author { display: flex; align-items: center; gap: 1rem; }
-    .author img { width: 40px; height: 40px; border-radius: 50%; background: var(--secondary); }
-    
-    footer { text-align: center; padding: 3rem 5%; border-top: 1px solid var(--glass-border); color: var(--text-muted); }
-
-    .blob { position: absolute; filter: blur(80px); z-index: 0; opacity: 0.4; animation: float 10s infinite ease-in-out alternate; }
-    .blob-1 { top: 20%; left: 10%; width: 300px; height: 300px; background: var(--primary); border-radius: 50%; }
-    .blob-2 { bottom: 10%; right: 10%; width: 400px; height: 400px; background: var(--secondary); border-radius: 50%; }
-    @keyframes float { 0% { transform: translateY(0) scale(1); } 100% { transform: translateY(30px) scale(1.1); } }
-  </style>
+    <meta charset="UTF-8">
+    <title>Yuvilearn AI - NEET Platform</title>
+    <style>
+        body {
+            font-family: Arial;
+            background: #0f172a;
+            color: white;
+            text-align: center;
+        }
+        .container {
+            margin-top: 50px;
+        }
+        textarea {
+            width: 60%;
+            height: 100px;
+            border-radius: 10px;
+            padding: 10px;
+        }
+        button {
+            padding: 10px 20px;
+            border: none;
+            border-radius: 8px;
+            background: #22c55e;
+            color: white;
+            cursor: pointer;
+        }
+        .output {
+            margin-top: 20px;
+            background: #1e293b;
+            padding: 15px;
+            border-radius: 10px;
+            width: 60%;
+            margin-left: auto;
+            margin-right: auto;
+        }
+    </style>
 </head>
-<body class="bg-pattern">
-  <div class="blob blob-1"></div>
-  <div class="blob blob-2"></div>
+<body>
 
-  <nav id="navbar">
-    <div class="logo">Yuvilearn</div>
-    <div>
-      <a href="login.html" class="btn btn-outline" style="margin-right: 1rem;">Login</a>
-      <a href="login.html" class="btn btn-primary">Join for Free</a>
+    <div class="container">
+        <h1>🚀 Yuvilearn AI</h1>
+        <h3>Your NEET Smart Study Companion</h3>
+
+        <select id="subject">
+            <option>Physics</option>
+            <option>Chemistry</option>
+            <option>Biology</option>
+        </select>
+
+        <br><br>
+
+        <textarea id="question" placeholder="Ask your NEET doubt..."></textarea>
+        <br><br>
+
+        <button onclick="solveDoubt()">Solve with AI</button>
+
+        <div class="output" id="answerBox">
+            Answer will appear here...
+        </div>
     </div>
-  </nav>
 
-  <main>
-    <section class="hero">
-      <div class="hero-content">
-        <div class="badge fade-in-up" style="animation-delay: 0.1s;">🚀 Next-Gen AI for Grade 9 & 10</div>
-        <h1 class="fade-in-up" style="animation-delay: 0.3s;">
-          The Smartest AI Doubt Solver for <span class="gradient-text">NEET Foundation</span>
-        </h1>
-        <p class="fade-in-up" style="animation-delay: 0.5s;">
-          Stop searching for messy internet answers. Get instant, step-by-step explanations designed exclusively to build your Physics, Chemistry, and Biology core concepts.
-        </p>
-        <div class="hero-buttons fade-in-up" style="animation-delay: 0.7s;">
-          <a href="login.html" class="btn btn-primary" style="padding: 1rem 2rem; font-size: 1.1rem;">Start Solving Doubts</a>
-          <a href="#how-it-works" class="btn btn-outline" style="padding: 1rem 2rem; font-size: 1.1rem;">See How It Works</a>
-        </div>
-        
-        <div class="features-preview fade-in-up" style="animation-delay: 1s;">
-          <div class="glass-panel feature-card">
-            <div class="feature-icon">⚡</div>
-            <h3>Instant Answers</h3>
-            <p>Get accurate solutions in seconds, not hours. Available 24/7.</p>
-          </div>
-          <div class="glass-panel feature-card">
-            <div class="feature-icon">🧠</div>
-            <h3>Typewriter Logic</h3>
-            <p>Follow along as the AI types out the logic step-by-step.</p>
-          </div>
-          <div class="glass-panel feature-card">
-            <div class="feature-icon">💾</div>
-            <h3>Smart Memory</h3>
-            <p>Your dashboard remembers all your past questions and concepts.</p>
-          </div>
-        </div>
-      </div>
-    </section>
+    <script src="script.js"></script>
 
-    <section id="how-it-works">
-      <h2 class="section-title">How <span class="gradient-text">Yuvilearn</span> Works</h2>
-      <div class="steps-container">
-        <div class="step">
-          <div class="step-number">1</div>
-          <h3>Upload or Type</h3>
-          <p style="color: var(--text-muted); margin-top: 1rem;">Have a doubt? Just type it out into the focused dashboard interface.</p>
-        </div>
-        <div class="step">
-          <div class="step-number">2</div>
-          <h3>AI Analysis</h3>
-          <p style="color: var(--text-muted); margin-top: 1rem;">Our custom AI model breaks down your problem into core PCB foundation theories.</p>
-        </div>
-        <div class="step">
-          <div class="step-number">3</div>
-          <h3>Master The Concept</h3>
-          <p style="color: var(--text-muted); margin-top: 1rem;">Read through the step-by-step explanation generated in real-time, and ask follow-ups!</p>
-        </div>
-      </div>
-    </section>
-
-    <section class="testimonials">
-      <h2 class="section-title">Loved by Students</h2>
-      <div class="testimonial-grid">
-        <div class="glass-panel testimonial-card">
-          <p class="quote">"This is literally a lifesaver. I was struggling with Newton's laws and Yuvilearn broke it down so simply. The chat interface feels exactly like my private tutor."</p>
-          <div class="author">
-            <div class="avatar" style="text-align:center; padding-top:6px; font-weight:bold;">A</div>
-            <div>
-              <h4>Ananya R.</h4>
-              <span style="font-size: 0.8rem; color: var(--text-muted);">Grade 10 Foundation</span>
-            </div>
-          </div>
-        </div>
-        <div class="glass-panel testimonial-card">
-          <p class="quote">"I love that it remembers my old doubts natively. It's so clean, there are no ads, just straight focus on Biology and Physics."</p>
-          <div class="author">
-            <div class="avatar" style="text-align:center; padding-top:6px; font-weight:bold;">K</div>
-            <div>
-              <h4>Karthik S.</h4>
-              <span style="font-size: 0.8rem; color: var(--text-muted);">Grade 9 Foundation</span>
-            </div>
-          </div>
-        </div>
-      </div>
-    </section>
-
-    <footer>
-      <h2 class="logo" style="margin-bottom: 1rem;">Yuvilearn</h2>
-      <p>&copy; 2026 Yuvilearn EdTech. Elevating NEET Foundation.</p>
-    </footer>
-  </main>
-
-  <script src="js/app.js"></script>
 </body>
 </html>
