@@ -57,6 +57,29 @@ async function login() {
 
 window.login = login;
 </script>
+async function login() {
+    const email = document.getElementById("email").value;
+    const password = document.getElementById("password").value;
 
+    try {
+        const userCredential = await signInWithEmailAndPassword(auth, email, password);
+
+        // ✅ STORE BASIC DATA (IMPORTANT)
+        localStorage.setItem("email", email);
+
+        // Optional fallback name
+        if (!localStorage.getItem("name")) {
+            localStorage.setItem("name", "Student");
+            localStorage.setItem("class", "Not set");
+            localStorage.setItem("goal", "NEET");
+        }
+
+        alert("Login successful!");
+        window.location.href = "dashboard.html";
+
+    } catch (error) {
+        alert(error.message);
+    }
+}
 </body>
 </html>
