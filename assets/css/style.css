@@ -1,0 +1,135 @@
+:root {
+  --bg: #f4f7fb;
+  --surface: #ffffff;
+  --text: #0f172a;
+  --muted: #64748b;
+  --primary: #4f46e5;
+  --border: #e2e8f0;
+  --radius: 14px;
+}
+
+* { box-sizing: border-box; }
+body {
+  margin: 0;
+  font-family: Inter, Arial, sans-serif;
+  background: var(--bg);
+  color: var(--text);
+}
+
+a { text-decoration: none; color: inherit; }
+
+.container { width: min(980px, 92vw); margin: 0 auto; }
+
+.header {
+  background: var(--surface);
+  border-bottom: 1px solid var(--border);
+}
+
+.nav {
+  min-height: 72px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+}
+
+.brand { font-size: 1.2rem; font-weight: 800; color: var(--primary); }
+
+.links {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 14px;
+  align-items: center;
+  color: var(--muted);
+  font-weight: 600;
+}
+
+.links a:hover { color: var(--primary); }
+
+.btn {
+  border: 0;
+  background: var(--primary);
+  color: #fff;
+  border-radius: 10px;
+  padding: 10px 14px;
+  font-weight: 700;
+  display: inline-block;
+}
+
+.btn.small {
+  border-radius: 999px;
+  padding: 8px 12px;
+}
+
+.main { padding: 44px 0; }
+
+.tag {
+  display: inline-block;
+  background: #e0e7ff;
+  color: #3730a3;
+  font-size: .82rem;
+  font-weight: 700;
+  border-radius: 999px;
+  padding: 6px 10px;
+}
+
+.subtitle { color: var(--muted); max-width: 62ch; }
+
+.grid {
+  margin-top: 20px;
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 14px;
+}
+
+.card,
+.panel {
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  padding: 16px;
+}
+
+.card h2,
+.panel h1 {
+  margin: 0 0 8px;
+}
+
+.card p,
+.panel p,
+.helper-note {
+  margin: 0;
+  color: var(--muted);
+}
+
+.login-card {
+  max-width: 460px;
+  display: grid;
+  gap: 8px;
+}
+
+label { font-weight: 600; font-size: .95rem; }
+
+input {
+  width: 100%;
+  border: 1px solid var(--border);
+  border-radius: 8px;
+  padding: 10px;
+}
+
+.footer {
+  margin-top: 34px;
+  border-top: 1px solid var(--border);
+  color: var(--muted);
+  padding: 20px 0;
+}
+
+@media (max-width: 720px) {
+  .nav {
+    flex-direction: column;
+    align-items: flex-start;
+    padding: 10px 0;
+  }
+
+  .grid { grid-template-columns: 1fr; }
+}
