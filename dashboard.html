@@ -43,6 +43,13 @@ button {
 .logout {
     background: red;
 }
+
+textarea {
+    width: 100%;
+    padding: 10px;
+    border-radius: 8px;
+    border: none;
+}
 </style>
 </head>
 
@@ -66,7 +73,18 @@ button {
         <h3>📚 Learning Actions</h3>
         <button onclick="startLearning()">Start Learning</button>
         <button onclick="takeTest()">Take Test</button>
-        <button onclick="askAI()">Ask AI Doubt</button>
+    </div>
+
+    <!-- AI DOUBT SOLVER -->
+    <div class="card">
+        <h3>🤖 AI Doubt Solver</h3>
+
+        <textarea id="question" placeholder="Ask your doubt..."></textarea>
+        <br><br>
+
+        <button onclick="askAI()">Get Answer</button>
+
+        <p id="answer" style="margin-top:15px;color:#22c55e;"></p>
     </div>
 
     <!-- Progress -->
@@ -88,16 +106,14 @@ import { auth } from './firebase.js';
 import { onAuthStateChanged, signOut } 
 from "https://www.gstatic.com/firebasejs/10.12.0/firebase-auth.js";
 
-// 🔹 AUTH CHECK (REAL FIX)
+/* 🔹 AUTH CHECK */
 onAuthStateChanged(auth, (user) => {
 
     if (!user) {
-        // ❌ Not logged in
         window.location.href = "login.html";
         return;
     }
 
-    // ✅ Logged in user
     const name = localStorage.getItem("name") || user.displayName || "Student";
     const studentClass = localStorage.getItem("class") || "Not set";
     const goal = localStorage.getItem("goal") || "NEET";
@@ -107,16 +123,66 @@ onAuthStateChanged(auth, (user) => {
     document.getElementById("goal").innerText = "Goal: " + goal;
 });
 
-// 🔹 LOGOUT (PROPER WAY)
+/* 🔹 LOGOUT */
 async function logout() {
     await signOut(auth);
     localStorage.clear();
     window.location.href = "login.html";
 }
-
 window.logout = logout;
 
-// 🔹 FEATURES (PLACEHOLDER)
+/* 🔹 AI DOUBT SOLVER */
+async function askAI() {
+
+    const question = document.getElementById("question").value;
+    const answerBox = document.getElementById("answer");
+
+    if (!question) {
+        alert("Enter your doubt first");
+        return;
+    }
+
+    answerBox.innerText = "Thinking... ⏳";
+
+    try {
+        const response = await fetch("https://api.openai.com/v1/chat/completions", {
+            method: "POST",
+            headers: {
+                "Content-Type": "application/json",
+                "Authorization": "Bearer YOUR_OPENAI_API_KEY"
+            },
+            body: JSON.stringify({
+                model: "gpt-4o-mini",
+                messages: [
+                    {
+                        role: "system",
+                        content: "You are a NEET tutor. Explain clearly with simple steps."
+                    },
+                    {
+                        role: "user",
+                        content: question
+                    }
+                ]
+            })
+        });
+
+        const data = await response.json();
+
+        if (data.error) {
+            answerBox.innerText = "Error: " + data.error.message;
+            return;
+        }
+
+        answerBox.innerText = data.choices[0].message.content;
+
+    } catch (error) {
+        answerBox.innerText = "Error: " + error.message;
+    }
+}
+
+window.askAI = askAI;
+
+/* 🔹 PLACEHOLDERS */
 function startLearning() {
     alert("Coming soon: Learning modules");
 }
@@ -125,13 +191,8 @@ function takeTest() {
     alert("Coming soon: NEET tests");
 }
 
-function askAI() {
-    alert("Coming soon: AI doubt solver");
-}
-
 window.startLearning = startLearning;
 window.takeTest = takeTest;
-window.askAI = askAI;
 
 </script>
 
