@@ -56,7 +56,7 @@ button {
 
     <!-- Student Info -->
     <div class="card">
-        <h2 id="welcome"></h2>
+        <h2 id="welcome">Loading...</h2>
         <p id="class"></p>
         <p id="goal"></p>
     </div>
@@ -82,28 +82,41 @@ button {
 
 </div>
 
-<script>
-/* 🔹 Load user data */
-const name = localStorage.getItem("name");
-const studentClass = localStorage.getItem("class");
-const goal = localStorage.getItem("goal");
+<script type="module">
 
-/* 🔹 If not logged in */
-if (!name) {
-    window.location.href = "login.html";
-}
+import { auth } from './firebase.js';
+import { onAuthStateChanged, signOut } 
+from "https://www.gstatic.com/firebasejs/10.12.0/firebase-auth.js";
 
-/* 🔹 Display data */
-document.getElementById("welcome").innerText = "Welcome " + name + " 👋";
-document.getElementById("class").innerText = "Class: " + studentClass;
-document.getElementById("goal").innerText = "Goal: " + goal;
+// 🔹 AUTH CHECK (REAL FIX)
+onAuthStateChanged(auth, (user) => {
 
-/* 🔹 Functions */
-function logout() {
+    if (!user) {
+        // ❌ Not logged in
+        window.location.href = "login.html";
+        return;
+    }
+
+    // ✅ Logged in user
+    const name = localStorage.getItem("name") || user.displayName || "Student";
+    const studentClass = localStorage.getItem("class") || "Not set";
+    const goal = localStorage.getItem("goal") || "NEET";
+
+    document.getElementById("welcome").innerText = "Welcome " + name + " 👋";
+    document.getElementById("class").innerText = "Class: " + studentClass;
+    document.getElementById("goal").innerText = "Goal: " + goal;
+});
+
+// 🔹 LOGOUT (PROPER WAY)
+async function logout() {
+    await signOut(auth);
     localStorage.clear();
     window.location.href = "login.html";
 }
 
+window.logout = logout;
+
+// 🔹 FEATURES (PLACEHOLDER)
 function startLearning() {
     alert("Coming soon: Learning modules");
 }
@@ -115,6 +128,11 @@ function takeTest() {
 function askAI() {
     alert("Coming soon: AI doubt solver");
 }
+
+window.startLearning = startLearning;
+window.takeTest = takeTest;
+window.askAI = askAI;
+
 </script>
 
 </body>
