@@ -7,29 +7,6 @@
 <body style="background:#0f172a; color:white; text-align:center;">
 
 <h1>Sign Up</h1>
-    async function signup() {
-    const name = document.getElementById("name").value;
-    const studentClass = document.getElementById("class").value;
-    const goal = document.getElementById("goal").value;
-    const email = document.getElementById("email").value;
-    const password = document.getElementById("password").value;
-
-    try {
-        await createUserWithEmailAndPassword(auth, email, password);
-
-        // ✅ STORE DATA LOCALLY
-        localStorage.setItem("name", name);
-        localStorage.setItem("class", studentClass);
-        localStorage.setItem("goal", goal);
-        localStorage.setItem("email", email);
-
-        alert("Account created!");
-        window.location.href = "dashboard.html";
-
-    } catch (error) {
-        alert(error.message);
-    }
-}
 
 <input id="name" placeholder="Full Name"><br><br>
 
@@ -47,23 +24,38 @@
 <button onclick="signup()">Create Account</button>
 
 <script type="module">
+
 import { auth } from './firebase.js';
-import { createUserWithEmailAndPassword } from "https://www.gstatic.com/firebasejs/10.12.0/firebase-auth.js";
+import { createUserWithEmailAndPassword } 
+from "https://www.gstatic.com/firebasejs/10.12.0/firebase-auth.js";
 
 async function signup() {
+    const name = document.getElementById("name").value;
+    const studentClass = document.getElementById("class").value;
+    const goal = document.getElementById("goal").value;
     const email = document.getElementById("email").value;
     const password = document.getElementById("password").value;
 
     try {
         await createUserWithEmailAndPassword(auth, email, password);
+
+        // ✅ Store data locally
+        localStorage.setItem("name", name);
+        localStorage.setItem("class", studentClass);
+        localStorage.setItem("goal", goal);
+        localStorage.setItem("email", email);
+
         alert("Account created!");
-        window.location.href = "login.html";
+        window.location.href = "dashboard.html";
+
     } catch (error) {
         alert(error.message);
     }
 }
 
+// expose function
 window.signup = signup;
+
 </script>
 
 </body>
