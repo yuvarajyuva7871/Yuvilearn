@@ -24,50 +24,22 @@ Login with Google
 <p>New user? <a href="signup.html">Sign Up</a></p>
 
 <script type="module">
-    import { GoogleAuthProvider, signInWithPopup } from "https://www.gstatic.com/firebasejs/10.12.0/firebase-auth.js";
 
-async function googleLogin() {
-    const provider = new GoogleAuthProvider();
-
-    try {
-        await signInWithPopup(auth, provider);
-        alert("Google Login Successful!");
-        window.location.href = "dashboard.html";
-    } catch (error) {
-        alert(error.message);
-    }
-}
-
-window.googleLogin = googleLogin;
 import { auth } from './firebase.js';
-import { signInWithEmailAndPassword } from "https://www.gstatic.com/firebasejs/10.12.0/firebase-auth.js";
+import { signInWithEmailAndPassword, GoogleAuthProvider, signInWithPopup } 
+from "https://www.gstatic.com/firebasejs/10.12.0/firebase-auth.js";
 
+// 🔹 EMAIL LOGIN
 async function login() {
     const email = document.getElementById("email").value;
     const password = document.getElementById("password").value;
 
     try {
         await signInWithEmailAndPassword(auth, email, password);
-        alert("Login successful!");
-        window.location.href = "dashboard.html";
-    } catch (error) {
-        alert(error.message);
-    }
-}
 
-window.login = login;
-</script>
-async function login() {
-    const email = document.getElementById("email").value;
-    const password = document.getElementById("password").value;
-
-    try {
-        const userCredential = await signInWithEmailAndPassword(auth, email, password);
-
-        // ✅ STORE BASIC DATA (IMPORTANT)
+        // ✅ Store user data
         localStorage.setItem("email", email);
 
-        // Optional fallback name
         if (!localStorage.getItem("name")) {
             localStorage.setItem("name", "Student");
             localStorage.setItem("class", "Not set");
@@ -81,5 +53,31 @@ async function login() {
         alert(error.message);
     }
 }
+
+// 🔹 GOOGLE LOGIN
+async function googleLogin() {
+    const provider = new GoogleAuthProvider();
+
+    try {
+        const result = await signInWithPopup(auth, provider);
+
+        // Store basic data
+        localStorage.setItem("email", result.user.email);
+        localStorage.setItem("name", result.user.displayName || "Student");
+
+        alert("Google Login Successful!");
+        window.location.href = "dashboard.html";
+
+    } catch (error) {
+        alert(error.message);
+    }
+}
+
+// expose to HTML
+window.login = login;
+window.googleLogin = googleLogin;
+
+</script>
+
 </body>
 </html>
