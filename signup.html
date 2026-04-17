@@ -1,62 +1,170 @@
 <!DOCTYPE html>
-<html>
+<html lang="en">
 <head>
-<title>Signup - Yuvilearn</title>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Sign Up | Yuvilearn</title>
+<style>
+:root {
+    --bg: #020617;
+    --surface: #0f172a;
+    --text: #f8fafc;
+    --muted: #94a3b8;
+    --border: #1e293b;
+    --brand: #22c55e;
+    --brand-dark: #16a34a;
+}
+* { box-sizing: border-box; }
+body {
+    margin: 0;
+    min-height: 100vh;
+    font-family: Inter, 'Segoe UI', sans-serif;
+    color: var(--text);
+    background: radial-gradient(circle at top, #133664, var(--bg) 52%);
+    display: grid;
+    place-items: center;
+    padding: 20px;
+}
+.card {
+    width: min(480px, 100%);
+    background: rgba(15, 23, 42, 0.92);
+    border: 1px solid var(--border);
+    border-radius: 16px;
+    padding: 24px;
+}
+h1 { margin: 0 0 8px; }
+p { margin: 0 0 18px; color: var(--muted); }
+.grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 12px;
+}
+.field { margin-bottom: 12px; }
+label { display:block; margin-bottom: 6px; font-weight: 600; font-size: 0.92rem; }
+input, select {
+    width: 100%;
+    padding: 10px;
+    border-radius: 10px;
+    border: 1px solid #334155;
+    background: #071225;
+    color: var(--text);
+}
+button {
+    width: 100%;
+    margin-top: 4px;
+    border: none;
+    border-radius: 10px;
+    padding: 11px;
+    font-weight: 700;
+    cursor: pointer;
+    background: linear-gradient(90deg, var(--brand), var(--brand-dark));
+    color: #04210f;
+}
+.links {
+    margin-top: 14px;
+    text-align: center;
+    color: var(--muted);
+}
+.links a { color: #86efac; }
+.status { min-height: 20px; margin-top: 10px; color: #fca5a5; font-size: 0.9rem; }
+@media (max-width: 700px) { .grid { grid-template-columns: 1fr; } }
+</style>
 </head>
+<body>
+<main class="card">
+    <h1>Create your Yuvilearn account</h1>
+    <p>Build your AI study plan in under 2 minutes.</p>
 
-<body style="background:#0f172a; color:white; text-align:center;">
+    <div class="field">
+        <label for="name">Full name</label>
+        <input id="name" placeholder="Enter full name" autocomplete="name">
+    </div>
 
-<h1>Sign Up</h1>
+    <div class="grid">
+        <div class="field">
+            <label for="class">Class</label>
+            <select id="class">
+                <option value="">Select class</option>
+                <option value="9">Class 9</option>
+                <option value="10">Class 10</option>
+                <option value="11">Class 11</option>
+                <option value="12">Class 12</option>
+            </select>
+        </div>
+        <div class="field">
+            <label for="goal">Goal</label>
+            <select id="goal">
+                <option value="NEET">NEET</option>
+                <option value="Foundation">Foundation</option>
+                <option value="Olympiad">Olympiad</option>
+            </select>
+        </div>
+    </div>
 
-<input id="name" placeholder="Full Name"><br><br>
+    <div class="field">
+        <label for="email">Email</label>
+        <input id="email" type="email" placeholder="student@email.com" autocomplete="email">
+    </div>
 
-<select id="class">
-    <option value="">Select Class</option>
-    <option value="9">Class 9</option>
-    <option value="10">Class 10</option>
-</select><br><br>
+    <div class="field">
+        <label for="password">Password</label>
+        <input id="password" type="password" placeholder="Create password (min 6 chars)" autocomplete="new-password">
+    </div>
 
-<input id="goal" placeholder="Goal (NEET / Foundation)"><br><br>
+    <button onclick="signup()">Create account</button>
+    <div id="status" class="status"></div>
 
-<input id="email" placeholder="Email"><br><br>
-<input id="password" type="password" placeholder="Password"><br><br>
-
-<button onclick="signup()">Create Account</button>
+    <div class="links">
+        Already have an account? <a href="login.html">Login</a><br>
+        <a href="index.html">← Back to Home</a>
+    </div>
+</main>
 
 <script type="module">
-
 import { auth } from './firebase.js';
-import { createUserWithEmailAndPassword } 
-from "https://www.gstatic.com/firebasejs/10.12.0/firebase-auth.js";
+import { createUserWithEmailAndPassword, updateProfile } from "https://www.gstatic.com/firebasejs/10.12.0/firebase-auth.js";
+
+const statusEl = document.getElementById('status');
+
+function setStatus(message, isError = true) {
+    statusEl.style.color = isError ? '#fca5a5' : '#86efac';
+    statusEl.textContent = message;
+}
 
 async function signup() {
-    const name = document.getElementById("name").value;
-    const studentClass = document.getElementById("class").value;
-    const goal = document.getElementById("goal").value;
-    const email = document.getElementById("email").value;
-    const password = document.getElementById("password").value;
+    const name = document.getElementById('name').value.trim();
+    const studentClass = document.getElementById('class').value;
+    const goal = document.getElementById('goal').value;
+    const email = document.getElementById('email').value.trim();
+    const password = document.getElementById('password').value;
+
+    if (!name || !studentClass || !goal || !email || !password) {
+        setStatus('Please complete all fields before creating account.');
+        return;
+    }
+
+    if (password.length < 6) {
+        setStatus('Password must be at least 6 characters long.');
+        return;
+    }
 
     try {
-        await createUserWithEmailAndPassword(auth, email, password);
+        const result = await createUserWithEmailAndPassword(auth, email, password);
+        await updateProfile(result.user, { displayName: name });
 
-        // ✅ Store data locally
-        localStorage.setItem("name", name);
-        localStorage.setItem("class", studentClass);
-        localStorage.setItem("goal", goal);
-        localStorage.setItem("email", email);
+        localStorage.setItem('name', name);
+        localStorage.setItem('class', studentClass);
+        localStorage.setItem('goal', goal);
+        localStorage.setItem('email', email);
 
-        alert("Account created!");
-        window.location.href = "dashboard.html";
-
+        setStatus('Account created successfully. Redirecting...', false);
+        window.location.href = 'dashboard.html';
     } catch (error) {
-        alert(error.message);
+        setStatus(error.message);
     }
 }
 
-// expose function
 window.signup = signup;
-
 </script>
-
 </body>
 </html>

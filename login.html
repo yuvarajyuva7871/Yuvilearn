@@ -1,83 +1,153 @@
 <!DOCTYPE html>
-<html>
+<html lang="en">
 <head>
-<title>Login - Yuvilearn</title>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Login | Yuvilearn</title>
+<style>
+:root {
+    --bg: #020617;
+    --surface: #0f172a;
+    --text: #f8fafc;
+    --muted: #94a3b8;
+    --border: #1e293b;
+    --brand: #22c55e;
+    --brand-dark: #16a34a;
+}
+* { box-sizing: border-box; }
+body {
+    margin: 0;
+    min-height: 100vh;
+    font-family: Inter, 'Segoe UI', sans-serif;
+    color: var(--text);
+    background: radial-gradient(circle at top, #143866, var(--bg) 52%);
+    display: grid;
+    place-items: center;
+    padding: 20px;
+}
+.card {
+    width: min(440px, 100%);
+    background: rgba(15, 23, 42, 0.92);
+    border: 1px solid var(--border);
+    border-radius: 16px;
+    padding: 26px;
+}
+h1 { margin: 0 0 8px; }
+p { margin: 0 0 20px; color: var(--muted); }
+label { font-weight: 600; font-size: 0.92rem; }
+input {
+    width: 100%;
+    margin: 8px 0 14px;
+    padding: 11px;
+    border-radius: 10px;
+    border: 1px solid #334155;
+    background: #071225;
+    color: var(--text);
+}
+button {
+    width: 100%;
+    margin-top: 4px;
+    border: none;
+    border-radius: 10px;
+    padding: 11px;
+    font-weight: 700;
+    cursor: pointer;
+}
+.primary {
+    background: linear-gradient(90deg, var(--brand), var(--brand-dark));
+    color: #04210f;
+}
+.secondary {
+    background: #172b4d;
+    border: 1px solid #294d7a;
+    color: #c6e3ff;
+}
+.links {
+    margin-top: 16px;
+    text-align: center;
+    color: var(--muted);
+}
+.links a { color: #86efac; }
+.status {
+    margin-top: 10px;
+    min-height: 20px;
+    font-size: 0.9rem;
+    color: #fca5a5;
+}
+</style>
 </head>
+<body>
+<main class="card">
+    <h1>Welcome back 👋</h1>
+    <p>Sign in to continue your NEET learning plan.</p>
 
-<body style="background:#0f172a; color:white; text-align:center;">
+    <label for="email">Email</label>
+    <input id="email" type="email" placeholder="student@email.com" autocomplete="email">
 
-<h1>Login</h1>
+    <label for="password">Password</label>
+    <input id="password" type="password" placeholder="Enter password" autocomplete="current-password">
 
-<input id="email" placeholder="Email"><br><br>
-<input id="password" type="password" placeholder="Password"><br><br>
+    <button class="primary" onclick="login()">Login</button>
+    <button class="secondary" onclick="googleLogin()">Continue with Google</button>
+    <div class="status" id="status"></div>
 
-<button onclick="login()" style="padding:10px 20px;background:#22c55e;color:white;border:none;border-radius:8px;">
-Login
-</button>
-
-<br><br>
-
-<button onclick="googleLogin()" style="padding:10px 20px;background:#4285F4;color:white;border:none;border-radius:8px;">
-Login with Google
-</button>
-
-<p>New user? <a href="signup.html">Sign Up</a></p>
+    <div class="links">
+        New to Yuvilearn? <a href="signup.html">Create account</a><br>
+        <a href="index.html">← Back to Home</a>
+    </div>
+</main>
 
 <script type="module">
-
 import { auth } from './firebase.js';
-import { signInWithEmailAndPassword, GoogleAuthProvider, signInWithPopup } 
-from "https://www.gstatic.com/firebasejs/10.12.0/firebase-auth.js";
+import { signInWithEmailAndPassword, GoogleAuthProvider, signInWithPopup } from "https://www.gstatic.com/firebasejs/10.12.0/firebase-auth.js";
 
-// 🔹 EMAIL LOGIN
+const statusEl = document.getElementById('status');
+
+function setStatus(message, isError = true) {
+    statusEl.style.color = isError ? '#fca5a5' : '#86efac';
+    statusEl.textContent = message;
+}
+
 async function login() {
-    const email = document.getElementById("email").value;
-    const password = document.getElementById("password").value;
+    const email = document.getElementById('email').value.trim();
+    const password = document.getElementById('password').value;
+
+    if (!email || !password) {
+        setStatus('Please enter both email and password.');
+        return;
+    }
 
     try {
-        await signInWithEmailAndPassword(auth, email, password);
-
-        // ✅ Store user data
-        localStorage.setItem("email", email);
-
-        if (!localStorage.getItem("name")) {
-            localStorage.setItem("name", "Student");
-            localStorage.setItem("class", "Not set");
-            localStorage.setItem("goal", "NEET");
-        }
-
-        alert("Login successful!");
-        window.location.href = "dashboard.html";
-
+        const result = await signInWithEmailAndPassword(auth, email, password);
+        const user = result.user;
+        localStorage.setItem('email', user.email || email);
+        localStorage.setItem('name', localStorage.getItem('name') || user.displayName || 'Student');
+        localStorage.setItem('class', localStorage.getItem('class') || 'Not set');
+        localStorage.setItem('goal', localStorage.getItem('goal') || 'NEET');
+        setStatus('Login successful. Redirecting...', false);
+        window.location.href = 'dashboard.html';
     } catch (error) {
-        alert(error.message);
+        setStatus(error.message);
     }
 }
 
-// 🔹 GOOGLE LOGIN
 async function googleLogin() {
     const provider = new GoogleAuthProvider();
-
     try {
         const result = await signInWithPopup(auth, provider);
-
-        // Store basic data
-        localStorage.setItem("email", result.user.email);
-        localStorage.setItem("name", result.user.displayName || "Student");
-
-        alert("Google Login Successful!");
-        window.location.href = "dashboard.html";
-
+        localStorage.setItem('email', result.user.email || '');
+        localStorage.setItem('name', result.user.displayName || 'Student');
+        localStorage.setItem('class', localStorage.getItem('class') || 'Not set');
+        localStorage.setItem('goal', localStorage.getItem('goal') || 'NEET');
+        setStatus('Google login successful. Redirecting...', false);
+        window.location.href = 'dashboard.html';
     } catch (error) {
-        alert(error.message);
+        setStatus(error.message);
     }
 }
 
-// expose to HTML
 window.login = login;
 window.googleLogin = googleLogin;
-
 </script>
-
 </body>
 </html>
