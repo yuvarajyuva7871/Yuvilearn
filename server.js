@@ -6,64 +6,61 @@ dotenv.config();
 
 const app = express();
 
-// Middleware
 app.use(cors());
 app.use(express.json());
 
-// 🔹 Test route
+// ✅ Test route
 app.get("/", (req, res) => {
-    res.send("Yuvilearn API running 🚀");
+    res.send("Yuvilearn Gemini API running 🚀");
 });
 
-// 🔹 AI Route
+// ✅ AI Route (Gemini)
 app.post("/ask-ai", async (req, res) => {
 
     const { question } = req.body;
 
     if (!question) {
-        return res.status(400).json({ error: "Question is required" });
+        return res.status(400).json({ error: "Question required" });
     }
 
     try {
 
-        const response = await fetch("https://api.openai.com/v1/chat/completions", {
-            method: "POST",
-            headers: {
-                "Authorization": `Bearer ${process.env.OPENAI_API_KEY}`,
-                "Content-Type": "application/json"
-            },
-            body: JSON.stringify({
-                model: "gpt-4o-mini",
-                messages: [
-                    {
-                        role: "system",
-                        content: "You are an expert NEET tutor. Explain clearly with simple steps and examples."
-                    },
-                    {
-                        role: "user",
-                        content: question
-                    }
-                ],
-                temperature: 0.7
-            })
-        });
+        const response = await fetch(
+            `https://generativelanguage.googleapis.com/v1/models/gemini-1.5-flash:generateContent?key=${process.env.GEMINI_API_KEY}`,
+            {
+                method: "POST",
+                headers: {
+                    "Content-Type": "application/json"
+                },
+                body: JSON.stringify({
+                    contents: [
+                        {
+                            parts: [
+                                {
+                                    text: `You are a NEET tutor. Explain clearly step-by-step.\n\nQuestion: ${question}`
+                                }
+                            ]
+                        }
+                    ]
+                })
+            }
+        );
 
         const data = await response.json();
 
-        // 🔍 Debug log (VERY IMPORTANT)
-        console.log("OpenAI Response:", data);
+        console.log("Gemini Response:", JSON.stringify(data, null, 2));
 
-        // ❌ Handle OpenAI errors
-        if (!response.ok) {
+        if (data.error) {
             return res.status(500).json({
-                error: data.error?.message || "OpenAI API failed"
+                error: data.error.message
             });
         }
 
-        // ✅ Success
-        res.json({
-            answer: data.choices[0].message.content
-        });
+        const answer =
+            data.candidates?.[0]?.content?.parts?.[0]?.text ||
+            "No response from AI";
+
+        res.json({ answer });
 
     } catch (error) {
         console.error("Server Error:", error);
@@ -71,7 +68,7 @@ app.post("/ask-ai", async (req, res) => {
     }
 });
 
-// 🔹 Start server
+// ✅ Start server
 const PORT = process.env.PORT || 3000;
 
 app.listen(PORT, () => {
