@@ -132,55 +132,24 @@ async function logout() {
 window.logout = logout;
 
 /* 🔹 AI DOUBT SOLVER */
-async function askAI() {
+async function askYuviAI() {
 
     const question = document.getElementById("question").value;
     const answerBox = document.getElementById("answer");
 
-    if (!question) {
-        alert("Enter your doubt first");
-        return;
-    }
-
     answerBox.innerText = "Thinking... ⏳";
 
-    try {
-        const response = await fetch("https://api.openai.com/v1/chat/completions", {
-            method: "POST",
-            headers: {
-                "Content-Type": "application/json",
-                "Authorization": "Bearer YOUR_OPENAI_API_KEY"
-            },
-            body: JSON.stringify({
-                model: "gpt-4o-mini",
-                messages: [
-                    {
-                        role: "system",
-                        content: "You are a NEET tutor. Explain clearly with simple steps."
-                    },
-                    {
-                        role: "user",
-                        content: question
-                    }
-                ]
-            })
-        });
+    const response = await fetch("https://your-app-name.onrender.com/ask-ai", {
+        method: "POST",
+        headers: {
+            "Content-Type": "application/json"
+        },
+        body: JSON.stringify({ question })
+    });
 
-        const data = await response.json();
-
-        if (data.error) {
-            answerBox.innerText = "Error: " + data.error.message;
-            return;
-        }
-
-        answerBox.innerText = data.choices[0].message.content;
-
-    } catch (error) {
-        answerBox.innerText = "Error: " + error.message;
-    }
+    const data = await response.json();
+    answerBox.innerText = data.answer;
 }
-
-window.askAI = askAI;
 
 /* 🔹 PLACEHOLDERS */
 function startLearning() {
