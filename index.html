@@ -6,208 +6,335 @@
 <title>Yuvilearn | Home</title>
 <style>
 :root {
-    --bg: #020617;
-    --surface: #0f172a;
-    --card: #111f3b;
-    --muted: #cbd5e1;
-    --text: #f8fafc;
-    --brand: #22c55e;
-    --brand-dark: #16a34a;
-    --accent: #06b6d4;
-    --border: #1e293b;
+    --bg: #0f172a;
+    --card: #1e293b;
+    --muted: #cbd5f5;
+    --accent: #22c55e;
+    --accent-2: #06b6d4;
+    --footer: #020617;
 }
 
-* { box-sizing: border-box; }
+* {
+    box-sizing: border-box;
+}
 
 body {
     margin: 0;
-    font-family: Inter, 'Segoe UI', sans-serif;
-    background: radial-gradient(circle at top right, #123058 0%, var(--bg) 45%);
-    color: var(--text);
+    font-family: 'Segoe UI', sans-serif;
+    background: var(--bg);
+    color: white;
+    line-height: 1.6;
 }
 
-a { color: inherit; text-decoration: none; }
-
-.navbar {
-    position: sticky;
-    top: 0;
-    z-index: 10;
-    background: rgba(2, 6, 23, 0.9);
-    border-bottom: 1px solid var(--border);
-    backdrop-filter: blur(8px);
+header {
+    padding: 22px;
+    text-align: center;
+    background: linear-gradient(90deg, var(--accent), var(--accent-2));
+    color: black;
 }
 
-.nav-container {
-    max-width: 1100px;
-    margin: 0 auto;
-    padding: 14px 20px;
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-    gap: 14px;
+.hero {
+    text-align: center;
+    padding: 60px 20px 40px;
 }
 
-.brand {
-    font-size: 1.3rem;
-    font-weight: 700;
-    color: #86efac;
+.hero h1 {
+    font-size: 2.5rem;
+    margin-bottom: 8px;
 }
 
-.nav-links {
-    display: flex;
-    gap: 8px;
-    flex-wrap: wrap;
+.hero p {
+    font-size: 1.1rem;
+    color: var(--muted);
+    margin-bottom: 20px;
 }
 
 .btn {
+    padding: 12px 25px;
+    background: var(--accent);
     border: none;
     border-radius: 10px;
     padding: 10px 16px;
     font-weight: 600;
     cursor: pointer;
-    transition: 0.2s ease;
+    font-size: 1rem;
+    margin: 8px;
 }
 
-.btn-primary {
-    background: linear-gradient(90deg, var(--brand), var(--brand-dark));
-    color: #04210f;
+.btn.secondary {
+    background: var(--accent-2);
 }
 
-.btn-secondary {
-    background: #0b1b34;
-    color: #7dd3fc;
-    border: 1px solid #164e63;
+.section {
+    padding: 44px 20px;
+    text-align: center;
 }
 
-.btn:hover { transform: translateY(-1px); }
+.section h2 {
+    margin-bottom: 8px;
+}
 
-.hero {
+.section p.section-subtitle {
+    color: var(--muted);
+    margin-top: 0;
+}
+
+.features,
+.options-grid,
+.plan-grid,
+.dashboard-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+    gap: 20px;
     max-width: 1100px;
-    margin: 0 auto;
-    padding: 70px 20px 48px;
-    display: grid;
-    grid-template-columns: 1.25fr 1fr;
-    gap: 24px;
+    margin: 20px auto 0;
 }
 
-.hero-card,
-.stats-card,
-.section-card {
-    background: linear-gradient(160deg, rgba(15, 23, 42, 0.95), rgba(15, 23, 42, 0.78));
-    border: 1px solid var(--border);
-    border-radius: 16px;
-    padding: 24px;
-}
-
-h1 { margin: 0 0 12px; font-size: clamp(2rem, 5vw, 2.8rem); }
-
-.subtitle { color: var(--muted); margin: 0 0 22px; }
-
-.hero-actions { display: flex; flex-wrap: wrap; gap: 10px; }
-
-.stats {
-    display: grid;
-    grid-template-columns: repeat(2, 1fr);
-    gap: 12px;
-}
-
-.stat {
-    background: rgba(17, 31, 59, 0.75);
-    border: 1px solid #233657;
+.card {
+    background: var(--card);
+    padding: 20px;
     border-radius: 12px;
-    padding: 14px;
+    text-align: left;
+}
+
+.card h3 {
+    margin-top: 0;
+}
+
+.ai-setup {
+    max-width: 900px;
+    margin: 18px auto 0;
+    text-align: left;
+}
+
+.ai-box {
+    background: var(--card);
+    border: 1px solid #334155;
+    border-radius: 12px;
+    padding: 20px;
+    margin-bottom: 20px;
+}
+
+.ai-box label,
+.ai-box select,
+.ai-box textarea,
+.ai-box input {
+    width: 100%;
+    display: block;
+}
+
+.ai-box label {
+    margin-top: 10px;
+    margin-bottom: 6px;
+    font-weight: 600;
+}
+
+.ai-box textarea,
+.ai-box input,
+.ai-box select {
+    padding: 10px;
+    border-radius: 8px;
+    border: 1px solid #475569;
+    background: #0b1220;
+    color: #e2e8f0;
+}
+
+.ai-output {
+    margin-top: 12px;
+    padding: 12px;
+    border-radius: 8px;
+    background: #0b1220;
+    border: 1px dashed #475569;
+    color: #dbeafe;
+    min-height: 70px;
+}
+
+iframe {
+    width: 100%;
+    height: 620px;
+    border: none;
+    border-radius: 12px;
+}
+
+footer {
+    text-align: center;
+    padding: 20px;
+    background: var(--footer);
+}
+
+@media (max-width: 600px) {
+    .hero h1 {
+        font-size: 2rem;
+    }
 }
 
 .stat h3 { margin: 0 0 4px; color: #86efac; }
 .stat p { margin: 0; color: var(--muted); font-size: 0.9rem; }
 
-.section {
-    max-width: 1100px;
-    margin: 0 auto;
-    padding: 0 20px 36px;
-}
+<header>
+    <h1>Build Strong Foundation for NEET from Class 9</h1>
+    <p>Don’t struggle in Class 11 — prepare smart from now</p>
+</header>
 
-.section-title {
-    margin: 0 0 14px;
-    font-size: 1.6rem;
-}
+<section class="hero">
+    <h1>Start NEET Preparation Early</h1>
+    <p>Build strong concepts in Physics, Chemistry & Biology with AI-guided study support.</p>
 
-.grid {
-    display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(230px, 1fr));
-    gap: 16px;
-}
+    <button class="btn" onclick="scrollToForm()">Join Now</button>
+    <a href="login.html"><button class="btn secondary">Student Login</button></a>
+    <a href="#ai-learning"><button class="btn">Try AI Setup</button></a>
+</section>
 
-.section-card h3 { margin-top: 0; }
-.section-card p { margin-bottom: 0; color: var(--muted); }
-
-.footer {
-    text-align: center;
-    padding: 28px 16px 36px;
-    color: #94a3b8;
-}
-
-@media (max-width: 900px) {
-    .hero { grid-template-columns: 1fr; }
-}
-</style>
-</head>
-<body>
-
-<nav class="navbar">
-    <div class="nav-container">
-        <a class="brand" href="index.html">🎓 Yuvilearn</a>
-        <div class="nav-links">
-            <a href="login.html"><button class="btn btn-secondary">Login</button></a>
-            <a href="signup.html"><button class="btn btn-primary">Sign Up</button></a>
-            <a href="dashboard.html"><button class="btn btn-secondary">Dashboard</button></a>
+<section class="section">
+    <h2>Why Yuvilearn?</h2>
+    <p class="section-subtitle">Built for students, parents, and mentors.</p>
+    <div class="features">
+        <div class="card">
+            <h3>📘 Concept Clarity</h3>
+            <p>NCERT-based learning with clear visuals and chapter-by-chapter mastery.</p>
+        </div>
+        <div class="card">
+            <h3>🧠 Smart Learning</h3>
+            <p>AI-backed practice sequencing based on speed, accuracy, and weak areas.</p>
+        </div>
+        <div class="card">
+            <h3>🎯 NEET Focus</h3>
+            <p>Early preparation roadmap from Class 9 to Class 12 with milestone checkpoints.</p>
+        </div>
+        <div class="card">
+            <h3>👨‍👩‍👧 Parent Insights</h3>
+            <p>Weekly parent reports with attendance, test performance, and focus score.</p>
         </div>
     </div>
-</nav>
+</section>
 
-<header class="hero">
-    <section class="hero-card">
-        <h1>AI-Powered Learning for NEET Aspirants</h1>
-        <p class="subtitle">From Class 9 onward, students get structured learning paths, adaptive tests, doubt support, and parent progress insights.</p>
-        <div class="hero-actions">
-            <a href="signup.html"><button class="btn btn-primary">Start Free Setup</button></a>
-            <a href="login.html"><button class="btn btn-secondary">I already have an account</button></a>
+<section class="section" id="ai-learning">
+    <h2>AI Setup for Every Student</h2>
+    <p class="section-subtitle">Set learning style once, and Yuvilearn AI prepares a personalized weekly study plan.</p>
+
+    <div class="ai-setup">
+        <div class="ai-box">
+            <h3>1) Student AI Profile Setup</h3>
+            <label for="studentName">Student Name</label>
+            <input id="studentName" placeholder="Enter student name">
+
+            <label for="classLevel">Class Level</label>
+            <select id="classLevel">
+                <option>Class 9</option>
+                <option>Class 10</option>
+                <option>Class 11</option>
+                <option>Class 12</option>
+            </select>
+
+            <label for="goal">Current Goal</label>
+            <select id="goal">
+                <option>Foundation Building</option>
+                <option>NEET Topic Mastery</option>
+                <option>Revision + Test Boost</option>
+            </select>
+
+            <label for="weakTopics">Weak Topics (comma separated)</label>
+            <textarea id="weakTopics" rows="3" placeholder="e.g. Laws of Motion, Chemical Bonding, Genetics"></textarea>
+
+            <button class="btn" onclick="generateAiPlan()">Generate AI Study Plan</button>
+            <div class="ai-output" id="aiPlanOutput">Your AI plan will appear here...</div>
         </div>
-    </section>
-    <aside class="stats-card">
-        <h2 style="margin-top:0;">What students get</h2>
-        <div class="stats">
-            <article class="stat"><h3>Daily Plan</h3><p>Auto-generated revision + practice schedule.</p></article>
-            <article class="stat"><h3>Live Doubt Help</h3><p>AI tutor for instant conceptual guidance.</p></article>
-            <article class="stat"><h3>Mock Tests</h3><p>Topic tests with weak-area recommendations.</p></article>
-            <article class="stat"><h3>Mentor Calls</h3><p>Weekly accountability and progress feedback.</p></article>
+
+        <div class="ai-box">
+            <h3>2) 24/7 AI Doubt Assistant</h3>
+            <p>Students can ask doubts any time in text or image format and get stepwise explanations.</p>
+            <ul>
+                <li>✅ Instant concept explanation in simple language</li>
+                <li>✅ Practice question recommendations after every doubt</li>
+                <li>✅ Confidence score for each chapter</li>
+            </ul>
+            <button class="btn secondary">Enable AI Doubt Mode</button>
         </div>
     </aside>
 </header>
 
 <section class="section">
-    <h2 class="section-title">Core EdTech Modules</h2>
-    <div class="grid">
-        <article class="section-card"><h3>📘 Concept Builder</h3><p>Chapter-wise visual explanations, notes, and NCERT checkpoints.</p></article>
-        <article class="section-card"><h3>🧠 Adaptive Practice</h3><p>Questions dynamically selected based on speed and accuracy.</p></article>
-        <article class="section-card"><h3>📈 Progress Analytics</h3><p>Heatmaps for topic mastery, attempt quality, and consistency score.</p></article>
-        <article class="section-card"><h3>👨‍👩‍👧 Parent Reports</h3><p>Weekly summary with attendance, rank trend, and action points.</p></article>
+    <h2>Essential EdTech Options Included</h2>
+    <p class="section-subtitle">Everything a modern NEET foundation platform requires.</p>
+    <div class="options-grid">
+        <div class="card">
+            <h3>📅 Live + Recorded Classes</h3>
+            <p>Attend daily live sessions and rewatch recordings with topic timestamps.</p>
+        </div>
+        <div class="card">
+            <h3>📝 Adaptive Tests</h3>
+            <p>Chapter tests auto-adjust difficulty based on your recent performance.</p>
+        </div>
+        <div class="card">
+            <h3>📊 Progress Analytics</h3>
+            <p>Track rank, subject-wise growth, and daily consistency streaks.</p>
+        </div>
+        <div class="card">
+            <h3>🏆 Gamified Learning</h3>
+            <p>Badges, streaks, and challenge boards to keep motivation high.</p>
+        </div>
+        <div class="card">
+            <h3>📚 NCERT + PYQ Library</h3>
+            <p>Structured chapter notes, flashcards, and previous-year NEET questions.</p>
+        </div>
+        <div class="card">
+            <h3>👩‍🏫 Mentor Connect</h3>
+            <p>Book 1:1 mentor sessions for strategy, stress management, and planning.</p>
+        </div>
     </div>
 </section>
 
 <section class="section">
-    <h2 class="section-title">Learning Journey</h2>
-    <div class="grid">
-        <article class="section-card"><h3>1) Create Profile</h3><p>Student enters class, target exam, and weak subjects.</p></article>
-        <article class="section-card"><h3>2) AI Setup</h3><p>Platform builds a personalized schedule with milestones.</p></article>
-        <article class="section-card"><h3>3) Dashboard Tracking</h3><p>Daily tasks, tests, and AI doubt logs in one place.</p></article>
-        <article class="section-card"><h3>4) Improve Weekly</h3><p>Mentor + analytics-driven updates to maximize outcomes.</p></article>
+    <h2>Plans</h2>
+    <p class="section-subtitle">Choose the support level that suits your preparation stage.</p>
+    <div class="plan-grid">
+        <div class="card">
+            <h3>Starter</h3>
+            <p>Ideal for Class 9-10 beginners.</p>
+            <p>✔ Weekly tests<br>✔ AI planner<br>✔ Recorded classes</p>
+            <button class="btn">Get Starter</button>
+        </div>
+        <div class="card">
+            <h3>Pro</h3>
+            <p>Best for regular serious prep.</p>
+            <p>✔ Live classes<br>✔ AI doubt assistant<br>✔ Parent reports</p>
+            <button class="btn secondary">Get Pro</button>
+        </div>
+        <div class="card">
+            <h3>Elite Mentorship</h3>
+            <p>Full guided NEET roadmap.</p>
+            <p>✔ Personal mentor<br>✔ Monthly strategy calls<br>✔ Test analytics dashboard</p>
+            <button class="btn">Book Counselling</button>
+        </div>
     </div>
+</section>
+
+<section class="section" id="contact">
+    <h2>Register Now</h2>
+    <p class="section-subtitle">Fill out the form and our team will schedule your onboarding call.</p>
+    <iframe src="https://docs.google.com/forms/d/e/1FAIpQLScYDPWJAqUOYf0DqDOpNGIqAv84xt1Yi9gOeaE6BVSkLdjlMw/viewform?usp=header"></iframe>
 </section>
 
 <footer class="footer">
     © 2026 Yuvilearn • Learn smart, start early.
 </footer>
+
+<script>
+function scrollToForm() {
+    document.getElementById("contact").scrollIntoView({ behavior: "smooth" });
+}
+
+function generateAiPlan() {
+    const studentName = document.getElementById('studentName').value.trim() || 'Student';
+    const classLevel = document.getElementById('classLevel').value;
+    const goal = document.getElementById('goal').value;
+    const weakTopics = document.getElementById('weakTopics').value.trim() || 'basic revision chapters';
+
+    const plan = `${studentName}'s AI plan (${classLevel})\n\nGoal: ${goal}\nFocus Topics: ${weakTopics}\n\nWeekly structure:\n• Mon-Wed: Concept + NCERT drills\n• Thu-Fri: Mixed practice + AI doubt solving\n• Sat: Timed chapter test\n• Sun: Error log revision + mentor feedback\n\nRecommended: 90 minutes/day with 20 minutes dedicated to weak-topic recap.`;
+
+    document.getElementById('aiPlanOutput').innerText = plan;
+}
+</script>
 
 </body>
 </html>
