@@ -3,225 +3,225 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Yuvilearn Dashboard</title>
-
+<title>Dashboard | Yuvilearn</title>
 <style>
+:root {
+    --bg: #020617;
+    --surface: #0f172a;
+    --card: #13203a;
+    --text: #f8fafc;
+    --muted: #94a3b8;
+    --border: #1e293b;
+    --brand: #22c55e;
+    --danger: #ef4444;
+}
+* { box-sizing: border-box; }
 body {
     margin: 0;
-    font-family: 'Segoe UI', sans-serif;
-    background: linear-gradient(135deg, #0f172a, #020617);
-    color: white;
+    font-family: Inter, 'Segoe UI', sans-serif;
+    color: var(--text);
+    background: radial-gradient(circle at top right, #16335b, var(--bg) 45%);
 }
-
-/* Header */
-header {
-    background: linear-gradient(90deg, #22c55e, #06b6d4);
-    padding: 15px;
-    text-align: center;
-    color: black;
-    font-size: 20px;
-    font-weight: bold;
+.header {
+    position: sticky;
+    top: 0;
+    z-index: 5;
+    background: rgba(2, 6, 23, 0.92);
+    border-bottom: 1px solid var(--border);
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 14px 20px;
 }
-
-/* Container */
+.header a { color: #86efac; text-decoration: none; }
 .container {
-    padding: 20px;
-    max-width: 800px;
-    margin: auto;
+    max-width: 1100px;
+    margin: 20px auto;
+    padding: 0 20px 24px;
+    display: grid;
+    gap: 16px;
 }
-
-/* Cards */
+.grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(230px, 1fr));
+    gap: 16px;
+}
 .card {
-    background: rgba(30, 41, 59, 0.8);
-    backdrop-filter: blur(10px);
-    padding: 20px;
+    background: rgba(15, 23, 42, 0.9);
+    border: 1px solid var(--border);
     border-radius: 14px;
-    margin: 20px 0;
-    box-shadow: 0 0 15px rgba(0,0,0,0.3);
+    padding: 18px;
 }
-
-/* Buttons */
+.card h2, .card h3 { margin-top: 0; }
+.muted { color: var(--muted); }
+.kpi {
+    font-size: 1.5rem;
+    font-weight: 700;
+    color: #86efac;
+}
 button {
-    padding: 10px 20px;
     border: none;
-    border-radius: 8px;
-    background: linear-gradient(90deg, #22c55e, #16a34a);
-    color: white;
+    border-radius: 10px;
+    padding: 10px 14px;
+    font-weight: 700;
     cursor: pointer;
-    transition: 0.3s;
 }
-
-button:hover {
-    transform: scale(1.05);
-}
-
-.logout {
-    background: red;
-}
-
-/* Input */
-textarea {
+.primary { background: var(--brand); color: #02220f; }
+.danger { background: var(--danger); color: white; }
+input, textarea {
     width: 100%;
-    padding: 12px;
-    border-radius: 8px;
-    border: none;
-    margin-top: 10px;
-    font-size: 14px;
-}
-
-/* Chat box */
-.chat-box {
-    margin-top: 15px;
-}
-
-.message {
     padding: 10px;
     border-radius: 10px;
-    margin: 8px 0;
-    max-width: 80%;
+    border: 1px solid #334155;
+    background: #071225;
+    color: var(--text);
 }
-
-.user {
-    background: #22c55e;
-    align-self: flex-end;
+textarea { min-height: 95px; resize: vertical; }
+.chat { margin-top: 12px; display: grid; gap: 8px; }
+.msg {
+    border-radius: 10px;
+    padding: 10px;
+    max-width: 90%;
 }
-
-.ai {
-    background: #1e293b;
-}
-
+.msg.user { background: #14532d; justify-self: end; }
+.msg.ai { background: #1e293b; }
+.task-list { margin: 0; padding-left: 18px; }
+.task-list li { margin-bottom: 7px; }
+.status { margin-top: 8px; min-height: 18px; color: #fca5a5; font-size: 0.9rem; }
 </style>
 </head>
-
 <body>
-
-<header>
-    🎓 Yuvilearn Dashboard
+<header class="header">
+    <strong>🎓 Yuvilearn Dashboard</strong>
+    <a href="index.html">Home</a>
 </header>
 
-<div class="container">
+<main class="container">
+    <section class="card">
+        <h2 id="welcome">Welcome Student 👋</h2>
+        <p class="muted" id="profileLine">Loading profile...</p>
+    </section>
 
-    <!-- Student Info -->
-    <div class="card">
-        <h2 id="welcome">Loading...</h2>
-        <p id="class"></p>
-        <p id="goal"></p>
-    </div>
+    <section class="grid">
+        <article class="card">
+            <h3>Today's Tasks</h3>
+            <ul class="task-list">
+                <li>Biology: Cell chapter revision (40 mins)</li>
+                <li>Chemistry: 25 MCQs on Atomic Structure</li>
+                <li>Physics: Motion numericals practice</li>
+            </ul>
+        </article>
+        <article class="card">
+            <h3>Progress Snapshot</h3>
+            <p class="muted">Weekly consistency</p>
+            <p class="kpi">82%</p>
+            <p class="muted">Best subject: Biology</p>
+        </article>
+        <article class="card">
+            <h3>Upcoming</h3>
+            <p class="muted">Sunday Mock Test • 60 Questions</p>
+            <button class="primary" onclick="takeTest()">Start Practice Test</button>
+        </article>
+    </section>
 
-    <!-- Actions -->
-    <div class="card">
-        <h3>📚 Learning Actions</h3>
-        <button onclick="startLearning()">Start Learning</button>
-        <button onclick="takeTest()">Take Test</button>
-    </div>
+    <section class="card">
+        <h3>🤖 Ask Yuvi AI</h3>
+        <textarea id="question" placeholder="Ask your doubt in detail..."></textarea>
+        <button class="primary" onclick="askYuviAI()">Ask AI</button>
+        <div class="status" id="status"></div>
+        <div class="chat" id="chat"></div>
+    </section>
 
-    <!-- AI DOUBT SOLVER -->
-    <div class="card">
-        <h3>🤖 Yuvi AI Doubt Solver</h3>
-
-        <textarea id="question" placeholder="Ask your doubt..."></textarea>
-
-        <br><br>
-
-        <button onclick="askYuviAI()">Ask AI</button>
-
-        <div class="chat-box" id="chat"></div>
-    </div>
-
-    <!-- Logout -->
-    <div class="card">
-        <button class="logout" onclick="logout()">Logout</button>
-    </div>
-
-</div>
+    <section class="card">
+        <button class="danger" onclick="logout()">Logout</button>
+    </section>
+</main>
 
 <script type="module">
-
 import { auth } from './firebase.js';
-import { onAuthStateChanged, signOut } 
-from "https://www.gstatic.com/firebasejs/10.12.0/firebase-auth.js";
+import { onAuthStateChanged, signOut } from "https://www.gstatic.com/firebasejs/10.12.0/firebase-auth.js";
 
-/* 🔹 AUTH CHECK */
+const statusEl = document.getElementById('status');
+const chatEl = document.getElementById('chat');
+
+function setStatus(message, isError = true) {
+    statusEl.style.color = isError ? '#fca5a5' : '#86efac';
+    statusEl.textContent = message;
+}
+
 onAuthStateChanged(auth, (user) => {
-
     if (!user) {
-        window.location.href = "login.html";
+        window.location.href = 'login.html';
         return;
     }
 
-    const name = localStorage.getItem("name") || user.displayName || "Student";
-    const studentClass = localStorage.getItem("class") || "Not set";
-    const goal = localStorage.getItem("goal") || "NEET";
+    const name = localStorage.getItem('name') || user.displayName || 'Student';
+    const studentClass = localStorage.getItem('class') || 'Not set';
+    const goal = localStorage.getItem('goal') || 'NEET';
 
-    document.getElementById("welcome").innerText = "Welcome " + name + " 👋";
-    document.getElementById("class").innerText = "Class: " + studentClass;
-    document.getElementById("goal").innerText = "Goal: " + goal;
+    document.getElementById('welcome').textContent = `Welcome ${name} 👋`;
+    document.getElementById('profileLine').textContent = `Class ${studentClass} • Goal: ${goal}`;
 });
 
-/* 🔹 LOGOUT */
 async function logout() {
-    await signOut(auth);
-    localStorage.clear();
-    window.location.href = "login.html";
+    try {
+        await signOut(auth);
+    } finally {
+        localStorage.clear();
+        window.location.href = 'login.html';
+    }
 }
-window.logout = logout;
 
-/* 🔹 AI FUNCTION */
+function appendMessage(text, role) {
+    const div = document.createElement('div');
+    div.className = `msg ${role}`;
+    div.textContent = text;
+    chatEl.appendChild(div);
+}
+
 async function askYuviAI() {
-
-    const question = document.getElementById("question").value;
-    const chat = document.getElementById("chat");
+    const question = document.getElementById('question').value.trim();
 
     if (!question) {
-        alert("Enter your doubt");
+        setStatus('Please enter a question first.');
         return;
     }
 
-    // Add user message
-    chat.innerHTML += `<div class="message user">🧑 ${question}</div>`;
-
-    // Loading
-    chat.innerHTML += `<div class="message ai">🤖 Thinking...</div>`;
+    setStatus('');
+    appendMessage(`🧑 ${question}`, 'user');
+    appendMessage('🤖 Thinking...', 'ai');
 
     try {
-        const response = await fetch("https://YOUR-RENDER-URL.onrender.com/ask-ai", {
-            method: "POST",
-            headers: {
-                "Content-Type": "application/json"
-            },
+        const response = await fetch('https://YOUR-RENDER-URL.onrender.com/ask-ai', {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
             body: JSON.stringify({ question })
         });
 
         const data = await response.json();
+        chatEl.lastChild.remove();
 
-        // Remove last "thinking"
-        chat.lastChild.remove();
+        if (!response.ok) {
+            appendMessage(`⚠️ ${data.error || 'Unable to fetch response right now.'}`, 'ai');
+            return;
+        }
 
-        // Add AI answer
-        chat.innerHTML += `<div class="message ai">🤖 ${data.answer}</div>`;
-
+        appendMessage(`🤖 ${data.answer || 'No response from AI.'}`, 'ai');
     } catch (error) {
-        chat.innerHTML += `<div class="message ai">⚠️ Server error</div>`;
+        chatEl.lastChild.remove();
+        appendMessage('⚠️ Could not connect to AI service. Please try later.', 'ai');
     }
 
-    document.getElementById("question").value = "";
-}
-
-window.askYuviAI = askYuviAI;
-
-/* 🔹 PLACEHOLDERS */
-function startLearning() {
-    alert("Coming soon: Learning modules");
+    document.getElementById('question').value = '';
 }
 
 function takeTest() {
-    alert("Coming soon: NEET tests");
+    alert('Practice test module will be connected here.');
 }
 
-window.startLearning = startLearning;
+window.askYuviAI = askYuviAI;
 window.takeTest = takeTest;
-
+window.logout = logout;
 </script>
-
 </body>
 </html>
