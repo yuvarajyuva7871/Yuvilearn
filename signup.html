@@ -3,121 +3,129 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Sign Up | Yuvilearn</title>
+<title>Sign Up — YuviLearn</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@700;900&family=DM+Sans:wght@300;400;500;600&display=swap" rel="stylesheet">
 <style>
 :root {
-    --bg: #020617;
-    --surface: #0f172a;
-    --text: #f8fafc;
-    --muted: #94a3b8;
-    --border: #1e293b;
-    --brand: #22c55e;
-    --brand-dark: #16a34a;
+  --bg: #05080f; --surface: #0c1220; --card: #101828;
+  --border: rgba(255,255,255,0.07); --text: #f0f4ff; --muted: #8a9ab5;
+  --green: #00d68f; --green-dim: rgba(0,214,143,0.1); --cyan: #00b4d8;
 }
-* { box-sizing: border-box; }
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
 body {
-    margin: 0;
-    min-height: 100vh;
-    font-family: Inter, 'Segoe UI', sans-serif;
-    color: var(--text);
-    background: radial-gradient(circle at top, #133664, var(--bg) 52%);
-    display: grid;
-    place-items: center;
-    padding: 20px;
+  font-family: 'DM Sans', sans-serif;
+  background: var(--bg); color: var(--text);
+  min-height: 100vh;
+  display: grid; place-items: center;
+  padding: 24px;
+  background-image:
+    radial-gradient(ellipse 60% 50% at 50% 0%, rgba(0,180,216,0.08) 0%, transparent 70%),
+    radial-gradient(ellipse 40% 40% at 20% 80%, rgba(0,214,143,0.06) 0%, transparent 60%);
 }
 .card {
-    width: min(480px, 100%);
-    background: rgba(15, 23, 42, 0.92);
-    border: 1px solid var(--border);
-    border-radius: 16px;
-    padding: 24px;
+  width: min(500px, 100%);
+  background: var(--card);
+  border: 1px solid var(--border);
+  border-radius: 20px;
+  padding: 40px 36px;
+  box-shadow: 0 24px 64px rgba(0,0,0,0.4);
+  animation: fadeIn 0.5s ease;
 }
-h1 { margin: 0 0 8px; }
-p { margin: 0 0 18px; color: var(--muted); }
-.grid {
-    display: grid;
-    grid-template-columns: 1fr 1fr;
-    gap: 12px;
+@keyframes fadeIn { from { opacity:0; transform:translateY(16px); } to { opacity:1; transform:none; } }
+.logo {
+  font-family: 'Playfair Display', serif;
+  font-size: 1.4rem; font-weight: 900;
+  background: linear-gradient(135deg, var(--green), var(--cyan));
+  -webkit-background-clip: text; -webkit-text-fill-color: transparent;
+  background-clip: text; text-decoration: none;
+  display: inline-block; margin-bottom: 28px;
 }
-.field { margin-bottom: 12px; }
-label { display:block; margin-bottom: 6px; font-weight: 600; font-size: 0.92rem; }
-input, select {
-    width: 100%;
-    padding: 10px;
-    border-radius: 10px;
-    border: 1px solid #334155;
-    background: #071225;
-    color: var(--text);
+h1 { font-size: 1.6rem; font-weight: 700; margin-bottom: 6px; }
+.subtitle { color: var(--muted); font-size: 0.92rem; margin-bottom: 28px; }
+.field { margin-bottom: 18px; }
+.field label {
+  display: block; font-size: 0.8rem; font-weight: 700;
+  letter-spacing: 0.05em; text-transform: uppercase;
+  color: var(--muted); margin-bottom: 8px;
 }
-button {
-    width: 100%;
-    margin-top: 4px;
-    border: none;
-    border-radius: 10px;
-    padding: 11px;
-    font-weight: 700;
-    cursor: pointer;
-    background: linear-gradient(90deg, var(--brand), var(--brand-dark));
-    color: #04210f;
+.field input, .field select {
+  width: 100%; background: rgba(255,255,255,0.04);
+  border: 1px solid var(--border); border-radius: 12px;
+  padding: 13px 16px; color: var(--text);
+  font-family: 'DM Sans', sans-serif; font-size: 0.95rem;
+  outline: none; transition: border-color 0.2s;
 }
-.links {
-    margin-top: 14px;
-    text-align: center;
-    color: var(--muted);
+.field input:focus, .field select:focus { border-color: var(--green); }
+.field select option { background: #0c1220; }
+.grid-2 { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; }
+.btn-primary {
+  width: 100%; background: linear-gradient(135deg, var(--green), #00b47e);
+  color: #021a0f; border: none; border-radius: 12px;
+  padding: 14px; font-family: 'DM Sans', sans-serif;
+  font-size: 1rem; font-weight: 700; cursor: pointer;
+  transition: opacity 0.2s, transform 0.2s; margin-bottom: 12px;
 }
-.links a { color: #86efac; }
-.status { min-height: 20px; margin-top: 10px; color: #fca5a5; font-size: 0.9rem; }
-@media (max-width: 700px) { .grid { grid-template-columns: 1fr; } }
+.btn-primary:hover { opacity: 0.9; transform: translateY(-1px); }
+.status { min-height: 20px; margin-top: 10px; font-size: 0.87rem; }
+.status.error { color: #f87171; }
+.status.success { color: var(--green); }
+.links { margin-top: 20px; text-align: center; color: var(--muted); font-size: 0.88rem; line-height: 2; }
+.links a { color: var(--green); text-decoration: none; font-weight: 600; }
+.links a:hover { text-decoration: underline; }
+@media (max-width: 480px) { .grid-2 { grid-template-columns: 1fr; } .card { padding: 28px 24px; } }
 </style>
 </head>
 <body>
 <main class="card">
-    <h1>Create your Yuvilearn account</h1>
-    <p>Build your AI study plan in under 2 minutes.</p>
+  <a href="index.html" class="logo">YuviLearn</a>
+  <h1>Create your account</h1>
+  <p class="subtitle">Build your AI study plan in under 2 minutes.</p>
 
+  <div class="field">
+    <label>Full Name</label>
+    <input id="name" type="text" placeholder="e.g. Arjun Sharma" autocomplete="name">
+  </div>
+
+  <div class="grid-2">
     <div class="field">
-        <label for="name">Full name</label>
-        <input id="name" placeholder="Enter full name" autocomplete="name">
+      <label>Class</label>
+      <select id="class">
+        <option value="">Select class</option>
+        <option value="9">Class 9</option>
+        <option value="10">Class 10</option>
+        <option value="11">Class 11</option>
+        <option value="12">Class 12</option>
+      </select>
     </div>
-
-    <div class="grid">
-        <div class="field">
-            <label for="class">Class</label>
-            <select id="class">
-                <option value="">Select class</option>
-                <option value="9">Class 9</option>
-                <option value="10">Class 10</option>
-                <option value="11">Class 11</option>
-                <option value="12">Class 12</option>
-            </select>
-        </div>
-        <div class="field">
-            <label for="goal">Goal</label>
-            <select id="goal">
-                <option value="NEET">NEET</option>
-                <option value="Foundation">Foundation</option>
-                <option value="Olympiad">Olympiad</option>
-            </select>
-        </div>
-    </div>
-
     <div class="field">
-        <label for="email">Email</label>
-        <input id="email" type="email" placeholder="student@email.com" autocomplete="email">
+      <label>Goal</label>
+      <select id="goal">
+        <option value="NEET">NEET</option>
+        <option value="Foundation">Foundation</option>
+        <option value="Olympiad">Olympiad</option>
+      </select>
     </div>
+  </div>
 
-    <div class="field">
-        <label for="password">Password</label>
-        <input id="password" type="password" placeholder="Create password (min 6 chars)" autocomplete="new-password">
-    </div>
+  <div class="field">
+    <label>Email</label>
+    <input id="email" type="email" placeholder="student@email.com" autocomplete="email">
+  </div>
 
-    <button onclick="signup()">Create account</button>
-    <div id="status" class="status"></div>
+  <div class="field">
+    <label>Password</label>
+    <input id="password" type="password" placeholder="Minimum 6 characters" autocomplete="new-password">
+  </div>
 
-    <div class="links">
-        Already have an account? <a href="login.html">Login</a><br>
-        <a href="index.html">← Back to Home</a>
-    </div>
+  <button class="btn-primary" onclick="signup()">Create My Account →</button>
+
+  <div class="status" id="status"></div>
+
+  <div class="links">
+    Already have an account? <a href="login.html">Login</a><br>
+    <a href="index.html">← Back to Home</a>
+  </div>
 </main>
 
 <script type="module">
@@ -125,43 +133,31 @@ import { auth } from './firebase.js';
 import { createUserWithEmailAndPassword, updateProfile } from "https://www.gstatic.com/firebasejs/10.12.0/firebase-auth.js";
 
 const statusEl = document.getElementById('status');
-
-function setStatus(message, isError = true) {
-    statusEl.style.color = isError ? '#fca5a5' : '#86efac';
-    statusEl.textContent = message;
+function setStatus(msg, isError=true) {
+  statusEl.className = 'status ' + (isError ? 'error' : 'success');
+  statusEl.textContent = msg;
 }
 
 async function signup() {
-    const name = document.getElementById('name').value.trim();
-    const studentClass = document.getElementById('class').value;
-    const goal = document.getElementById('goal').value;
-    const email = document.getElementById('email').value.trim();
-    const password = document.getElementById('password').value;
+  const name = document.getElementById('name').value.trim();
+  const cls = document.getElementById('class').value;
+  const goal = document.getElementById('goal').value;
+  const email = document.getElementById('email').value.trim();
+  const password = document.getElementById('password').value;
 
-    if (!name || !studentClass || !goal || !email || !password) {
-        setStatus('Please complete all fields before creating account.');
-        return;
-    }
+  if (!name || !cls || !email || !password) return setStatus('Please complete all fields.');
+  if (password.length < 6) return setStatus('Password must be at least 6 characters.');
 
-    if (password.length < 6) {
-        setStatus('Password must be at least 6 characters long.');
-        return;
-    }
-
-    try {
-        const result = await createUserWithEmailAndPassword(auth, email, password);
-        await updateProfile(result.user, { displayName: name });
-
-        localStorage.setItem('name', name);
-        localStorage.setItem('class', studentClass);
-        localStorage.setItem('goal', goal);
-        localStorage.setItem('email', email);
-
-        setStatus('Account created successfully. Redirecting...', false);
-        window.location.href = 'dashboard.html';
-    } catch (error) {
-        setStatus(error.message);
-    }
+  try {
+    const result = await createUserWithEmailAndPassword(auth, email, password);
+    await updateProfile(result.user, { displayName: name });
+    localStorage.setItem('name', name);
+    localStorage.setItem('class', cls);
+    localStorage.setItem('goal', goal);
+    localStorage.setItem('email', email);
+    setStatus('Account created! Redirecting to your dashboard…', false);
+    setTimeout(() => window.location.href = 'dashboard.html', 900);
+  } catch(e) { setStatus(e.message); }
 }
 
 window.signup = signup;
