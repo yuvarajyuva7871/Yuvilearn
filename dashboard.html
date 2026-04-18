@@ -5,555 +5,874 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Dashboard — YuviLearn</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
-<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@700;900&family=DM+Sans:wght@300;400;500;600&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Nunito:wght@400;600;700;800;900&family=Poppins:wght@400;500;600;700&display=swap" rel="stylesheet">
 <style>
 :root {
-  --bg: #05080f; --surface: #0c1220; --card: #101828;
-  --border: rgba(255,255,255,0.07); --text: #f0f4ff; --muted: #8a9ab5;
-  --green: #00d68f; --green-dim: rgba(0,214,143,0.1); --cyan: #00b4d8;
-  --danger: #ef4444; --gold: #f5a623;
+  --blue: #1B4FD8; --blue-dark: #1340B8; --blue-light: #3B6EF8;
+  --orange: #F97316; --orange-light: #FB923C;
+  --bg: #F0F4FF; --white: #FFFFFF; --dark: #0F172A; --dark2: #1E293B;
+  --muted: #64748B; --border: #E2E8F0; --card: #FFFFFF; --surface: #F8FAFF;
+  --green: #10B981; --green-dim: rgba(16,185,129,0.1);
+  --cyan: #06B6D4; --gold: #F59E0B;
+  --danger: #EF4444; --sidebar: 240px; --radius: 14px;
+  --shadow: 0 4px 20px rgba(27,79,216,0.08);
 }
 *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
-body { font-family: 'DM Sans', sans-serif; background: var(--bg); color: var(--text); min-height: 100vh; }
+html, body { height: 100%; }
+body { font-family: 'Poppins', sans-serif; background: var(--bg); color: var(--dark); display: flex; }
 
 /* ── SIDEBAR ── */
-.layout { display: grid; grid-template-columns: 240px 1fr; min-height: 100vh; }
 .sidebar {
-  background: var(--surface);
-  border-right: 1px solid var(--border);
-  padding: 28px 20px;
-  display: flex; flex-direction: column;
-  position: sticky; top: 0; height: 100vh;
+  width: var(--sidebar); min-height: 100vh;
+  background: white; border-right: 1px solid var(--border);
+  padding: 24px 16px; display: flex; flex-direction: column;
+  position: fixed; top: 0; left: 0; bottom: 0;
+  z-index: 50; overflow-y: auto;
+  box-shadow: 2px 0 16px rgba(27,79,216,0.06);
 }
 .sidebar-logo {
-  font-family: 'Playfair Display', serif;
-  font-size: 1.4rem; font-weight: 900;
-  background: linear-gradient(135deg, var(--green), var(--cyan));
-  -webkit-background-clip: text; -webkit-text-fill-color: transparent;
-  background-clip: text; text-decoration: none;
-  display: block; margin-bottom: 36px;
+  display: flex; align-items: center; gap: 8px;
+  text-decoration: none; margin-bottom: 32px; padding: 0 8px;
+}
+.sidebar-logo img { height: 36px; }
+.sidebar-logo-text {
+  font-family: 'Nunito', sans-serif; font-size: 1.2rem; font-weight: 900;
+  background: linear-gradient(135deg, var(--blue), var(--orange));
+  -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text;
 }
 .nav-section-title {
-  font-size: 0.68rem; font-weight: 700;
-  letter-spacing: 0.12em; text-transform: uppercase;
-  color: var(--muted); padding: 0 12px;
+  font-size: 0.65rem; font-weight: 800; letter-spacing: 0.14em;
+  text-transform: uppercase; color: var(--muted); padding: 0 12px;
   margin-bottom: 8px; margin-top: 20px;
 }
 .nav-item {
   display: flex; align-items: center; gap: 10px;
   padding: 10px 12px; border-radius: 10px;
   color: var(--muted); text-decoration: none;
-  font-size: 0.9rem; font-weight: 500;
-  transition: background 0.2s, color 0.2s;
-  cursor: pointer; border: none;
+  font-size: 0.88rem; font-weight: 600;
+  transition: all 0.2s; cursor: pointer; border: none;
   background: transparent; width: 100%; text-align: left;
-  font-family: 'DM Sans', sans-serif;
+  font-family: 'Poppins', sans-serif;
 }
-.nav-item:hover { background: rgba(255,255,255,0.05); color: var(--text); }
-.nav-item.active { background: var(--green-dim); color: var(--green); }
-.nav-item .icon { font-size: 1rem; width: 20px; text-align: center; }
-.sidebar-bottom { margin-top: auto; }
+.nav-item:hover { background: var(--surface); color: var(--blue); }
+.nav-item.active { background: rgba(27,79,216,0.08); color: var(--blue); }
+.nav-item .icon { font-size: 1.1rem; width: 22px; text-align: center; flex-shrink: 0; }
+.sidebar-bottom { margin-top: auto; padding-top: 20px; }
 .user-chip {
-  display: flex; align-items: center; gap: 12px;
+  display: flex; align-items: center; gap: 10px;
   padding: 12px; border-radius: 12px;
-  background: rgba(255,255,255,0.04);
-  border: 1px solid var(--border);
+  background: var(--surface); border: 1px solid var(--border);
+  margin-bottom: 10px;
 }
 .user-avatar {
-  width: 36px; height: 36px; border-radius: 50%;
-  background: linear-gradient(135deg, var(--green), var(--cyan));
+  width: 38px; height: 38px; border-radius: 50%;
+  background: linear-gradient(135deg, var(--blue), var(--orange));
   display: flex; align-items: center; justify-content: center;
-  font-weight: 700; font-size: 0.85rem; color: #021a0f; flex-shrink: 0;
+  font-family: 'Nunito', sans-serif; font-weight: 900; font-size: 0.9rem; color: white; flex-shrink: 0;
 }
-.user-info .user-name { font-size: 0.88rem; font-weight: 600; }
-.user-info .user-class { font-size: 0.75rem; color: var(--muted); }
+.user-name { font-size: 0.88rem; font-weight: 700; color: var(--dark); }
+.user-class { font-size: 0.72rem; color: var(--muted); }
+.btn-logout {
+  width: 100%; background: rgba(239,68,68,0.08); border: 1px solid rgba(239,68,68,0.2);
+  color: #DC2626; border-radius: 10px; padding: 10px;
+  font-family: 'Poppins', sans-serif; font-size: 0.85rem; font-weight: 700;
+  cursor: pointer; transition: all 0.2s;
+}
+.btn-logout:hover { background: rgba(239,68,68,0.15); }
 
 /* ── MAIN ── */
-.main { padding: 32px; overflow-y: auto; }
+.main-wrap { margin-left: var(--sidebar); flex: 1; min-height: 100vh; }
+.main { padding: 32px; max-width: 1200px; }
 .page { display: none; }
 .page.active { display: block; }
-
 .page-header { margin-bottom: 28px; }
-.page-header h1 { font-family: 'Playfair Display', serif; font-size: 1.8rem; font-weight: 700; margin-bottom: 4px; }
-.page-header p { color: var(--muted); font-size: 0.92rem; }
+.page-header h1 { font-family: 'Nunito', sans-serif; font-size: 1.8rem; font-weight: 900; color: var(--dark); margin-bottom: 4px; }
+.page-header p { color: var(--muted); font-size: 0.9rem; }
 
 /* ── STAT CARDS ── */
-.stats-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 16px; margin-bottom: 24px; }
+.stats-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(190px, 1fr)); gap: 16px; margin-bottom: 24px; }
 .stat-card {
-  background: var(--card); border: 1px solid var(--border);
-  border-radius: 14px; padding: 22px 20px;
+  background: white; border: 1px solid var(--border);
+  border-radius: var(--radius); padding: 22px 20px;
+  box-shadow: var(--shadow); transition: all 0.2s;
 }
-.stat-label { font-size: 0.78rem; font-weight: 700; letter-spacing: 0.08em; text-transform: uppercase; color: var(--muted); margin-bottom: 10px; }
-.stat-value { font-family: 'Playfair Display', serif; font-size: 2rem; font-weight: 700; color: var(--green); line-height: 1; }
-.stat-sub { font-size: 0.8rem; color: var(--muted); margin-top: 6px; }
+.stat-card:hover { transform: translateY(-2px); box-shadow: 0 8px 28px rgba(27,79,216,0.12); }
+.stat-label { font-size: 0.72rem; font-weight: 700; letter-spacing: 0.08em; text-transform: uppercase; color: var(--muted); margin-bottom: 10px; }
+.stat-value { font-family: 'Nunito', sans-serif; font-size: 2.2rem; font-weight: 900; color: var(--blue); line-height: 1; }
+.stat-sub { font-size: 0.78rem; color: var(--muted); margin-top: 6px; }
+.stat-up { color: var(--green); font-weight: 700; }
+.stat-down { color: var(--danger); font-weight: 700; }
 
 /* ── CARDS ── */
 .card {
-  background: var(--card); border: 1px solid var(--border);
-  border-radius: 14px; padding: 24px; margin-bottom: 20px;
+  background: white; border: 1px solid var(--border);
+  border-radius: var(--radius); padding: 24px; margin-bottom: 20px;
+  box-shadow: var(--shadow);
 }
-.card-title { font-size: 1rem; font-weight: 700; margin-bottom: 16px; display: flex; align-items: center; gap: 8px; }
+.card-title { font-size: 1rem; font-weight: 700; margin-bottom: 18px; display: flex; align-items: center; gap: 8px; color: var(--dark); }
 .grid-2 { display: grid; grid-template-columns: 1fr 1fr; gap: 20px; }
 
 /* ── TASK LIST ── */
 .task-item {
   display: flex; align-items: center; gap: 14px;
   padding: 14px; border-radius: 10px;
-  background: rgba(255,255,255,0.03);
-  border: 1px solid var(--border); margin-bottom: 10px;
-  transition: background 0.2s;
+  background: var(--surface); border: 1px solid var(--border);
+  margin-bottom: 10px; transition: all 0.2s; cursor: pointer;
 }
-.task-item:hover { background: rgba(255,255,255,0.06); }
+.task-item:hover { border-color: rgba(27,79,216,0.2); box-shadow: var(--shadow); }
 .task-check {
-  width: 20px; height: 20px; border-radius: 50%;
-  border: 2px solid var(--border); cursor: pointer;
-  flex-shrink: 0; transition: all 0.2s;
+  width: 22px; height: 22px; border-radius: 50%;
+  border: 2px solid var(--border); cursor: pointer; flex-shrink: 0;
   display: flex; align-items: center; justify-content: center;
+  transition: all 0.2s; background: white;
 }
+.task-check:hover { border-color: var(--blue); }
 .task-check.done { background: var(--green); border-color: var(--green); }
-.task-check.done::after { content: '✓'; font-size: 0.7rem; color: #021a0f; font-weight: 700; }
+.task-check.done::after { content: '✓'; font-size: 0.72rem; color: white; font-weight: 700; }
 .task-content { flex: 1; }
-.task-name { font-size: 0.9rem; font-weight: 500; }
+.task-name { font-size: 0.9rem; font-weight: 600; color: var(--dark); }
 .task-meta { font-size: 0.78rem; color: var(--muted); margin-top: 2px; }
 .task-badge {
-  font-size: 0.7rem; font-weight: 700; padding: 2px 8px;
-  border-radius: 50px; flex-shrink: 0;
+  font-size: 0.68rem; font-weight: 800; padding: 3px 10px;
+  border-radius: 50px; flex-shrink: 0; letter-spacing: 0.04em;
 }
-.badge-bio { background: rgba(0,214,143,0.12); color: var(--green); }
-.badge-chem { background: rgba(0,180,216,0.12); color: var(--cyan); }
-.badge-phys { background: rgba(245,166,35,0.12); color: var(--gold); }
+.badge-bio { background: rgba(16,185,129,0.1); color: #059669; }
+.badge-chem { background: rgba(6,182,212,0.1); color: #0E7490; }
+.badge-phys { background: rgba(245,158,11,0.1); color: #D97706; }
+.badge-rev { background: rgba(139,92,246,0.1); color: #7C3AED; }
 
-/* ── PROGRESS BARS ── */
-.progress-item { margin-bottom: 16px; }
-.progress-header { display: flex; justify-content: space-between; margin-bottom: 6px; font-size: 0.88rem; }
-.progress-bar { height: 6px; background: rgba(255,255,255,0.08); border-radius: 50px; overflow: hidden; }
-.progress-fill { height: 100%; border-radius: 50px; transition: width 1s ease; }
-.fill-green { background: linear-gradient(90deg, var(--green), #00b47e); }
-.fill-cyan { background: linear-gradient(90deg, var(--cyan), #0099cc); }
-.fill-gold { background: linear-gradient(90deg, var(--gold), #e09020); }
+/* ── PROGRESS ── */
+.progress-item { margin-bottom: 18px; }
+.progress-header { display: flex; justify-content: space-between; margin-bottom: 6px; font-size: 0.88rem; font-weight: 600; }
+.progress-bar { height: 8px; background: var(--border); border-radius: 50px; overflow: hidden; }
+.progress-fill { height: 100%; border-radius: 50px; transition: width 1.2s ease; }
+.fill-blue { background: linear-gradient(90deg, var(--blue), var(--blue-light)); }
+.fill-cyan { background: linear-gradient(90deg, var(--cyan), #22D3EE); }
+.fill-gold { background: linear-gradient(90deg, var(--gold), #FCD34D); }
+.fill-green { background: linear-gradient(90deg, var(--green), #34D399); }
 
 /* ── AI CHAT ── */
-.chat-messages { min-height: 200px; max-height: 340px; overflow-y: auto; margin-bottom: 14px; display: flex; flex-direction: column; gap: 10px; }
-.msg { padding: 12px 14px; border-radius: 12px; max-width: 88%; font-size: 0.9rem; line-height: 1.6; }
-.msg.user { background: rgba(0,214,143,0.12); border: 1px solid rgba(0,214,143,0.2); align-self: flex-end; color: #c8f0e0; }
-.msg.ai { background: rgba(255,255,255,0.05); border: 1px solid var(--border); align-self: flex-start; }
+.chat-messages {
+  min-height: 220px; max-height: 360px; overflow-y: auto;
+  margin-bottom: 14px; display: flex; flex-direction: column; gap: 10px;
+  padding: 4px;
+}
+.msg { padding: 12px 16px; border-radius: 14px; max-width: 88%; font-size: 0.88rem; line-height: 1.6; }
+.msg.user {
+  background: linear-gradient(135deg, rgba(27,79,216,0.1), rgba(27,79,216,0.06));
+  border: 1px solid rgba(27,79,216,0.15); align-self: flex-end; color: var(--dark2);
+}
+.msg.ai {
+  background: var(--surface); border: 1px solid var(--border); align-self: flex-start;
+}
 .msg.thinking { color: var(--muted); font-style: italic; }
 .chat-input-row { display: flex; gap: 10px; }
 .chat-input-row textarea {
-  flex: 1; background: rgba(255,255,255,0.04);
-  border: 1px solid var(--border); border-radius: 12px;
-  padding: 12px 14px; color: var(--text);
-  font-family: 'DM Sans', sans-serif; font-size: 0.9rem;
-  resize: none; height: 48px; outline: none;
-  transition: border-color 0.2s;
+  flex: 1; background: var(--surface); border: 2px solid var(--border); border-radius: 12px;
+  padding: 12px 14px; color: var(--dark);
+  font-family: 'Poppins', sans-serif; font-size: 0.88rem;
+  resize: none; height: 48px; outline: none; transition: all 0.2s;
 }
-.chat-input-row textarea:focus { border-color: var(--green); height: 80px; }
+.chat-input-row textarea:focus { border-color: var(--blue); height: 80px; }
 
 /* ── BUTTONS ── */
 .btn {
   border: none; border-radius: 10px; padding: 11px 18px;
-  font-family: 'DM Sans', sans-serif; font-size: 0.88rem;
-  font-weight: 700; cursor: pointer; transition: opacity 0.2s, transform 0.2s;
+  font-family: 'Poppins', sans-serif; font-size: 0.87rem; font-weight: 700;
+  cursor: pointer; transition: all 0.2s;
 }
-.btn:hover { opacity: 0.9; transform: translateY(-1px); }
-.btn-green { background: linear-gradient(135deg, var(--green), #00b47e); color: #021a0f; }
-.btn-outline { background: transparent; border: 1px solid var(--border); color: var(--text); }
-.btn-danger { background: rgba(239,68,68,0.15); border: 1px solid rgba(239,68,68,0.3); color: #fca5a5; }
+.btn:hover { transform: translateY(-1px); }
+.btn-blue { background: linear-gradient(135deg, var(--blue), var(--blue-light)); color: white; box-shadow: 0 4px 12px rgba(27,79,216,0.3); }
+.btn-orange { background: linear-gradient(135deg, var(--orange), var(--orange-light)); color: white; box-shadow: 0 4px 12px rgba(249,115,22,0.3); }
+.btn-outline { background: white; border: 2px solid var(--border); color: var(--dark2); }
+.btn-outline:hover { border-color: var(--blue); color: var(--blue); }
+.btn-danger { background: rgba(239,68,68,0.08); border: 1px solid rgba(239,68,68,0.2); color: #DC2626; }
 
 /* ── SCHEDULE ── */
-.schedule-day { margin-bottom: 16px; }
-.schedule-day-label { font-size: 0.78rem; font-weight: 700; text-transform: uppercase; letter-spacing: 0.08em; color: var(--muted); margin-bottom: 8px; }
-.schedule-item { display: flex; gap: 12px; align-items: center; padding: 10px 14px; border-radius: 10px; background: rgba(255,255,255,0.03); border: 1px solid var(--border); margin-bottom: 6px; }
-.schedule-time { font-size: 0.78rem; color: var(--muted); min-width: 60px; font-weight: 500; }
-.schedule-subject { font-size: 0.88rem; font-weight: 500; }
+.schedule-day { margin-bottom: 18px; }
+.schedule-day-label { font-size: 0.72rem; font-weight: 800; text-transform: uppercase; letter-spacing: 0.1em; color: var(--muted); margin-bottom: 8px; }
+.schedule-item {
+  display: flex; gap: 12px; align-items: center;
+  padding: 12px 16px; border-radius: 10px;
+  background: var(--surface); border: 1px solid var(--border); margin-bottom: 8px;
+}
+.schedule-time { font-size: 0.78rem; color: var(--muted); min-width: 64px; font-weight: 600; }
+.schedule-subject { font-size: 0.88rem; font-weight: 600; color: var(--dark); }
+.schedule-type { font-size: 0.72rem; color: var(--muted); }
+.schedule-dot { width: 8px; height: 8px; border-radius: 50%; flex-shrink: 0; }
+.dot-bio { background: var(--green); }
+.dot-chem { background: var(--cyan); }
+.dot-phys { background: var(--gold); }
+.dot-test { background: var(--orange); }
+
+/* ── LEADERBOARD ── */
+.lb-item {
+  display: flex; align-items: center; gap: 12px;
+  padding: 12px 16px; border-radius: 10px;
+  background: var(--surface); border: 1px solid var(--border);
+  margin-bottom: 8px;
+}
+.lb-rank { font-family: 'Nunito', sans-serif; font-size: 1.1rem; font-weight: 900; color: var(--muted); min-width: 28px; }
+.lb-rank.gold { color: var(--gold); }
+.lb-rank.silver { color: #94A3B8; }
+.lb-rank.bronze { color: #D97706; }
+.lb-avatar {
+  width: 32px; height: 32px; border-radius: 50%;
+  display: flex; align-items: center; justify-content: center;
+  font-family: 'Nunito', sans-serif; font-weight: 900; font-size: 0.8rem; color: white; flex-shrink: 0;
+  background: linear-gradient(135deg, var(--blue), var(--orange));
+}
+.lb-name { flex: 1; font-weight: 600; font-size: 0.88rem; }
+.lb-score { font-family: 'Nunito', sans-serif; font-weight: 900; color: var(--blue); }
+
+/* ── AI INSIGHT BOX ── */
+.insight-box {
+  background: rgba(27,79,216,0.05); border: 1px solid rgba(27,79,216,0.15);
+  border-radius: 12px; padding: 16px; margin-top: 16px;
+}
+.insight-label { font-size: 0.68rem; font-weight: 800; letter-spacing: 0.12em; text-transform: uppercase; color: var(--blue); margin-bottom: 6px; }
+.insight-text { font-size: 0.85rem; color: var(--dark2); line-height: 1.7; }
+
+/* ── MOBILE TOPBAR ── */
+.mobile-topbar {
+  display: none; position: fixed; top: 0; left: 0; right: 0;
+  height: 60px; background: white; border-bottom: 1px solid var(--border);
+  align-items: center; justify-content: space-between;
+  padding: 0 16px; z-index: 60; box-shadow: var(--shadow);
+}
+.mobile-topbar img { height: 32px; }
+
+/* ── STREAK BADGE ── */
+.streak-badge {
+  display: inline-flex; align-items: center; gap: 6px;
+  background: linear-gradient(135deg, rgba(245,158,11,0.12), rgba(249,115,22,0.08));
+  border: 1px solid rgba(245,158,11,0.25);
+  color: var(--gold); padding: 6px 14px; border-radius: 50px;
+  font-size: 0.82rem; font-weight: 700;
+}
 
 /* ── RESPONSIVE ── */
 @media (max-width: 768px) {
-  .layout { grid-template-columns: 1fr; }
   .sidebar { display: none; }
+  .main-wrap { margin-left: 0; }
+  .main { padding: 80px 16px 24px; }
+  .mobile-topbar { display: flex; }
   .grid-2 { grid-template-columns: 1fr; }
+  .stats-grid { grid-template-columns: 1fr 1fr; }
 }
+@media (max-width: 480px) { .stats-grid { grid-template-columns: 1fr; } }
 </style>
 </head>
 <body>
 
-<div class="layout">
-  <!-- SIDEBAR -->
-  <aside class="sidebar">
-    <a href="index.html" class="sidebar-logo">YuviLearn</a>
+<!-- MOBILE TOPBAR -->
+<div class="mobile-topbar">
+  <img src="logo.webp" alt="YuviLearn">
+  <span style="font-family:'Nunito',sans-serif;font-weight:900;background:linear-gradient(135deg,#1B4FD8,#F97316);-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text">YuviLearn</span>
+  <button style="border:none;background:none;font-size:1.2rem;cursor:pointer" onclick="toggleSidebar()">☰</button>
+</div>
 
-    <div class="nav-section-title">Menu</div>
-    <button class="nav-item active" onclick="showPage('home', this)">
-      <span class="icon">🏠</span> Dashboard
-    </button>
-    <button class="nav-item" onclick="showPage('tasks', this)">
-      <span class="icon">✅</span> Today's Tasks
-    </button>
-    <button class="nav-item" onclick="showPage('ai', this)">
-      <span class="icon">🤖</span> Yuvi AI
-    </button>
-    <button class="nav-item" onclick="showPage('progress', this)">
-      <span class="icon">📊</span> Progress
-    </button>
-    <button class="nav-item" onclick="showPage('schedule', this)">
-      <span class="icon">📅</span> Schedule
-    </button>
+<!-- SIDEBAR -->
+<aside class="sidebar" id="sidebar">
+  <a href="index.html" class="sidebar-logo">
+    <img src="logo.webp" alt="YuviLearn">
+    <span class="sidebar-logo-text">YuviLearn</span>
+  </a>
 
-    <div class="sidebar-bottom">
-      <div class="user-chip">
-        <div class="user-avatar" id="sidebarAvatar">S</div>
-        <div class="user-info">
-          <div class="user-name" id="sidebarName">Student</div>
-          <div class="user-class" id="sidebarClass">Class —</div>
-        </div>
+  <div class="nav-section-title">Main Menu</div>
+  <button class="nav-item active" onclick="showPage('home', this)">
+    <span class="icon">🏠</span> Dashboard
+  </button>
+  <button class="nav-item" onclick="showPage('tasks', this)">
+    <span class="icon">✅</span> Today's Tasks
+  </button>
+  <button class="nav-item" onclick="showPage('ai', this)">
+    <span class="icon">🤖</span> Yuvi AI Tutor
+  </button>
+  <button class="nav-item" onclick="showPage('progress', this)">
+    <span class="icon">📊</span> My Progress
+  </button>
+  <button class="nav-item" onclick="showPage('schedule', this)">
+    <span class="icon">📅</span> Schedule
+  </button>
+
+  <div class="nav-section-title">Resources</div>
+  <button class="nav-item" onclick="showPage('tests', this)">
+    <span class="icon">📝</span> Mock Tests
+  </button>
+  <button class="nav-item" onclick="showPage('leaderboard', this)">
+    <span class="icon">🏆</span> Leaderboard
+  </button>
+  <a href="sample_book.docx" download class="nav-item">
+    <span class="icon">📗</span> Study Materials
+  </a>
+
+  <div class="sidebar-bottom">
+    <div class="user-chip">
+      <div class="user-avatar" id="sidebarAvatar">S</div>
+      <div>
+        <div class="user-name" id="sidebarName">Student</div>
+        <div class="user-class" id="sidebarClass">Class —</div>
       </div>
-      <button class="btn btn-danger" onclick="logout()" style="width:100%;margin-top:12px;text-align:center">
-        Logout
-      </button>
     </div>
-  </aside>
+    <button class="btn-logout" onclick="logout()">← Logout</button>
+  </div>
+</aside>
 
-  <!-- MAIN CONTENT -->
-  <main class="main">
+<!-- MAIN CONTENT -->
+<div class="main-wrap">
+<main class="main">
 
-    <!-- HOME PAGE -->
-    <div class="page active" id="page-home">
-      <div class="page-header">
-        <h1 id="welcomeText">Good morning, Student 👋</h1>
-        <p id="profileLine">Loading your profile…</p>
+  <!-- ── HOME ── -->
+  <div class="page active" id="page-home">
+    <div class="page-header">
+      <h1 id="welcomeText">Good morning, Student 👋</h1>
+      <p id="profileLine">Loading your profile…</p>
+    </div>
+
+    <div style="margin-bottom:20px">
+      <span class="streak-badge">🔥 12-Day Streak — Keep it up!</span>
+    </div>
+
+    <div class="stats-grid">
+      <div class="stat-card">
+        <div class="stat-label">Weekly Consistency</div>
+        <div class="stat-value">82%</div>
+        <div class="stat-sub"><span class="stat-up">↑ 6%</span> from last week</div>
       </div>
-
-      <div class="stats-grid">
-        <div class="stat-card">
-          <div class="stat-label">Weekly Consistency</div>
-          <div class="stat-value">82%</div>
-          <div class="stat-sub">↑ 6% from last week</div>
-        </div>
-        <div class="stat-card">
-          <div class="stat-label">Tasks Today</div>
-          <div class="stat-value">3</div>
-          <div class="stat-sub">0 completed</div>
-        </div>
-        <div class="stat-card">
-          <div class="stat-label">Best Subject</div>
-          <div class="stat-value" style="font-size:1.4rem">Biology</div>
-          <div class="stat-sub">Score: 88/100</div>
-        </div>
-        <div class="stat-card">
-          <div class="stat-label">Study Streak</div>
-          <div class="stat-value">12 🔥</div>
-          <div class="stat-sub">Days in a row</div>
-        </div>
+      <div class="stat-card">
+        <div class="stat-label">Tasks Today</div>
+        <div class="stat-value" id="taskCount">4</div>
+        <div class="stat-sub" id="taskSubtext">0 completed</div>
       </div>
-
-      <div class="grid-2">
-        <div class="card">
-          <div class="card-title">📋 Today's Tasks</div>
-          <div class="task-item">
-            <div class="task-check" onclick="toggleTask(this)"></div>
-            <div class="task-content">
-              <div class="task-name">Cell chapter revision</div>
-              <div class="task-meta">40 min · Biology</div>
-            </div>
-            <span class="task-badge badge-bio">Bio</span>
-          </div>
-          <div class="task-item">
-            <div class="task-check" onclick="toggleTask(this)"></div>
-            <div class="task-content">
-              <div class="task-name">25 MCQs on Atomic Structure</div>
-              <div class="task-meta">30 min · Chemistry</div>
-            </div>
-            <span class="task-badge badge-chem">Chem</span>
-          </div>
-          <div class="task-item">
-            <div class="task-check" onclick="toggleTask(this)"></div>
-            <div class="task-content">
-              <div class="task-name">Motion numericals practice</div>
-              <div class="task-meta">35 min · Physics</div>
-            </div>
-            <span class="task-badge badge-phys">Phys</span>
-          </div>
-        </div>
-
-        <div class="card">
-          <div class="card-title">📈 Subject Progress</div>
-          <div class="progress-item">
-            <div class="progress-header"><span>Biology</span><span style="color:var(--green)">88%</span></div>
-            <div class="progress-bar"><div class="progress-fill fill-green" style="width:88%"></div></div>
-          </div>
-          <div class="progress-item">
-            <div class="progress-header"><span>Chemistry</span><span style="color:var(--cyan)">72%</span></div>
-            <div class="progress-bar"><div class="progress-fill fill-cyan" style="width:72%"></div></div>
-          </div>
-          <div class="progress-item">
-            <div class="progress-header"><span>Physics</span><span style="color:var(--gold)">65%</span></div>
-            <div class="progress-bar"><div class="progress-fill fill-gold" style="width:65%"></div></div>
-          </div>
-          <div style="margin-top:20px;padding:14px;background:rgba(0,214,143,0.06);border:1px solid rgba(0,214,143,0.15);border-radius:10px">
-            <div style="font-size:0.78rem;color:var(--green);font-weight:700;margin-bottom:4px">AI INSIGHT</div>
-            <div style="font-size:0.85rem;color:var(--muted);line-height:1.6">Your Physics score is 23 points below Biology. Spend 20 extra minutes on Motion concepts this week.</div>
-          </div>
-        </div>
+      <div class="stat-card">
+        <div class="stat-label">Best Subject</div>
+        <div class="stat-value" style="font-size:1.5rem">Biology</div>
+        <div class="stat-sub">Score: 88/100</div>
       </div>
-
-      <div class="card">
-        <div class="card-title">🗓 Upcoming</div>
-        <div style="display:flex;gap:16px;flex-wrap:wrap">
-          <div style="flex:1;min-width:200px;padding:16px;border-radius:10px;background:rgba(255,255,255,0.03);border:1px solid var(--border)">
-            <div style="font-size:0.78rem;color:var(--muted);margin-bottom:4px">SUNDAY</div>
-            <div style="font-weight:600;margin-bottom:8px">Mock Test · 60 Questions</div>
-            <button class="btn btn-green" onclick="showPage('tasks', document.querySelector('[onclick*=tasks]'))">Start Practice</button>
-          </div>
-          <div style="flex:1;min-width:200px;padding:16px;border-radius:10px;background:rgba(255,255,255,0.03);border:1px solid var(--border)">
-            <div style="font-size:0.78rem;color:var(--muted);margin-bottom:4px">THURSDAY</div>
-            <div style="font-weight:600;margin-bottom:8px">Mentor Call · 30 min</div>
-            <button class="btn btn-outline">View Details</button>
-          </div>
-        </div>
+      <div class="stat-card">
+        <div class="stat-label">Study Streak</div>
+        <div class="stat-value">12 🔥</div>
+        <div class="stat-sub">Days in a row</div>
       </div>
     </div>
 
-    <!-- TASKS PAGE -->
-    <div class="page" id="page-tasks">
-      <div class="page-header">
-        <h1>Today's Tasks</h1>
-        <p>Your AI-generated study plan for today</p>
-      </div>
+    <div class="grid-2">
       <div class="card">
-        <div class="card-title">📚 Study Tasks</div>
+        <div class="card-title">📋 Today's Tasks</div>
         <div class="task-item">
           <div class="task-check" onclick="toggleTask(this)"></div>
           <div class="task-content">
-            <div class="task-name">Cell Division — Mitosis & Meiosis</div>
-            <div class="task-meta">Read NCERT pages 142–158 · 40 min</div>
+            <div class="task-name">Cell chapter revision</div>
+            <div class="task-meta">40 min · Biology · NCERT Ch. 8</div>
           </div>
-          <span class="task-badge badge-bio">Biology</span>
+          <span class="task-badge badge-bio">Bio</span>
         </div>
         <div class="task-item">
           <div class="task-check" onclick="toggleTask(this)"></div>
           <div class="task-content">
-            <div class="task-name">Atomic Structure — 25 MCQs</div>
-            <div class="task-meta">Adaptive test · auto-adjusted difficulty · 30 min</div>
+            <div class="task-name">25 MCQs on Atomic Structure</div>
+            <div class="task-meta">30 min · Chemistry · Adaptive</div>
           </div>
-          <span class="task-badge badge-chem">Chemistry</span>
+          <span class="task-badge badge-chem">Chem</span>
         </div>
         <div class="task-item">
           <div class="task-check" onclick="toggleTask(this)"></div>
           <div class="task-content">
-            <div class="task-name">Laws of Motion — Numericals</div>
-            <div class="task-meta">10 problems from weak-area bank · 35 min</div>
+            <div class="task-name">Motion numericals practice</div>
+            <div class="task-meta">35 min · Physics · Weak area</div>
           </div>
-          <span class="task-badge badge-phys">Physics</span>
+          <span class="task-badge badge-phys">Phys</span>
         </div>
         <div class="task-item">
           <div class="task-check" onclick="toggleTask(this)"></div>
           <div class="task-content">
-            <div class="task-name">Error Log Review</div>
-            <div class="task-meta">Review yesterday's wrong answers · 15 min</div>
+            <div class="task-name">Error log review</div>
+            <div class="task-meta">15 min · Yesterday's mistakes</div>
           </div>
-          <span class="task-badge" style="background:rgba(255,255,255,0.07);color:var(--muted)">Review</span>
+          <span class="task-badge badge-rev">Review</span>
+        </div>
+      </div>
+
+      <div class="card">
+        <div class="card-title">📈 Subject Progress</div>
+        <div class="progress-item">
+          <div class="progress-header"><span>Biology</span><span style="color:var(--green)">88%</span></div>
+          <div class="progress-bar"><div class="progress-fill fill-green" style="width:0%" data-target="88"></div></div>
+        </div>
+        <div class="progress-item">
+          <div class="progress-header"><span>Chemistry</span><span style="color:var(--cyan)">72%</span></div>
+          <div class="progress-bar"><div class="progress-fill fill-cyan" style="width:0%" data-target="72"></div></div>
+        </div>
+        <div class="progress-item">
+          <div class="progress-header"><span>Physics</span><span style="color:var(--gold)">65%</span></div>
+          <div class="progress-bar"><div class="progress-fill fill-gold" style="width:0%" data-target="65"></div></div>
+        </div>
+        <div class="insight-box">
+          <div class="insight-label">🤖 AI Insight</div>
+          <div class="insight-text">Your Physics score is 23 points below Biology. Spend 20 extra minutes on Newton's Laws this week — your accuracy in this topic has been only 52%.</div>
         </div>
       </div>
     </div>
 
-    <!-- AI PAGE -->
-    <div class="page" id="page-ai">
-      <div class="page-header">
-        <h1>Yuvi AI</h1>
-        <p>Your 24/7 NEET doubt assistant — ask anything</p>
+    <div class="card">
+      <div class="card-title">🗓 Upcoming This Week</div>
+      <div style="display:flex;gap:16px;flex-wrap:wrap">
+        <div style="flex:1;min-width:180px;padding:16px;border-radius:10px;background:var(--surface);border:1px solid var(--border)">
+          <div style="font-size:0.72rem;color:var(--muted);font-weight:700;text-transform:uppercase;margin-bottom:4px">Sunday</div>
+          <div style="font-weight:700;margin-bottom:4px;color:var(--dark)">Mock Test · 60 Questions</div>
+          <div style="font-size:0.82rem;color:var(--muted)">Full NEET simulation · 3 hours</div>
+        </div>
+        <div style="flex:1;min-width:180px;padding:16px;border-radius:10px;background:var(--surface);border:1px solid var(--border)">
+          <div style="font-size:0.72rem;color:var(--muted);font-weight:700;text-transform:uppercase;margin-bottom:4px">Thursday</div>
+          <div style="font-weight:700;margin-bottom:4px;color:var(--dark)">Mentor Call · 30 min</div>
+          <div style="font-size:0.82rem;color:var(--muted)">Strategy review + Q&A</div>
+        </div>
+        <div style="flex:1;min-width:180px;padding:16px;border-radius:10px;background:rgba(249,115,22,0.05);border:1px solid rgba(249,115,22,0.15)">
+          <div style="font-size:0.72rem;color:var(--orange);font-weight:700;text-transform:uppercase;margin-bottom:4px">Tomorrow</div>
+          <div style="font-weight:700;margin-bottom:4px;color:var(--dark)">Live Class: Organic Chemistry</div>
+          <div style="font-size:0.82rem;color:var(--muted)">7:00 PM – 8:30 PM</div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ── TASKS ── -->
+  <div class="page" id="page-tasks">
+    <div class="page-header">
+      <h1>Today's Study Tasks</h1>
+      <p>Your AI-generated personalised study plan for today</p>
+    </div>
+    <div class="card">
+      <div class="card-title">📚 Full Task List</div>
+      <div class="task-item">
+        <div class="task-check" onclick="toggleTask(this)"></div>
+        <div class="task-content">
+          <div class="task-name">Cell Division — Mitosis & Meiosis</div>
+          <div class="task-meta">Read NCERT pages 142–158 · 40 min · High priority</div>
+        </div>
+        <span class="task-badge badge-bio">Biology</span>
+      </div>
+      <div class="task-item">
+        <div class="task-check" onclick="toggleTask(this)"></div>
+        <div class="task-content">
+          <div class="task-name">Atomic Structure — 25 Adaptive MCQs</div>
+          <div class="task-meta">Auto-adjusted difficulty · 30 min</div>
+        </div>
+        <span class="task-badge badge-chem">Chemistry</span>
+      </div>
+      <div class="task-item">
+        <div class="task-check" onclick="toggleTask(this)"></div>
+        <div class="task-content">
+          <div class="task-name">Laws of Motion — 10 Numericals</div>
+          <div class="task-meta">Weak-area practice bank · 35 min</div>
+        </div>
+        <span class="task-badge badge-phys">Physics</span>
+      </div>
+      <div class="task-item">
+        <div class="task-check" onclick="toggleTask(this)"></div>
+        <div class="task-content">
+          <div class="task-name">Yesterday's Error Log Review</div>
+          <div class="task-meta">Review 8 wrong answers with explanations · 15 min</div>
+        </div>
+        <span class="task-badge badge-rev">Review</span>
+      </div>
+      <div class="task-item">
+        <div class="task-check" onclick="toggleTask(this)"></div>
+        <div class="task-content">
+          <div class="task-name">Genetics — PYQ Practice Set</div>
+          <div class="task-meta">2022–2024 NEET questions · 25 min</div>
+        </div>
+        <span class="task-badge badge-bio">Biology</span>
+      </div>
+    </div>
+    <div class="card">
+      <div class="card-title">🔖 Today's Quick Notes</div>
+      <textarea id="quickNotes" style="width:100%;background:var(--surface);border:2px solid var(--border);border-radius:10px;padding:14px;font-family:'Poppins',sans-serif;font-size:0.88rem;color:var(--dark);resize:vertical;min-height:120px;outline:none" placeholder="Jot down key points, doubts, or reminders for today's study session..." oninput="saveNotes()"></textarea>
+      <div style="font-size:0.78rem;color:var(--muted);margin-top:6px">Notes are saved automatically</div>
+    </div>
+  </div>
+
+  <!-- ── AI TUTOR ── -->
+  <div class="page" id="page-ai">
+    <div class="page-header">
+      <h1>Yuvi AI Tutor 🤖</h1>
+      <p>Your 24/7 NEET doubt assistant — ask anything in Biology, Chemistry, or Physics</p>
+    </div>
+    <div class="card">
+      <div class="card-title">💬 Ask Your Doubt</div>
+      <div class="chat-messages" id="chatMessages">
+        <div class="msg ai">👋 Hi! I'm <strong>Yuvi AI</strong>, your personal NEET study assistant. Ask me any doubt in Biology, Chemistry, or Physics and I'll explain it step by step in simple language! 🎓</div>
+      </div>
+      <div style="display:flex;flex-wrap:wrap;gap:8px;margin-bottom:12px">
+        <button onclick="askQuick('Explain the difference between mitosis and meiosis')" style="padding:6px 12px;background:rgba(16,185,129,0.08);border:1px solid rgba(16,185,129,0.2);border-radius:20px;font-size:0.78rem;font-weight:600;color:#059669;cursor:pointer">Mitosis vs Meiosis</button>
+        <button onclick="askQuick('What is Newtons second law of motion with example')" style="padding:6px 12px;background:rgba(245,158,11,0.08);border:1px solid rgba(245,158,11,0.2);border-radius:20px;font-size:0.78rem;font-weight:600;color:#D97706;cursor:pointer">Newton's 2nd Law</button>
+        <button onclick="askQuick('Explain ionic bonding vs covalent bonding')" style="padding:6px 12px;background:rgba(6,182,212,0.08);border:1px solid rgba(6,182,212,0.2);border-radius:20px;font-size:0.78rem;font-weight:600;color:#0E7490;cursor:pointer">Ionic vs Covalent</button>
+        <button onclick="askQuick('What are the NEET important topics for Biology')" style="padding:6px 12px;background:rgba(27,79,216,0.08);border:1px solid rgba(27,79,216,0.15);border-radius:20px;font-size:0.78rem;font-weight:600;color:var(--blue);cursor:pointer">Top Biology Topics</button>
+      </div>
+      <div class="chat-input-row">
+        <textarea id="aiQuestion" placeholder="Type your doubt here… e.g. 'What is photosynthesis and how does it work?'"></textarea>
+        <button class="btn btn-blue" onclick="askAI()">Send ↑</button>
+      </div>
+    </div>
+    <div class="card">
+      <div class="card-title">⚡ AI Study Plan Generator</div>
+      <div style="display:grid;grid-template-columns:1fr 1fr;gap:16px;margin-bottom:16px">
+        <div>
+          <label style="font-size:0.75rem;font-weight:700;text-transform:uppercase;letter-spacing:0.06em;color:var(--muted);display:block;margin-bottom:8px">Weak Topics</label>
+          <input id="plan-topics" type="text" placeholder="e.g. Genetics, Optics, Thermodynamics" style="width:100%;background:var(--surface);border:2px solid var(--border);border-radius:10px;padding:11px 14px;font-family:'Poppins',sans-serif;font-size:0.88rem;color:var(--dark);outline:none">
+        </div>
+        <div>
+          <label style="font-size:0.75rem;font-weight:700;text-transform:uppercase;letter-spacing:0.06em;color:var(--muted);display:block;margin-bottom:8px">Exam in (weeks)</label>
+          <select id="plan-weeks" style="width:100%;background:var(--surface);border:2px solid var(--border);border-radius:10px;padding:11px 14px;font-family:'Poppins',sans-serif;font-size:0.88rem;color:var(--dark);outline:none">
+            <option>2 weeks</option><option>4 weeks</option><option>8 weeks</option><option>12 weeks</option>
+          </select>
+        </div>
+      </div>
+      <button class="btn btn-orange" onclick="generatePlan()">Generate My Study Plan ✦</button>
+      <div id="planOutput" style="margin-top:16px;padding:16px;background:rgba(249,115,22,0.05);border:1px dashed rgba(249,115,22,0.25);border-radius:10px;font-size:0.87rem;color:var(--dark2);min-height:70px;line-height:1.8;white-space:pre-line;display:none"></div>
+    </div>
+  </div>
+
+  <!-- ── PROGRESS ── -->
+  <div class="page" id="page-progress">
+    <div class="page-header">
+      <h1>My Progress 📊</h1>
+      <p>Subject-wise performance, weekly consistency, and AI-driven insights</p>
+    </div>
+    <div class="stats-grid">
+      <div class="stat-card">
+        <div class="stat-label">Overall Score</div>
+        <div class="stat-value">75%</div>
+        <div class="stat-sub">All 3 subjects combined</div>
+      </div>
+      <div class="stat-card">
+        <div class="stat-label">Tests Taken</div>
+        <div class="stat-value">18</div>
+        <div class="stat-sub">This month</div>
+      </div>
+      <div class="stat-card">
+        <div class="stat-label">Questions Solved</div>
+        <div class="stat-value">840</div>
+        <div class="stat-sub">Since joining</div>
+      </div>
+      <div class="stat-card">
+        <div class="stat-label">Accuracy Rate</div>
+        <div class="stat-value">73%</div>
+        <div class="stat-sub"><span class="stat-up">↑ 4%</span> vs last month</div>
+      </div>
+    </div>
+    <div class="grid-2">
+      <div class="card">
+        <div class="card-title">📈 Chapter Completion</div>
+        <div class="progress-item">
+          <div class="progress-header"><span>Biology</span><span style="color:var(--green)">88%</span></div>
+          <div class="progress-bar"><div class="progress-fill fill-green" style="width:0%" data-target="88"></div></div>
+        </div>
+        <div class="progress-item">
+          <div class="progress-header"><span>Chemistry</span><span style="color:var(--cyan)">72%</span></div>
+          <div class="progress-bar"><div class="progress-fill fill-cyan" style="width:0%" data-target="72"></div></div>
+        </div>
+        <div class="progress-item">
+          <div class="progress-header"><span>Physics</span><span style="color:var(--gold)">65%</span></div>
+          <div class="progress-bar"><div class="progress-fill fill-gold" style="width:0%" data-target="65"></div></div>
+        </div>
+        <div class="progress-item">
+          <div class="progress-header"><span>Overall</span><span style="color:var(--blue)">75%</span></div>
+          <div class="progress-bar"><div class="progress-fill fill-blue" style="width:0%" data-target="75"></div></div>
+        </div>
       </div>
       <div class="card">
-        <div class="card-title">🤖 Ask Your Doubt</div>
-        <div class="chat-messages" id="chatMessages">
-          <div class="msg ai">Hi! I'm Yuvi AI. Ask me any Biology, Chemistry, or Physics doubt and I'll explain it step by step. 🎓</div>
-        </div>
-        <div class="chat-input-row">
-          <textarea id="aiQuestion" placeholder="Type your doubt here… e.g. 'Explain the difference between mitosis and meiosis'"></textarea>
-          <button class="btn btn-green" onclick="askAI()">Send</button>
+        <div class="card-title">📉 Weak Topics Radar</div>
+        <div style="display:flex;flex-direction:column;gap:10px">
+          <div style="display:flex;justify-content:space-between;align-items:center;padding:10px 14px;background:rgba(239,68,68,0.06);border:1px solid rgba(239,68,68,0.15);border-radius:8px">
+            <span style="font-size:0.88rem;font-weight:600">Laws of Motion (Physics)</span>
+            <span style="font-size:0.8rem;color:#DC2626;font-weight:700">52%</span>
+          </div>
+          <div style="display:flex;justify-content:space-between;align-items:center;padding:10px 14px;background:rgba(245,158,11,0.06);border:1px solid rgba(245,158,11,0.15);border-radius:8px">
+            <span style="font-size:0.88rem;font-weight:600">Organic Reactions (Chem)</span>
+            <span style="font-size:0.8rem;color:#D97706;font-weight:700">61%</span>
+          </div>
+          <div style="display:flex;justify-content:space-between;align-items:center;padding:10px 14px;background:rgba(245,158,11,0.06);border:1px solid rgba(245,158,11,0.15);border-radius:8px">
+            <span style="font-size:0.88rem;font-weight:600">Genetics (Biology)</span>
+            <span style="font-size:0.8rem;color:#D97706;font-weight:700">68%</span>
+          </div>
+          <div style="display:flex;justify-content:space-between;align-items:center;padding:10px 14px;background:rgba(16,185,129,0.06);border:1px solid rgba(16,185,129,0.15);border-radius:8px">
+            <span style="font-size:0.88rem;font-weight:600">Cell Biology (Biology)</span>
+            <span style="font-size:0.8rem;color:#059669;font-weight:700">91%</span>
+          </div>
         </div>
       </div>
     </div>
+  </div>
 
-    <!-- PROGRESS PAGE -->
-    <div class="page" id="page-progress">
-      <div class="page-header">
-        <h1>Your Progress</h1>
-        <p>Subject-wise performance and weekly consistency</p>
+  <!-- ── SCHEDULE ── -->
+  <div class="page" id="page-schedule">
+    <div class="page-header">
+      <h1>Weekly Schedule 📅</h1>
+      <p>Your AI-curated class and study schedule for this week</p>
+    </div>
+    <div class="card">
+      <div class="card-title">This Week's Timetable</div>
+      <div class="schedule-day">
+        <div class="schedule-day-label">Monday</div>
+        <div class="schedule-item"><div class="schedule-dot dot-bio"></div><div class="schedule-time">7:00 PM</div><div><div class="schedule-subject">Live Class: Cell Division</div><div class="schedule-type">Biology · 90 min · Live</div></div></div>
       </div>
-      <div class="stats-grid">
-        <div class="stat-card">
-          <div class="stat-label">Overall Score</div>
-          <div class="stat-value">75%</div>
-          <div class="stat-sub">All 3 subjects combined</div>
+      <div class="schedule-day">
+        <div class="schedule-day-label">Tuesday</div>
+        <div class="schedule-item"><div class="schedule-dot dot-chem"></div><div class="schedule-time">5:00 PM</div><div><div class="schedule-subject">Organic Chemistry Basics</div><div class="schedule-type">Chemistry · 90 min · Recorded</div></div></div>
+        <div class="schedule-item"><div class="schedule-dot dot-bio"></div><div class="schedule-time">8:00 PM</div><div><div class="schedule-subject">Biology MCQ Sprint</div><div class="schedule-type">Biology · 45 min · Practice</div></div></div>
+      </div>
+      <div class="schedule-day">
+        <div class="schedule-day-label">Wednesday</div>
+        <div class="schedule-item"><div class="schedule-dot dot-phys"></div><div class="schedule-time">6:00 PM</div><div><div class="schedule-subject">Live Class: Laws of Motion</div><div class="schedule-type">Physics · 90 min · Live</div></div></div>
+      </div>
+      <div class="schedule-day">
+        <div class="schedule-day-label">Thursday</div>
+        <div class="schedule-item"><div class="schedule-dot dot-chem"></div><div class="schedule-time">5:00 PM</div><div><div class="schedule-subject">Chemical Bonding Revision</div><div class="schedule-type">Chemistry · 60 min · Self-study</div></div></div>
+        <div class="schedule-item"><div class="schedule-dot dot-bio"></div><div class="schedule-time">7:30 PM</div><div><div class="schedule-subject">Mentor Call</div><div class="schedule-type">1-on-1 · 30 min · Strategy session</div></div></div>
+      </div>
+      <div class="schedule-day">
+        <div class="schedule-day-label">Sunday</div>
+        <div class="schedule-item"><div class="schedule-dot dot-test"></div><div class="schedule-time">10:00 AM</div><div><div class="schedule-subject">Full Mock Test (NEET Pattern)</div><div class="schedule-type">All subjects · 180 min · 180 questions</div></div></div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ── MOCK TESTS ── -->
+  <div class="page" id="page-tests">
+    <div class="page-header">
+      <h1>Mock Tests 📝</h1>
+      <p>NEET-pattern adaptive tests to sharpen your exam readiness</p>
+    </div>
+    <div class="grid-2">
+      <div class="card">
+        <div class="card-title">🆕 Available Tests</div>
+        <div class="task-item" style="cursor:pointer">
+          <div style="font-size:2rem">🧬</div>
+          <div class="task-content">
+            <div class="task-name">Biology Full Mock #4</div>
+            <div class="task-meta">90 questions · 90 min · NEET pattern</div>
+          </div>
+          <button class="btn btn-blue" style="font-size:0.8rem;padding:8px 14px">Start</button>
         </div>
-        <div class="stat-card">
-          <div class="stat-label">Tests Taken</div>
-          <div class="stat-value">18</div>
-          <div class="stat-sub">This month</div>
+        <div class="task-item" style="cursor:pointer">
+          <div style="font-size:2rem">⚗️</div>
+          <div class="task-content">
+            <div class="task-name">Chemistry Chapter Test</div>
+            <div class="task-meta">45 questions · 45 min · Organic focus</div>
+          </div>
+          <button class="btn btn-blue" style="font-size:0.8rem;padding:8px 14px">Start</button>
         </div>
-        <div class="stat-card">
-          <div class="stat-label">Questions Solved</div>
-          <div class="stat-value">840</div>
-          <div class="stat-sub">Since joining</div>
-        </div>
-        <div class="stat-card">
-          <div class="stat-label">Accuracy Rate</div>
-          <div class="stat-value">71%</div>
-          <div class="stat-sub">↑ from 63% last month</div>
+        <div class="task-item" style="cursor:pointer">
+          <div style="font-size:2rem">⚡</div>
+          <div class="task-content">
+            <div class="task-name">Physics Weak Area Drill</div>
+            <div class="task-meta">30 questions · 30 min · AI curated</div>
+          </div>
+          <button class="btn btn-blue" style="font-size:0.8rem;padding:8px 14px">Start</button>
         </div>
       </div>
       <div class="card">
-        <div class="card-title">📊 Chapter-wise Mastery</div>
-        <div class="progress-item" style="margin-top:8px">
-          <div class="progress-header"><span>Cell Biology</span><span style="color:var(--green)">92%</span></div>
-          <div class="progress-bar"><div class="progress-fill fill-green" style="width:92%"></div></div>
+        <div class="card-title">📊 Recent Results</div>
+        <div class="task-item">
+          <div class="task-content">
+            <div class="task-name">Full NEET Mock #3</div>
+            <div class="task-meta">Score: 142/180 · 79% accuracy</div>
+          </div>
+          <span class="task-badge badge-bio" style="background:rgba(16,185,129,0.1);color:#059669">Good</span>
         </div>
-        <div class="progress-item">
-          <div class="progress-header"><span>Genetics</span><span style="color:var(--green)">85%</span></div>
-          <div class="progress-bar"><div class="progress-fill fill-green" style="width:85%"></div></div>
+        <div class="task-item">
+          <div class="task-content">
+            <div class="task-name">Chemistry Chapter Test</div>
+            <div class="task-meta">Score: 28/45 · 62% accuracy</div>
+          </div>
+          <span class="task-badge" style="background:rgba(245,158,11,0.1);color:#D97706">Average</span>
         </div>
-        <div class="progress-item">
-          <div class="progress-header"><span>Atomic Structure</span><span style="color:var(--cyan)">74%</span></div>
-          <div class="progress-bar"><div class="progress-fill fill-cyan" style="width:74%"></div></div>
+        <div class="task-item">
+          <div class="task-content">
+            <div class="task-name">Biology Speed Drill</div>
+            <div class="task-meta">Score: 36/40 · 90% accuracy</div>
+          </div>
+          <span class="task-badge badge-bio" style="background:rgba(27,79,216,0.08);color:var(--blue)">Excellent</span>
         </div>
-        <div class="progress-item">
-          <div class="progress-header"><span>Chemical Bonding</span><span style="color:var(--cyan)">68%</span></div>
-          <div class="progress-bar"><div class="progress-fill fill-cyan" style="width:68%"></div></div>
-        </div>
-        <div class="progress-item">
-          <div class="progress-header"><span>Laws of Motion</span><span style="color:var(--gold)">61%</span></div>
-          <div class="progress-bar"><div class="progress-fill fill-gold" style="width:61%"></div></div>
-        </div>
-        <div class="progress-item">
-          <div class="progress-header"><span>Thermodynamics</span><span style="color:var(--gold)">55%</span></div>
-          <div class="progress-bar"><div class="progress-fill fill-gold" style="width:55%"></div></div>
-        </div>
-      </div>
-    </div>
-
-    <!-- SCHEDULE PAGE -->
-    <div class="page" id="page-schedule">
-      <div class="page-header">
-        <h1>Weekly Schedule</h1>
-        <p>Your AI-planned study week</p>
-      </div>
-      <div class="card">
-        <div class="schedule-day">
-          <div class="schedule-day-label">Monday — Wednesday</div>
-          <div class="schedule-item"><div class="schedule-time">5:00 PM</div><div class="schedule-subject">Concept Study — NCERT chapter reading (45 min)</div></div>
-          <div class="schedule-item"><div class="schedule-time">6:00 PM</div><div class="schedule-subject">Live Class or Recorded Session (60 min)</div></div>
-          <div class="schedule-item"><div class="schedule-time">7:30 PM</div><div class="schedule-subject">AI Doubt Clearing Session (20 min)</div></div>
-        </div>
-        <div class="schedule-day">
-          <div class="schedule-day-label">Thursday — Friday</div>
-          <div class="schedule-item"><div class="schedule-time">5:00 PM</div><div class="schedule-subject">Mixed MCQ Practice — 30 Questions (40 min)</div></div>
-          <div class="schedule-item"><div class="schedule-time">6:00 PM</div><div class="schedule-subject">Weak Topic Deep Dive (50 min)</div></div>
-        </div>
-        <div class="schedule-day">
-          <div class="schedule-day-label">Saturday</div>
-          <div class="schedule-item"><div class="schedule-time">10:00 AM</div><div class="schedule-subject">Timed Chapter Test — 60 Questions (75 min)</div></div>
-          <div class="schedule-item"><div class="schedule-time">12:00 PM</div><div class="schedule-subject">Test Analysis with AI Feedback (30 min)</div></div>
-        </div>
-        <div class="schedule-day">
-          <div class="schedule-day-label">Sunday</div>
-          <div class="schedule-item"><div class="schedule-time">11:00 AM</div><div class="schedule-subject">Error Log Revision (45 min)</div></div>
-          <div class="schedule-item"><div class="schedule-time">12:00 PM</div><div class="schedule-subject">Mentor / Parent Feedback Call (30 min)</div></div>
+        <div class="insight-box">
+          <div class="insight-label">🤖 AI Insight</div>
+          <div class="insight-text">Your Biology accuracy improved by 12% this month. Focus Chemistry preparation — particularly on Organic Reactions where you score only 54%.</div>
         </div>
       </div>
     </div>
+  </div>
 
-  </main>
+  <!-- ── LEADERBOARD ── -->
+  <div class="page" id="page-leaderboard">
+    <div class="page-header">
+      <h1>Leaderboard 🏆</h1>
+      <p>Top performers in your YuviLearn batch this month</p>
+    </div>
+    <div class="card">
+      <div class="card-title">🥇 Top 10 — June 2026</div>
+      <div class="lb-item">
+        <div class="lb-rank gold">1</div>
+        <div class="lb-avatar">A</div>
+        <div class="lb-name">Ananya Krishnan</div>
+        <div style="font-size:0.78rem;color:var(--muted);margin-right:12px">Class 11 · Chennai</div>
+        <div class="lb-score">4,820 pts</div>
+      </div>
+      <div class="lb-item">
+        <div class="lb-rank silver">2</div>
+        <div class="lb-avatar" style="background:linear-gradient(135deg,#059669,#34D399)">R</div>
+        <div class="lb-name">Rohit Sharma</div>
+        <div style="font-size:0.78rem;color:var(--muted);margin-right:12px">Class 12 · Coimbatore</div>
+        <div class="lb-score">4,650 pts</div>
+      </div>
+      <div class="lb-item">
+        <div class="lb-rank bronze">3</div>
+        <div class="lb-avatar" style="background:linear-gradient(135deg,#7C3AED,#A78BFA)">P</div>
+        <div class="lb-name">Priya Nair</div>
+        <div style="font-size:0.78rem;color:var(--muted);margin-right:12px">Class 11 · Madurai</div>
+        <div class="lb-score">4,480 pts</div>
+      </div>
+      <div class="lb-item" style="background:rgba(27,79,216,0.04);border-color:rgba(27,79,216,0.2)">
+        <div class="lb-rank" style="color:var(--blue);font-weight:900">7</div>
+        <div class="lb-avatar">Y</div>
+        <div class="lb-name" id="lbMyName">You</div>
+        <div style="font-size:0.78rem;color:var(--blue);font-weight:600;margin-right:12px">← You</div>
+        <div class="lb-score">3,920 pts</div>
+      </div>
+    </div>
+  </div>
+
+</main>
 </div>
 
 <script type="module">
 import { auth } from './firebase.js';
-import { onAuthStateChanged, signOut } from "https://www.gstatic.com/firebasejs/10.12.0/firebase-auth.js";
+import { onAuthStateChanged } from "https://www.gstatic.com/firebasejs/10.12.0/firebase-auth.js";
+import { signOut } from "https://www.gstatic.com/firebasejs/10.12.0/firebase-auth.js";
 
-onAuthStateChanged(auth, (user) => {
-  if (!user) { window.location.href = 'login.html'; return; }
-  const name = localStorage.getItem('name') || user.displayName || 'Student';
-  const cls = localStorage.getItem('class') || '—';
-  const goal = localStorage.getItem('goal') || 'NEET';
-  const hour = new Date().getHours();
-  const greeting = hour < 12 ? 'Good morning' : hour < 17 ? 'Good afternoon' : 'Good evening';
+// Load user
+const name = localStorage.getItem('name') || 'Student';
+const cls = localStorage.getItem('class') ? 'Class ' + localStorage.getItem('class') : 'Class —';
+const hour = new Date().getHours();
+const greeting = hour < 12 ? 'Good morning' : hour < 17 ? 'Good afternoon' : 'Good evening';
 
-  document.getElementById('welcomeText').textContent = `${greeting}, ${name} 👋`;
-  document.getElementById('profileLine').textContent = `Class ${cls} · Goal: ${goal} · Let's make today count.`;
-  document.getElementById('sidebarName').textContent = name;
-  document.getElementById('sidebarClass').textContent = `Class ${cls}`;
-  document.getElementById('sidebarAvatar').textContent = name.charAt(0).toUpperCase();
-});
+document.getElementById('welcomeText').textContent = `${greeting}, ${name} 👋`;
+document.getElementById('profileLine').textContent = `${cls} · ${localStorage.getItem('goal') || 'NEET'} Preparation`;
+document.getElementById('sidebarName').textContent = name;
+document.getElementById('sidebarClass').textContent = cls;
+document.getElementById('sidebarAvatar').textContent = name.charAt(0).toUpperCase();
+document.getElementById('lbMyName').textContent = name;
 
-async function logout() {
-  try { await signOut(auth); } finally {
-    localStorage.clear();
-    window.location.href = 'login.html';
-  }
-}
-window.logout = logout;
+// Restore notes
+const saved = localStorage.getItem('quickNotes');
+if (saved && document.getElementById('quickNotes')) document.getElementById('quickNotes').value = saved;
+
+// Logout
+window.logout = async function() {
+  try { await signOut(auth); } catch(e) {}
+  localStorage.clear();
+  window.location.href = 'index.html';
+};
+
+// Animate progress bars after load
+setTimeout(() => {
+  document.querySelectorAll('.progress-fill[data-target]').forEach(bar => {
+    bar.style.width = bar.dataset.target + '%';
+  });
+}, 300);
 </script>
 
 <script>
-function showPage(name, btn) {
+function showPage(id, btn) {
   document.querySelectorAll('.page').forEach(p => p.classList.remove('active'));
-  document.querySelectorAll('.nav-item').forEach(n => n.classList.remove('active'));
-  document.getElementById('page-' + name).classList.add('active');
+  document.querySelectorAll('.nav-item').forEach(b => b.classList.remove('active'));
+  const page = document.getElementById('page-' + id);
+  if (page) page.classList.add('active');
   if (btn) btn.classList.add('active');
+  // Re-animate progress bars
+  setTimeout(() => {
+    document.querySelectorAll('.progress-fill[data-target]').forEach(bar => {
+      bar.style.width = '0%';
+      setTimeout(() => bar.style.width = bar.dataset.target + '%', 50);
+    });
+  }, 100);
 }
 
 function toggleTask(el) {
   el.classList.toggle('done');
-  const card = el.closest('.task-item');
-  if (el.classList.contains('done')) {
-    card.style.opacity = '0.5';
-    card.querySelector('.task-name').style.textDecoration = 'line-through';
-  } else {
-    card.style.opacity = '1';
-    card.querySelector('.task-name').style.textDecoration = 'none';
-  }
+  const done = document.querySelectorAll('.task-check.done').length;
+  const total = document.querySelectorAll('.task-check').length;
+  const sub = document.getElementById('taskSubtext');
+  if (sub) sub.textContent = `${done} of ${total} completed`;
 }
 
-async function askAI() {
+function saveNotes() {
+  localStorage.setItem('quickNotes', document.getElementById('quickNotes').value);
+}
+
+function askQuick(q) {
+  document.getElementById('aiQuestion').value = q;
+  askAI();
+}
+
+function askAI() {
   const q = document.getElementById('aiQuestion').value.trim();
   if (!q) return;
   const chat = document.getElementById('chatMessages');
-  document.getElementById('aiQuestion').value = '';
 
   const userMsg = document.createElement('div');
   userMsg.className = 'msg user';
   userMsg.textContent = q;
   chat.appendChild(userMsg);
 
-  const thinking = document.createElement('div');
-  thinking.className = 'msg ai thinking';
-  thinking.textContent = 'Yuvi AI is thinking…';
-  chat.appendChild(thinking);
+  const thinkMsg = document.createElement('div');
+  thinkMsg.className = 'msg ai thinking';
+  thinkMsg.textContent = 'Yuvi AI is thinking…';
+  chat.appendChild(thinkMsg);
   chat.scrollTop = chat.scrollHeight;
+  document.getElementById('aiQuestion').value = '';
 
-  try {
-    const res = await fetch('https://api.anthropic.com/v1/messages', {
-      method: 'POST',
-      headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify({
-        model: 'claude-sonnet-4-20250514',
-        max_tokens: 1000,
-        system: 'You are Yuvi AI, a friendly NEET preparation assistant for Indian students in Classes 9-12. Answer science doubts clearly, step-by-step, using simple language. Focus on Biology, Chemistry, and Physics at NCERT level. Keep answers concise and helpful. End with one follow-up practice question.',
-        messages: [{ role: 'user', content: q }]
-      })
-    });
-    const data = await res.json();
-    thinking.textContent = data.content?.[0]?.text || 'Sorry, I could not fetch a response. Please try again.';
-    thinking.classList.remove('thinking');
-  } catch(e) {
-    thinking.textContent = 'Network error. Please check your connection and try again.';
-    thinking.classList.remove('thinking');
-  }
-  chat.scrollTop = chat.scrollHeight;
+  const responses = {
+    'mitosis': '🧬 Great question! Here\'s the comparison:\n\n**Mitosis:**\n• Produces 2 identical daughter cells\n• Used for growth and repair\n• Single division: Prophase → Metaphase → Anaphase → Telophase\n• Same chromosome number (diploid → diploid)\n\n**Meiosis:**\n• Produces 4 genetically diverse cells\n• Used for sexual reproduction (gametes)\n• Two divisions (Meiosis I + Meiosis II)\n• Halves chromosome number (diploid → haploid)\n\n💡 NEET Tip: Remember "Meiosis = halve" and "Mitosis = maintain"',
+    'newton': '⚡ Newton\'s 2nd Law: F = ma\n\n**In simple terms:** The force on an object equals its mass × acceleration.\n\n**Example:** A 5 kg ball accelerated at 3 m/s² needs F = 5 × 3 = 15 N of force.\n\n**Key points:**\n• Bigger force → more acceleration\n• Bigger mass → less acceleration (same force)\n• Direction of acceleration = direction of net force\n\n💡 NEET Tip: Always draw a free body diagram first!',
+    'ionic': '⚗️ Ionic vs Covalent Bonding:\n\n**Ionic:**\n• Metal + Non-metal (e.g., NaCl)\n• Electrons TRANSFERRED\n• Forms ions (+ and −)\n• High melting point, conducts electricity\n\n**Covalent:**\n• Non-metal + Non-metal (e.g., H₂O)\n• Electrons SHARED\n• Forms molecules\n• Lower melting point, usually non-conductor\n\n💡 NEET Trick: "Ionic = I give, covalent = we share"',
+    'biology': '📋 Top Biology Topics for NEET:\n\n1. Cell Biology (Mitosis/Meiosis, Cell Organelles)\n2. Genetics (Mendel\'s Laws, DNA structure)\n3. Human Physiology (Heart, Kidney, Digestion)\n4. Plant Physiology (Photosynthesis, Transpiration)\n5. Ecology (Food chains, Biodiversity)\n6. Evolution (Darwin\'s Theory, Natural Selection)\n7. Reproduction (Human, Plant)\n8. Biotechnology (PCR, GMO basics)\n\n💡 Focus: Human Physiology + Genetics together form ~35% of NEET Biology!'
+  };
+
+  setTimeout(() => {
+    thinkMsg.remove();
+    const aiMsg = document.createElement('div');
+    aiMsg.className = 'msg ai';
+    let answer = '🤖 This is a demonstration of Yuvi AI. In the full version, I would provide a detailed, NCERT-aligned step-by-step explanation for: "' + q + '" — complete with practice questions and concept tips tailored to your level.';
+    const lower = q.toLowerCase();
+    if (lower.includes('mitosis') || lower.includes('meiosis')) answer = responses['mitosis'];
+    else if (lower.includes('newton')) answer = responses['newton'];
+    else if (lower.includes('ionic') || lower.includes('covalent')) answer = responses['ionic'];
+    else if (lower.includes('biology') && lower.includes('neet')) answer = responses['biology'];
+    aiMsg.style.whiteSpace = 'pre-line';
+    aiMsg.textContent = answer;
+    chat.appendChild(aiMsg);
+    chat.scrollTop = chat.scrollHeight;
+  }, 1200);
 }
 
-window.showPage = showPage;
-window.toggleTask = toggleTask;
-window.askAI = askAI;
+function generatePlan() {
+  const topics = document.getElementById('plan-topics').value || 'core subjects';
+  const weeks = document.getElementById('plan-weeks').value;
+  const out = document.getElementById('planOutput');
+  out.style.display = 'block';
+  out.textContent = '⏳ Generating your plan…';
+  setTimeout(() => {
+    out.textContent = `📅 AI Study Plan · Focus: ${topics} · Timeline: ${weeks}\n\nWeek 1  Concept rebuild — NCERT reading + key notes\nWeek 2  MCQ drill (timed, 30 min/day) + doubt clearing\nWeek 3  Chapter test + error log analysis\nWeek 4  Mock test + mentor review session\n\nDaily target: 90 min study · 20 min weak topic focus\nSunday: Full mock test + error review`;
+  }, 900);
+}
+
+function toggleSidebar() {
+  const sb = document.getElementById('sidebar');
+  sb.style.display = sb.style.display === 'flex' ? 'none' : 'flex';
+  sb.style.flexDirection = 'column';
+}
 </script>
 </body>
 </html>

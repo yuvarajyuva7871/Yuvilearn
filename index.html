@@ -4,88 +4,105 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>YuviLearn — Build Your NEET Foundation Early</title>
+<meta name="description" content="India's early NEET foundation platform. AI-powered study plans, live classes, and expert mentors from Class 9.">
 <link rel="preconnect" href="https://fonts.googleapis.com">
-<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@700;900&family=DM+Sans:wght@300;400;500;600&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Nunito:wght@400;600;700;800;900&family=Poppins:wght@400;500;600;700;800&display=swap" rel="stylesheet">
 <style>
 :root {
-  --bg: #05080f;
-  --surface: #0c1220;
-  --card: #101828;
-  --border: rgba(255,255,255,0.07);
-  --text: #f0f4ff;
-  --muted: #8a9ab5;
-  --green: #00d68f;
-  --green-dim: rgba(0,214,143,0.12);
-  --cyan: #00b4d8;
-  --gold: #f5a623;
-  --radius: 16px;
+  --blue: #1B4FD8;
+  --blue-dark: #1340B8;
+  --blue-light: #3B6EF8;
+  --orange: #F97316;
+  --orange-light: #FB923C;
+  --bg: #F0F4FF;
+  --white: #FFFFFF;
+  --dark: #0F172A;
+  --dark2: #1E293B;
+  --muted: #64748B;
+  --border: #E2E8F0;
+  --card: #FFFFFF;
+  --surface: #F8FAFF;
+  --green: #10B981;
+  --radius: 18px;
+  --shadow: 0 4px 24px rgba(27,79,216,0.10);
+  --shadow-lg: 0 12px 48px rgba(27,79,216,0.16);
 }
 *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
 html { scroll-behavior: smooth; }
-
 body {
-  font-family: 'DM Sans', sans-serif;
+  font-family: 'Poppins', sans-serif;
   background: var(--bg);
-  color: var(--text);
+  color: var(--dark);
   line-height: 1.6;
   overflow-x: hidden;
-}
-
-/* ── NOISE TEXTURE OVERLAY ── */
-body::before {
-  content: '';
-  position: fixed;
-  inset: 0;
-  background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='0.03'/%3E%3C/svg%3E");
-  pointer-events: none;
-  z-index: 0;
-  opacity: 0.4;
 }
 
 /* ── NAV ── */
 nav {
   position: fixed; top: 0; left: 0; right: 0; z-index: 100;
   display: flex; align-items: center; justify-content: space-between;
-  padding: 18px 48px;
-  background: rgba(5,8,15,0.8);
+  padding: 14px 48px;
+  background: rgba(255,255,255,0.95);
   backdrop-filter: blur(20px);
   border-bottom: 1px solid var(--border);
-  transition: padding 0.3s;
+  box-shadow: 0 2px 16px rgba(27,79,216,0.07);
+  transition: all 0.3s;
 }
-.nav-logo {
-  font-family: 'Playfair Display', serif;
-  font-size: 1.5rem;
-  font-weight: 900;
-  background: linear-gradient(135deg, var(--green), var(--cyan));
-  -webkit-background-clip: text;
-  -webkit-text-fill-color: transparent;
+.nav-logo { display: flex; align-items: center; gap: 10px; text-decoration: none; }
+.nav-logo img { height: 44px; width: auto; }
+.nav-logo-text {
+  font-family: 'Nunito', sans-serif;
+  font-size: 1.4rem; font-weight: 900;
+  background: linear-gradient(135deg, var(--blue), var(--orange));
+  -webkit-background-clip: text; -webkit-text-fill-color: transparent;
   background-clip: text;
-  text-decoration: none;
 }
 .nav-links { display: flex; gap: 32px; list-style: none; }
-.nav-links a { color: var(--muted); text-decoration: none; font-size: 0.9rem; font-weight: 500; transition: color 0.2s; }
-.nav-links a:hover { color: var(--text); }
+.nav-links a {
+  color: var(--muted); text-decoration: none;
+  font-size: 0.9rem; font-weight: 600;
+  transition: color 0.2s; position: relative;
+}
+.nav-links a:hover { color: var(--blue); }
+.nav-links a::after {
+  content: ''; position: absolute; bottom: -2px; left: 0; right: 0;
+  height: 2px; background: var(--blue);
+  transform: scaleX(0); transition: transform 0.2s;
+}
+.nav-links a:hover::after { transform: scaleX(1); }
 .nav-cta { display: flex; gap: 12px; align-items: center; }
 .btn-outline {
-  border: 1px solid var(--border); color: var(--text);
-  background: transparent; padding: 9px 20px;
-  border-radius: 50px; font-family: 'DM Sans', sans-serif;
-  font-size: 0.875rem; font-weight: 500;
-  cursor: pointer; text-decoration: none;
-  transition: border-color 0.2s, background 0.2s;
-  display: inline-block;
-}
-.btn-outline:hover { border-color: var(--green); background: var(--green-dim); color: var(--green); }
-.btn-primary {
-  background: linear-gradient(135deg, var(--green), #00b47e);
-  color: #021a0f; padding: 10px 22px;
-  border-radius: 50px; border: none;
-  font-family: 'DM Sans', sans-serif;
+  border: 2px solid var(--blue); color: var(--blue);
+  background: transparent; padding: 9px 22px;
+  border-radius: 50px; font-family: 'Poppins', sans-serif;
   font-size: 0.875rem; font-weight: 700;
   cursor: pointer; text-decoration: none;
-  display: inline-block; transition: opacity 0.2s, transform 0.2s;
+  transition: all 0.2s; display: inline-block;
 }
-.btn-primary:hover { opacity: 0.9; transform: translateY(-1px); }
+.btn-outline:hover { background: var(--blue); color: white; }
+.btn-primary {
+  background: linear-gradient(135deg, var(--blue), var(--blue-light));
+  color: white; padding: 10px 24px;
+  border-radius: 50px; border: none;
+  font-family: 'Poppins', sans-serif;
+  font-size: 0.875rem; font-weight: 700;
+  cursor: pointer; text-decoration: none;
+  display: inline-block;
+  transition: all 0.2s;
+  box-shadow: 0 4px 16px rgba(27,79,216,0.3);
+}
+.btn-primary:hover { transform: translateY(-2px); box-shadow: 0 8px 24px rgba(27,79,216,0.4); }
+.btn-orange {
+  background: linear-gradient(135deg, var(--orange), var(--orange-light));
+  color: white; padding: 10px 24px;
+  border-radius: 50px; border: none;
+  font-family: 'Poppins', sans-serif;
+  font-size: 0.875rem; font-weight: 700;
+  cursor: pointer; text-decoration: none;
+  display: inline-block; transition: all 0.2s;
+  box-shadow: 0 4px 16px rgba(249,115,22,0.3);
+}
+.btn-orange:hover { transform: translateY(-2px); box-shadow: 0 8px 24px rgba(249,115,22,0.4); }
 
 /* ── HERO ── */
 .hero {
@@ -95,339 +112,493 @@ nav {
   text-align: center;
   padding: 120px 24px 80px;
   overflow: hidden;
+  background: linear-gradient(160deg, #EEF2FF 0%, #DBEAFE 40%, #FFF7ED 100%);
 }
-.hero-glow {
-  position: absolute;
-  width: 700px; height: 700px;
-  background: radial-gradient(circle, rgba(0,214,143,0.12) 0%, transparent 70%);
-  top: 50%; left: 50%;
-  transform: translate(-50%, -50%);
-  pointer-events: none;
+.hero-blob {
+  position: absolute; border-radius: 50%;
+  filter: blur(80px); pointer-events: none;
 }
-.hero-glow-2 {
-  position: absolute;
-  width: 400px; height: 400px;
-  background: radial-gradient(circle, rgba(0,180,216,0.08) 0%, transparent 70%);
-  top: 20%; right: 10%;
-  pointer-events: none;
+.hero-blob-1 {
+  width: 600px; height: 600px;
+  background: radial-gradient(circle, rgba(27,79,216,0.12) 0%, transparent 70%);
+  top: -100px; left: -100px;
+  animation: float 8s ease-in-out infinite;
+}
+.hero-blob-2 {
+  width: 500px; height: 500px;
+  background: radial-gradient(circle, rgba(249,115,22,0.10) 0%, transparent 70%);
+  bottom: -50px; right: -50px;
+  animation: float 10s ease-in-out infinite reverse;
+}
+@keyframes float {
+  0%, 100% { transform: translateY(0) scale(1); }
+  50% { transform: translateY(-30px) scale(1.05); }
 }
 .hero-badge {
   display: inline-flex; align-items: center; gap: 8px;
-  background: rgba(0,214,143,0.1); border: 1px solid rgba(0,214,143,0.25);
-  color: var(--green); padding: 6px 16px; border-radius: 50px;
-  font-size: 0.8rem; font-weight: 600; letter-spacing: 0.04em;
+  background: white; border: 2px solid rgba(27,79,216,0.15);
+  color: var(--blue); padding: 8px 20px; border-radius: 50px;
+  font-size: 0.8rem; font-weight: 700; letter-spacing: 0.04em;
   text-transform: uppercase; margin-bottom: 28px;
+  box-shadow: 0 4px 16px rgba(27,79,216,0.1);
   animation: fadeUp 0.6s ease both;
 }
-.hero-badge span { width: 6px; height: 6px; border-radius: 50%; background: var(--green); animation: pulse 2s infinite; }
+.hero-badge .dot { width: 8px; height: 8px; border-radius: 50%; background: var(--orange); animation: pulse 2s infinite; }
+@keyframes pulse { 0%,100%{opacity:1;transform:scale(1)} 50%{opacity:0.6;transform:scale(0.8)} }
+.hero-logo-display {
+  margin-bottom: 28px;
+  animation: fadeUp 0.6s ease 0.05s both;
+}
+.hero-logo-display img { height: 100px; width: auto; filter: drop-shadow(0 8px 24px rgba(27,79,216,0.2)); }
 .hero h1 {
-  font-family: 'Playfair Display', serif;
-  font-size: clamp(2.8rem, 6vw, 5rem);
+  font-family: 'Nunito', sans-serif;
+  font-size: clamp(2.6rem, 5.5vw, 4.5rem);
   font-weight: 900;
   line-height: 1.1;
   letter-spacing: -0.02em;
   margin-bottom: 24px;
   animation: fadeUp 0.6s ease 0.1s both;
+  color: var(--dark);
 }
-.hero h1 em {
-  font-style: normal;
-  background: linear-gradient(135deg, var(--green), var(--cyan));
-  -webkit-background-clip: text;
-  -webkit-text-fill-color: transparent;
-  background-clip: text;
-}
+.hero h1 .blue { color: var(--blue); }
+.hero h1 .orange { color: var(--orange); }
 .hero-sub {
-  font-size: 1.15rem; color: var(--muted);
+  font-size: 1.1rem; color: var(--muted);
   max-width: 560px; margin: 0 auto 40px;
-  line-height: 1.7;
+  line-height: 1.8; font-weight: 500;
   animation: fadeUp 0.6s ease 0.2s both;
 }
 .hero-actions {
-  display: flex; gap: 14px; justify-content: center; flex-wrap: wrap;
+  display: flex; gap: 16px; justify-content: center; flex-wrap: wrap;
   animation: fadeUp 0.6s ease 0.3s both;
 }
-.hero-actions .btn-primary { padding: 14px 32px; font-size: 1rem; }
-.hero-actions .btn-outline { padding: 14px 32px; font-size: 1rem; }
+.hero-actions .btn-orange { padding: 16px 36px; font-size: 1rem; }
+.hero-actions .btn-outline { padding: 16px 36px; font-size: 1rem; }
 .hero-stats {
   display: flex; gap: 48px; justify-content: center;
   margin-top: 72px;
   animation: fadeUp 0.6s ease 0.4s both;
+  flex-wrap: wrap;
+}
+.hero-stat {
+  text-align: center;
+  background: white;
+  border-radius: 16px;
+  padding: 20px 28px;
+  box-shadow: var(--shadow);
+  border: 1px solid var(--border);
 }
 .hero-stat-num {
-  font-family: 'Playfair Display', serif;
-  font-size: 2.2rem; font-weight: 700;
-  color: var(--text); line-height: 1;
+  font-family: 'Nunito', sans-serif;
+  font-size: 2rem; font-weight: 900; color: var(--blue); line-height: 1;
 }
-.hero-stat-label { font-size: 0.8rem; color: var(--muted); margin-top: 4px; text-transform: uppercase; letter-spacing: 0.06em; }
+.hero-stat-label { font-size: 0.78rem; color: var(--muted); margin-top: 4px; text-transform: uppercase; letter-spacing: 0.06em; font-weight: 600; }
+@keyframes fadeUp { from{opacity:0;transform:translateY(24px)} to{opacity:1;transform:translateY(0)} }
+
+/* ── SCROLL DOWN HINT ── */
+.scroll-hint {
+  position: absolute; bottom: 32px; left: 50%;
+  transform: translateX(-50%);
+  display: flex; flex-direction: column; align-items: center; gap: 8px;
+  color: var(--muted); font-size: 0.75rem; font-weight: 600;
+  letter-spacing: 0.08em; text-transform: uppercase;
+  animation: bounce 2s infinite;
+}
+.scroll-hint svg { animation: bounce 2s infinite; }
+@keyframes bounce { 0%,100%{transform:translateX(-50%) translateY(0)} 50%{transform:translateX(-50%) translateY(8px)} }
 
 /* ── SECTIONS ── */
 section { position: relative; padding: 100px 24px; }
-.container { max-width: 1100px; margin: 0 auto; }
+.container { max-width: 1120px; margin: 0 auto; }
 .section-tag {
-  font-size: 0.75rem; font-weight: 700;
+  display: inline-flex; align-items: center; gap: 8px;
+  font-size: 0.75rem; font-weight: 800;
   letter-spacing: 0.12em; text-transform: uppercase;
-  color: var(--green); margin-bottom: 16px;
+  color: var(--blue); margin-bottom: 16px;
+  background: rgba(27,79,216,0.08); padding: 6px 14px; border-radius: 50px;
 }
 .section-title {
-  font-family: 'Playfair Display', serif;
-  font-size: clamp(2rem, 4vw, 3rem);
-  font-weight: 700; line-height: 1.15;
-  margin-bottom: 16px;
+  font-family: 'Nunito', sans-serif;
+  font-size: clamp(1.8rem, 3.5vw, 2.8rem);
+  font-weight: 900; line-height: 1.2;
+  margin-bottom: 16px; color: var(--dark);
 }
-.section-sub { font-size: 1.05rem; color: var(--muted); max-width: 520px; line-height: 1.7; }
+.section-sub { font-size: 1rem; color: var(--muted); max-width: 540px; line-height: 1.8; font-weight: 500; }
+
+/* ── SUBJECTS STRIP ── */
+.subjects-strip {
+  background: var(--blue);
+  padding: 20px 0;
+  overflow: hidden;
+}
+.strip-inner {
+  display: flex; gap: 48px; align-items: center;
+  animation: marquee 20s linear infinite;
+  white-space: nowrap;
+  width: max-content;
+}
+@keyframes marquee { from{transform:translateX(0)} to{transform:translateX(-50%)} }
+.strip-item {
+  display: flex; align-items: center; gap: 10px;
+  color: rgba(255,255,255,0.9); font-weight: 700;
+  font-size: 0.9rem; letter-spacing: 0.04em;
+}
+.strip-dot { width: 6px; height: 6px; border-radius: 50%; background: var(--orange); }
 
 /* ── FEATURES ── */
+.features-section { background: var(--white); }
 .features-grid {
   display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
-  gap: 2px;
+  grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+  gap: 24px;
   margin-top: 64px;
-  border: 1px solid var(--border);
-  border-radius: var(--radius);
-  overflow: hidden;
 }
 .feature-card {
-  background: var(--card);
-  padding: 36px 32px;
-  border-right: 1px solid var(--border);
-  border-bottom: 1px solid var(--border);
-  transition: background 0.25s;
-  position: relative;
-  overflow: hidden;
+  background: var(--surface);
+  border: 2px solid var(--border);
+  border-radius: var(--radius);
+  padding: 32px 28px;
+  transition: all 0.3s;
+  position: relative; overflow: hidden;
 }
-.feature-card:hover { background: #141e32; }
-.feature-card::after {
+.feature-card::before {
   content: '';
-  position: absolute; bottom: 0; left: 0; right: 0;
-  height: 2px;
-  background: linear-gradient(90deg, var(--green), var(--cyan));
+  position: absolute; top: 0; left: 0; right: 0; height: 4px;
+  background: linear-gradient(90deg, var(--blue), var(--orange));
   transform: scaleX(0); transform-origin: left;
   transition: transform 0.3s;
 }
-.feature-card:hover::after { transform: scaleX(1); }
+.feature-card:hover { transform: translateY(-6px); box-shadow: var(--shadow-lg); border-color: rgba(27,79,216,0.2); }
+.feature-card:hover::before { transform: scaleX(1); }
 .feature-icon {
-  font-size: 1.8rem; margin-bottom: 16px;
-  width: 52px; height: 52px;
+  font-size: 2rem; margin-bottom: 16px;
+  width: 60px; height: 60px;
   display: flex; align-items: center; justify-content: center;
-  background: var(--green-dim);
-  border-radius: 12px;
-  border: 1px solid rgba(0,214,143,0.2);
+  background: linear-gradient(135deg, rgba(27,79,216,0.1), rgba(249,115,22,0.08));
+  border-radius: 16px;
+  border: 2px solid rgba(27,79,216,0.12);
 }
-.feature-card h3 { font-size: 1.05rem; font-weight: 600; margin-bottom: 10px; }
-.feature-card p { font-size: 0.9rem; color: var(--muted); line-height: 1.65; }
+.feature-card h3 { font-size: 1.1rem; font-weight: 700; margin-bottom: 10px; color: var(--dark); }
+.feature-card p { font-size: 0.9rem; color: var(--muted); line-height: 1.7; }
+
+/* ── HOW IT WORKS ── */
+.how-section { background: linear-gradient(135deg, #EEF2FF, #FFF7ED); }
+.steps-grid {
+  display: grid; grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+  gap: 32px; margin-top: 64px;
+  position: relative;
+}
+.step-card { text-align: center; position: relative; }
+.step-num {
+  width: 64px; height: 64px;
+  background: linear-gradient(135deg, var(--blue), var(--blue-light));
+  border-radius: 50%; display: flex; align-items: center; justify-content: center;
+  margin: 0 auto 20px;
+  font-family: 'Nunito', sans-serif; font-size: 1.5rem; font-weight: 900; color: white;
+  box-shadow: 0 8px 24px rgba(27,79,216,0.3);
+}
+.step-card h3 { font-size: 1.05rem; font-weight: 700; margin-bottom: 8px; color: var(--dark); }
+.step-card p { font-size: 0.88rem; color: var(--muted); line-height: 1.7; }
 
 /* ── AI SECTION ── */
-.ai-section { background: var(--surface); }
+.ai-section { background: var(--dark); color: white; overflow: hidden; }
+.ai-section .section-tag { background: rgba(249,115,22,0.15); color: var(--orange-light); }
+.ai-section .section-title { color: white; }
+.ai-section .section-sub { color: rgba(255,255,255,0.6); }
 .ai-layout {
-  display: grid;
-  grid-template-columns: 1fr 1fr;
-  gap: 48px;
-  align-items: start;
-  margin-top: 56px;
+  display: grid; grid-template-columns: 1fr 1fr;
+  gap: 48px; align-items: start; margin-top: 56px;
 }
 .ai-form-card {
-  background: var(--card);
-  border: 1px solid var(--border);
+  background: rgba(255,255,255,0.05);
+  border: 1px solid rgba(255,255,255,0.1);
   border-radius: var(--radius);
-  padding: 32px;
+  padding: 36px;
+  backdrop-filter: blur(10px);
 }
 .ai-form-card h3 {
-  font-family: 'Playfair Display', serif;
-  font-size: 1.4rem; margin-bottom: 24px;
+  font-family: 'Nunito', sans-serif;
+  font-size: 1.5rem; margin-bottom: 24px; color: white;
 }
 .form-field { margin-bottom: 18px; }
 .form-field label {
-  display: block;
-  font-size: 0.82rem; font-weight: 600;
-  color: var(--muted); letter-spacing: 0.04em;
+  display: block; font-size: 0.78rem; font-weight: 700;
+  color: rgba(255,255,255,0.5); letter-spacing: 0.05em;
   text-transform: uppercase; margin-bottom: 8px;
 }
-.form-field input,
-.form-field select,
-.form-field textarea {
+.form-field input, .form-field select, .form-field textarea {
   width: 100%;
-  background: rgba(255,255,255,0.04);
-  border: 1px solid var(--border);
-  border-radius: 10px;
-  padding: 12px 14px;
-  color: var(--text);
-  font-family: 'DM Sans', sans-serif;
-  font-size: 0.9rem;
-  transition: border-color 0.2s;
-  outline: none;
+  background: rgba(255,255,255,0.07);
+  border: 1px solid rgba(255,255,255,0.12);
+  border-radius: 12px; padding: 12px 14px;
+  color: white; font-family: 'Poppins', sans-serif;
+  font-size: 0.9rem; transition: border-color 0.2s; outline: none;
 }
-.form-field input:focus,
-.form-field select,
-.form-field textarea:focus { border-color: var(--green); }
-.form-field select option { background: #0c1220; }
+.form-field input:focus, .form-field textarea:focus { border-color: var(--orange); }
+.form-field select option { background: #1E293B; }
 .form-field textarea { resize: vertical; min-height: 80px; }
 .ai-output {
   margin-top: 16px;
-  background: rgba(0,214,143,0.05);
-  border: 1px dashed rgba(0,214,143,0.25);
-  border-radius: 10px;
-  padding: 14px;
-  font-size: 0.88rem;
-  color: #a8d8c8;
-  min-height: 80px;
-  white-space: pre-line;
-  line-height: 1.7;
+  background: rgba(249,115,22,0.08);
+  border: 1px dashed rgba(249,115,22,0.3);
+  border-radius: 12px; padding: 16px;
+  font-size: 0.88rem; color: rgba(255,200,150,0.9);
+  min-height: 90px; white-space: pre-line; line-height: 1.7;
 }
 .ai-info-card {
-  background: var(--card);
-  border: 1px solid var(--border);
-  border-radius: var(--radius);
-  padding: 32px;
+  background: rgba(255,255,255,0.04);
+  border: 1px solid rgba(255,255,255,0.1);
+  border-radius: var(--radius); padding: 36px;
 }
-.ai-info-card h3 {
-  font-family: 'Playfair Display', serif;
-  font-size: 1.4rem; margin-bottom: 20px;
-}
+.ai-info-card h3 { font-family: 'Nunito', sans-serif; font-size: 1.5rem; margin-bottom: 20px; color: white; }
 .ai-feature-list { list-style: none; display: flex; flex-direction: column; gap: 14px; }
 .ai-feature-list li {
   display: flex; gap: 12px; align-items: flex-start;
-  font-size: 0.92rem; color: var(--muted); line-height: 1.5;
+  font-size: 0.92rem; color: rgba(255,255,255,0.6); line-height: 1.6;
 }
-.ai-feature-list li::before {
-  content: '✦';
-  color: var(--green); font-size: 0.65rem;
-  margin-top: 4px; flex-shrink: 0;
-}
-
-/* ── PLANS ── */
-.plans-grid {
-  display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
-  gap: 20px;
-  margin-top: 64px;
-}
-.plan-card {
-  background: var(--card);
-  border: 1px solid var(--border);
-  border-radius: var(--radius);
-  padding: 36px 32px;
-  position: relative;
-  transition: transform 0.25s, border-color 0.25s;
-}
-.plan-card:hover { transform: translateY(-4px); border-color: rgba(0,214,143,0.3); }
-.plan-card.featured {
-  border-color: var(--green);
-  background: linear-gradient(145deg, #0e1f16, #0c1220);
-}
-.plan-badge {
-  position: absolute; top: -12px; left: 32px;
-  background: var(--green); color: #021a0f;
-  font-size: 0.7rem; font-weight: 800;
-  letter-spacing: 0.08em; text-transform: uppercase;
-  padding: 4px 12px; border-radius: 50px;
-}
-.plan-card h3 { font-size: 1.3rem; font-weight: 700; margin-bottom: 8px; }
-.plan-card .plan-desc { font-size: 0.88rem; color: var(--muted); margin-bottom: 24px; }
-.plan-price {
-  font-family: 'Playfair Display', serif;
-  font-size: 2.2rem; font-weight: 700;
-  color: var(--green); margin-bottom: 24px;
-}
-.plan-price span { font-family: 'DM Sans', sans-serif; font-size: 0.9rem; color: var(--muted); }
-.plan-features { list-style: none; display: flex; flex-direction: column; gap: 10px; margin-bottom: 28px; }
-.plan-features li { font-size: 0.88rem; display: flex; gap: 10px; align-items: center; }
-.plan-features li::before { content: '✓'; color: var(--green); font-weight: 700; }
-
-/* ── TESTIMONIALS ── */
-.testimonials-section { background: var(--surface); }
-.testimonials-grid {
-  display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
-  gap: 20px;
-  margin-top: 56px;
-}
-.testimonial-card {
-  background: var(--card);
-  border: 1px solid var(--border);
-  border-radius: var(--radius);
-  padding: 28px;
-}
-.testimonial-text {
-  font-size: 0.95rem; color: var(--muted);
-  line-height: 1.7; margin-bottom: 20px;
-  font-style: italic;
-}
-.testimonial-author { display: flex; align-items: center; gap: 12px; }
-.avatar {
-  width: 40px; height: 40px; border-radius: 50%;
-  background: linear-gradient(135deg, var(--green), var(--cyan));
+.ai-feature-list li .check {
+  width: 20px; height: 20px; border-radius: 50%;
+  background: rgba(249,115,22,0.2); border: 1.5px solid var(--orange);
   display: flex; align-items: center; justify-content: center;
-  font-weight: 700; font-size: 0.9rem; color: #021a0f; flex-shrink: 0;
+  flex-shrink: 0; margin-top: 2px;
+  font-size: 0.65rem; color: var(--orange); font-weight: 900;
 }
-.author-name { font-weight: 600; font-size: 0.9rem; }
-.author-info { font-size: 0.8rem; color: var(--muted); }
 
-/* ── FORM SECTION ── */
-.form-section .section-title, .form-section .section-sub { text-align: center; }
-.form-section .section-title { margin: 0 auto 8px; }
-.form-section .section-sub { margin: 0 auto 48px; }
-.google-form-wrapper {
-  max-width: 800px; margin: 0 auto;
+/* ── COURSES ── */
+.courses-section { background: var(--white); }
+.courses-grid {
+  display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+  gap: 24px; margin-top: 48px;
+}
+.course-card {
+  background: var(--white);
+  border: 2px solid var(--border);
   border-radius: var(--radius);
   overflow: hidden;
-  border: 1px solid var(--border);
-  box-shadow: 0 0 60px rgba(0,214,143,0.06);
+  transition: all 0.3s;
+  cursor: pointer;
 }
-.google-form-wrapper iframe { width: 100%; height: 640px; border: none; display: block; }
+.course-card:hover { transform: translateY(-6px); box-shadow: var(--shadow-lg); border-color: rgba(27,79,216,0.25); }
+.course-thumb {
+  height: 160px;
+  display: flex; align-items: center; justify-content: center;
+  font-size: 4rem;
+  position: relative; overflow: hidden;
+}
+.course-thumb-bio { background: linear-gradient(135deg, #DCFCE7, #BBF7D0); }
+.course-thumb-chem { background: linear-gradient(135deg, #DBEAFE, #BFDBFE); }
+.course-thumb-phys { background: linear-gradient(135deg, #FEF3C7, #FDE68A); }
+.course-thumb-found { background: linear-gradient(135deg, #F3E8FF, #E9D5FF); }
+.course-body { padding: 24px; }
+.course-tag {
+  display: inline-block; font-size: 0.7rem; font-weight: 800;
+  letter-spacing: 0.08em; text-transform: uppercase;
+  padding: 4px 10px; border-radius: 50px; margin-bottom: 12px;
+}
+.tag-bio { background: rgba(16,185,129,0.12); color: #059669; }
+.tag-chem { background: rgba(27,79,216,0.1); color: var(--blue); }
+.tag-phys { background: rgba(245,158,11,0.12); color: #D97706; }
+.tag-found { background: rgba(139,92,246,0.1); color: #7C3AED; }
+.course-card h3 { font-size: 1.05rem; font-weight: 700; margin-bottom: 8px; color: var(--dark); }
+.course-card p { font-size: 0.85rem; color: var(--muted); margin-bottom: 16px; line-height: 1.6; }
+.course-meta { display: flex; gap: 16px; font-size: 0.78rem; color: var(--muted); font-weight: 600; }
+.course-meta span { display: flex; align-items: center; gap: 4px; }
+
+/* ── PLANS ── */
+.plans-section { background: var(--surface); }
+.plans-grid {
+  display: grid; grid-template-columns: repeat(auto-fit, minmax(290px, 1fr));
+  gap: 24px; margin-top: 64px;
+}
+.plan-card {
+  background: var(--white);
+  border: 2px solid var(--border);
+  border-radius: var(--radius); padding: 36px 32px;
+  position: relative; transition: all 0.3s;
+}
+.plan-card:hover { transform: translateY(-4px); box-shadow: var(--shadow-lg); }
+.plan-card.featured {
+  border-color: var(--blue);
+  background: linear-gradient(145deg, #EEF2FF, white);
+  transform: scale(1.03);
+  box-shadow: var(--shadow-lg);
+}
+.plan-card.featured:hover { transform: scale(1.03) translateY(-4px); }
+.plan-badge {
+  position: absolute; top: -14px; left: 50%; transform: translateX(-50%);
+  background: linear-gradient(135deg, var(--blue), var(--orange));
+  color: white;
+  font-size: 0.7rem; font-weight: 800;
+  letter-spacing: 0.08em; text-transform: uppercase;
+  padding: 5px 16px; border-radius: 50px;
+  white-space: nowrap;
+}
+.plan-name { font-family: 'Nunito', sans-serif; font-size: 1.4rem; font-weight: 900; margin-bottom: 6px; color: var(--dark); }
+.plan-desc { font-size: 0.87rem; color: var(--muted); margin-bottom: 24px; line-height: 1.6; }
+.plan-price {
+  font-family: 'Nunito', sans-serif;
+  font-size: 2.4rem; font-weight: 900;
+  color: var(--blue); margin-bottom: 24px; line-height: 1;
+}
+.plan-price span { font-family: 'Poppins', sans-serif; font-size: 0.9rem; color: var(--muted); font-weight: 500; }
+.plan-divider { height: 1px; background: var(--border); margin-bottom: 20px; }
+.plan-features { list-style: none; display: flex; flex-direction: column; gap: 10px; margin-bottom: 28px; }
+.plan-features li {
+  font-size: 0.87rem; display: flex; gap: 10px; align-items: center; color: var(--dark2); line-height: 1.5;
+}
+.plan-features li .pf-check {
+  width: 18px; height: 18px; border-radius: 50%;
+  background: rgba(16,185,129,0.12); border: 1.5px solid var(--green);
+  display: flex; align-items: center; justify-content: center;
+  flex-shrink: 0; font-size: 0.6rem; color: var(--green); font-weight: 900;
+}
+
+/* ── TESTIMONIALS ── */
+.testimonials-section { background: var(--white); }
+.testimonials-grid {
+  display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+  gap: 24px; margin-top: 56px;
+}
+.testimonial-card {
+  background: var(--surface);
+  border: 2px solid var(--border);
+  border-radius: var(--radius); padding: 28px;
+  transition: all 0.3s; position: relative;
+}
+.testimonial-card:hover { box-shadow: var(--shadow); border-color: rgba(27,79,216,0.2); }
+.quote-mark {
+  font-size: 4rem; line-height: 1;
+  color: rgba(27,79,216,0.1);
+  font-family: 'Nunito', sans-serif; font-weight: 900;
+  position: absolute; top: 12px; left: 20px;
+}
+.testimonial-text {
+  font-size: 0.93rem; color: var(--dark2);
+  line-height: 1.8; margin-bottom: 20px; padding-top: 8px;
+}
+.stars { color: var(--orange); font-size: 0.9rem; margin-bottom: 12px; }
+.testimonial-author { display: flex; align-items: center; gap: 12px; }
+.avatar {
+  width: 44px; height: 44px; border-radius: 50%;
+  background: linear-gradient(135deg, var(--blue), var(--orange));
+  display: flex; align-items: center; justify-content: center;
+  font-family: 'Nunito', sans-serif; font-weight: 900; font-size: 1rem; color: white; flex-shrink: 0;
+}
+.author-name { font-weight: 700; font-size: 0.92rem; color: var(--dark); }
+.author-info { font-size: 0.78rem; color: var(--muted); }
+
+/* ── BOOK SECTION ── */
+.book-section { background: linear-gradient(135deg, var(--blue) 0%, var(--blue-dark) 100%); color: white; }
+.book-layout { display: grid; grid-template-columns: 1fr 1fr; gap: 64px; align-items: center; }
+.book-content .section-tag { background: rgba(255,255,255,0.15); color: white; }
+.book-content .section-title { color: white; }
+.book-content .section-sub { color: rgba(255,255,255,0.7); }
+.book-mockup {
+  background: white; border-radius: 12px;
+  padding: 32px; text-align: center;
+  box-shadow: 0 24px 64px rgba(0,0,0,0.3);
+  position: relative;
+}
+.book-mockup::before {
+  content: '📖';
+  font-size: 5rem; display: block; margin-bottom: 16px;
+}
+.book-mockup h3 { font-family: 'Nunito', sans-serif; font-size: 1.2rem; font-weight: 900; color: var(--dark); margin-bottom: 8px; }
+.book-mockup p { font-size: 0.85rem; color: var(--muted); margin-bottom: 20px; }
+.book-preview-btn {
+  display: inline-flex; align-items: center; gap: 8px;
+  background: var(--blue); color: white;
+  padding: 12px 24px; border-radius: 10px;
+  font-weight: 700; text-decoration: none; font-size: 0.9rem;
+  transition: all 0.2s;
+}
+.book-preview-btn:hover { background: var(--blue-dark); transform: translateY(-2px); }
+
+/* ── ENROLL FORM ── */
+.form-section { background: var(--surface); text-align: center; }
+.form-section .section-sub { margin: 0 auto; }
+.enroll-form-card {
+  max-width: 600px; margin: 48px auto 0;
+  background: white; border-radius: var(--radius);
+  padding: 40px; box-shadow: var(--shadow-lg);
+  border: 2px solid var(--border);
+}
+.enroll-form-card .form-field label { color: var(--muted); }
+.enroll-form-card .form-field input,
+.enroll-form-card .form-field select {
+  background: var(--surface); border: 2px solid var(--border);
+  color: var(--dark); border-radius: 12px;
+}
+.enroll-form-card .form-field input:focus,
+.enroll-form-card .form-field select:focus { border-color: var(--blue); outline: none; }
+.enroll-form-card .form-field select option { color: var(--dark); }
+.enroll-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; }
+.enroll-submit {
+  width: 100%; padding: 16px;
+  background: linear-gradient(135deg, var(--blue), var(--orange));
+  border: none; border-radius: 12px;
+  color: white; font-family: 'Poppins', sans-serif;
+  font-size: 1.05rem; font-weight: 700;
+  cursor: pointer; margin-top: 8px;
+  transition: all 0.3s;
+  box-shadow: 0 4px 16px rgba(27,79,216,0.2);
+}
+.enroll-submit:hover { transform: translateY(-2px); box-shadow: 0 8px 32px rgba(27,79,216,0.3); }
+.enroll-status { margin-top: 12px; font-size: 0.9rem; min-height: 20px; }
+.enroll-status.success { color: var(--green); font-weight: 600; }
+.enroll-status.error { color: #EF4444; }
 
 /* ── FOOTER ── */
 footer {
-  background: #030508;
-  border-top: 1px solid var(--border);
-  padding: 60px 24px 32px;
+  background: var(--dark);
+  border-top: 1px solid rgba(255,255,255,0.08);
+  padding: 64px 24px 32px; color: white;
 }
 .footer-grid {
-  max-width: 1100px; margin: 0 auto;
-  display: grid;
-  grid-template-columns: 2fr 1fr 1fr 1fr;
-  gap: 48px;
-  margin-bottom: 48px;
+  max-width: 1120px; margin: 0 auto;
+  display: grid; grid-template-columns: 2.5fr 1fr 1fr 1fr;
+  gap: 48px; margin-bottom: 48px;
 }
-.footer-brand p { font-size: 0.88rem; color: var(--muted); margin-top: 12px; line-height: 1.7; max-width: 280px; }
-.footer-col h4 { font-size: 0.8rem; font-weight: 700; letter-spacing: 0.1em; text-transform: uppercase; color: var(--muted); margin-bottom: 16px; }
+.footer-brand .footer-logo { display: flex; align-items: center; gap: 10px; margin-bottom: 16px; text-decoration: none; }
+.footer-brand .footer-logo img { height: 40px; }
+.footer-brand p { font-size: 0.87rem; color: rgba(255,255,255,0.5); line-height: 1.8; max-width: 280px; }
+.footer-col h4 { font-size: 0.75rem; font-weight: 800; letter-spacing: 0.12em; text-transform: uppercase; color: rgba(255,255,255,0.4); margin-bottom: 16px; }
 .footer-col ul { list-style: none; display: flex; flex-direction: column; gap: 10px; }
-.footer-col ul a { color: var(--muted); text-decoration: none; font-size: 0.88rem; transition: color 0.2s; }
-.footer-col ul a:hover { color: var(--text); }
+.footer-col ul a { color: rgba(255,255,255,0.6); text-decoration: none; font-size: 0.87rem; transition: color 0.2s; }
+.footer-col ul a:hover { color: white; }
 .footer-bottom {
-  max-width: 1100px; margin: 0 auto;
+  max-width: 1120px; margin: 0 auto;
   display: flex; justify-content: space-between; align-items: center;
-  padding-top: 24px;
-  border-top: 1px solid var(--border);
-  font-size: 0.82rem; color: var(--muted);
+  padding-top: 24px; border-top: 1px solid rgba(255,255,255,0.08);
+  font-size: 0.82rem; color: rgba(255,255,255,0.4); flex-wrap: wrap; gap: 12px;
+}
+.footer-tagline {
+  background: linear-gradient(135deg, var(--blue-light), var(--orange));
+  -webkit-background-clip: text; -webkit-text-fill-color: transparent;
+  background-clip: text; font-weight: 700;
 }
 
-/* ── ANIMATIONS ── */
-@keyframes fadeUp {
-  from { opacity: 0; transform: translateY(24px); }
-  to { opacity: 1; transform: translateY(0); }
-}
-@keyframes pulse {
-  0%, 100% { opacity: 1; }
-  50% { opacity: 0.4; }
-}
-.reveal {
-  opacity: 0; transform: translateY(30px);
-  transition: opacity 0.6s ease, transform 0.6s ease;
-}
+/* ── REVEAL ANIMATIONS ── */
+.reveal { opacity: 0; transform: translateY(30px); transition: opacity 0.7s ease, transform 0.7s ease; }
 .reveal.visible { opacity: 1; transform: none; }
 
 /* ── RESPONSIVE ── */
-@media (max-width: 900px) {
-  nav { padding: 16px 24px; }
-  .nav-links { display: none; }
+@media (max-width: 1000px) {
   .ai-layout { grid-template-columns: 1fr; }
+  .book-layout { grid-template-columns: 1fr; }
   .footer-grid { grid-template-columns: 1fr 1fr; }
-  .hero-stats { gap: 32px; }
 }
-@media (max-width: 600px) {
+@media (max-width: 768px) {
+  nav { padding: 14px 20px; }
+  .nav-links { display: none; }
+  .hero-stats { gap: 16px; }
+  .hero-stat { padding: 14px 18px; }
+  .enroll-grid { grid-template-columns: 1fr; }
+}
+@media (max-width: 560px) {
   .footer-grid { grid-template-columns: 1fr; }
-  .hero-stats { flex-direction: column; gap: 24px; }
   .hero-actions { flex-direction: column; align-items: center; }
+  .hero-stats { flex-wrap: wrap; justify-content: center; }
 }
 </style>
 </head>
@@ -435,87 +606,126 @@ footer {
 
 <!-- NAV -->
 <nav>
-  <a href="index.html" class="nav-logo">YuviLearn</a>
+  <a href="index.html" class="nav-logo">
+    <img src="logo.webp" alt="YuviLearn Logo">
+    <span class="nav-logo-text">YuviLearn</span>
+  </a>
   <ul class="nav-links">
-    <li><a href="#features">Why YuviLearn</a></li>
-    <li><a href="#ai">AI Learning</a></li>
+    <li><a href="#features">Features</a></li>
+    <li><a href="#courses">Courses</a></li>
+    <li><a href="#ai">AI Tutor</a></li>
     <li><a href="#plans">Plans</a></li>
     <li><a href="#contact">Enroll</a></li>
   </ul>
   <div class="nav-cta">
     <a href="login.html" class="btn-outline">Login</a>
-    <a href="signup.html" class="btn-primary">Start Free</a>
+    <a href="signup.html" class="btn-orange">Start Free 🚀</a>
   </div>
 </nav>
 
 <!-- HERO -->
 <section class="hero">
-  <div class="hero-glow"></div>
-  <div class="hero-glow-2"></div>
+  <div class="hero-blob hero-blob-1"></div>
+  <div class="hero-blob hero-blob-2"></div>
   <div class="container" style="position:relative;z-index:1">
     <div class="hero-badge">
-      <span></span> India's Early NEET Foundation Platform
+      <span class="dot"></span> India's Early NEET Foundation Platform
+    </div>
+    <div class="hero-logo-display">
+      <img src="logo.webp" alt="YuviLearn — Young Scientists Learn">
     </div>
     <h1>
-      Don't struggle in<br>Class 11. <em>Start now.</em>
+      Don't struggle in <span class="orange">Class 11.</span><br>
+      <span class="blue">Start Your NEET Journey Now.</span>
     </h1>
     <p class="hero-sub">
-      Build deep concepts in Physics, Chemistry &amp; Biology from Class 9 — with AI-guided study plans, live classes, and expert mentors.
+      Build deep concepts in Physics, Chemistry &amp; Biology from Class 9 — with AI-guided study plans, live classes, and expert mentors designed for young aspirants.
     </p>
     <div class="hero-actions">
-      <a href="#contact" class="btn-primary">Join Free Today</a>
-      <a href="login.html" class="btn-outline">Student Login →</a>
+      <a href="#contact" class="btn-orange">Join Free Today →</a>
+      <a href="login.html" class="btn-outline">Student Login</a>
     </div>
     <div class="hero-stats">
-      <div>
+      <div class="hero-stat">
         <div class="hero-stat-num">2,400+</div>
         <div class="hero-stat-label">Active Students</div>
       </div>
-      <div>
+      <div class="hero-stat">
         <div class="hero-stat-num">94%</div>
-        <div class="hero-stat-label">Concept Clarity Rate</div>
+        <div class="hero-stat-label">Concept Clarity</div>
       </div>
-      <div>
-        <div class="hero-stat-num">3 Years</div>
-        <div class="hero-stat-label">Early Head Start</div>
+      <div class="hero-stat">
+        <div class="hero-stat-num">3 Yrs</div>
+        <div class="hero-stat-label">Head Start</div>
+      </div>
+      <div class="hero-stat">
+        <div class="hero-stat-num">24/7</div>
+        <div class="hero-stat-label">AI Support</div>
       </div>
     </div>
   </div>
+  <div class="scroll-hint">
+    <span>Scroll Down</span>
+    <svg width="16" height="16" fill="none" viewBox="0 0 24 24" stroke="#64748B" stroke-width="2.5"><path d="M19 9l-7 7-7-7"/></svg>
+  </div>
 </section>
 
+<!-- SUBJECTS STRIP -->
+<div class="subjects-strip">
+  <div class="strip-inner">
+    <span class="strip-item"><span class="strip-dot"></span>Biology — Cell Biology</span>
+    <span class="strip-item"><span class="strip-dot"></span>Chemistry — Organic</span>
+    <span class="strip-item"><span class="strip-dot"></span>Physics — Mechanics</span>
+    <span class="strip-item"><span class="strip-dot"></span>NEET MCQ Practice</span>
+    <span class="strip-item"><span class="strip-dot"></span>PYQ Analysis</span>
+    <span class="strip-item"><span class="strip-dot"></span>AI Doubt Solving</span>
+    <span class="strip-item"><span class="strip-dot"></span>Mock Tests</span>
+    <span class="strip-item"><span class="strip-dot"></span>Live Mentorship</span>
+    <!-- Repeat for seamless loop -->
+    <span class="strip-item"><span class="strip-dot"></span>Biology — Cell Biology</span>
+    <span class="strip-item"><span class="strip-dot"></span>Chemistry — Organic</span>
+    <span class="strip-item"><span class="strip-dot"></span>Physics — Mechanics</span>
+    <span class="strip-item"><span class="strip-dot"></span>NEET MCQ Practice</span>
+    <span class="strip-item"><span class="strip-dot"></span>PYQ Analysis</span>
+    <span class="strip-item"><span class="strip-dot"></span>AI Doubt Solving</span>
+    <span class="strip-item"><span class="strip-dot"></span>Mock Tests</span>
+    <span class="strip-item"><span class="strip-dot"></span>Live Mentorship</span>
+  </div>
+</div>
+
 <!-- FEATURES -->
-<section id="features">
+<section id="features" class="features-section">
   <div class="container">
-    <div class="section-tag reveal">Why YuviLearn</div>
-    <h2 class="section-title reveal">Built for serious NEET aspirants,<br>starting smart from Class 9</h2>
+    <div class="section-tag reveal">✦ Why YuviLearn</div>
+    <h2 class="section-title reveal">Built for serious NEET aspirants<br>starting smart from Class 9</h2>
     <p class="section-sub reveal">Everything a modern foundation platform needs — no fluff, just what moves your score.</p>
-    <div class="features-grid reveal">
-      <div class="feature-card">
+    <div class="features-grid">
+      <div class="feature-card reveal">
         <div class="feature-icon">📘</div>
         <h3>Concept Clarity First</h3>
-        <p>NCERT-based learning with visual explanations and chapter-by-chapter mastery tracking — before you touch a single MCQ.</p>
+        <p>NCERT-based visual learning with chapter-by-chapter mastery tracking — before you touch a single MCQ. Understanding over memorisation.</p>
       </div>
-      <div class="feature-card">
+      <div class="feature-card reveal">
         <div class="feature-icon">🧠</div>
         <h3>AI-Powered Study Plans</h3>
-        <p>Smart practice sequencing adjusts daily based on your speed, accuracy, and weak areas. No two students get the same plan.</p>
+        <p>Smart practice sequencing adjusts daily based on your speed, accuracy, and weak areas. No two students ever get the same plan.</p>
       </div>
-      <div class="feature-card">
+      <div class="feature-card reveal">
         <div class="feature-icon">🎯</div>
-        <h3>NEET Roadmap</h3>
+        <h3>NEET Roadmap 9→12</h3>
         <p>Structured early-prep milestones from Class 9 to 12. Know exactly what to study, when, and why — 3 years before the exam.</p>
       </div>
-      <div class="feature-card">
+      <div class="feature-card reveal">
         <div class="feature-icon">👨‍👩‍👧</div>
         <h3>Parent Insights</h3>
-        <p>Weekly reports on attendance, test performance, and focus scores — so parents stay informed without breathing down anyone's neck.</p>
+        <p>Weekly reports on attendance, test performance, and focus scores — so parents stay informed without micromanaging.</p>
       </div>
-      <div class="feature-card">
+      <div class="feature-card reveal">
         <div class="feature-icon">📅</div>
         <h3>Live + Recorded Classes</h3>
-        <p>Daily live sessions with topic timestamps on recordings. Never fall behind — rewatch any concept, any time.</p>
+        <p>Daily live sessions with topic timestamps on recordings. Never fall behind — rewatch any concept, any time, on any device.</p>
       </div>
-      <div class="feature-card">
+      <div class="feature-card reveal">
         <div class="feature-icon">🏆</div>
         <h3>Gamified Consistency</h3>
         <p>Streaks, badges, and challenge leaderboards that make showing up every day feel like a win — not a chore.</p>
@@ -524,14 +734,111 @@ footer {
   </div>
 </section>
 
-<!-- AI SETUP -->
+<!-- HOW IT WORKS -->
+<section class="how-section">
+  <div class="container">
+    <div class="section-tag reveal">✦ How It Works</div>
+    <h2 class="section-title reveal">From signup to NEET-ready<br>in 4 simple steps</h2>
+    <div class="steps-grid">
+      <div class="step-card reveal">
+        <div class="step-num">1</div>
+        <h3>Sign Up & Assess</h3>
+        <p>Create your free account. Take a 15-min diagnostic test so Yuvi AI knows exactly where you stand.</p>
+      </div>
+      <div class="step-card reveal">
+        <div class="step-num">2</div>
+        <h3>Get Your AI Plan</h3>
+        <p>Receive a personalised daily study plan built around your class, weak topics, and available study time.</p>
+      </div>
+      <div class="step-card reveal">
+        <div class="step-num">3</div>
+        <h3>Learn & Practice</h3>
+        <p>Watch live/recorded classes, solve adaptive MCQs, clear doubts instantly with AI, and track your progress daily.</p>
+      </div>
+      <div class="step-card reveal">
+        <div class="step-num">4</div>
+        <h3>Ace Your Exams</h3>
+        <p>Enter NEET with 3 years of deep concept clarity, 840+ hours of practice, and a mentor who knows your strengths.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- COURSES -->
+<section id="courses" class="courses-section">
+  <div class="container">
+    <div class="section-tag reveal">✦ Our Courses</div>
+    <h2 class="section-title reveal">Comprehensive NEET subject<br>preparation, Class 9 onwards</h2>
+    <p class="section-sub reveal">Carefully designed curricula that build foundations before tackling competitive-level content.</p>
+    <div class="courses-grid">
+      <div class="course-card reveal">
+        <div class="course-thumb course-thumb-bio">🧬</div>
+        <div class="course-body">
+          <span class="course-tag tag-bio">Biology</span>
+          <h3>NEET Biology Foundation</h3>
+          <p>Cell biology, genetics, ecology, human physiology — structured from Class 9 NCERT to NEET-level mastery.</p>
+          <div class="course-meta">
+            <span>📚 180 Lessons</span>
+            <span>⏱ 90 Hours</span>
+            <span>🎯 Class 9–12</span>
+          </div>
+        </div>
+      </div>
+      <div class="course-card reveal">
+        <div class="course-thumb course-thumb-chem">⚗️</div>
+        <div class="course-body">
+          <span class="course-tag tag-chem">Chemistry</span>
+          <h3>NEET Chemistry Complete</h3>
+          <p>Physical, Organic, and Inorganic chemistry — with visual reaction mechanisms and daily MCQ practice sets.</p>
+          <div class="course-meta">
+            <span>📚 160 Lessons</span>
+            <span>⏱ 80 Hours</span>
+            <span>🎯 Class 9–12</span>
+          </div>
+        </div>
+      </div>
+      <div class="course-card reveal">
+        <div class="course-thumb course-thumb-phys">⚡</div>
+        <div class="course-body">
+          <span class="course-tag tag-phys">Physics</span>
+          <h3>NEET Physics Mastery</h3>
+          <p>Mechanics, optics, electromagnetism — conceptual clarity first, then numerical practice with step-by-step solutions.</p>
+          <div class="course-meta">
+            <span>📚 145 Lessons</span>
+            <span>⏱ 75 Hours</span>
+            <span>🎯 Class 9–12</span>
+          </div>
+        </div>
+      </div>
+      <div class="course-card reveal">
+        <div class="course-thumb course-thumb-found">🌟</div>
+        <div class="course-body">
+          <span class="course-tag tag-found">Foundation</span>
+          <h3>Class 9–10 Early Foundation</h3>
+          <p>The perfect NEET head start — bridging Class 8 basics to Class 9 science with NEET relevance highlighted at every step.</p>
+          <div class="course-meta">
+            <span>📚 120 Lessons</span>
+            <span>⏱ 60 Hours</span>
+            <span>🎯 Class 9–10</span>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div style="text-align:center;margin-top:40px">
+      <a href="signup.html" class="btn-primary" style="padding:14px 36px;font-size:1rem">View All Courses →</a>
+    </div>
+  </div>
+</section>
+
+<!-- AI SECTION -->
 <section id="ai" class="ai-section">
   <div class="container">
-    <div class="section-tag reveal">AI Learning</div>
+    <div class="section-tag reveal">✦ AI Learning</div>
     <h2 class="section-title reveal">Your personal AI study partner,<br>set up in 2 minutes</h2>
+    <p class="section-sub reveal">Yuvi AI understands your learning style and builds a plan that's genuinely personalised — not just a template.</p>
     <div class="ai-layout">
       <div class="ai-form-card reveal">
-        <h3>Generate Your AI Study Plan</h3>
+        <h3>⚡ Generate Your AI Study Plan</h3>
         <div class="form-field">
           <label>Your Name</label>
           <input id="studentName" type="text" placeholder="e.g. Arjun Sharma">
@@ -559,31 +866,32 @@ footer {
           <label>Weak Topics (comma separated)</label>
           <textarea id="weakTopics" placeholder="e.g. Laws of Motion, Chemical Bonding, Genetics"></textarea>
         </div>
-        <button class="btn-primary" onclick="generateAiPlan()" style="width:100%;padding:14px;font-size:1rem;border-radius:12px">
-          ✦ Generate My Plan
+        <button class="btn-orange" onclick="generateAiPlan()" style="width:100%;padding:14px;font-size:1rem;border-radius:12px;border:none;cursor:pointer">
+          ✦ Generate My Study Plan
         </button>
         <div class="ai-output" id="aiPlanOutput">Your personalised weekly study plan will appear here...</div>
       </div>
 
       <div class="ai-info-card reveal">
-        <h3>24/7 AI Doubt Assistant</h3>
-        <p style="color:var(--muted);font-size:0.92rem;margin-bottom:24px;line-height:1.7">
-          Ask any doubt — in text — and get stepwise, NCERT-aligned explanations with follow-up practice recommendations.
+        <h3>🤖 24/7 Yuvi AI Doubt Assistant</h3>
+        <p style="color:rgba(255,255,255,0.55);font-size:0.92rem;margin-bottom:24px;line-height:1.7">
+          Ask any doubt — in text — and get stepwise, NCERT-aligned explanations with follow-up practice recommendations instantly.
         </p>
         <ul class="ai-feature-list">
-          <li>Instant concept explanations in simple language — no jargon</li>
-          <li>Ranked practice questions auto-generated after every doubt</li>
-          <li>Chapter confidence score updated after each session</li>
-          <li>Available 24/7 — no waiting for class, no scheduling</li>
-          <li>Tracks recurring weak patterns across weeks</li>
+          <li><span class="check">✓</span>Instant concept explanations in simple language — no jargon</li>
+          <li><span class="check">✓</span>Ranked practice questions auto-generated after every doubt resolved</li>
+          <li><span class="check">✓</span>Chapter confidence score updated after each AI session</li>
+          <li><span class="check">✓</span>Available 24/7 — no waiting for class, no scheduling needed</li>
+          <li><span class="check">✓</span>Tracks recurring weak patterns across weeks and flags them</li>
+          <li><span class="check">✓</span>Explains in Tamil, Hindi, or English — your choice</li>
         </ul>
-        <div style="margin-top:32px;padding:20px;background:rgba(0,214,143,0.07);border:1px solid rgba(0,214,143,0.15);border-radius:12px">
-          <div style="font-size:0.78rem;font-weight:700;letter-spacing:0.1em;text-transform:uppercase;color:var(--green);margin-bottom:8px">Did you know?</div>
-          <p style="font-size:0.88rem;color:var(--muted);line-height:1.65;margin:0">
-            Students who resolve doubts within 24 hours of encountering them retain concepts 3× longer than those who let them pile up.
+        <div style="margin-top:28px;padding:20px;background:rgba(249,115,22,0.08);border:1px solid rgba(249,115,22,0.2);border-radius:12px">
+          <div style="font-size:0.75rem;font-weight:800;letter-spacing:0.1em;text-transform:uppercase;color:var(--orange-light);margin-bottom:8px">💡 Did You Know?</div>
+          <p style="font-size:0.88rem;color:rgba(255,255,255,0.55);line-height:1.7;margin:0">
+            Students who resolve doubts within 24 hours retain concepts 3× longer than those who let confusion pile up.
           </p>
         </div>
-        <a href="signup.html" class="btn-primary" style="display:block;text-align:center;margin-top:24px;padding:14px">
+        <a href="signup.html" class="btn-orange" style="display:block;text-align:center;margin-top:24px;padding:14px;border-radius:12px;text-decoration:none">
           Enable AI Doubt Mode →
         </a>
       </div>
@@ -592,53 +900,59 @@ footer {
 </section>
 
 <!-- PLANS -->
-<section id="plans">
+<section id="plans" class="plans-section">
   <div class="container">
-    <div class="section-tag reveal">Plans</div>
+    <div class="section-tag reveal">✦ Plans & Pricing</div>
     <h2 class="section-title reveal">Choose your preparation level</h2>
-    <p class="section-sub reveal">Start free. Upgrade when you're ready.</p>
+    <p class="section-sub reveal">Start free. Upgrade anytime when you're ready to go all in.</p>
     <div class="plans-grid">
       <div class="plan-card reveal">
-        <h3>Starter</h3>
-        <p class="plan-desc">Ideal for Class 9–10 beginners building the foundation.</p>
+        <div class="plan-name">Starter</div>
+        <p class="plan-desc">Ideal for Class 9–10 beginners building their foundation at their own pace.</p>
         <div class="plan-price">Free <span>/ month</span></div>
+        <div class="plan-divider"></div>
         <ul class="plan-features">
-          <li>AI weekly study planner</li>
-          <li>Weekly chapter tests</li>
-          <li>Recorded class library</li>
-          <li>Progress dashboard</li>
-          <li>Basic doubt assistant</li>
+          <li><span class="pf-check">✓</span>AI weekly study planner</li>
+          <li><span class="pf-check">✓</span>Weekly chapter tests</li>
+          <li><span class="pf-check">✓</span>Recorded class library (limited)</li>
+          <li><span class="pf-check">✓</span>Progress dashboard</li>
+          <li><span class="pf-check">✓</span>Basic doubt assistant (5/day)</li>
+          <li><span class="pf-check">✓</span>Study material downloads</li>
         </ul>
-        <a href="signup.html" class="btn-outline" style="display:block;text-align:center;padding:12px;border-radius:12px">Get Started Free</a>
+        <a href="signup.html" class="btn-outline" style="display:block;text-align:center;padding:13px;border-radius:12px">Get Started Free</a>
       </div>
       <div class="plan-card featured reveal">
-        <div class="plan-badge">Most Popular</div>
-        <h3>Pro</h3>
-        <p class="plan-desc">Best for regular, serious NEET preparation.</p>
+        <div class="plan-badge">⭐ Most Popular</div>
+        <div class="plan-name">Pro</div>
+        <p class="plan-desc">Best for regular, serious NEET preparation with daily structure and guidance.</p>
         <div class="plan-price">₹999 <span>/ month</span></div>
+        <div class="plan-divider"></div>
         <ul class="plan-features">
-          <li>Everything in Starter</li>
-          <li>Daily live classes</li>
-          <li>Full AI doubt assistant</li>
-          <li>Parent weekly reports</li>
-          <li>PYQ library access</li>
-          <li>Adaptive mock tests</li>
+          <li><span class="pf-check">✓</span>Everything in Starter</li>
+          <li><span class="pf-check">✓</span>Daily live classes</li>
+          <li><span class="pf-check">✓</span>Full AI doubt assistant (unlimited)</li>
+          <li><span class="pf-check">✓</span>Parent weekly reports</li>
+          <li><span class="pf-check">✓</span>PYQ library (10 years)</li>
+          <li><span class="pf-check">✓</span>Adaptive mock tests</li>
+          <li><span class="pf-check">✓</span>Full recorded class library</li>
         </ul>
-        <a href="signup.html" class="btn-primary" style="display:block;text-align:center;padding:12px;border-radius:12px">Get Pro</a>
+        <a href="signup.html" class="btn-primary" style="display:block;text-align:center;padding:13px;border-radius:12px;text-decoration:none">Get Pro →</a>
       </div>
       <div class="plan-card reveal">
-        <h3>Elite Mentorship</h3>
-        <p class="plan-desc">Full guided NEET roadmap with personal mentor.</p>
+        <div class="plan-name">Elite Mentorship</div>
+        <p class="plan-desc">Full guided NEET roadmap with a dedicated personal mentor and custom analytics.</p>
         <div class="plan-price">₹2,499 <span>/ month</span></div>
+        <div class="plan-divider"></div>
         <ul class="plan-features">
-          <li>Everything in Pro</li>
-          <li>Personal NEET mentor</li>
-          <li>Monthly strategy calls</li>
-          <li>Custom test analytics</li>
-          <li>Rank projection reports</li>
-          <li>Priority doubt support</li>
+          <li><span class="pf-check">✓</span>Everything in Pro</li>
+          <li><span class="pf-check">✓</span>Personal NEET mentor assigned</li>
+          <li><span class="pf-check">✓</span>Monthly 1-on-1 strategy calls</li>
+          <li><span class="pf-check">✓</span>Custom test analytics report</li>
+          <li><span class="pf-check">✓</span>NEET rank projection reports</li>
+          <li><span class="pf-check">✓</span>Priority doubt support (< 2 hrs)</li>
+          <li><span class="pf-check">✓</span>Parent counselling sessions</li>
         </ul>
-        <a href="#contact" class="btn-outline" style="display:block;text-align:center;padding:12px;border-radius:12px">Book Counselling</a>
+        <a href="#contact" class="btn-orange" style="display:block;text-align:center;padding:13px;border-radius:12px;text-decoration:none">Book Free Counselling</a>
       </div>
     </div>
   </div>
@@ -647,38 +961,78 @@ footer {
 <!-- TESTIMONIALS -->
 <section class="testimonials-section">
   <div class="container">
-    <div class="section-tag reveal">Student Stories</div>
-    <h2 class="section-title reveal">What students and parents say</h2>
+    <div class="section-tag reveal">✦ Student Stories</div>
+    <h2 class="section-title reveal">What students and parents say<br>about YuviLearn</h2>
     <div class="testimonials-grid">
       <div class="testimonial-card reveal">
-        <p class="testimonial-text">"I was completely lost in Class 9 Chemistry. After 3 months on YuviLearn, I actually understand why reactions happen — not just memorising them."</p>
+        <div class="quote-mark">"</div>
+        <div class="stars">★★★★★</div>
+        <p class="testimonial-text">I was completely lost in Class 9 Chemistry. After 3 months on YuviLearn, I actually understand why reactions happen — not just memorising them. The AI planner is genuinely smart.</p>
         <div class="testimonial-author">
           <div class="avatar">R</div>
           <div>
             <div class="author-name">Riya Menon</div>
-            <div class="author-info">Class 10, Chennai</div>
+            <div class="author-info">Class 10 · Chennai</div>
           </div>
         </div>
       </div>
       <div class="testimonial-card reveal">
-        <p class="testimonial-text">"The AI planner is genuinely smart. It caught that my son was weak in Mechanics before even his teachers noticed. The weekly parent report changed everything."</p>
+        <div class="quote-mark">"</div>
+        <div class="stars">★★★★★</div>
+        <p class="testimonial-text">The AI planner is genuinely smart. It caught that my son was weak in Mechanics before even his teachers noticed. The weekly parent report changed everything for us.</p>
         <div class="testimonial-author">
           <div class="avatar">P</div>
           <div>
             <div class="author-name">Priya Subramaniam</div>
-            <div class="author-info">Parent, Coimbatore</div>
+            <div class="author-info">Parent · Coimbatore</div>
           </div>
         </div>
       </div>
       <div class="testimonial-card reveal">
-        <p class="testimonial-text">"Starting in Class 9 felt early, but now in Class 11 I'm actually ahead of my batchmates. YuviLearn gave me a 2-year head start."</p>
+        <div class="quote-mark">"</div>
+        <div class="stars">★★★★★</div>
+        <p class="testimonial-text">Starting in Class 9 felt early, but now in Class 11 I'm actually ahead of my batchmates. YuviLearn gave me a 2-year head start that nobody else in my class has.</p>
         <div class="testimonial-author">
           <div class="avatar">K</div>
           <div>
             <div class="author-name">Karthik Raj</div>
-            <div class="author-info">Class 11, Kanchipuram</div>
+            <div class="author-info">Class 11 · Kanchipuram</div>
           </div>
         </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- BOOK SECTION -->
+<section class="book-section">
+  <div class="container">
+    <div class="book-layout">
+      <div class="book-content reveal">
+        <div class="section-tag">✦ Study Materials</div>
+        <h2 class="section-title">Free sample study<br>material available!</h2>
+        <p class="section-sub">Access our curated YuviLearn study guide — packed with concept summaries, key diagrams, and practice questions designed for early NEET foundation.</p>
+        <div style="margin-top:32px;display:flex;flex-direction:column;gap:14px">
+          <div style="display:flex;align-items:center;gap:12px;color:rgba(255,255,255,0.7);font-size:0.92rem">
+            <span style="color:var(--orange-light);font-size:1.1rem">✓</span> NCERT-aligned concept notes
+          </div>
+          <div style="display:flex;align-items:center;gap:12px;color:rgba(255,255,255,0.7);font-size:0.92rem">
+            <span style="color:var(--orange-light);font-size:1.1rem">✓</span> Chapter-wise MCQ practice sets
+          </div>
+          <div style="display:flex;align-items:center;gap:12px;color:rgba(255,255,255,0.7);font-size:0.92rem">
+            <span style="color:var(--orange-light);font-size:1.1rem">✓</span> Mnemonics and visual diagrams
+          </div>
+          <div style="display:flex;align-items:center;gap:12px;color:rgba(255,255,255,0.7);font-size:0.92rem">
+            <span style="color:var(--orange-light);font-size:1.1rem">✓</span> Previous year question analysis
+          </div>
+        </div>
+      </div>
+      <div class="book-mockup reveal">
+        <h3>📗 YuviLearn Sample Study Guide</h3>
+        <p>Foundation Edition — Biology, Chemistry &amp; Physics</p>
+        <a href="sample_book.docx" download class="book-preview-btn">
+          ⬇ Download Sample Book
+        </a>
       </div>
     </div>
   </div>
@@ -687,11 +1041,45 @@ footer {
 <!-- ENROLL FORM -->
 <section id="contact" class="form-section">
   <div class="container">
-    <div class="section-tag reveal" style="text-align:center">Enroll Now</div>
-    <h2 class="section-title reveal">Ready to start your NEET journey?</h2>
-    <p class="section-sub reveal">Fill in the form and our team will schedule your free onboarding call within 24 hours.</p>
-    <div class="google-form-wrapper reveal">
-      <iframe src="https://docs.google.com/forms/d/e/1FAIpQLScYDPWJAqUOYf0DqDOpNGIqAv84xt1Yi9gOeaE6BVSkLdjlMw/viewform?usp=header&embedded=true" loading="lazy" title="YuviLearn Enrollment Form"></iframe>
+    <div class="section-tag reveal" style="justify-content:center;display:inline-flex;left:50%;position:relative;transform:translateX(-50%)">✦ Enroll Now</div>
+    <h2 class="section-title reveal" style="text-align:center">Ready to start your NEET journey?</h2>
+    <p class="section-sub reveal" style="margin:0 auto 0">Fill in your details and our team will schedule your free onboarding call within 24 hours.</p>
+    <div class="enroll-form-card reveal">
+      <div class="form-field">
+        <label>Student's Full Name</label>
+        <input id="enroll-name" type="text" placeholder="e.g. Arjun Sharma">
+      </div>
+      <div class="enroll-grid">
+        <div class="form-field">
+          <label>Class</label>
+          <select id="enroll-class">
+            <option value="">Select class</option>
+            <option>Class 9</option>
+            <option>Class 10</option>
+            <option>Class 11</option>
+            <option>Class 12</option>
+          </select>
+        </div>
+        <div class="form-field">
+          <label>Goal</label>
+          <select id="enroll-goal">
+            <option>NEET Foundation</option>
+            <option>NEET Full Prep</option>
+            <option>Science Olympiad</option>
+            <option>Board Excellence</option>
+          </select>
+        </div>
+      </div>
+      <div class="form-field">
+        <label>Parent's Phone Number</label>
+        <input id="enroll-phone" type="tel" placeholder="+91 98765 43210">
+      </div>
+      <div class="form-field">
+        <label>Email Address</label>
+        <input id="enroll-email" type="email" placeholder="student@email.com">
+      </div>
+      <button class="enroll-submit" onclick="submitEnroll()">🚀 Book My Free Onboarding Call</button>
+      <div class="enroll-status" id="enroll-status"></div>
     </div>
   </div>
 </section>
@@ -700,13 +1088,21 @@ footer {
 <footer>
   <div class="footer-grid">
     <div class="footer-brand">
-      <a href="index.html" class="nav-logo" style="font-size:1.4rem">YuviLearn</a>
-      <p>Building India's future doctors from Class 9 — one concept at a time. NEP 2020 aligned, AI-powered, mentor-led.</p>
+      <a href="index.html" class="footer-logo">
+        <img src="logo.webp" alt="YuviLearn Logo">
+      </a>
+      <p>Building India's future doctors from Class 9 — one concept at a time. NEP 2020 aligned, AI-powered, mentor-led preparation for NEET.</p>
+      <div style="display:flex;gap:12px;margin-top:20px">
+        <a href="#" style="display:flex;align-items:center;justify-content:center;width:36px;height:36px;background:rgba(255,255,255,0.08);border-radius:8px;color:white;text-decoration:none;font-size:0.9rem">📘</a>
+        <a href="#" style="display:flex;align-items:center;justify-content:center;width:36px;height:36px;background:rgba(255,255,255,0.08);border-radius:8px;color:white;text-decoration:none;font-size:0.9rem">📸</a>
+        <a href="#" style="display:flex;align-items:center;justify-content:center;width:36px;height:36px;background:rgba(255,255,255,0.08);border-radius:8px;color:white;text-decoration:none;font-size:0.9rem">▶</a>
+      </div>
     </div>
     <div class="footer-col">
       <h4>Platform</h4>
       <ul>
         <li><a href="#features">Features</a></li>
+        <li><a href="#courses">Courses</a></li>
         <li><a href="#ai">AI Learning</a></li>
         <li><a href="#plans">Plans</a></li>
         <li><a href="dashboard.html">Dashboard</a></li>
@@ -717,22 +1113,25 @@ footer {
       <ul>
         <li><a href="login.html">Login</a></li>
         <li><a href="signup.html">Sign Up</a></li>
-        <li><a href="#contact">Enroll</a></li>
+        <li><a href="#contact">Enroll Now</a></li>
+        <li><a href="#">Reset Password</a></li>
       </ul>
     </div>
     <div class="footer-col">
       <h4>Company</h4>
       <ul>
-        <li><a href="#">About</a></li>
+        <li><a href="#">About YuviLearn</a></li>
         <li><a href="#">Blog</a></li>
-        <li><a href="#">Contact</a></li>
-        <li><a href="#">Privacy</a></li>
+        <li><a href="#">Careers</a></li>
+        <li><a href="#">Privacy Policy</a></li>
+        <li><a href="#">Terms of Use</a></li>
+        <li><a href="#contact">Contact Us</a></li>
       </ul>
     </div>
   </div>
   <div class="footer-bottom">
     <span>© 2026 YuviLearn. All rights reserved.</span>
-    <span>Learn smart. Start early. Win NEET.</span>
+    <span class="footer-tagline">Learn smart. Start early. Win NEET. 🚀</span>
   </div>
 </footer>
 
@@ -743,16 +1142,30 @@ function generateAiPlan() {
   const goal = document.getElementById('goal').value;
   const weak = document.getElementById('weakTopics').value.trim() || 'core revision chapters';
   const out = document.getElementById('aiPlanOutput');
-  out.textContent = 'Generating your plan...';
+  out.textContent = '⏳ Generating your personalised plan...';
   setTimeout(() => {
-    out.textContent = `✦ ${name}'s AI Plan · ${cls} · ${goal}\n\nFocus Topics: ${weak}\n\nWeek 1–2  Concept rebuild on weak topics using NCERT\nWeek 3    Mixed MCQ drill — speed focus (45 min/day)\nWeek 4    Timed mock test + error log analysis\n\nDaily: 90 min total · 20 min on weak topic recap\nSunday: Full error log revision + mentor feedback session`;
-  }, 800);
+    out.textContent = `✦ ${name}'s AI Plan · ${cls} · ${goal}\n\n📍 Focus Topics: ${weak}\n\n📅 Week 1–2   Concept rebuild on weak topics using NCERT\n📅 Week 3     Mixed MCQ drill — speed focus (45 min/day)\n📅 Week 4     Timed mock test + error log analysis\n\n⏰ Daily: 90 min total · 20 min weak topic recap\n📖 Sunday: Full error log revision + mentor feedback`;
+  }, 900);
+}
+
+function submitEnroll() {
+  const name = document.getElementById('enroll-name').value.trim();
+  const phone = document.getElementById('enroll-phone').value.trim();
+  const email = document.getElementById('enroll-email').value.trim();
+  const status = document.getElementById('enroll-status');
+  if (!name || !phone || !email) {
+    status.className = 'enroll-status error';
+    status.textContent = '⚠ Please fill in all required fields.';
+    return;
+  }
+  status.className = 'enroll-status success';
+  status.textContent = '🎉 Thank you! Our team will call you within 24 hours. Check your email too!';
 }
 
 // Scroll reveal
 const observer = new IntersectionObserver((entries) => {
-  entries.forEach(e => { if (e.isIntersecting) { e.target.classList.add('visible'); } });
-}, { threshold: 0.12 });
+  entries.forEach(e => { if (e.isIntersecting) e.target.classList.add('visible'); });
+}, { threshold: 0.1 });
 document.querySelectorAll('.reveal').forEach(el => observer.observe(el));
 </script>
 </body>

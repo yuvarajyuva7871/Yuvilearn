@@ -5,100 +5,127 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Login — YuviLearn</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
-<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@700;900&family=DM+Sans:wght@300;400;500;600&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Nunito:wght@400;600;700;800;900&family=Poppins:wght@400;500;600;700&display=swap" rel="stylesheet">
 <style>
 :root {
-  --bg: #05080f; --surface: #0c1220; --card: #101828;
-  --border: rgba(255,255,255,0.07); --text: #f0f4ff; --muted: #8a9ab5;
-  --green: #00d68f; --green-dim: rgba(0,214,143,0.1); --cyan: #00b4d8;
+  --blue: #1B4FD8; --blue-dark: #1340B8; --blue-light: #3B6EF8;
+  --orange: #F97316; --bg: #F0F4FF; --white: #FFFFFF;
+  --dark: #0F172A; --dark2: #1E293B; --muted: #64748B;
+  --border: #E2E8F0; --green: #10B981;
 }
 *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
 body {
-  font-family: 'DM Sans', sans-serif;
-  background: var(--bg); color: var(--text);
+  font-family: 'Poppins', sans-serif;
+  background: linear-gradient(135deg, #EEF2FF 0%, #DBEAFE 50%, #FFF7ED 100%);
   min-height: 100vh;
-  display: grid; place-items: center;
-  padding: 24px;
-  background-image:
-    radial-gradient(ellipse 60% 50% at 50% 0%, rgba(0,214,143,0.1) 0%, transparent 70%),
-    radial-gradient(ellipse 40% 40% at 80% 80%, rgba(0,180,216,0.06) 0%, transparent 60%);
+  display: grid; place-items: center; padding: 24px;
+  position: relative; overflow: hidden;
+}
+.blob1 {
+  position: fixed; width: 500px; height: 500px;
+  background: radial-gradient(circle, rgba(27,79,216,0.15) 0%, transparent 70%);
+  top: -150px; left: -150px; border-radius: 50%;
+  filter: blur(60px); pointer-events: none;
+}
+.blob2 {
+  position: fixed; width: 400px; height: 400px;
+  background: radial-gradient(circle, rgba(249,115,22,0.12) 0%, transparent 70%);
+  bottom: -100px; right: -100px; border-radius: 50%;
+  filter: blur(60px); pointer-events: none;
 }
 .card {
-  width: min(440px, 100%);
-  background: var(--card);
-  border: 1px solid var(--border);
-  border-radius: 20px;
-  padding: 40px 36px;
-  box-shadow: 0 24px 64px rgba(0,0,0,0.4), 0 0 0 1px rgba(0,214,143,0.05);
+  width: min(460px, 100%);
+  background: white;
+  border: 2px solid rgba(27,79,216,0.1);
+  border-radius: 24px; padding: 48px 40px;
+  box-shadow: 0 24px 64px rgba(27,79,216,0.12);
   animation: fadeIn 0.5s ease;
+  position: relative; z-index: 1;
 }
-@keyframes fadeIn { from { opacity:0; transform:translateY(16px); } to { opacity:1; transform:none; } }
-.logo {
-  font-family: 'Playfair Display', serif;
-  font-size: 1.4rem; font-weight: 900;
-  background: linear-gradient(135deg, var(--green), var(--cyan));
+@keyframes fadeIn { from{opacity:0;transform:translateY(20px)} to{opacity:1;transform:none} }
+.logo-wrap {
+  display: flex; align-items: center; gap: 10px;
+  text-decoration: none; margin-bottom: 32px;
+}
+.logo-wrap img { height: 48px; }
+.logo-text {
+  font-family: 'Nunito', sans-serif; font-size: 1.5rem; font-weight: 900;
+  background: linear-gradient(135deg, var(--blue), var(--orange));
   -webkit-background-clip: text; -webkit-text-fill-color: transparent;
-  background-clip: text; text-decoration: none;
-  display: inline-block; margin-bottom: 28px;
+  background-clip: text;
 }
-h1 { font-size: 1.6rem; font-weight: 700; margin-bottom: 6px; }
-.subtitle { color: var(--muted); font-size: 0.92rem; margin-bottom: 28px; }
-.field { margin-bottom: 18px; }
+.card-header { margin-bottom: 32px; }
+.card-header h1 { font-family: 'Nunito', sans-serif; font-size: 1.8rem; font-weight: 900; color: var(--dark); margin-bottom: 6px; }
+.card-header p { color: var(--muted); font-size: 0.92rem; }
+.field { margin-bottom: 20px; }
 .field label {
-  display: block; font-size: 0.8rem; font-weight: 700;
-  letter-spacing: 0.05em; text-transform: uppercase;
+  display: block; font-size: 0.78rem; font-weight: 700;
+  letter-spacing: 0.06em; text-transform: uppercase;
   color: var(--muted); margin-bottom: 8px;
 }
 .field input {
-  width: 100%; background: rgba(255,255,255,0.04);
-  border: 1px solid var(--border); border-radius: 12px;
-  padding: 13px 16px; color: var(--text);
-  font-family: 'DM Sans', sans-serif; font-size: 0.95rem;
-  outline: none; transition: border-color 0.2s;
+  width: 100%; background: #F8FAFF;
+  border: 2px solid var(--border); border-radius: 12px;
+  padding: 13px 16px; color: var(--dark);
+  font-family: 'Poppins', sans-serif; font-size: 0.95rem;
+  outline: none; transition: all 0.2s;
 }
-.field input:focus { border-color: var(--green); }
+.field input:focus { border-color: var(--blue); background: white; box-shadow: 0 0 0 4px rgba(27,79,216,0.08); }
 .btn-primary {
-  width: 100%; background: linear-gradient(135deg, var(--green), #00b47e);
-  color: #021a0f; border: none; border-radius: 12px;
-  padding: 14px; font-family: 'DM Sans', sans-serif;
+  width: 100%;
+  background: linear-gradient(135deg, var(--blue), var(--blue-light));
+  color: white; border: none; border-radius: 12px;
+  padding: 15px; font-family: 'Poppins', sans-serif;
   font-size: 1rem; font-weight: 700; cursor: pointer;
-  transition: opacity 0.2s, transform 0.2s; margin-bottom: 12px;
+  transition: all 0.2s; margin-bottom: 14px;
+  box-shadow: 0 4px 16px rgba(27,79,216,0.3);
 }
-.btn-primary:hover { opacity: 0.9; transform: translateY(-1px); }
+.btn-primary:hover { transform: translateY(-2px); box-shadow: 0 8px 24px rgba(27,79,216,0.4); }
 .btn-google {
-  width: 100%; background: rgba(255,255,255,0.05);
-  border: 1px solid var(--border); border-radius: 12px;
-  padding: 13px; font-family: 'DM Sans', sans-serif;
-  font-size: 0.95rem; font-weight: 600; color: var(--text);
-  cursor: pointer; display: flex; align-items: center;
-  justify-content: center; gap: 10px;
-  transition: background 0.2s, border-color 0.2s;
+  width: 100%; background: white; border: 2px solid var(--border);
+  border-radius: 12px; padding: 13px;
+  font-family: 'Poppins', sans-serif; font-size: 0.92rem; font-weight: 600;
+  color: var(--dark2); cursor: pointer;
+  display: flex; align-items: center; justify-content: center; gap: 10px;
+  transition: all 0.2s;
 }
-.btn-google:hover { background: rgba(255,255,255,0.08); border-color: rgba(255,255,255,0.15); }
+.btn-google:hover { border-color: var(--blue); background: #F8FAFF; }
 .divider {
   display: flex; align-items: center; gap: 12px;
   margin: 16px 0; color: var(--muted); font-size: 0.8rem;
 }
-.divider::before, .divider::after {
-  content: ''; flex: 1;
-  height: 1px; background: var(--border);
-}
-.status { min-height: 20px; margin-top: 12px; font-size: 0.87rem; border-radius: 8px; }
-.status.error { color: #f87171; }
-.status.success { color: var(--green); }
-.links { margin-top: 20px; text-align: center; color: var(--muted); font-size: 0.88rem; line-height: 2; }
-.links a { color: var(--green); text-decoration: none; font-weight: 600; }
+.divider::before, .divider::after { content: ''; flex: 1; height: 1px; background: var(--border); }
+.status { min-height: 20px; margin-top: 14px; font-size: 0.87rem; border-radius: 8px; padding: 0 2px; }
+.status.error { color: #EF4444; }
+.status.success { color: var(--green); font-weight: 600; }
+.links { margin-top: 24px; text-align: center; color: var(--muted); font-size: 0.88rem; line-height: 2; }
+.links a { color: var(--blue); text-decoration: none; font-weight: 700; }
 .links a:hover { text-decoration: underline; }
+.badge {
+  display: inline-flex; align-items: center; gap: 6px;
+  background: rgba(27,79,216,0.07); border: 1px solid rgba(27,79,216,0.15);
+  color: var(--blue); padding: 6px 14px; border-radius: 50px;
+  font-size: 0.75rem; font-weight: 700; letter-spacing: 0.04em;
+  text-transform: uppercase; margin-bottom: 24px;
+}
 </style>
 </head>
 <body>
+<div class="blob1"></div>
+<div class="blob2"></div>
 <main class="card">
-  <a href="index.html" class="logo">YuviLearn</a>
-  <h1>Welcome back 👋</h1>
-  <p class="subtitle">Sign in to continue your NEET study plan.</p>
+  <a href="index.html" class="logo-wrap">
+    <img src="logo.webp" alt="YuviLearn">
+    <span class="logo-text">YuviLearn</span>
+  </a>
+  <div class="badge">🔒 Secure Student Login</div>
+  <div class="card-header">
+    <h1>Welcome back! 👋</h1>
+    <p>Sign in to continue your NEET study plan.</p>
+  </div>
 
   <div class="field">
-    <label>Email</label>
+    <label>Email Address</label>
     <input id="email" type="email" placeholder="student@email.com" autocomplete="email">
   </div>
   <div class="field">
@@ -106,7 +133,7 @@ h1 { font-size: 1.6rem; font-weight: 700; margin-bottom: 6px; }
     <input id="password" type="password" placeholder="Enter your password" autocomplete="current-password">
   </div>
 
-  <button class="btn-primary" onclick="login()">Login to Dashboard</button>
+  <button class="btn-primary" onclick="login()">Login to Dashboard →</button>
 
   <div class="divider">or</div>
 
@@ -118,7 +145,7 @@ h1 { font-size: 1.6rem; font-weight: 700; margin-bottom: 6px; }
   <div class="status" id="status"></div>
 
   <div class="links">
-    New to YuviLearn? <a href="signup.html">Create account</a><br>
+    New to YuviLearn? <a href="signup.html">Create account →</a><br>
     <a href="index.html">← Back to Home</a>
   </div>
 </main>
@@ -126,36 +153,32 @@ h1 { font-size: 1.6rem; font-weight: 700; margin-bottom: 6px; }
 <script type="module">
 import { auth } from './firebase.js';
 import { signInWithEmailAndPassword, GoogleAuthProvider, signInWithPopup } from "https://www.gstatic.com/firebasejs/10.12.0/firebase-auth.js";
-
 const statusEl = document.getElementById('status');
 function setStatus(msg, isError=true) {
   statusEl.className = 'status ' + (isError ? 'error' : 'success');
   statusEl.textContent = msg;
 }
-
 async function login() {
   const email = document.getElementById('email').value.trim();
   const password = document.getElementById('password').value;
-  if (!email || !password) return setStatus('Please enter both email and password.');
+  if (!email || !password) return setStatus('⚠ Please enter both email and password.');
   try {
     const result = await signInWithEmailAndPassword(auth, email, password);
     localStorage.setItem('email', result.user.email || email);
     localStorage.setItem('name', result.user.displayName || localStorage.getItem('name') || 'Student');
-    setStatus('Login successful — redirecting…', false);
+    setStatus('✓ Login successful — redirecting to dashboard…', false);
     setTimeout(() => window.location.href = 'dashboard.html', 800);
-  } catch(e) { setStatus(e.message); }
+  } catch(e) { setStatus('⚠ ' + e.message); }
 }
-
 async function googleLogin() {
   try {
     const result = await signInWithPopup(auth, new GoogleAuthProvider());
     localStorage.setItem('email', result.user.email || '');
     localStorage.setItem('name', result.user.displayName || 'Student');
-    setStatus('Google login successful — redirecting…', false);
+    setStatus('✓ Google login successful — redirecting…', false);
     setTimeout(() => window.location.href = 'dashboard.html', 800);
-  } catch(e) { setStatus(e.message); }
+  } catch(e) { setStatus('⚠ ' + e.message); }
 }
-
 window.login = login;
 window.googleLogin = googleLogin;
 </script>
