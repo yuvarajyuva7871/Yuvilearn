@@ -1,4 +1,2 @@
 User-agent: *
-Allow: /
-
-Sitemap: https://yuvilearn.com/sitemap.xml
+Disallow:
