@@ -1,0 +1,880 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>TeachKit AI — Worksheet Generator for Indian Teachers</title>
+
+<!-- Firebase SDKs -->
+<script src="https://www.gstatic.com/firebasejs/10.12.0/firebase-app-compat.js"></script>
+<script src="https://www.gstatic.com/firebasejs/10.12.0/firebase-auth-compat.js"></script>
+<script src="https://www.gstatic.com/firebasejs/10.12.0/firebase-firestore-compat.js"></script>
+
+<!-- jsPDF -->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
+
+<!-- Google Fonts -->
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600&family=DM+Mono:wght@400;500&display=swap" rel="stylesheet">
+
+<style>
+  /* ── Reset & base ──────────────────────────────────── */
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+  :root {
+    --teal:       #1D9E75;
+    --teal-dark:  #0F6E56;
+    --teal-light: #E1F5EE;
+    --purple:     #534AB7;
+    --purple-light: #EEEDFE;
+    --amber:      #BA7517;
+    --amber-light: #FAEEDA;
+    --red:        #A32D2D;
+    --red-light:  #FCEBEB;
+    --text:       #1a1a1a;
+    --text-2:     #555;
+    --text-3:     #999;
+    --border:     rgba(0,0,0,0.09);
+    --border-2:   rgba(0,0,0,0.15);
+    --bg:         #f7f6f3;
+    --surface:    #ffffff;
+    --surface-2:  #f2f1ee;
+    --radius:     10px;
+    --radius-lg:  14px;
+    --font:       'DM Sans', sans-serif;
+    --mono:       'DM Mono', monospace;
+  }
+
+  html { font-family: var(--font); background: var(--bg); color: var(--text); font-size: 15px; }
+  body { min-height: 100vh; }
+  input, select, button, textarea { font-family: var(--font); }
+
+  /* ── Scrollbar ────────────────────────────────────── */
+  ::-webkit-scrollbar { width: 5px; }
+  ::-webkit-scrollbar-track { background: transparent; }
+  ::-webkit-scrollbar-thumb { background: var(--border-2); border-radius: 4px; }
+
+  /* ── Auth screen ──────────────────────────────────── */
+  #auth-screen {
+    display: flex; align-items: center; justify-content: center;
+    min-height: 100vh; padding: 2rem;
+  }
+  .auth-card {
+    background: var(--surface); border: 0.5px solid var(--border);
+    border-radius: var(--radius-lg); padding: 2.5rem 2rem;
+    max-width: 380px; width: 100%; text-align: center;
+  }
+  .auth-logo { font-size: 22px; font-weight: 600; color: var(--text); margin-bottom: 6px; }
+  .auth-logo span { color: var(--teal); }
+  .auth-tagline { font-size: 13px; color: var(--text-2); margin-bottom: 2rem; line-height: 1.6; }
+  .google-btn {
+    display: flex; align-items: center; justify-content: center; gap: 10px;
+    width: 100%; padding: 11px 16px; border-radius: var(--radius);
+    border: 1px solid var(--border-2); background: var(--surface);
+    font-size: 14px; font-weight: 500; color: var(--text); cursor: pointer;
+    transition: background .15s;
+  }
+  .google-btn:hover { background: var(--surface-2); }
+  .google-btn svg { width: 18px; height: 18px; flex-shrink: 0; }
+  .auth-note { font-size: 12px; color: var(--text-3); margin-top: 1rem; line-height: 1.5; }
+
+  /* ── App shell ────────────────────────────────────── */
+  #app-screen { display: none; }
+
+  .navbar {
+    background: var(--surface); border-bottom: 0.5px solid var(--border);
+    padding: 0 1.5rem; height: 54px;
+    display: flex; align-items: center; justify-content: space-between;
+    position: sticky; top: 0; z-index: 100;
+  }
+  .nav-logo { font-size: 16px; font-weight: 600; color: var(--text); }
+  .nav-logo span { color: var(--teal); }
+  .nav-right { display: flex; align-items: center; gap: 10px; }
+
+  .usage-pill {
+    display: flex; align-items: center; gap: 8px;
+    background: var(--surface-2); border-radius: 20px;
+    padding: 5px 12px; font-size: 12px; color: var(--text-2);
+  }
+  .usage-bar-wrap { width: 60px; height: 4px; background: var(--border); border-radius: 4px; overflow: hidden; }
+  .usage-bar { height: 4px; background: var(--teal); border-radius: 4px; transition: width .4s, background .4s; }
+  .usage-num { font-weight: 500; color: var(--text); font-size: 12px; white-space: nowrap; }
+
+  .upgrade-btn {
+    font-size: 12px; font-weight: 600; padding: 6px 14px;
+    border-radius: 20px; border: none; cursor: pointer;
+    background: var(--purple); color: #fff; transition: background .15s;
+  }
+  .upgrade-btn:hover { background: #3C3489; }
+  .upgrade-btn.pro { background: var(--teal-light); color: var(--teal-dark); }
+
+  .user-avatar {
+    width: 30px; height: 30px; border-radius: 50%; overflow: hidden;
+    border: 1.5px solid var(--border-2); flex-shrink: 0;
+  }
+  .user-avatar img { width: 100%; height: 100%; object-fit: cover; }
+  .user-initials {
+    width: 30px; height: 30px; border-radius: 50%;
+    background: var(--teal-light); color: var(--teal-dark);
+    font-size: 12px; font-weight: 600;
+    display: flex; align-items: center; justify-content: center;
+  }
+  .signout-btn {
+    font-size: 12px; color: var(--text-3); background: none;
+    border: none; cursor: pointer; padding: 4px 6px;
+  }
+  .signout-btn:hover { color: var(--text); }
+
+  /* ── Main layout ──────────────────────────────────── */
+  .main { max-width: 760px; margin: 0 auto; padding: 2rem 1.5rem 4rem; }
+
+  /* ── Form card ────────────────────────────────────── */
+  .form-card {
+    background: var(--surface); border: 0.5px solid var(--border);
+    border-radius: var(--radius-lg); padding: 1.5rem;
+    margin-bottom: 1.25rem;
+  }
+  .form-title {
+    font-size: 13px; font-weight: 600; color: var(--text-2);
+    text-transform: uppercase; letter-spacing: .06em;
+    margin-bottom: 1rem;
+  }
+  .form-grid {
+    display: grid; grid-template-columns: repeat(auto-fit, minmax(165px, 1fr));
+    gap: 10px;
+  }
+  .field { display: flex; flex-direction: column; gap: 5px; }
+  .field.full { grid-column: 1 / -1; }
+  .field label { font-size: 12px; color: var(--text-2); font-weight: 500; }
+  .field select, .field input {
+    padding: 8px 10px; border: 0.5px solid var(--border-2);
+    border-radius: var(--radius); font-size: 13px; color: var(--text);
+    background: var(--bg); outline: none; transition: border-color .15s;
+    width: 100%;
+  }
+  .field select:focus, .field input:focus { border-color: var(--teal); }
+
+  .gen-btn {
+    width: 100%; padding: 11px; margin-top: 1rem;
+    background: var(--teal); color: #fff; border: none;
+    border-radius: var(--radius); font-size: 14px; font-weight: 600;
+    cursor: pointer; transition: background .15s;
+    display: flex; align-items: center; justify-content: center; gap: 8px;
+  }
+  .gen-btn:hover:not(:disabled) { background: var(--teal-dark); }
+  .gen-btn:disabled { opacity: .55; cursor: not-allowed; }
+
+  /* ── Loading ──────────────────────────────────────── */
+  .loading-card {
+    background: var(--surface); border: 0.5px solid var(--border);
+    border-radius: var(--radius-lg); padding: 1.5rem;
+    display: flex; align-items: center; gap: 12px;
+    font-size: 13px; color: var(--text-2);
+  }
+  .spinner {
+    width: 18px; height: 18px; border: 2px solid var(--border);
+    border-top-color: var(--teal); border-radius: 50%;
+    animation: spin .7s linear infinite; flex-shrink: 0;
+  }
+  @keyframes spin { to { transform: rotate(360deg); } }
+
+  /* ── Output card ──────────────────────────────────── */
+  .output-card {
+    background: var(--surface); border: 0.5px solid var(--border);
+    border-radius: var(--radius-lg); overflow: hidden;
+  }
+  .output-toolbar {
+    display: flex; align-items: center; justify-content: space-between;
+    padding: 10px 14px; background: var(--surface-2);
+    border-bottom: 0.5px solid var(--border); flex-wrap: wrap; gap: 8px;
+  }
+  .output-meta { font-size: 13px; font-weight: 500; color: var(--text); }
+  .toolbar-btns { display: flex; gap: 6px; }
+
+  .t-btn {
+    display: flex; align-items: center; gap: 5px;
+    font-size: 12px; padding: 5px 12px;
+    border-radius: 20px; border: 0.5px solid var(--border-2);
+    background: var(--surface); color: var(--text-2);
+    cursor: pointer; transition: all .15s; font-weight: 500;
+  }
+  .t-btn:hover { background: var(--bg); color: var(--text); }
+  .t-btn.pdf { background: var(--teal); border-color: var(--teal); color: #fff; }
+  .t-btn.pdf:hover:not(:disabled) { background: var(--teal-dark); }
+  .t-btn:disabled { opacity: .5; cursor: not-allowed; }
+
+  .output-body {
+    padding: 1.5rem; font-size: 13px; color: var(--text);
+    line-height: 1.9; white-space: pre-wrap;
+    font-family: var(--mono); max-height: 460px; overflow-y: auto;
+  }
+  .wm-note { font-size: 11px; color: var(--text-3); text-align: center; padding: 8px 0 0; }
+
+  /* ── Upgrade gate ─────────────────────────────────── */
+  .gate-card {
+    background: var(--surface); border: 0.5px solid var(--border);
+    border-radius: var(--radius-lg); padding: 2rem; text-align: center;
+  }
+  .gate-icon-wrap {
+    width: 48px; height: 48px; border-radius: 50%;
+    background: var(--purple-light); color: var(--purple);
+    display: flex; align-items: center; justify-content: center;
+    font-size: 22px; margin: 0 auto 1rem;
+  }
+  .gate-title { font-size: 16px; font-weight: 600; margin-bottom: 6px; }
+  .gate-sub { font-size: 13px; color: var(--text-2); margin-bottom: 1.25rem; line-height: 1.6; }
+  .gate-cta {
+    display: inline-flex; align-items: center; gap: 6px;
+    background: var(--purple); color: #fff; border: none;
+    padding: 10px 24px; border-radius: var(--radius);
+    font-size: 14px; font-weight: 600; cursor: pointer; transition: background .15s;
+  }
+  .gate-cta:hover { background: #3C3489; }
+  .gate-free-note { font-size: 12px; color: var(--text-3); margin-top: 10px; }
+
+  /* ── Error ─────────────────────────────────────────── */
+  .err-box {
+    background: var(--red-light); border-radius: var(--radius);
+    padding: 10px 14px; font-size: 13px; color: var(--red);
+  }
+
+  /* ── History ──────────────────────────────────────── */
+  .history-wrap { margin-top: 1.5rem; }
+  .history-label {
+    font-size: 12px; font-weight: 600; color: var(--text-3);
+    text-transform: uppercase; letter-spacing: .05em; margin-bottom: 8px;
+  }
+  .hist-row {
+    display: flex; align-items: center; justify-content: space-between;
+    background: var(--surface); border: 0.5px solid var(--border);
+    border-radius: var(--radius); padding: 9px 14px; margin-bottom: 6px;
+  }
+  .hist-name { font-size: 13px; color: var(--text-2); }
+  .hist-regen {
+    font-size: 12px; color: var(--teal); font-weight: 600;
+    background: none; border: none; cursor: pointer;
+  }
+  .hist-regen:hover { color: var(--teal-dark); }
+
+  /* ── Responsive ───────────────────────────────────── */
+  @media (max-width: 520px) {
+    .navbar { padding: 0 1rem; }
+    .main { padding: 1.25rem 1rem 4rem; }
+    .usage-bar-wrap { display: none; }
+  }
+</style>
+</head>
+<body>
+
+<!-- ══════════════════════════════════════════
+     AUTH SCREEN
+══════════════════════════════════════════ -->
+<div id="auth-screen">
+  <div class="auth-card">
+    <div class="auth-logo">Teach<span>Kit</span> AI</div>
+    <p class="auth-tagline">Generate CBSE &amp; Tamil Nadu State Board worksheets,<br>lesson plans, and test papers in seconds.</p>
+    <button class="google-btn" onclick="signInWithGoogle()">
+      <!-- Google icon -->
+      <svg viewBox="0 0 48 48" xmlns="http://www.w3.org/2000/svg">
+        <path fill="#EA4335" d="M24 9.5c3.54 0 6.71 1.22 9.21 3.6l6.85-6.85C35.9 2.38 30.47 0 24 0 14.62 0 6.51 5.38 2.56 13.22l7.98 6.19C12.43 13.72 17.74 9.5 24 9.5z"/>
+        <path fill="#4285F4" d="M46.98 24.55c0-1.57-.15-3.09-.38-4.55H24v9.02h12.94c-.58 2.96-2.26 5.48-4.78 7.18l7.73 6c4.51-4.18 7.09-10.36 7.09-17.65z"/>
+        <path fill="#FBBC05" d="M10.53 28.59c-.48-1.45-.76-2.99-.76-4.59s.27-3.14.76-4.59l-7.98-6.19C.92 16.46 0 20.12 0 24c0 3.88.92 7.54 2.56 10.78l7.97-6.19z"/>
+        <path fill="#34A853" d="M24 48c6.48 0 11.93-2.13 15.89-5.81l-7.73-6c-2.18 1.48-4.97 2.31-8.16 2.31-6.26 0-11.57-4.22-13.47-9.91l-7.98 6.19C6.51 42.62 14.62 48 24 48z"/>
+      </svg>
+      Continue with Google
+    </button>
+    <p class="auth-note">Free plan: 5 worksheets/month. Pro plan (₹199/mo) for unlimited.</p>
+  </div>
+</div>
+
+<!-- ══════════════════════════════════════════
+     APP SCREEN
+══════════════════════════════════════════ -->
+<div id="app-screen">
+
+  <!-- Navbar -->
+  <nav class="navbar">
+    <div class="nav-logo">Teach<span>Kit</span> AI</div>
+    <div class="nav-right">
+      <div class="usage-pill">
+        <div class="usage-bar-wrap"><div class="usage-bar" id="usage-bar"></div></div>
+        <span class="usage-num" id="usage-num">0 / 5</span>
+      </div>
+      <button class="upgrade-btn" id="upgrade-btn" onclick="handleUpgrade()">Upgrade ₹199/mo</button>
+      <div id="avatar-wrap"></div>
+      <button class="signout-btn" onclick="signOut()" title="Sign out">Sign out</button>
+    </div>
+  </nav>
+
+  <!-- Main -->
+  <div class="main">
+
+    <!-- Form -->
+    <div class="form-card">
+      <div class="form-title">New worksheet</div>
+      <div class="form-grid">
+        <div class="field">
+          <label>Board</label>
+          <select id="board">
+            <option value="CBSE">CBSE</option>
+            <option value="Tamil Nadu State Board">Tamil Nadu State Board</option>
+          </select>
+        </div>
+        <div class="field">
+          <label>Grade</label>
+          <select id="grade">
+            <option>Grade 6</option><option>Grade 7</option><option>Grade 8</option>
+            <option>Grade 9</option><option selected>Grade 10</option>
+            <option>Grade 11</option><option>Grade 12</option>
+          </select>
+        </div>
+        <div class="field">
+          <label>Subject</label>
+          <select id="subject">
+            <option>Science</option><option>Physics</option><option>Chemistry</option>
+            <option>Biology</option><option>Mathematics</option><option>Social Science</option>
+          </select>
+        </div>
+        <div class="field">
+          <label>Chapter / Topic</label>
+          <input type="text" id="chapter" placeholder="e.g. Motion, Cell Structure" value="Light — Reflection and Refraction">
+        </div>
+        <div class="field">
+          <label>Language</label>
+          <select id="lang">
+            <option value="English">English medium</option>
+            <option value="Tamil">Tamil medium</option>
+            <option value="Bilingual">Bilingual (Tamil + English)</option>
+          </select>
+        </div>
+        <div class="field">
+          <label>Difficulty</label>
+          <select id="diff">
+            <option>Easy</option><option selected>Medium</option><option>Hard</option><option>Mixed</option>
+          </select>
+        </div>
+        <div class="field full">
+          <label>Worksheet type</label>
+          <select id="wtype">
+            <option value="full">Full worksheet (MCQ + Short + Long answer)</option>
+            <option value="mcq">MCQ only (20 questions)</option>
+            <option value="short">Short answer only (10 questions)</option>
+            <option value="hots">HOTS / Higher-order thinking</option>
+            <option value="fill">Fill in the blanks + True/False</option>
+          </select>
+        </div>
+      </div>
+      <button class="gen-btn" id="gen-btn" onclick="generate()">
+        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="13 2 3 14 12 14 11 22 21 10 12 10 13 2"/></svg>
+        Generate worksheet
+      </button>
+    </div>
+
+    <!-- Error area -->
+    <div id="err-area" style="margin-bottom:1rem;"></div>
+
+    <!-- Loading -->
+    <div id="loading-area" style="display:none;margin-bottom:1rem;">
+      <div class="loading-card">
+        <div class="spinner"></div>
+        Generating your worksheet — this takes about 10 seconds...
+      </div>
+    </div>
+
+    <!-- Upgrade gate -->
+    <div id="gate-area"></div>
+
+    <!-- Output -->
+    <div id="output-area" style="display:none;">
+      <div class="output-card">
+        <div class="output-toolbar">
+          <span class="output-meta" id="out-meta">Worksheet</span>
+          <div class="toolbar-btns">
+            <button class="t-btn" onclick="copyOut()">
+              <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="9" y="9" width="13" height="13" rx="2"/><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"/></svg>
+              Copy
+            </button>
+            <button class="t-btn pdf" id="pdf-btn" onclick="exportPDF()">
+              <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/><line x1="16" y1="13" x2="8" y2="13"/><line x1="16" y1="17" x2="8" y2="17"/><polyline points="10 9 9 9 8 9"/></svg>
+              Download PDF
+            </button>
+          </div>
+        </div>
+        <div class="output-body" id="out-body"></div>
+      </div>
+      <p class="wm-note" id="wm-note"></p>
+    </div>
+
+    <!-- History -->
+    <div id="history-wrap" class="history-wrap" style="display:none;">
+      <div class="history-label">Recent worksheets</div>
+      <div id="history-list"></div>
+    </div>
+
+  </div>
+</div>
+
+<!-- ══════════════════════════════════════════
+     JAVASCRIPT
+══════════════════════════════════════════ -->
+<script>
+// ─── IMPORTANT: Replace these with your actual Firebase config ───────────────
+// Get yours from: Firebase Console → Project Settings → Your apps → SDK setup
+const FIREBASE_CONFIG = {
+  apiKey:            "YOUR_API_KEY",
+  authDomain:        "YOUR_PROJECT_ID.firebaseapp.com",
+  projectId:         "YOUR_PROJECT_ID",
+  storageBucket:     "YOUR_PROJECT_ID.appspot.com",
+  messagingSenderId: "YOUR_SENDER_ID",
+  appId:             "YOUR_APP_ID"
+};
+
+// ─── IMPORTANT: Replace with your actual Anthropic API key ───────────────────
+// In production: move this call to a Firebase Cloud Function (see comments below)
+const ANTHROPIC_API_KEY = "YOUR_ANTHROPIC_API_KEY";
+
+const FREE_LIMIT = 5;
+
+// ─── Init Firebase ────────────────────────────────────────────────────────────
+firebase.initializeApp(FIREBASE_CONFIG);
+const auth = firebase.auth();
+const db   = firebase.firestore();
+
+// ─── Auth state ───────────────────────────────────────────────────────────────
+let currentUser  = null;
+let userPlan     = 'free';
+let usageCount   = 0;
+let lastWorksheet = '';
+let lastMeta      = '';
+let sessionHistory = [];
+
+auth.onAuthStateChanged(async user => {
+  if (user) {
+    currentUser = user;
+    document.getElementById('auth-screen').style.display = 'none';
+    document.getElementById('app-screen').style.display  = 'block';
+    renderAvatar(user);
+    await loadUserData(user.uid);
+  } else {
+    currentUser = null;
+    document.getElementById('auth-screen').style.display = 'flex';
+    document.getElementById('app-screen').style.display  = 'none';
+  }
+});
+
+function signInWithGoogle() {
+  const provider = new firebase.auth.GoogleAuthProvider();
+  auth.signInWithPopup(provider).catch(e => alert('Sign-in failed: ' + e.message));
+}
+
+function signOut() {
+  auth.signOut();
+}
+
+function renderAvatar(user) {
+  const wrap = document.getElementById('avatar-wrap');
+  if (user.photoURL) {
+    wrap.innerHTML = `<div class="user-avatar"><img src="${user.photoURL}" alt="${user.displayName}"></div>`;
+  } else {
+    const initials = (user.displayName || user.email || 'U').split(' ').map(w => w[0]).join('').slice(0,2).toUpperCase();
+    wrap.innerHTML = `<div class="user-initials">${initials}</div>`;
+  }
+}
+
+// ─── Firestore user data ───────────────────────────────────────────────────────
+// Firestore document structure:
+// users/{uid}/
+//   plan: "free" | "pro"
+//   usage/{YYYY-MM}/
+//     count: number
+//     lastReset: timestamp
+
+async function loadUserData(uid) {
+  try {
+    const userRef  = db.collection('users').doc(uid);
+    const userDoc  = await userRef.get();
+
+    // Create user doc if first time
+    if (!userDoc.exists) {
+      await userRef.set({ plan: 'free', email: currentUser.email, createdAt: firebase.firestore.FieldValue.serverTimestamp() });
+    }
+
+    const data = userDoc.exists ? userDoc.data() : {};
+    userPlan = data.plan || 'free';
+
+    const monthKey  = getMonthKey();
+    const usageRef  = userRef.collection('usage').doc(monthKey);
+    const usageDoc  = await usageRef.get();
+    usageCount = usageDoc.exists ? (usageDoc.data().count || 0) : 0;
+
+    updateUsageUI();
+    if (userPlan === 'pro') activatePro();
+  } catch (e) {
+    console.warn('Firestore load error:', e.message);
+  }
+}
+
+async function incrementUsage() {
+  if (!currentUser || userPlan === 'pro') return;
+  usageCount++;
+  updateUsageUI();
+  try {
+    const monthKey = getMonthKey();
+    const usageRef = db.collection('users').doc(currentUser.uid).collection('usage').doc(monthKey);
+    await usageRef.set({ count: usageCount, updatedAt: firebase.firestore.FieldValue.serverTimestamp() }, { merge: true });
+  } catch (e) {
+    console.warn('Usage increment error:', e.message);
+  }
+}
+
+function getMonthKey() {
+  const d = new Date();
+  return `${d.getFullYear()}-${String(d.getMonth()+1).padStart(2,'0')}`;
+}
+
+// ─── UI helpers ───────────────────────────────────────────────────────────────
+function updateUsageUI() {
+  if (userPlan === 'pro') {
+    document.getElementById('usage-num').textContent = 'Pro — unlimited';
+    document.getElementById('usage-bar').style.width = '100%';
+    document.getElementById('usage-bar').style.background = '#1D9E75';
+    return;
+  }
+  const pct = Math.min(100, Math.round((usageCount / FREE_LIMIT) * 100));
+  document.getElementById('usage-bar').style.width = pct + '%';
+  document.getElementById('usage-bar').style.background = pct >= 100 ? '#A32D2D' : pct >= 80 ? '#BA7517' : '#1D9E75';
+  document.getElementById('usage-num').textContent = usageCount + ' / ' + FREE_LIMIT;
+}
+
+function activatePro() {
+  userPlan = 'pro';
+  const btn = document.getElementById('upgrade-btn');
+  btn.textContent = 'Pro active';
+  btn.classList.add('pro');
+  updateUsageUI();
+}
+
+function handleUpgrade() {
+  // ── In production: open Razorpay checkout here ──────────────────────────────
+  // Example Razorpay integration:
+  // const options = {
+  //   key: 'YOUR_RAZORPAY_KEY_ID',
+  //   amount: 19900,           // paise (₹199)
+  //   currency: 'INR',
+  //   name: 'TeachKit AI',
+  //   description: 'Pro Monthly Subscription',
+  //   handler: async (response) => {
+  //     // Verify payment on your server / Firebase Function
+  //     // Then update Firestore: users/{uid}.plan = 'pro'
+  //     await db.collection('users').doc(currentUser.uid).update({ plan: 'pro' });
+  //     activatePro();
+  //   },
+  //   prefill: { email: currentUser.email }
+  // };
+  // new Razorpay(options).open();
+  // ────────────────────────────────────────────────────────────────────────────
+
+  // Demo: simulate upgrade
+  if (confirm('Simulate Pro upgrade? (In production this opens Razorpay checkout)')) {
+    db.collection('users').doc(currentUser.uid).update({ plan: 'pro' }).catch(() => {});
+    activatePro();
+    document.getElementById('gate-area').innerHTML = '';
+    document.getElementById('wm-note').textContent = '';
+  }
+}
+
+// ─── Prompt builder ───────────────────────────────────────────────────────────
+function buildPrompt(board, grade, subject, chapter, lang, diff, wtype) {
+  const typeMap = {
+    full:  `Complete worksheet:\n- Section A: 10 MCQs (1 mark each), options a–d, mark correct as [Answer: x]\n- Section B: 5 Short Answer questions (2 marks each)\n- Section C: 2 Long Answer questions (5 marks each)\nTotal Marks: 30 | Time: 1 hour`,
+    mcq:   `20 MCQs (1 mark each), options a–d, mark correct as [Answer: x]\nTotal Marks: 20 | Time: 40 minutes`,
+    short: `10 Short Answer questions (2 marks each). Mix define/explain/compare types.\nTotal Marks: 20 | Time: 40 minutes`,
+    hots:  `8 HOTS questions (3 marks each). Analysis, evaluation, application only — no recall.\nInclude scenario-based and real-world problems.\nTotal Marks: 24 | Time: 45 minutes`,
+    fill:  `10 Fill in the Blanks (1 mark each) + 10 True/False statements (1 mark each).\nFor T/F, show [True] or [False] after each.\nTotal Marks: 20 | Time: 30 minutes`
+  };
+  const langMap = {
+    English:   `Write entirely in English. Use clear language for ${grade} students.`,
+    Tamil:     `Write entirely in Tamil script using standard Tamil Nadu educational terminology.`,
+    Bilingual: `Each question: Tamil first, then English in brackets below.\nFormat:\nகேள்வி X: [Tamil]\n(Question X: [English])`
+  };
+  const diffMap = {
+    Easy:   'Direct recall and basic comprehension only.',
+    Medium: 'Balance recall (50%) with application and understanding (50%).',
+    Hard:   'Application, analysis, and evaluation. Minimal recall.',
+    Mixed:  'Easy 30% / Medium 40% / Hard 30%.'
+  };
+
+  return `You are TeachKit AI, an expert Indian school worksheet generator for ${board}.
+
+Generate a worksheet for:
+Board: ${board} | Grade: ${grade} | Subject: ${subject} | Topic: ${chapter}
+
+LANGUAGE: ${langMap[lang]}
+DIFFICULTY: ${diffMap[diff]}
+
+FORMAT:
+${typeMap[wtype]}
+
+RULES:
+1. All questions must be from ${board} ${grade} ${subject} syllabus for: ${chapter}. No questions from other chapters.
+2. Header format (first 5 lines of output):
+   ${board} | ${grade} | ${subject}
+   Topic: ${chapter}
+   Type: ${wtype.toUpperCase()} | Difficulty: ${diff} | Language: ${lang}
+   Total Marks: [X] | Time: [Y]
+   ────────────────────────────────
+3. Number all questions clearly. Use Section A / B / C headings where applicable.
+4. End with an "Answer Key" section listing MCQ answers only (format: 1-b, 2-a, 3-d ...).
+5. Output ONLY the worksheet. No preamble, no explanation, no commentary.`;
+}
+
+// ─── Generate ─────────────────────────────────────────────────────────────────
+async function generate() {
+  const board   = document.getElementById('board').value;
+  const grade   = document.getElementById('grade').value;
+  const subject = document.getElementById('subject').value;
+  const chapter = document.getElementById('chapter').value.trim();
+  const lang    = document.getElementById('lang').value;
+  const diff    = document.getElementById('diff').value;
+  const wtype   = document.getElementById('wtype').value;
+
+  document.getElementById('err-area').innerHTML  = '';
+  document.getElementById('gate-area').innerHTML = '';
+
+  if (!chapter) {
+    document.getElementById('err-area').innerHTML = '<div class="err-box">Please enter a chapter or topic name.</div>';
+    return;
+  }
+
+  // Usage gate
+  if (userPlan !== 'pro' && usageCount >= FREE_LIMIT) {
+    document.getElementById('gate-area').innerHTML = `
+      <div class="gate-card">
+        <div class="gate-icon-wrap">
+          <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="11" width="18" height="11" rx="2"/><path d="M7 11V7a5 5 0 0 1 10 0v4"/></svg>
+        </div>
+        <div class="gate-title">You've used all 5 free worksheets this month</div>
+        <div class="gate-sub">Upgrade to Pro for unlimited worksheets, Tamil medium output,<br>clean branded PDFs, and Word export.</div>
+        <button class="gate-cta" onclick="handleUpgrade()">
+          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="13 2 3 14 12 14 11 22 21 10 12 10 13 2"/></svg>
+          Upgrade to Pro — ₹199/month
+        </button>
+        <p class="gate-free-note">Resets on the 1st of each month &nbsp;·&nbsp; Cancel anytime</p>
+      </div>`;
+    return;
+  }
+
+  // Show loading
+  document.getElementById('output-area').style.display  = 'none';
+  document.getElementById('loading-area').style.display = 'block';
+  document.getElementById('gen-btn').disabled = true;
+  document.getElementById('gen-btn').innerHTML = '<div class="spinner" style="width:16px;height:16px;border-width:2px;border-top-color:#fff;margin:0;"></div> Generating...';
+
+  try {
+    // ── In production, call YOUR Firebase Cloud Function instead: ─────────────
+    // const result = await fetch('https://YOUR_REGION-YOUR_PROJECT.cloudfunctions.net/generateWorksheet', {
+    //   method: 'POST',
+    //   headers: { 'Content-Type': 'application/json', 'Authorization': 'Bearer ' + await currentUser.getIdToken() },
+    //   body: JSON.stringify({ board, grade, subject, chapter, lang, diff, wtype, plan: userPlan })
+    // });
+    // const { worksheet } = await result.json();
+    // ──────────────────────────────────────────────────────────────────────────
+
+    const sysPrompt = buildPrompt(board, grade, subject, chapter, lang, diff, wtype);
+
+    const resp = await fetch('https://api.anthropic.com/v1/messages', {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+        'x-api-key': ANTHROPIC_API_KEY,
+        'anthropic-version': '2023-06-01',
+        'anthropic-dangerous-allow-browser': 'true'
+      },
+      body: JSON.stringify({
+        model: 'claude-sonnet-4-20250514',
+        max_tokens: 2000,
+        system: sysPrompt,
+        messages: [{ role: 'user', content: `Generate the worksheet now.` }]
+      })
+    });
+
+    const data = await resp.json();
+    if (data.error) throw new Error(data.error.message);
+
+    let text = data.content.map(b => b.text || '').join('');
+
+    // Watermark for free plan
+    const isWatermarked = userPlan !== 'pro';
+    if (isWatermarked) {
+      text += '\n\n────────────────────────────────\nGenerated by TeachKit AI (Free Plan)\nUpgrade to Pro at teachkitai.com for unlimited worksheets.\n────────────────────────────────';
+      document.getElementById('wm-note').textContent = 'Free plan: TeachKit AI watermark included in PDF. Upgrade to Pro to remove.';
+    } else {
+      document.getElementById('wm-note').textContent = '';
+    }
+
+    lastWorksheet = text;
+    lastMeta = `${board} · ${grade} · ${subject} — ${chapter}`;
+
+    document.getElementById('out-body').textContent = text;
+    document.getElementById('out-meta').textContent = lastMeta;
+    document.getElementById('output-area').style.display = 'block';
+
+    // Increment usage
+    await incrementUsage();
+
+    // Session history
+    sessionHistory.unshift({ meta: lastMeta, board, grade, subject, chapter, lang, diff, wtype });
+    if (sessionHistory.length > 5) sessionHistory.pop();
+    renderHistory();
+
+    // Scroll to output
+    document.getElementById('output-area').scrollIntoView({ behavior: 'smooth', block: 'nearest' });
+
+  } catch (e) {
+    document.getElementById('err-area').innerHTML = `<div class="err-box">Error: ${e.message}</div>`;
+  } finally {
+    document.getElementById('loading-area').style.display = 'none';
+    document.getElementById('gen-btn').disabled = false;
+    document.getElementById('gen-btn').innerHTML = `
+      <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="13 2 3 14 12 14 11 22 21 10 12 10 13 2"/></svg>
+      Generate worksheet`;
+  }
+}
+
+// ─── Copy ─────────────────────────────────────────────────────────────────────
+function copyOut() {
+  navigator.clipboard.writeText(lastWorksheet).then(() => {
+    const btn = document.querySelector('.t-btn');
+    btn.innerHTML = `<svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg> Copied!`;
+    setTimeout(() => {
+      btn.innerHTML = `<svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="9" y="9" width="13" height="13" rx="2"/><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"/></svg> Copy`;
+    }, 2000);
+  });
+}
+
+// ─── PDF Export ───────────────────────────────────────────────────────────────
+function exportPDF() {
+  if (!lastWorksheet) return;
+  const btn = document.getElementById('pdf-btn');
+  btn.disabled = true;
+  btn.textContent = 'Building PDF...';
+
+  try {
+    const { jsPDF } = window.jspdf;
+    const doc = new jsPDF({ unit: 'mm', format: 'a4', orientation: 'portrait' });
+
+    const margin  = 16;
+    const pageW   = 210;
+    const usableW = pageW - margin * 2;
+    const lineH   = 5.8;
+    let y = margin;
+
+    // Header bar
+    doc.setFillColor(29, 158, 117);     // teal
+    doc.rect(0, 0, pageW, 10, 'F');
+    doc.setFontSize(9);
+    doc.setTextColor(255, 255, 255);
+    doc.setFont('helvetica', 'bold');
+    doc.text('TeachKit AI' + (userPlan === 'pro' ? ' Pro' : ''), margin, 7);
+    doc.setFont('helvetica', 'normal');
+    doc.text(new Date().toLocaleDateString('en-IN', { day:'numeric', month:'long', year:'numeric' }), pageW - margin, 7, { align: 'right' });
+    y = 18;
+
+    const lines = lastWorksheet.split('\n');
+    let isHeader = true;
+
+    for (let i = 0; i < lines.length; i++) {
+      const raw  = lines[i];
+      const line = raw.trimEnd();
+
+      if (y > 278) {
+        doc.addPage();
+        y = margin;
+      }
+
+      // Styling per line type
+      if (isHeader && line.trim()) {
+        doc.setFontSize(12);
+        doc.setFont('helvetica', 'bold');
+        doc.setTextColor(29, 158, 117);
+        isHeader = false;
+      } else if (/^(section [abc]|answer key)/i.test(line.trim())) {
+        if (i > 0) y += 2;
+        doc.setFontSize(10);
+        doc.setFont('helvetica', 'bold');
+        doc.setTextColor(40, 40, 40);
+      } else if (line.startsWith('───') || line.startsWith('────')) {
+        doc.setDrawColor(220, 220, 210);
+        doc.setLineWidth(0.2);
+        doc.line(margin, y, pageW - margin, y);
+        y += 4;
+        isHeader = false;
+        continue;
+      } else if (line.trim() === '') {
+        y += 2.5;
+        isHeader = false;
+        continue;
+      } else {
+        doc.setFontSize(10);
+        doc.setFont('helvetica', 'normal');
+        doc.setTextColor(40, 40, 40);
+        isHeader = false;
+      }
+
+      const wrapped = doc.splitTextToSize(line || ' ', usableW);
+      for (const wl of wrapped) {
+        if (y > 278) { doc.addPage(); y = margin; }
+        doc.text(wl, margin, y);
+        y += lineH;
+      }
+    }
+
+    // Footer on last page
+    const totalPages = doc.internal.getNumberOfPages();
+    for (let p = 1; p <= totalPages; p++) {
+      doc.setPage(p);
+      doc.setFontSize(8);
+      doc.setTextColor(170);
+      doc.setFont('helvetica', 'normal');
+      doc.text(`Page ${p} of ${totalPages}`, pageW / 2, 292, { align: 'center' });
+      if (userPlan !== 'pro') {
+        doc.text('Generated by TeachKit AI · teachkitai.com', pageW / 2, 296, { align: 'center' });
+      }
+    }
+
+    const safeName = lastMeta.replace(/[^a-z0-9]/gi, '_').toLowerCase().replace(/__+/g, '_');
+    doc.save(`teachkit_${safeName}.pdf`);
+  } catch (e) {
+    document.getElementById('err-area').innerHTML = `<div class="err-box">PDF export error: ${e.message}</div>`;
+  } finally {
+    btn.disabled = false;
+    btn.innerHTML = `<svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/></svg> Download PDF`;
+  }
+}
+
+// ─── History ──────────────────────────────────────────────────────────────────
+function renderHistory() {
+  if (!sessionHistory.length) return;
+  document.getElementById('history-wrap').style.display = 'block';
+  document.getElementById('history-list').innerHTML = sessionHistory.map((h, i) => `
+    <div class="hist-row">
+      <span class="hist-name">${h.meta}</span>
+      <button class="hist-regen" onclick="reuseHistory(${i})">Regenerate</button>
+    </div>`).join('');
+}
+
+function reuseHistory(i) {
+  const h = sessionHistory[i];
+  document.getElementById('board').value   = h.board;
+  document.getElementById('grade').value   = h.grade;
+  document.getElementById('subject').value = h.subject;
+  document.getElementById('chapter').value = h.chapter;
+  document.getElementById('lang').value    = h.lang;
+  document.getElementById('diff').value    = h.diff;
+  document.getElementById('wtype').value   = h.wtype;
+  generate();
+}
+</script>
+
+</body>
+</html>
